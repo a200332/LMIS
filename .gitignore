@@ -3,3 +3,26 @@
 ################################################################################
 
 /.svn
+/CITI.EVO.CommonData.DAL/obj/Debug
+/CITI.EVO.CommonData.Svc/obj/Debug
+/CITI.EVO.CommonData.Web/Bin
+/CITI.EVO.Proxies/obj/Debug
+/CITI.EVO.Rpc/obj/Debug
+/CITI.EVO.RpcHub.Web/Bin
+/CITI.EVO.Tools/obj/Debug
+/.vs/Lmis.Portal.Web/v14
+/CITI.EVO.UserManagement.DAL/obj/Debug
+/CITI.EVO.UserManagement.Svc/obj/Debug
+/CITI.EVO.UserManagement.Web/Bin
+/Dependencies/3rdparty/Silverlight
+/Lmis.Contracts/obj/Debug
+/Lmis.Portal.BLL/obj/Debug
+/Lmis.Portal.DAL/obj/Debug
+/Lmis.Portal.Web/Bin
+/Lmis.Tools/obj/Debug
+/packages/EntityFramework.6.0.2
+/PrecompiledWeb/CITI.EVO.CommonData.Web/bin
+/PrecompiledWeb/CITI.EVO.RpcHub.Web/bin
+/PrecompiledWeb/Lmis.Portal.Web/bin
+/_ReSharper.Caches/ReSharperPlatformVs146.Lmis.Portal.Web.00
+/PrecompiledWeb
