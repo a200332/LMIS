@@ -1,0 +1,153 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <script src="Scripts/jquery-1.6.2.min.js"></script>
+    <style>
+        html {
+            font-size: 100%;
+            -webkit-text-size-adjust: 100%;
+            -ms-text-size-adjust: 100%;
+        }
+
+        html {
+            font-size: 12px;
+            height: 100%;
+            font-family: 'Bpg Arial';
+        }
+
+        @font-face {
+            font-family: Bpg Nino Mtavruli Normal;
+            src: url(App_themes/default/Fonts/bpg_nino_mtavruli_normal.ttf);
+        }
+
+        @font-face {
+            font-family: Bpg Arial;
+            src: url(App_themes/default/Fonts/bpg_arial_2009.ttf);
+        }
+
+        .wrapper {
+            padding: 5px;
+        }
+
+        html,
+        button,
+        input,
+        select,
+        textarea {
+            font-family: 'BPG Arial';
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            padding: 0;
+            border: 0;
+            margin: 0;
+            position: absolute;
+            background: url(App_themes/default/images/doctors.jpg) no-repeat center center fixed;
+            -webkit-background-size: cover;
+            -moz-background-size: cover;
+            -o-background-size: cover;
+            background-size: cover;
+            min-width: 100%;
+            font-size: 13px;
+            color: #404040;
+        }
+
+        section {
+            margin: 0 auto;
+            height: 240px;
+            width: 400px;
+            display: block;
+            padding-top: 200px;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 18px;
+            color: #363636;
+            font-family: 'BPG Nino Mtavruli Normal';
+            padding: 28px 0 8px 0;
+            margin: 0 auto;
+            width: 470px;
+            font-weight: normal;
+        }
+
+        .submit {
+            border: 1px solid #363636;
+            height: 38px;
+            width: 120px;
+            color: white;
+            font-family: 'BPG Nino Mtavruli Normal';
+            font-size: 16px;
+            -webkit-transition: background-color 0.25s, width 0.25s;
+            -moz-transition: background-color 0.25s, width 0.25s;
+            -ms-transition: background-color 0.25s, width 0.25s;
+            -o-transition: background-color 0.25s, width 0.25s;
+            transition: background-color 0.25s, width 0.25s;
+            background-color: #363636;
+        }
+
+            .submit:hover {
+                background-color: #008080;
+                border: 1px solid #008080;
+                height: 38px;
+                width: 120px;
+                color: white;
+                font-family: 'BPG Nino Mtavruli Normal';
+                font-size: 16px;
+            }
+
+        #btn {
+            position: relative;
+            display: block;
+            border: 1px solid #363636;
+            background-color: #e2f9f8;
+            height: 26px;
+            width: 250px;
+            color: #363636;
+            padding-top: 10px;
+            font-family: 'BPG Nino Mtavruli Normal';
+            font-size: 16px;
+            cursor: pointer;
+        }
+    </style>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('input[type=file]').each(function () {
+                $(this).attr('onchange', "sub(this)");
+                $('<div id="btn" onclick="getFile()">აირჩიეთ ფაილი</div>').insertBefore(this);
+                $(this).wrapAll('<div style="height: 0px;width: 0px; overflow:hidden;"></div>');
+            });
+        });
+        function getFile() {
+            $('input[type=file]').click();
+        }
+        function sub(obj) {
+            var file = obj.value;
+            var fileName = file.split("\\");
+            document.getElementById("btn").innerHTML = fileName[fileName.length - 1];
+        }
+    </script>
+</head>
+<body>
+    <form action="" method="POST" enctype="multipart/form-data" name="myForm">
+        <input type="hidden" name="@license@" value="@license@" />
+        <input type="hidden" name="@action" value="@uploadLic" />
+        <section>
+            <div>
+                <h1>თქვენს ლიცენზიას გაუვიდა ვადა, გთხოვთ ატვირთოთ <b>ახალი ლიცენზიის ფაილი</b></h1>
+                <div style="float:left; padding-right: 20px;">
+                    <input value="upload" name="@licFile" type="file" id="upfile" />
+
+                </div>
+                <div>
+                    <input type="submit" value="ატვირთვა" class="submit" />
+                </div>
+            </div>
+        </section>
+    </form>
+</body>
+</html>

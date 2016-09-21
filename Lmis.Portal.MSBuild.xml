@@ -1,0 +1,98 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="FullBuild" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+	<PropertyGroup Label="Common">
+		<Verbosity>diagnostic</Verbosity>
+
+		<MSBuildExtensionsPath>Dependencies\MSBuild</MSBuildExtensionsPath>
+		<MSBuildCommunityTasksPath>$(MSBuildExtensionsPath)\..\..</MSBuildCommunityTasksPath>
+	</PropertyGroup>
+
+	<PropertyGroup Label="WebSites">
+		<LmisPortalRoot>Lmis.Portal.Web</LmisPortalRoot>
+		<LmisPortalBin>$(LmisPortalRoot)\Bin</LmisPortalBin>
+	</PropertyGroup>
+
+	<PropertyGroup Label="Libraries">
+		<LmisLibrariesMSBuild>BuildLibraries.MSBuild.xml</LmisLibrariesMSBuild>
+	</PropertyGroup>
+
+	<Import Project="$(MSBuildExtensionsPath)\MSBuild.Community.Tasks.Targets"/>
+
+	<ItemGroup>
+		<LmisLibraries Include="Dependencies\Lmis\**\*"/>
+		<LmisPortalLibraries Include="Lmis.Portal.Web\Bin\**\*"/>
+		<ThirdpartyWebDependencies Include="Dependencies\3rdparty\Web\**\*"/>
+	</ItemGroup>
+
+	<Target Name="RemovePrecompiledWeb">
+		<RemoveDir Directories="PrecompiledWeb\$(LmisPortalRoot)">
+			<Output TaskParameter="RemovedDirectories" ItemName="SuccessfullyRemovedDirectories"/>
+		</RemoveDir>
+		<Message Text="--------------------------------------------------------" />
+	</Target>
+
+	<Target Name="DeleteLibraries">
+		<Delete Files="@(LmisPortalLibraries)" >
+			<Output TaskParameter="DeletedFiles" ItemName="SuccessfullyDeletedFiles"/>
+		</Delete>
+		<RemoveDir Directories="$(LmisPortalBin)">
+			<Output TaskParameter="RemovedDirectories" ItemName="SuccessfullyRemovedDirectories"/>
+		</RemoveDir>
+	</Target>
+
+	<Target Name="CopyLibraries">
+		<Copy SourceFiles="@(LmisLibraries)" DestinationFolder="$(LmisPortalBin)\%(RecursiveDir)" SkipUnchangedFiles="true">
+			<Output TaskParameter="CopiedFiles" ItemName="SuccessfullyCopiedFiles"/>
+		</Copy>
+		<Copy SourceFiles="@(ThirdpartyWebDependencies)" DestinationFolder="$(LmisPortalBin)\%(RecursiveDir)" SkipUnchangedFiles="true">
+			<Output TaskParameter="CopiedFiles" ItemName="SuccessfullyCopiedFiles"/>
+		</Copy>
+		<Message Text="--------------------------------------------------------" />
+	</Target>
+
+	<Target Name="BuildLibraries">
+		<MSBuild ContinueOnError="false" Projects="$(LmisLibrariesMSBuild)" Properties="Configuration=Debug;Verbosity=$(Verbosity)" />
+		<Message Text="--------------------------------------------------------" />
+	</Target>
+
+	<Target Name="BuildWebSites">
+		<AspNetCompiler ContinueOnError="false" VirtualPath="/$(LmisPortalRoot)" PhysicalPath="$(LmisPortalRoot)\" TargetPath="PrecompiledWeb\$(LmisPortalRoot)" Force="true" Debug="true" Clean="true" />
+		<Message Text="--------------------------------------------------------" />
+	</Target>
+
+	<Target Name="ZipPrecompiledWebs">
+		<CreateItem Include="PrecompiledWeb\$(LmisPortalRoot)\**\*.*" >
+			<Output ItemName="LmisPortalBuilded" TaskParameter="Include"/>
+		</CreateItem>
+		<Delete Files="PrecompiledWeb\$(LmisPortalRoot).zip" >
+			<Output TaskParameter="DeletedFiles" ItemName="SuccessfullyDeletedFiles"/>
+		</Delete>
+		<Zip ZipFileName="PrecompiledWeb\$(LmisPortalRoot).zip" WorkingDirectory="PrecompiledWeb\$(LmisPortalRoot)" Files="@(LmisPortalBuilded)" />
+		<Message Text="--------------------------------------------------------" />
+
+	</Target>
+
+	<Target Name="FullBuild">
+		<AppPoolController ApplicationPoolName="$(LmisPortalRoot)" Action="Stop" />
+
+		<CallTarget Targets="DeleteLibraries" />
+		<Message Text="++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++" />
+
+		<CallTarget Targets="BuildLibraries" />
+		<Message Text="++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++" />
+
+		<CallTarget Targets="CopyLibraries" />
+		<Message Text="++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++" />
+
+		<CallTarget Targets="RemovePrecompiledWeb" />
+		<Message Text="++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++" />
+
+		<CallTarget Targets="BuildWebSites" />
+		<Message Text="++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++" />
+
+		<CallTarget Targets="ZipPrecompiledWebs" />
+		<Message Text="++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++" />
+
+		<AppPoolController ApplicationPoolName="$(LmisPortalRoot)" Action="Start" />
+	</Target>
+</Project>

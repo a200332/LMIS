@@ -1,0 +1,167 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="Site.master.cs" Inherits="SiteMaster" %>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<asp:ContentPlaceHolder ID="cphHead" runat="server">
+	</asp:ContentPlaceHolder>
+</head>
+<body>
+	<form id="form1" runat="server">
+		<asp:ScriptManager runat="Server" EnableScriptGlobalization="true" EnableScriptLocalization="true" ID="ScriptManager1">
+			<Scripts>
+				<asp:ScriptReference Path="~/Scripts/jquery-1.10.2.js" />
+				<asp:ScriptReference Path="~/Scripts/jquery-1.9.1.js" />
+				<asp:ScriptReference Path="~/Scripts/jquery.mCustomScrollbar.js" />
+			</Scripts>
+		</asp:ScriptManager>
+		<script>
+			$(window).load(function () {
+				$(".content").mCustomScrollbar();
+			});
+		</script>
+		<div id="main">
+			<div id="left_panel" class="content">
+				<nav id="navigation-main" class="navigation-main" data-folded="false" style="top: 0;">
+                    <ul class="primary">
+                      
+                         <li>
+                            <a href="" class="home" title="Home">
+                                <asp:Image runat="server" ImageUrl="~/App_Themes/Default/Images/logo.png" />
+                            </a>
+                        </li>
+                         <li class="menu">
+                            <asp:HyperLink CssClass="highh" runat="server" ToolTip="უფლებები" Text="" NavigateUrl='#'>
+                                <span class="icon"><asp:Image runat="server" ImageUrl="~/App_Themes/Default/Images/usermanagementactive.png" /></span>
+                                <label class="text">რესურსებზე წვდომა</label>
+                            </asp:HyperLink>
+                        </li>
+                                
+                        <li class="menu">
+                            <asp:HyperLink CssClass="sub" runat="server" NavigateUrl='~/Pages/ProjectsList.aspx' ToolTip="მოდულები" Text="">
+                                <span class="icon"><asp:Image runat="server" ImageUrl="~/App_Themes/Default/Images/projects.png" /></span>
+                                <label class="text">მოდულები</label>
+                            </asp:HyperLink>
+                        </li>
+                        <li class="menu">
+                            <asp:HyperLink CssClass="sub" runat="server" NavigateUrl="~/Pages/UsersList.aspx" ToolTip="მომხმარებლები" Text="">
+                                <span class="icon"><asp:Image runat="server" ImageUrl="~/App_Themes/Default/Images/users.png" /></span>
+                                <label class="text">მომხმარებლები</label>
+                            </asp:HyperLink>
+                        </li>
+                        <li class="menu">
+                            <asp:HyperLink CssClass="sub" runat="server" NavigateUrl="~/Pages/GroupsList.aspx" ToolTip="მომხმარებლები" Text="">
+                                <span class="icon"><asp:Image runat="server" ImageUrl="~/App_Themes/Default/Images/groups.png" /></span>
+                                <label class="text">ჯგუფები</label>
+                            </asp:HyperLink>
+                        </li>
+                        <li class="menu">
+                            <asp:HyperLink CssClass="sub" runat="server" NavigateUrl="~/Pages/AttributesCategoriesTypesList.aspx"  ToolTip="ატრიბუტების ტიპები" Text="">
+                                <span class="icon"><asp:Image runat="server" ImageUrl="~/App_Themes/Default/Images/attributescategories.png" /></span>
+                                <label class="text">ატრიბუტების ტიპები</label>
+                            </asp:HyperLink>
+                        </li>
+                        <li class="menu">
+                            <asp:HyperLink CssClass="sub" runat="server" NavigateUrl="~/Pages/AttributesSchemasNodesList.aspx" ToolTip="ატრიბუტების სქემები" Text="">
+                                <span class="icon"><asp:Image runat="server" ImageUrl="~/App_Themes/Default/Images/attributesschemas.png" /></span>
+                                <label class="text">ატრიბუტების სქემები</label>
+                            </asp:HyperLink>
+                        </li>
+                        <li class="menu">
+                            <asp:HyperLink CssClass="sub" runat="server" NavigateUrl="~/Pages/ResourceList.aspx" ToolTip="რესურსების მართვა" Text="">
+                                <span class="icon"><asp:Image runat="server" ImageUrl="~/App_Themes/Default/Images/resourcelist.png" /></span>
+                                <label class="text">რესურსების მართვა</label>
+                            </asp:HyperLink>
+                        </li>
+                        <li class="menu">
+                            <asp:HyperLink CssClass="sub" runat="server" NavigateUrl="~/Pages/PermissionList.aspx" ToolTip="უფლებების დაწესება" Text="">
+                                <span class="icon"><asp:Image runat="server" ImageUrl="~/App_Themes/Default/Images/permissionlist.png" /></span>
+                                <label class="text">უფლებების დაწესება</label>
+                            </asp:HyperLink>
+                        </li>
+                        <li class="menu">
+                            <asp:HyperLink runat="server" CssClass="high" NavigateUrl='/MIS/MIS.OrganizationInfo.Web/?loginToken={loginToken}' ToolTip="დაწესებულება" Text="">
+                                <span class="icon"><asp:Image runat="server" ImageUrl="~/App_Themes/Default/Images/organization.png" /></span>
+                                <label class="text">ორგანიზაცია</label>
+                            </asp:HyperLink>
+                            </li>
+                        <li class="menu">
+                            <asp:HyperLink runat="server" CssClass="high" NavigateUrl='/MIS/MIS.Catalogue.Web/?loginToken={loginToken}' ToolTip="სერვისის კატალოგი " Text="">
+                                <span class="icon"><asp:Image runat="server" ImageUrl="~/App_Themes/Default/Images/servicecatalogue.png" /></span>
+                                <label class="text">სერვისები</label>
+                            </asp:HyperLink>
+                        </li>
+                        <li class="menu">
+                            <asp:HyperLink runat="server" CssClass="high" NavigateUrl='/MIS/MIS.HospitalizationData.Web/?loginToken={loginToken}' ToolTip="სამედიცინო ბარათები" Text="">
+                                <span class="icon"><asp:Image runat="server" ImageUrl="~/App_Themes/Default/Images/medicalcard.png" /></span>
+                                <label class="text">მომსახურება</label>
+                            </asp:HyperLink>
+                        </li>
+                        <li class="menu">
+                            <asp:HyperLink runat="server" CssClass="high" NavigateUrl='/MIS/MIS.QueueManagement.Web/?loginToken={loginToken}' ToolTip="რიგების მართვა" Text="">
+                                <span class="icon"><asp:Image runat="server" ImageUrl="~/App_Themes/Default/Images/queuesmanagement.png" /></span>
+                                <label class="text">რიგების მართვა</label>
+                            </asp:HyperLink>
+                        </li>
+						<li class="menu">
+							<asp:HyperLink runat="server" CssClass="high" NavigateUrl='/MIS/MIS.Docflow.Web/?loginToken={loginToken}' ToolTip="" Text="">
+                                <span class="icon"><asp:Image runat="server" ImageUrl="~/App_Themes/Default/Images/analityc.png" /></span>
+                                <label class="text">პერსონალური გვერდი</label>
+							</asp:HyperLink>
+						</li>
+                        <li class="menu">
+                            <asp:HyperLink runat="server" CssClass="high" NavigateUrl='/MIS/MIS.Stock.Web/?loginToken={loginToken}' ToolTip="მარაგები" Text="">
+                                <span class="icon"><asp:Image runat="server" ImageUrl="~/App_Themes/Default/Images/stock.png" /></span>
+                                <label class="text">მარაგები</label>
+                            </asp:HyperLink>
+                        </li>
+                        <li class="menu">
+                            <asp:HyperLink runat="server" CssClass="high" NavigateUrl='/MIS/MIS.Billing.Web/?loginToken={loginToken}' ToolTip="ფინანსები" Text="">
+                                <span class="icon"><asp:Image runat="server" ImageUrl="~/App_Themes/Default/Images/billing.png" /></span>
+                                <label class="text">ფინანსები</label>
+                            </asp:HyperLink>
+                        </li>   
+                        <li class="menu">
+                            <asp:HyperLink CssClass="high" runat="server" ToolTip="გენერირებული ინვოისები" Text="" NavigateUrl='#'>
+                                <span class="icon"><asp:Image runat="server" ImageUrl="~/App_Themes/Default/Images/billing.png" /></span>
+                                <label class="text">ინვოისები</label>
+                            </asp:HyperLink>
+                        </li>
+                          <li class="menu">
+                            <asp:HyperLink runat="server" CssClass="high" NavigateUrl='/Analytics/?loginToken={loginToken}' ToolTip="" Text="">
+                                <span class="icon"><asp:Image runat="server" ImageUrl="~/App_Themes/Default/Images/analityc.png" /></span>
+                                <label class="text">ანალიტიკა</label>
+                            </asp:HyperLink>
+                        </li>
+                          <li>
+                                 <mis:LoginControl ID="ucLoginControl" runat="server" />
+                        </li>
+					</ul>
+                 </nav>
+			</div>
+
+			<div class="logout_box">
+				<div style="margin-bottom: 1px;">
+					<asp:LinkButton ID="lnkChangePassword" runat="server" CssClass="icon" ToolTip="პაროლის შეცვლა" Text="" OnClick="lnkChangePassword_OnClick">
+                                <span class="icon"><asp:Image runat="server" ImageUrl="~/App_Themes/Default/Images/password.png" /></span>
+					</asp:LinkButton>
+				</div>
+				<asp:LinkButton ID="lnkLogout" runat="server" CssClass="icon" ToolTip="სისტემიდან გასვლა" Text="" OnClick="lnkLogout_OnClick">
+                                <span class="icon"><asp:Image runat="server" ImageUrl="~/App_Themes/Default/Images/logout.png" /></span>
+				</asp:LinkButton>
+			</div>
+			<div id="content">
+				<h2>
+					<asp:Label runat="server" ID="lblLoginName" />
+					<asp:Label runat="server" ID="lblFirstName" />
+					<asp:Label runat="server" ID="lblLastName" />
+				</h2>
+				<div class="page_title_separator"></div>
+				<asp:ContentPlaceHolder ID="cphContent" runat="server">
+				</asp:ContentPlaceHolder>
+			</div>
+		</div>
+	</form>
+</body>
+</html>

@@ -1,0 +1,67 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="Lmis_Portal" Class="PortalDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="AppSettings" ConnectionString="Data Source=evolution.ge;Initial Catalog=Lmis_Portal;User ID=sa" SettingsObjectName="Lmis.Portal.DAL.Properties.Settings" SettingsPropertyName="Lmis_PortalConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.LP_Tables" Member="LP_Tables">
+    <Type Name="LP_Table">
+      <Column Name="ID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(250)" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="DateCreated" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="DateChanged" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="DateDeleted" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Association Name="LP_Table_LP_Column" Member="Columns" ThisKey="ID" OtherKey="TableID" Type="LP_Column" />
+      <Association Name="LP_Table_LP_Report" Member="Reports" ThisKey="ID" OtherKey="TableID" Type="LP_Report" />
+    </Type>
+  </Table>
+  <Table Name="dbo.LP_Categories" Member="LP_Categories">
+    <Type Name="LP_Category">
+      <Column Name="ID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(250)" CanBeNull="true" />
+      <Column Name="ParentID" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
+      <Column Name="DateCreated" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="DateChanged" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="DateDeleted" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Association Name="LP_Category_LP_Category" Member="Children" ThisKey="ID" OtherKey="ParentID" Type="LP_Category" />
+      <Association Name="LP_Category_LP_Report" Member="Reports" ThisKey="ID" OtherKey="CategoryID" Type="LP_Report" />
+      <Association Name="LP_Category_LP_Category" Member="Parent" ThisKey="ParentID" OtherKey="ID" Type="LP_Category" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.LP_Columns" Member="LP_Columns">
+    <Type Name="LP_Column">
+      <Column Name="ID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="TableID" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(250)" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="DateCreated" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="DateChanged" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="DateDeleted" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Type" Type="System.String" DbType="NVarChar(250)" CanBeNull="true" UpdateCheck="Never" />
+      <Association Name="LP_Table_LP_Column" Member="Table" ThisKey="TableID" OtherKey="ID" Type="LP_Table" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.LP_Logics" Member="LP_Logics">
+    <Type Name="LP_Logic">
+      <Column Name="ID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(250)" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="RawData" Type="System.Xml.Linq.XElement" DbType="Xml" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="DateCreated" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="DateChanged" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="DateDeleted" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Type" Type="System.String" DbType="NVarChar(250)" CanBeNull="true" UpdateCheck="Never" />
+      <Association Name="LP_Logic_LP_Report" Member="Reports" ThisKey="ID" OtherKey="LogicID" Type="LP_Report" />
+    </Type>
+  </Table>
+  <Table Name="dbo.LP_Reports" Member="LP_Reports">
+    <Type Name="LP_Report">
+      <Column Name="ID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="CategoryID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" UpdateCheck="Never" />
+      <Column Name="LogicID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" UpdateCheck="Never" />
+      <Column Name="TableID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" UpdateCheck="Never" />
+      <Column Name="Type" Type="System.String" DbType="NVarChar(250)" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(250)" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="DateCreated" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="DateChanged" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="DateDeleted" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Association Name="LP_Category_LP_Report" Member="Category" ThisKey="CategoryID" OtherKey="ID" Type="LP_Category" IsForeignKey="true" />
+      <Association Name="LP_Logic_LP_Report" Member="Logic" ThisKey="LogicID" OtherKey="ID" Type="LP_Logic" IsForeignKey="true" />
+      <Association Name="LP_Table_LP_Report" Member="Table" ThisKey="TableID" OtherKey="ID" Type="LP_Table" IsForeignKey="true" />
+    </Type>
+  </Table>
+</Database>

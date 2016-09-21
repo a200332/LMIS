@@ -1,0 +1,433 @@
+/*
+
+CSS Social Icons
+By: Nick La (@nickla)
+http://webdesignerwall.com/tutorials/css-social-buttons
+
+Version: 1.0
+
+*/
+
+/************************************************************************************
+SOCIAL LINK a.sb
+*************************************************************************************/
+a.sb,
+.sb a {
+    width: 32px;
+    height: 32px;
+    background-repeat: no-repeat;
+    background-position: center center;
+    text-indent: -900em;
+    color: #fff;
+    text-decoration: none;
+    line-height: 100%;
+    white-space: nowrap;
+    display: inline-block;
+    position: relative;
+    vertical-align: middle;
+    margin: 0 2px 5px 0;
+    /* default button color */
+    border: solid 1px #b8b8b9;
+    /* default box shadow */
+    -webkit-box-shadow: inset 0 1px 0 rgba(255,255,255,.3), 0 1px 0 rgba(0,0,0,.1);
+    -moz-box-shadow: inset 0 1px 0 rgba(255,255,255,.3), 0 1px 0 rgba(0,0,0,.1);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,.3), 0 1px 0 rgba(0,0,0,.1);
+    /* default border radius */
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+}
+/* for IE */
+*:first-child + html a.sb,
+*:first-child + html .sb a {
+    text-indent: 0;
+    line-height: 0;
+    font-size: 0;
+    overflow: hidden;
+}
+
+
+/* SB LIST
+================================================ */
+.sb {
+    margin: 0;
+    padding: 0;
+}
+
+    .sb li {
+        margin: 0;
+        padding: 0;
+        display: inline;
+    }
+
+
+    /* SIZES
+================================================ */
+    /* small */
+    a.sb.small,
+    .sb.small a {
+        width: 26px;
+        height: 26px;
+        font-size: 90%;
+    }
+
+    /* large */
+    a.sb.large,
+    .sb.large a {
+        width: 40px;
+        height: 40px;
+        font-size: 120%;
+    }
+
+
+    /* GRADIENTS
+================================================ */
+
+    /* default gradient */
+    a.sb.gradient,
+    .sb.gradient a {
+        background-color: transparent !important;
+    }
+
+        a.sb.gradient:after,
+        .sb.gradient a:after {
+            padding: 1px;
+            content: "";
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: -1px;
+            left: -1px;
+            z-index: -1;
+            -webkit-box-shadow: inset 0 2px 0 rgba(255,255,255,.3);
+            -moz-box-shadow: inset 0 2px 0 rgba(255,255,255,.3);
+            box-shadow: inset 0 2px 0 rgba(255,255,255,.3);
+            /* default gradient */
+            background: -moz-linear-gradient(top, #eeeeee 0%, #d2d2d2 100%);
+            background: -webkit-linear-gradient(top, #eeeeee 0%, #d2d2d2 100%);
+            background: linear-gradient(top, #eeeeee 0%, #d2d2d2 100%);
+        }
+
+
+
+    /* STYLES
+================================================ */
+
+    /* min style */
+    a.sb.min,
+    .sb.min a {
+        background-color: transparent;
+        border: none;
+        -webkit-box-shadow: none;
+        -moz-box-shadow: none;
+        box-shadow: none;
+    }
+
+    /* circle style */
+    a.sb.circle,
+    .sb.circle a,
+    a.sb.circle:before,
+    .sb.circle a:before,
+    a.sb.circle:after,
+    .sb.circle a:after {
+        -webkit-border-radius: 10em;
+        -moz-border-radius: 10em;
+        border-radius: 10em;
+    }
+
+    /* round style */
+    a.sb,
+    .sb a,
+    a.sb:before,
+    .sb a:before,
+    a.sb:after,
+    .sb a:after {
+        -webkit-border-radius: 5px;
+        -moz-border-radius: 5px;
+        border-radius: 5px;
+    }
+
+        /* reset bottom border-radius for round and circle */
+        a.sb.circle:before,
+        .sb.circle a:before,
+        a.sb:before,
+        .sb a:before {
+            border-bottom-right-radius: 0;
+            border-bottom-left-radius: 0;
+            -moz-border-radius-bottomright: 0;
+            -moz-border-radius-bottomleft: 0;
+            -webkit-border-bottom-right-radius: 0;
+            -webkit-border-bottom-left-radius: 0;
+        }
+
+        /* thick-border border style */
+        a.sb.thick-border,
+        .sb.thick-border a {
+            border-width: 3px;
+        }
+
+        /* no-border style */
+        a.sb.no-border,
+        .sb.no-border a {
+            border: none;
+        }
+
+        /* no-shadow style */
+        a.sb.no-shadow,
+        .sb.no-shadow a {
+            -webkit-box-shadow: none;
+            -moz-box-shadow: none;
+            box-shadow: none;
+        }
+
+        /* pressed style */
+        a.sb.pressed,
+        .sb.pressed a {
+            -webkit-box-shadow: inset 0 1px 2px rgba(0,0,0,.35);
+            -moz-box-shadow: inset 0 1px 2px rgba(0,0,0,.35);
+            box-shadow: inset 0 1px 2px rgba(0,0,0,.35);
+        }
+
+        /* embossed style */
+        a.sb.embossed,
+        .sb.embossed a {
+            -webkit-box-shadow: inset 0 1px 0 rgba(255,255,255,.5), inset 0 -2px 0 rgba(0,0,0,.25), inset 0 -3px 0 rgba(255,255,255,.2), 0 1px 0 rgba(0,0,0,.1);
+            -moz-box-shadow: inset 0 1px 0 rgba(255,255,255,.5), inset 0 -2px 0 rgba(0,0,0,.25), inset 0 -3px 0 rgba(255,255,255,.2), 0 1px 0 rgba(0,0,0,.1);
+            box-shadow: inset 0 1px 0 rgba(255,255,255,.5), inset 0 -2px 0 rgba(0,0,0,.25), inset 0 -3px 0 rgba(255,255,255,.2), 0 1px 0 rgba(0,0,0,.1);
+        }
+
+        a.sb.small.embossed,
+        .sb.small.embossed a {
+            -webkit-box-shadow: inset 0 1px 0 rgba(255,255,255,.5), inset 0 -1px 0 rgba(0,0,0,.25), inset 0 -2px 0 rgba(255,255,255,.2), 0 1px 0 rgba(0,0,0,.1);
+            -moz-box-shadow: inset 0 1px 0 rgba(255,255,255,.5), inset 0 -1px 0 rgba(0,0,0,.25), inset 0 -2px 0 rgba(255,255,255,.2), 0 1px 0 rgba(0,0,0,.1);
+            box-shadow: inset 0 1px 0 rgba(255,255,255,.5), inset 0 -1px 0 rgba(0,0,0,.25), inset 0 -2px 0 rgba(255,255,255,.2), 0 1px 0 rgba(0,0,0,.1);
+        }
+
+        a.sb.large.embossed,
+        .sb.large.embossed a {
+            -webkit-box-shadow: inset 0 1px 0 rgba(255,255,255,.5), inset 0 -3px 0 rgba(0,0,0,.25), inset 0 -4px 0 rgba(255,255,255,.2), 0 1px 0 rgba(0,0,0,.1);
+            -moz-box-shadow: inset 0 1px 0 rgba(255,255,255,.5), inset 0 -3px 0 rgba(0,0,0,.25), inset 0 -4px 0 rgba(255,255,255,.2), 0 1px 0 rgba(0,0,0,.1);
+            box-shadow: inset 0 1px 0 rgba(255,255,255,.5), inset 0 -3px 0 rgba(0,0,0,.25), inset 0 -4px 0 rgba(255,255,255,.2), 0 1px 0 rgba(0,0,0,.1);
+        }
+
+        /* glossy style */
+        a.sb.glossy:before,
+        .sb.glossy a:before {
+            content: "";
+            width: 100%;
+            height: 50%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            /* glossy overlay */
+            background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2ZmZmZmZiIgc3RvcC1vcGFjaXR5PSIwLjQiLz4KICAgIDxzdG9wIG9mZnNldD0iMTAwJSIgc3RvcC1jb2xvcj0iI2ZmZmZmZiIgc3RvcC1vcGFjaXR5PSIwLjEiLz4KICA8L2xpbmVhckdyYWRpZW50PgogIDxyZWN0IHg9IjAiIHk9IjAiIHdpZHRoPSIxIiBoZWlnaHQ9IjEiIGZpbGw9InVybCgjZ3JhZC11Y2dnLWdlbmVyYXRlZCkiIC8+Cjwvc3ZnPg==);
+            background: -moz-linear-gradient(top, rgba(255,255,255,0.5) 0%, rgba(255,255,255,0.2) 100%);
+            background: -webkit-linear-gradient(top, rgba(255,255,255,0.5) 0%,rgba(255,255,255,0.2) 100%);
+            background: linear-gradient(top, rgba(255,255,255,0.5) 0%,rgba(255,255,255,0.2) 100%);
+        }
+
+        /* icon with text style */
+        a.sb.text,
+        .sb.text a {
+            text-indent: 0;
+            width: auto;
+            height: 20px;
+            padding: 9px 14px 3px 34px;
+            background-position: 2px center;
+        }
+
+        *:first-child + html a.sb.text,
+        *:first-child + html .sb.text a {
+            text-indent: inherit; /* for IE */
+            line-height: 100%;
+            font-size: 100%;
+        }
+
+        a.sb.small.text,
+        .sb.small.text a {
+            background-position: 2px center;
+            padding: 6px 12px 0 34px;
+        }
+
+        a.sb.large.text,
+        .sb.large.text a {
+            background-position: 6px center;
+            padding: 12px 20px 8px 40px;
+        }
+
+        /* flat style */
+        a.sb.flat,
+        .sb.flat a,
+        a.sb.flat:before,
+        .sb.flat a:before {
+            -webkit-border-radius: 0;
+            -moz-border-radius: 0;
+            border-radius: 0;
+            -webkit-box-shadow: none;
+            -moz-box-shadow: none;
+            box-shadow: none;
+        }
+
+        /* ICONS
+================================================ */
+        a.sb.twitter,
+        .sb a.twitter {
+            background-image: url(Default/images/twitter_bird_orig.png);
+            -webkit-transition: color .25s ease-out;
+            transition: all  .25s ease-out;
+        }
+
+            a.sb.twitter:hover,
+            .sb a.twitter:hover {
+                background-image: url(Default/images/white_twitter_bird.png);
+                -webkit-transition: color .25s ease-out;
+                transition: all  .25s ease-out;
+            }
+
+        a.sb.facebook,
+        .sb a.facebook {
+            background-image: url(Default/images/facebook_orig.png);
+            -webkit-transition: color .25s ease-out;
+            transition: all  .25s ease-out;
+        }
+
+
+            a.sb.facebook:hover,
+            .sb a.facebook:hover {
+                background-image: url(Default/images/white_facebook.png);
+                -webkit-transition: color .25s ease-out;
+                transition: all  .25s ease-out;
+            }
+
+
+
+        a.sb.linkedin,
+        .sb a.linkedin {
+            background-image: url('Default/images/linkedin_orig.png');
+            -webkit-transition: all  .25s ease-out;
+            transition: all  .25s ease-out;
+        }
+
+            a.sb.linkedin:hover,
+            .sb a.linkedin:hover {
+                background-image: url(Default/images/white_linkedin.png);
+                -webkit-transition: all  .25s ease-out;
+                transition: all  .25s ease-out;
+            }
+
+        /* white icons */
+        a.sb.blue.twitter,
+        .sb.blue a.twitter,
+        a.sb.purple.twitter,
+        .sb.purple a.twitter,
+        a.sb.red.twitter,
+        .sb.red a.twitter,
+        a.sb.green.twitter,
+        .sb.green a.twitter,
+        a.sb.orange.twitter,
+        .sb.orange a.twitter,
+        a.sb.brown.twitter,
+        .sb.brown a.twitter,
+        a.sb.black.twitter,
+        .sb.black a.twitter,
+        a.sb.gray.twitter,
+        .sb.gray a.twitter {
+            background-image: url(Default/images/white_twitter_bird.png);
+        }
+
+        a.sb.blue.facebook,
+        .sb.blue a.facebook,
+        a.sb.purple.facebook,
+        .sb.purple a.facebook,
+        a.sb.red.facebook,
+        .sb.red a.facebook,
+        a.sb.green.facebook,
+        .sb.green a.facebook,
+        a.sb.orange.facebook,
+        .sb.orange a.facebook,
+        a.sb.brown.facebook,
+        .sb.brown a.facebook,
+        a.sb.black.facebook,
+        .sb.black a.facebook,
+        a.sb.gray.facebook,
+        .sb.gray a.facebook {
+            background-image: url(Default/images/white_facebook.png);
+        }
+
+
+        a.sb.blue.linkedin,
+        .sb.blue a.linkedin,
+        a.sb.purple.linkedin,
+        .sb.purple a.linkedin,
+        a.sb.red.linkedin,
+        .sb.red a.linkedin,
+        a.sb.green.linkedin,
+        .sb.green a.linkedin,
+        a.sb.orange.linkedin,
+        .sb.orange a.linkedin,
+        a.sb.brown.linkedin,
+        .sb.brown a.linkedin,
+        a.sb.black.linkedin,
+        .sb.black a.linkedin,
+        a.sb.gray.linkedin,
+        .sb.gray a.linkedin {
+            background-image: url(Default/images/white_linkedin.png);
+        }
+
+
+
+        /* ADD YOUR CUSTOM STYLES BELOW
+================================================ */
+        a.sb.youtube {
+            background-image: url(images/youtube.png);
+        }
+
+        a.sb.email {
+            background-image: url(images/email.png);
+        }
+
+        /* custom icon */
+        a.sb.custom {
+            width: 80px;
+            height: 80px;
+            -webkit-border-radius: 15px;
+            -moz-border-radius: 15px;
+            border-radius: 15px;
+        }
+
+            a.sb.custom:after {
+                background-image: url(images/custom-bg.png);
+                -webkit-border-radius: 15px;
+                -moz-border-radius: 15px;
+                border-radius: 15px;
+            }
+
+            /* custom icon blue */
+            a.sb.custom.blue {
+                border-color: #96a8af;
+            }
+
+                a.sb.custom.blue:after {
+                    background-image: url(images/custom-bg-blue.png);
+                }
+            /* custom icon pink */
+            a.sb.custom.pink {
+                border-color: #b0a1aa;
+            }
+
+                a.sb.custom.pink:after {
+                    background-image: url(images/custom-bg-pink.png);
+                }
+
+            /* custom icon background images */
+            a.sb.custom.retweet {
+                background-image: url(images/custom-icon-retweet.png);
+            }
+
+            a.sb.custom.photo {
+                background-image: url(images/custom-icon-photo.png);
+            }
+
+            a.sb.custom.comment {
+                background-image: url(images/custom-icon-comment.png);
+            }

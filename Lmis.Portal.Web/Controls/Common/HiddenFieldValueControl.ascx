@@ -1,0 +1,2 @@
+﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="HiddenFieldValueControl.ascx.cs" Inherits="Lmis.Portal.Web.Controls.Common.HiddenFieldValueControl" %>
+<asp:HiddenField runat="server" ID="hdValue" />
