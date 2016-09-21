@@ -78,11 +78,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Web\UI\Controls\ASPxComboBox.cs" />
-    <Compile Include="Web\UI\Controls\ASPxGridView.cs" />
-    <Compile Include="Web\UI\Controls\ASPxGridViewDataTextColumn.cs" />
-    <Compile Include="Web\UI\Controls\ASPxPivotGrid.cs" />
-    <Compile Include="Web\UI\Controls\ASPxTreeList.cs" />
     <Compile Include="Cache\CommonObjectCache.cs" />
     <Compile Include="Collections\NameObjectCollection.cs" />
     <Compile Include="Collections\CollectionPartitioner.cs" />
