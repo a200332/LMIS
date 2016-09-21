@@ -138,6 +138,11 @@ Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "CITI.EVO.CommonData.Web", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CITI.EVO.CommonData.DAL", "CITI.EVO.CommonData.DAL\CITI.EVO.CommonData.DAL.csproj", "{A9DF2480-CE56-4C0F-9EA1-B426E0163DF6}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tools", "Tools", "{9032D8DB-8E03-4EE6-81BB-5CAA5EC07B37}"
+	ProjectSection(SolutionItems) = preProject
+		iis.config.cmd = iis.config.cmd
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
