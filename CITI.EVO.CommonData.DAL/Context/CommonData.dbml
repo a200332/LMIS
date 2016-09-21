@@ -1,0 +1,101 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="Lmis_CommonData" Class="CommonDataDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="AppSettings" ConnectionString="Data Source=evolution.ge;Initial Catalog=Lmis_CommonData;Persist Security Info=True;User ID=sa" SettingsObjectName="CITI.EVO.CommonData.DAL.Properties.Settings" SettingsPropertyName="Lmis_CommonDataConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.CD_Translations" Member="CD_Translations">
+    <Type Name="CD_Translation">
+      <Column Name="ID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="ModuleName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="TrnKey" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="LanguagePair" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="DefaultText" Type="System.String" DbType="NText" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="TranslatedText" Type="System.String" DbType="NText" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="DateCreated" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="DateChanged" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="DateDeleted" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.CD_Area" Member="CD_Areas">
+    <Type Name="CD_Area">
+      <Column Name="ID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="OLD_ID" Type="System.Decimal" DbType="Decimal(18,0)" CanBeNull="true" />
+      <Column Name="ParentID" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
+      <Column Name="Code" Type="System.String" DbType="NVarChar(400)" CanBeNull="true" />
+      <Column Name="CraCode" Type="System.String" DbType="NVarChar(400)" CanBeNull="true" />
+      <Column Name="GeoName" Type="System.String" DbType="NVarChar(200) NOT NULL" CanBeNull="false" />
+      <Column Name="EngName" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="TypeID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="NewCode" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="DateCreated" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="DateChanged" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="DateDeleted" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Association Name="CD_Area_CD_Area" Member="Children" ThisKey="ID" OtherKey="ParentID" Type="CD_Area" />
+      <Association Name="CD_Area_CD_PhoneIndex" Member="PhoneIndexes" ThisKey="ID" OtherKey="AreaID" Type="CD_PhoneIndex" />
+      <Association Name="CD_Area_CD_Area" Member="Parent" ThisKey="ParentID" OtherKey="ID" Type="CD_Area" IsForeignKey="true" />
+      <Association Name="CD_AreaType_CD_Area" Member="AreaType" ThisKey="TypeID" OtherKey="ID" Type="CD_AreaType" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.CD_AreaTypes" Member="CD_AreaTypes">
+    <Type Name="CD_AreaType">
+      <Column Name="ID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="GeoName" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="EngName" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="Code" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="[Level]" Member="Level" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="DateCreated" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="DateChanged" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="DateDeleted" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Association Name="CD_AreaType_CD_Area" Member="Areas" ThisKey="ID" OtherKey="TypeID" Type="CD_Area" />
+    </Type>
+  </Table>
+  <Table Name="dbo.CD_CityPhoneCodes" Member="CD_CityPhoneCodes">
+    <Type Name="CD_CityPhoneCode">
+      <Column Name="CityName" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="PhoneCode" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.CD_Languages" Member="CD_Languages">
+    <Type Name="CD_Language">
+      <Column Name="ID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="DisplayName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="EngName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="NativeName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Pair" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="DateCreated" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="DateChanged" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="DateDeleted" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.CD_MobileIndexes" Member="CD_MobileIndexes">
+    <Type Name="CD_MobileIndex">
+      <Column Name="ID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Value" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="GeoOperatorName" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="EngOperatorName" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="DateCreated" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="DateChanged" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="DateDeleted" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.CD_PhoneIndexes" Member="CD_PhoneIndexes">
+    <Type Name="CD_PhoneIndex">
+      <Column Name="ID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="PhoneIndexTypeID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="Value" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="AreaID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="DateCreated" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="DateChanged" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="DateDeleted" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Association Name="CD_Area_CD_PhoneIndex" Member="Area" ThisKey="AreaID" OtherKey="ID" Type="CD_Area" IsForeignKey="true" />
+      <Association Name="CD_PhoneIndexType_CD_PhoneIndex" Member="PhoneIndexType" ThisKey="PhoneIndexTypeID" OtherKey="ID" Type="CD_PhoneIndexType" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.CD_PhoneIndexTypes" Member="CD_PhoneIndexTypes">
+    <Type Name="CD_PhoneIndexType">
+      <Column Name="ID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="DateCreated" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="DateChanged" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="DateDeleted" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Association Name="CD_PhoneIndexType_CD_PhoneIndex" Member="PhoneIndexes" ThisKey="ID" OtherKey="PhoneIndexTypeID" Type="CD_PhoneIndex" />
+    </Type>
+  </Table>
+</Database>

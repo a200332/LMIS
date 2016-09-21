@@ -1,0 +1,82 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11.125, 11.375" name="CommonData">
+  <DataContextMoniker Name="/CommonDataDataContext" />
+  <nestedChildShapes>
+    <classShape Id="205acfd2-a5d3-49f4-96e6-78d79f3f53c1" absoluteBounds="8.875, 3, 2, 2.5401025390625005">
+      <DataClassMoniker Name="/CommonDataDataContext/CD_Translation" />
+      <nestedChildShapes>
+        <elementListCompartment Id="4489a747-fbf5-4d21-95af-71e882705b7b" absoluteBounds="8.89, 3.46, 1.9700000000000002, 1.9801025390625" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="8d5eecec-d42f-409f-b008-fcce51dde898" absoluteBounds="3.5, 1, 2, 3.1170068359375009">
+      <DataClassMoniker Name="/CommonDataDataContext/CD_Area" />
+      <nestedChildShapes>
+        <elementListCompartment Id="be54b527-7aeb-401c-a4c3-c1ed1e4e6eea" absoluteBounds="3.515, 1.46, 1.9700000000000002, 2.5570068359375" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="e9382338-a550-4bd5-9687-96057841a986" absoluteBounds="0.75, 1.375, 2, 2.3478011067708335">
+      <DataClassMoniker Name="/CommonDataDataContext/CD_AreaType" />
+      <nestedChildShapes>
+        <elementListCompartment Id="f304f400-80e2-4fc4-953a-d1188c006d28" absoluteBounds="0.765, 1.835, 1.9700000000000002, 1.7878011067708335" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="1583b8b2-61e6-4e1f-b39b-f82892a75cfe" absoluteBounds="8.75, 0.75, 2, 1.1939925130208335">
+      <DataClassMoniker Name="/CommonDataDataContext/CD_CityPhoneCode" />
+      <nestedChildShapes>
+        <elementListCompartment Id="a9542b37-6c57-4bc3-b2ad-bf578637c1ed" absoluteBounds="8.765, 1.21, 1.9700000000000002, 0.63399251302083326" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="9c8670c4-56d5-4e76-98fa-a7ba9312f313" absoluteBounds="0.75, 8.75, 2, 2.3478011067708344">
+      <DataClassMoniker Name="/CommonDataDataContext/CD_Language" />
+      <nestedChildShapes>
+        <elementListCompartment Id="609dbb1f-c36e-4e75-b60a-dd00de7e5c3f" absoluteBounds="0.765, 9.21, 1.9700000000000002, 1.7878011067708335" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="4b160609-7e6d-4946-abc6-c96e32aebe69" absoluteBounds="3.75, 8.75, 2, 2.1554996744791666">
+      <DataClassMoniker Name="/CommonDataDataContext/CD_MobileIndex" />
+      <nestedChildShapes>
+        <elementListCompartment Id="4018085e-036f-4112-b9b4-30bc2e81346e" absoluteBounds="3.765, 9.21, 1.9700000000000002, 1.5954996744791665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="afc75c7f-e54a-489d-9a17-f4eb5ec201fa" absoluteBounds="6.25, 1.5, 2, 2.1554996744791666">
+      <DataClassMoniker Name="/CommonDataDataContext/CD_PhoneIndex" />
+      <nestedChildShapes>
+        <elementListCompartment Id="c8e5c34b-9f0f-4f5b-ab54-b1d2855fb0d6" absoluteBounds="6.265, 1.96, 1.9700000000000002, 1.5954996744791665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="9ec20ffa-d6ad-4fd6-89ba-1b24631af2b2" absoluteBounds="3.5, 5.625, 2, 1.7708968098958327">
+      <DataClassMoniker Name="/CommonDataDataContext/CD_PhoneIndexType" />
+      <nestedChildShapes>
+        <elementListCompartment Id="0165f21e-f588-4bbe-b2fd-1ba99a26fa1a" absoluteBounds="3.515, 6.085, 1.9700000000000002, 1.2108968098958333" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(4.20923076923077 : 4.1170068359375); (4.20923076923077 : 4.3670068359375); (4.80461538461539 : 4.3670068359375); (4.80461538461539 : 4.1170068359375)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/CommonDataDataContext/CD_Area/CD_Area_CD_Area" />
+      <nodes>
+        <classShapeMoniker Id="8d5eecec-d42f-409f-b008-fcce51dde898" />
+        <classShapeMoniker Id="8d5eecec-d42f-409f-b008-fcce51dde898" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(2.75 : 2.54890055338542); (3.5 : 2.54890055338542)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/CommonDataDataContext/CD_AreaType/CD_AreaType_CD_Area" />
+      <nodes>
+        <classShapeMoniker Id="e9382338-a550-4bd5-9687-96057841a986" />
+        <classShapeMoniker Id="8d5eecec-d42f-409f-b008-fcce51dde898" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(5.5 : 2.57774983723958); (6.25 : 2.57774983723958)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/CommonDataDataContext/CD_Area/CD_Area_CD_PhoneIndex" />
+      <nodes>
+        <classShapeMoniker Id="8d5eecec-d42f-409f-b008-fcce51dde898" />
+        <classShapeMoniker Id="afc75c7f-e54a-489d-9a17-f4eb5ec201fa" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(5.5 : 6.18773267896759); (7.25 : 6.18773267896759); (7.25 : 3.65549967447917)]" fixedFrom="Caller" fixedTo="Algorithm">
+      <AssociationMoniker Name="/CommonDataDataContext/CD_PhoneIndexType/CD_PhoneIndexType_CD_PhoneIndex" />
+      <nodes>
+        <classShapeMoniker Id="9ec20ffa-d6ad-4fd6-89ba-1b24631af2b2" />
+        <classShapeMoniker Id="afc75c7f-e54a-489d-9a17-f4eb5ec201fa" />
+      </nodes>
+    </associationConnector>
+  </nestedChildShapes>
+</ordesignerObjectsDiagram>
