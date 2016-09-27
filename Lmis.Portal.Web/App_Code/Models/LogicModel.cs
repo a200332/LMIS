@@ -13,10 +13,10 @@ namespace Lmis.Portal.Web.Models
 
 		public String Query { get; set; }
 
-		public NamedExpressionsListModel GroupBy { get; set; }
-        public NamedExpressionsListModel Select { get; set; }
+		public Guid? SourceID { get; set; }
 
-        public ExpressionsListModel FilterBy { get; set; }
-        public ExpressionsListModel OrderBy { get; set; }
+		public String SourceType { get; set; }
+
+		public ExpressionsLogicModel ExpressionsLogic { get; set; }
     }
 }

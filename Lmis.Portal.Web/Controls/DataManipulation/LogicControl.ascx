@@ -1,14 +1,26 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="LogicControl.ascx.cs" Inherits="Lmis.Portal.Web.Controls.DataManipulation.LogicControl" %>
 
-<%@ Register Src="~/Controls/Common/NamedExpressionsListControl.ascx" TagPrefix="local" TagName="NamedExpressionsListControl" %>
-<%@ Register Src="~/Controls/Common/ExpressionsListControl.ascx" TagPrefix="local" TagName="ExpressionsListControl" %>
+<%@ Register Src="~/Controls/Common/ExpressionsLogicControl.ascx" TagPrefix="local" TagName="ExpressionsLogicControl" %>
 
-<asp:RadioButtonList runat="server" ID="lstType" Property="LogicModel.Type" AutoPostBack="True" RepeatDirection="Horizontal">
-	<Items>
-		<asp:ListItem Text="Logic" Value="Logic" Selected="True" />
-		<asp:ListItem Text="Query" Value="Query" />
-	</Items>
-</asp:RadioButtonList>
+<asp:Panel runat="server" ID="pnlSourceType">
+	<asp:RadioButtonList runat="server" ID="lstSourceType" Property="LogicModel.SourceType" AutoPostBack="True" RepeatDirection="Horizontal">
+		<Items>
+			<asp:ListItem Text="Table" Value="Table" Selected="True" />
+			<asp:ListItem Text="Logic" Value="Logic" />
+		</Items>
+	</asp:RadioButtonList>
+	<dx:ASPxComboBox runat="server" ID="cbxSource" TextField="Name" ValueField="ID" Property="LogicModel.SourceID">
+	</dx:ASPxComboBox>
+</asp:Panel>
+
+<asp:Panel runat="server" ID="pnlType">
+	<asp:RadioButtonList runat="server" ID="lstType" Property="LogicModel.Type" AutoPostBack="True" RepeatDirection="Horizontal">
+		<Items>
+			<asp:ListItem Text="Logic" Value="Logic" Selected="True" />
+			<asp:ListItem Text="Query" Value="Query" />
+		</Items>
+	</asp:RadioButtonList>
+</asp:Panel>
 
 <asp:Panel runat="server" ID="pnlName">
 	<asp:TextBox runat="server" Property="LogicModel.Name"></asp:TextBox>
@@ -17,39 +29,6 @@
 	<asp:TextBox runat="server" TextMode="MultiLine" Property="LogicModel.Query"></asp:TextBox>
 </asp:Panel>
 <asp:Panel runat="server" ID="pnlLogic">
-	<table>
-		<tr>
-			<td>
-				<fieldset>
-					<legend>Where conditions</legend>
-					<local:ExpressionsListControl runat="server" ID="filterByControl" Property="LogicModel.FilterBy" />
-				</fieldset>
-			</td>
-		</tr>
-		<tr>
-			<td>
-				<fieldset>
-					<legend>Group By</legend>
-					<local:NamedExpressionsListControl runat="server" ID="groupByControl" Property="LogicModel.GroupBy" />
-				</fieldset>
-			</td>
-		</tr>
-		<tr>
-			<td>
-				<fieldset>
-					<legend>Order By</legend>
-					<local:ExpressionsListControl runat="server" ID="orderByControl" Property="LogicModel.OrderBy" />
-				</fieldset>
-			</td>
-		</tr>
-		<tr>
-			<td>
-				<fieldset>
-					<legend>Select</legend>
-					<local:NamedExpressionsListControl runat="server" ID="selectControl" Property="LogicModel.Select" />
-				</fieldset>
-			</td>
-		</tr>
-	</table>
+	<local:ExpressionsLogicControl runat="server" ID="expressionsLogicControl" Property="LogicModel.ExpressionsLogic"></local:ExpressionsLogicControl>
 </asp:Panel>
 

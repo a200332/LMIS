@@ -70,7 +70,8 @@
 									</PageNumber>
 								</StylesPager>
 								<Columns>
-									<dx:GridViewDataTextColumn Caption="ModuleName" FieldName="ModuleName" Name="ModuleName" VisibleIndex="0" FixedStyle="Left">
+									<dx:GridViewDataTextColumn Caption="ModuleName" FieldName="ModuleName" Name="ModuleName"
+										VisibleIndex="0" FixedStyle="Left">
 									</dx:GridViewDataTextColumn>
 									<dx:GridViewDataTextColumn Caption="LanguagePair" FieldName="LanguagePair" Name="LanguagePair"
 										VisibleIndex="0" FixedStyle="Left">

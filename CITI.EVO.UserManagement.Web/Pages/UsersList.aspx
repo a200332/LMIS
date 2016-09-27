@@ -1,5 +1,6 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.master" AutoEventWireup="true" CodeFile="UsersList.aspx.cs" Inherits="Pages_UsersList" %>
-
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.master" AutoEventWireup="true"
+	CodeFile="UsersList.aspx.cs" Inherits="Pages_UsersList" %>
+<%@ Register TagPrefix="mis" Namespace="CITI.EVO.Tools.Web.UI.Controls" Assembly="CITI.EVO.Tools" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="cphHead" runat="Server">
 </asp:Content>
@@ -26,34 +27,85 @@
 					<div class="wrapper"></div>
 
 					<div class="left">
-						<mis:DropDownList ID="ddlUserCategories" runat="server" Width="100" TextField="Name" ValueField="ID" />
+						<mis:ASPxComboBox ID="ddlUserCategories" runat="server" Width="100" TextField="Name" ValueField="ID" />
 					</div>
 					<div class="left">
-						<mis:DropDownList ID="ddlStatues" Width="100" runat="server">
+						<mis:ASPxComboBox ID="ddlStatues" Width="100" runat="server">
 							<Items>
-								<asp:ListItem Text="ყველა" Value="-1" Selected="true" />
-								<asp:ListItem Text="აქტიური" Value="true" />
-								<asp:ListItem Text="პასიური" Value="false" />
+								<dx:ListEditItem Text="ყველა" Value="-1" Selected="true" />
+								<dx:ListEditItem Text="აქტიური" Value="true" />
+								<dx:ListEditItem Text="პასიური" Value="false" />
 							</Items>
-						</mis:DropDownList>
+						</mis:ASPxComboBox>
 					</div>
 
 					<div>
 						<asp:TextBox ID="txtVariousFilter" Width="100px" Height="27px" runat="server" />
 					</div>
 
-					<asp:LinkButton ID="btnBindData" runat="server" CssClass="icon" Text="ნახვა" OnClick="btnBindData_Click" />
+					<asp:LinkButton ID="btnBindData" runat="server" CssClass="icon" Text="ნახვა"
+						OnClick="btnBindData_Click" />
+
+
+
+
+
+
+
+
+					<%-- <asp:Panel ID="Panel1" runat="server">--%>
+
+					<%--  </asp:Panel>--%>
+					<%--  <asp:Label runat="server">ჩანაწერების რაოდენობა:</asp:Label>--%>
+					<%--<mis:ASPxComboBox ID="ddlRecordCount" runat="server" Width="100" AutoPostBack="true" OnSelectedIndexChanged="ddlRecordCount_SelectedIndexChanged">
+                        <Items>
+                            <dx:ListEditItem Value="25" Text="25" />
+                            <dx:ListEditItem Value="50" Text="50" />
+                            <dx:ListEditItem Value="100" Text="100" />
+                            <dx:ListEditItem Value="200" Text="200" />
+                        </Items>
+                    </mis:ASPxComboBox>--%>
 					<asp:Label runat="server" Style="padding: 4px 0 0 7px;" ID="lblError" />
 
-					<asp:LinkButton ID="btnAddUser" CssClass="icon" Text="მომხმარებლის დამატება" runat="server" OnClick="btnAddUser_Click" />
+					<asp:LinkButton ID="btnAddUser" CssClass="icon"
+						Text="მომხმარებლის დამატება" runat="server" OnClick="btnAddUser_Click" />
 				</asp:Panel>
 
 			</div>
 
 
 
-			<mis:DataGrid ID="gvUsers" ClientInstanceName="gvUsers" runat="server" KeyFieldName="ID"
+			<mis:ASPxGridView ID="gvUsers" ClientInstanceName="gvUsers" runat="server" KeyFieldName="ID"
 				Width="100%" EnableRowsCache="False">
+				<GroupSummary>
+					<dx:ASPxSummaryItem DisplayFormat="რაოდენობა = {0:d}" SummaryType="Count" />
+				</GroupSummary>
+				<SettingsBehavior AllowGroup="true" AllowSort="true" />
+				<Settings ShowGroupPanel="true" ShowFilterBar="Hidden" />
+				<SettingsText HeaderFilterShowAll="ყველა" HeaderFilterShowBlanks="მნიშვნელობის გარეშე"
+					GroupContinuedOnNextPage="(გაგრძელება იხ. შემდეგ გვერდზე)" HeaderFilterShowNonBlanks="შევსებული"
+					GroupPanel="გადმოიტანეთ ის სვეტი რომლის მიხედვითაც გინდათ ცხრილის დაჯგუფება"
+					EmptyDataRow="მონაცემები არ მოიძებნა" />
+				<SettingsPager Position="Bottom" PageSize="25">
+					<Summary Text="{0} გვერდი {1}-დან (სულ {2})"></Summary>
+					<PageSizeItemSettings Items="25, 50, 100, 200" Visible="True" Caption="ჩანაწერების რაოდენობა" />
+				</SettingsPager>
+				<SettingsLoadingPanel Text="მიმდინარეობს მონაცემების დამუშავება&amp;hellip;" />
+				<Styles>
+					<Header ForeColor="#5D5D5D" Wrap="True" HorizontalAlign="Center">
+						<Border BorderColor="#F7F7F7" BorderStyle="Solid" />
+
+					</Header>
+					<AlternatingRow Enabled="True">
+					</AlternatingRow>
+					<FocusedRow BackColor="#d7d7d7">
+					</FocusedRow>
+					<GroupPanel BackColor="#003399" ForeColor="White">
+						<Border BorderColor="White" />
+						<BorderTop BorderColor="White" BorderStyle="Solid" BorderWidth="1px" />
+						<BorderBottom BorderColor="White" BorderStyle="Solid" />
+					</GroupPanel>
+				</Styles>
 				<Columns>
 					<dx:GridViewDataColumn VisibleIndex="11" Width="3px" Name="Edit">
 						<DataItemTemplate>
@@ -162,7 +214,7 @@
 						</HeaderCaptionTemplate>
 					</dx:GridViewDataColumn>
 				</Columns>
-			</mis:DataGrid>
+			</mis:ASPxGridView>
 
 		</ContentTemplate>
 	</asp:UpdatePanel>
@@ -255,20 +307,53 @@
 									<asp:Label runat="server">უფლებები</asp:Label>
 								</h3>
 								<div class="box_body_short">
-									<mis:DropDownList ID="ddlAccessLevels" runat="server">
+									<mis:ASPxComboBox ID="ddlAccessLevels" runat="server">
 										<Items>
-											<asp:ListItem Text="სტანდარტული" Value="0" />
-											<asp:ListItem Text="ადმინისტრატორი" Value="1" />
+											<dx:ListEditItem Text="სტანდარტული" Value="0" />
+											<dx:ListEditItem Text="ადმინისტრატორი" Value="1" />
 										</Items>
-									</mis:DropDownList>
+									</mis:ASPxComboBox>
 								</div>
 							</div>
 						</asp:Panel>
 						<div class="wrapper"></div>
 						<div class="popup_fieldset">
-							<mis:TreeView ID="tlGroups" runat="server" Width="600"
-								KeyFieldName="ID" ParentFieldName="ParentID" TextFieldName="Name">
-							</mis:TreeView>
+							<dx:ASPxTreeList ID="tlGroups" runat="server" AutoGenerateColumns="False" Width="600"
+								KeyFieldName="ID" ParentFieldName="ParentID" ClientIDMode="AutoID"
+								ViewStateMode="Disabled" OnVirtualModeCreateChildren="tlGroups_VirtualModeCreateChildren"
+								OnVirtualModeNodeCreating="tlGroups_VirtualModeNodeCreating" OnVirtualModeNodeCreated="tlGroups_VirtualModeNodeCreated">
+								<Settings ShowGroupFooter="false" ShowFooter="false" GridLines="Both" ShowTreeLines="True" />
+								<SettingsBehavior ExpandCollapseAction="NodeDblClick" AllowSort="True" AllowFocusedNode="true" />
+								<SettingsEditing Mode="EditFormAndDisplayNode" />
+								<SettingsPager Position="Bottom" PageSize="25">
+									<Summary Text="{0} გვერდი {1}-დან (სულ {2})"></Summary>
+									<PageSizeItemSettings Items="25, 50, 100, 200" Visible="True" Caption="ჩანაწერების რაოდენობა" />
+								</SettingsPager>
+								<SettingsLoadingPanel Text="მიმდინარეობს მონაცემების დამუშავება&amp;hellip;" />
+								<Styles>
+									<Header ForeColor="#5D5D5D" Wrap="true" HorizontalAlign="Center">
+										<Border BorderColor="#F7F7F7" BorderStyle="Solid"></Border>
+									</Header>
+									<AlternatingNode Enabled="true" />
+									<FocusedNode BackColor="#d7d7d7" ForeColor="#003399" />
+									<Cell HorizontalAlign="Left" VerticalAlign="Middle" Border-BorderColor="#cfcfcf"
+										Border-BorderWidth="1px">
+										<Border BorderColor="#CFCFCF" BorderWidth="1px" />
+									</Cell>
+									<Header HorizontalAlign="Center" />
+
+								</Styles>
+								<Columns>
+									<dx:TreeListTextColumn VisibleIndex="0">
+										<HeaderCaptionTemplate>
+											<asp:Label ID="Label7" runat="server" Text="სახელი" />
+										</HeaderCaptionTemplate>
+										<DataCellTemplate>
+											<asp:Label ID="Label8" runat="server" Text='<%#Eval("Name") %>' />
+										</DataCellTemplate>
+									</dx:TreeListTextColumn>
+								</Columns>
+							</dx:ASPxTreeList>
 						</div>
 					</div>
 					<div class="fieldsetforicons">
@@ -335,8 +420,8 @@
 
 						<asp:Label runat="server">ჯგუფები</asp:Label>
 
-						<mis:ListBox runat="server" ID="lstUserGroups" Width="500" Height="150">
-						</mis:ListBox>
+						<dx:ASPxListBox runat="server" ID="lstUserGroups" Width="500" Height="150">
+						</dx:ASPxListBox>
 
 						<mis:ImageLinkButton ID="btUserViewCancel" DefaultImageUrl="~/App_Themes/default/images/close_icon.png"
 							Text="დახურვა" ToolTip="დახურვა" runat="server" />
@@ -367,39 +452,39 @@
 								<asp:Label runat="server">პროექტი</asp:Label>
 							</h3>
 							<div class="box_body_short">
-								<mis:DropDownList ID="cmbProject" TextField="Name"
+								<mis:ASPxComboBox ID="cmbProject" TextField="Name"
 									ValueField="ID" AppendDataBoundItems="true" runat="server"
 									AutoPostBack="true" OnSelectedIndexChanged="cmbProject_SelectedIndexChanged">
 									<Items>
-										<asp:ListItem Text="-- select project --" Value="" />
+										<dx:ListEditItem Text="-- select project --" Value="" />
 									</Items>
-								</mis:DropDownList>
+								</mis:ASPxComboBox>
 							</div>
 						</div>
 						<div class="box">
 							<h3>
 								<asp:Label runat="server">ატრიბუტების სქემა</asp:Label></h3>
 							<div class="box_body_short">
-								<mis:DropDownList ID="cmbAttributeSchemas" TextField="Name"
+								<mis:ASPxComboBox ID="cmbAttributeSchemas" TextField="Name"
 									ValueField="ID" Width="180px" Enabled="false" AppendDataBoundItems="true"
 									runat="server" AutoPostBack="true" OnSelectedIndexChanged="cmbAttributeSchemas_SelectedIndexChanged">
 									<Items>
-										<asp:ListItem Text="-- select schema --" Value="" />
+										<dx:ListEditItem Text="-- select schema --" Value="" />
 									</Items>
-								</mis:DropDownList>
+								</mis:ASPxComboBox>
 							</div>
 						</div>
 						<div class="box">
 							<h3>
 								<asp:Label runat="server">ატრიბუტების სახელები</asp:Label></h3>
 							<div class="box_body_short">
-								<mis:DropDownList ID="cmbAttributeSchemaNodes" AppendDataBoundItems="true"
+								<mis:ASPxComboBox ID="cmbAttributeSchemaNodes" AppendDataBoundItems="true"
 									TextField="Name" OnSelectedIndexChanged="cmbAttributeSchemaNodes_SelectedIndexChanged"
 									AutoPostBack="true" Width="180px" ValueField="ID" runat="server" Enabled="false">
 									<Items>
-										<asp:ListItem Text="-- select node --" Value="" />
+										<dx:ListEditItem Text="-- select node --" Value="" />
 									</Items>
-								</mis:DropDownList>
+								</mis:ASPxComboBox>
 							</div>
 						</div>
 						<div class="box">
@@ -442,13 +527,13 @@
 								<asp:Label runat="server">პროექტი</asp:Label>
 							</h3>
 							<div class="box_body_short">
-								<mis:DropDownList ID="cmbShowProjects" TextField="Name"
+								<mis:ASPxComboBox ID="cmbShowProjects" TextField="Name"
 									ValueField="ID" AppendDataBoundItems="true" runat="server"
 									AutoPostBack="true" OnSelectedIndexChanged="cmbProject_SelectedIndexChanged">
 									<Items>
-										<asp:ListItem Text="-- select project --" Value="" />
+										<dx:ListEditItem Text="-- select project --" Value="" />
 									</Items>
-								</mis:DropDownList>
+								</mis:ASPxComboBox>
 							</div>
 						</div>
 						<div class="box">
@@ -456,13 +541,13 @@
 								<asp:Label runat="server">ატრიბუტების სქემა</asp:Label>
 							</h3>
 							<div class="box_body_short">
-								<mis:DropDownList ID="cmbShowAttributeSchemas" TextField="Name"
+								<mis:ASPxComboBox ID="cmbShowAttributeSchemas" TextField="Name"
 									ValueField="ID" Enabled="false" AppendDataBoundItems="true"
 									runat="server" AutoPostBack="true" OnSelectedIndexChanged="cmbAttributeSchemas_SelectedIndexChanged">
 									<Items>
-										<asp:ListItem Text="-- select schema --" Value="" />
+										<dx:ListEditItem Text="-- select schema --" Value="" />
 									</Items>
-								</mis:DropDownList>
+								</mis:ASPxComboBox>
 							</div>
 						</div>
 						<div class="box">
@@ -470,22 +555,32 @@
 								<asp:Label runat="server">მნიშვნელობები</asp:Label>
 							</h3>
 							<div class="box_body">
-								<mis:DataGrid ID="dwAttributeSchemaNodes" Width="340px" runat="server" EnableViewState="false">
+								<mis:ASPxGridView ID="dwAttributeSchemaNodes" ClientInstanceName="dwAttributeSchemaNodes"
+									Width="340px" runat="server" EnableViewState="false">
+									<SettingsBehavior AllowSort="false" AllowDragDrop="false"></SettingsBehavior>
 									<Columns>
-										<asp:BoundField DataField="Name" HeaderText="სახელი">
-										</asp:BoundField>
-										<asp:BoundField DataField="Value" HeaderText="მნიშვნელიბა">
-										</asp:BoundField>
+										<dx:GridViewDataColumn FieldName="Name" VisibleIndex="0">
+											<HeaderCaptionTemplate>
+												<asp:Label runat="server">სახელი</asp:Label>
+											</HeaderCaptionTemplate>
+										</dx:GridViewDataColumn>
+										<dx:GridViewDataColumn FieldName="Value" VisibleIndex="1">
+											<HeaderCaptionTemplate>
+												<asp:Label ID="Label1" runat="server">მნიშვნელიბა</asp:Label>
+											</HeaderCaptionTemplate>
+										</dx:GridViewDataColumn>
 									</Columns>
-								</mis:DataGrid>
+								</mis:ASPxGridView>
 							</div>
 						</div>
 
 					</div>
 					<div class="fieldsetforicons">
 						<div class="left">
+
 							<asp:LinkButton ID="btShowUserAttributesCancel" CssClass="icon" Text="დახურვა" ToolTip="დახურვა" runat="server" />
 						</div>
+
 					</div>
 				</div>
 			</ContentTemplate>

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using System.Web.UI.WebControls;
 using CITI.EVO.Tools.Utils;
+using DevExpress.Web.ASPxTreeList.Internal;
 using Lmis.Portal.Web.Bases;
 using Lmis.Portal.Web.Common;
 using Lmis.Portal.Web.Entites;
@@ -66,14 +67,14 @@ namespace Lmis.Portal.Web.Controls.SchemaManipulation
 			{
 				var list = GetEntities(tablesModel.List);
 
-				tvData.DataSource = list;
-				tvData.DataBind();
+				tlData.DataSource = list;
+				tlData.DataBind();
 			}
 		}
 
-		protected void btnEdit_OnClick(object sender, EventArgs e)
+		protected void btnEdit_OnCommand(object sender, CommandEventArgs e)
 		{
-			var command = Convert.ToString(tvData.SelectedValue);
+			var command = Convert.ToString(e.CommandArgument);
 
 			var match = Regex.Match(command, @"^(?<Id>.+?)/(?<Type>.+?)$");
 
@@ -89,9 +90,9 @@ namespace Lmis.Portal.Web.Controls.SchemaManipulation
 				OnEditColumn(entityId.Value);
 		}
 
-		protected void btnDelete_OnClick(object sender, EventArgs e)
+		protected void btnDelete_OnCommand(object sender, CommandEventArgs e)
 		{
-			var command = Convert.ToString(tvData.SelectedValue);
+			var command = Convert.ToString(e.CommandArgument);
 
 			var match = Regex.Match(command, @"^(?<Id>.+?)/(?<Type>.+?)$");
 
@@ -107,9 +108,9 @@ namespace Lmis.Portal.Web.Controls.SchemaManipulation
 				OnDeleteColumn(entityId.Value);
 		}
 
-		protected void btnAddChild_OnClick(object sender, EventArgs e)
+		protected void btnAddChild_OnCommand(object sender, CommandEventArgs e)
 		{
-			var command = Convert.ToString(tvData.SelectedValue);
+			var command = Convert.ToString(e.CommandArgument);
 
 			var match = Regex.Match(command, @"^(?<Id>.+?)/(?<Type>.+?)$");
 
@@ -123,9 +124,9 @@ namespace Lmis.Portal.Web.Controls.SchemaManipulation
 				OnAddNewColumn(entityId.Value);
 		}
 
-		protected void btnSynch_OnClick(object sender, EventArgs e)
+		protected void btnSynch_OnCommand(object sender, CommandEventArgs e)
 		{
-			var command = Convert.ToString(tvData.SelectedValue);
+			var command = Convert.ToString(e.CommandArgument);
 
 			var match = Regex.Match(command, @"^(?<Id>.+?)/(?<Type>.+?)$");
 
@@ -137,17 +138,6 @@ namespace Lmis.Portal.Web.Controls.SchemaManipulation
 
 			if (typeName == "Table")
 				OnSyncTable(entityId.Value);
-		}
-
-		protected void tvData_OnSelectedNodeChanged(object sender, EventArgs e)
-		{
-			var key = tvData.SelectedValue;
-
-			btnEdit.Visible = GetEditVisible(key);
-			btnDelete.Visible = GetDeleteVisible(key);
-			btnAddChild.Visible = GetAddVisible(key);
-			btnSynch.Visible = GetSynchVisible(key);
-			btnAddChild.Visible = GetTableDataVisible(key);
 		}
 
 		protected IEnumerable<ParentChildEntity> GetEntities(IEnumerable<TableModel> tables)
@@ -193,7 +183,8 @@ namespace Lmis.Portal.Web.Controls.SchemaManipulation
 
 		protected bool GetAddVisible(object dataItem)
 		{
-			var value = Convert.ToString(dataItem);
+			var entity = (TreeListTemplateDataItem)dataItem;
+			var value = Convert.ToString(entity.Row.GetValue("Key"));
 
 			if (value.EndsWith("Column"))
 				return false;
@@ -203,7 +194,8 @@ namespace Lmis.Portal.Web.Controls.SchemaManipulation
 
 		protected bool GetSynchVisible(object dataItem)
 		{
-			var value = Convert.ToString(dataItem);
+			var entity = (TreeListTemplateDataItem)dataItem;
+			var value = Convert.ToString(entity.Row.GetValue("Key"));
 
 			if (value.EndsWith("Column"))
 				return false;
@@ -213,7 +205,8 @@ namespace Lmis.Portal.Web.Controls.SchemaManipulation
 
 		protected bool GetTableDataVisible(object dataItem)
 		{
-			var value = Convert.ToString(dataItem);
+			var entity = (TreeListTemplateDataItem)dataItem;
+			var value = Convert.ToString(entity.Row.GetValue("Key"));
 
 			if (value.EndsWith("Column"))
 				return false;
@@ -223,14 +216,12 @@ namespace Lmis.Portal.Web.Controls.SchemaManipulation
 
 		protected String GetTableDataUrl(object dataItem)
 		{
-			var key = Convert.ToString(dataItem);
+			var entity = (TreeListTemplateDataItem)dataItem;
 
-			var match = Regex.Match(key, @"^(?<Id>.+?)/(?<Type>.+?)$");
+			var key = Convert.ToString(entity.Row.GetValue("Key"));
+			var Id = Convert.ToString(entity.Row.GetValue("ID"));
 
-			var Id = DataConverter.ToNullableGuid(match.Groups["Id"].Value);
-			var type = match.Groups["Type"].Value;
-
-			if (type.EndsWith("Column"))
+			if (key.EndsWith("Column"))
 				return "#";
 
 			var url = String.Format("~/Pages/Management/TableData.aspx?TableID={0}", Id);

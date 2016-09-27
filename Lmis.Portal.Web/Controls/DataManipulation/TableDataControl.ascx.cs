@@ -3,6 +3,8 @@ using System.Configuration;
 using System.Linq;
 using System.Web.UI;
 using CITI.EVO.Tools.Extensions;
+using DevExpress.Web;
+using DevExpress.Web.Data;
 using Lmis.Portal.Web.Bases;
 using Lmis.Portal.Web.BLL;
 using Lmis.Portal.Web.Models;
@@ -53,77 +55,77 @@ namespace Lmis.Portal.Web.Controls.DataManipulation
 				primaryColumns = tableModel.Columns;
 
 			var keyFields = String.Join(";", primaryColumns.Select(n => n.Name));
-			//gvData.KeyFieldName = keyFields;
+			gvData.KeyFieldName = keyFields;
 		}
 
-		//protected void gvData_CellEditorInitialize(object sender, ASPxGridViewEditorEventArgs e)
-		//{
-		//}
+		protected void gvData_CellEditorInitialize(object sender, ASPxGridViewEditorEventArgs e)
+		{
+		}
 
-		//protected void gvData_RowInserting(object sender, ASPxDataInsertingEventArgs e)
-		//{
-		//	var newValues = e.NewValues;
-		//	var tableModel = Model.Table;
+		protected void gvData_RowInserting(object sender, ASPxDataInsertingEventArgs e)
+		{
+			var newValues = e.NewValues;
+			var tableModel = Model.Table;
 
-		//	foreach (var column in tableModel.Columns)
-		//	{
-		//		var name = String.Format("v{0}", column.Name.ComputeCrc16());
-		//		var value = Convert.ToString(newValues[column.Name]);
+			foreach (var column in tableModel.Columns)
+			{
+				var name = String.Format("v{0}", column.Name.ComputeCrc16());
+				var value = Convert.ToString(newValues[column.Name]);
 
-		//		sqlDs.InsertParameters.Add(name, value);
-		//	}
-		//}
+				sqlDs.InsertParameters.Add(name, value);
+			}
+		}
 
-		//protected void gvData_RowUpdating(object sender, ASPxDataUpdatingEventArgs e)
-		//{
-		//	var newValues = e.NewValues;
-		//	var oldValues = e.OldValues;
+		protected void gvData_RowUpdating(object sender, ASPxDataUpdatingEventArgs e)
+		{
+			var newValues = e.NewValues;
+			var oldValues = e.OldValues;
 
-		//	var tableModel = Model.Table;
+			var tableModel = Model.Table;
 
-		//	foreach (var column in tableModel.Columns)
-		//	{
-		//		var name = String.Format("v{0}", column.Name.ComputeCrc16());
-		//		var value = Convert.ToString(newValues[column.Name]);
+			foreach (var column in tableModel.Columns)
+			{
+				var name = String.Format("v{0}", column.Name.ComputeCrc16());
+				var value = Convert.ToString(newValues[column.Name]);
 
-		//		sqlDs.UpdateParameters.Add(name, value);
-		//	}
+				sqlDs.UpdateParameters.Add(name, value);
+			}
 
-		//	var primaryColumns = tableModel.Columns.Where(n => n.IsPrimary).ToList();
-		//	if (primaryColumns.Count == 0)
-		//		primaryColumns = tableModel.Columns;
+			var primaryColumns = tableModel.Columns.Where(n => n.IsPrimary).ToList();
+			if (primaryColumns.Count == 0)
+				primaryColumns = tableModel.Columns;
 
-		//	foreach (var column in primaryColumns)
-		//	{
-		//		var name = String.Format("w{0}", column.Name.ComputeCrc16());
-		//		var value = Convert.ToString(oldValues[column.Name]);
+			foreach (var column in primaryColumns)
+			{
+				var name = String.Format("w{0}", column.Name.ComputeCrc16());
+				var value = Convert.ToString(oldValues[column.Name]);
 
-		//		sqlDs.UpdateParameters.Add(name, value);
-		//	}
-		//}
+				sqlDs.UpdateParameters.Add(name, value);
+			}
+		}
 
-		//protected void gvData_OnRowDeleting(object sender, ASPxDataDeletingEventArgs e)
-		//{
-		//	var values = e.Keys;
+		protected void gvData_OnRowDeleting(object sender, ASPxDataDeletingEventArgs e)
+		{
+			var values = e.Keys;
 
-		//	var tableModel = Model.Table;
+			var tableModel = Model.Table;
 
-		//	var primaryColumns = tableModel.Columns.Where(n => n.IsPrimary).ToList();
-		//	if (primaryColumns.Count == 0)
-		//		primaryColumns = tableModel.Columns;
+			var primaryColumns = tableModel.Columns.Where(n => n.IsPrimary).ToList();
+			if (primaryColumns.Count == 0)
+				primaryColumns = tableModel.Columns;
 
-		//	foreach (var column in primaryColumns)
-		//	{
-		//		var name = String.Format("w{0}", column.Name.ComputeCrc16());
-		//		var value = Convert.ToString(values[column.Name]);
+			foreach (var column in primaryColumns)
+			{
+				var name = String.Format("w{0}", column.Name.ComputeCrc16());
+				var value = Convert.ToString(values[column.Name]);
 
-		//		sqlDs.DeleteParameters.Add(name, value);
-		//	}
-		//}
+				sqlDs.DeleteParameters.Add(name, value);
+			}
+		}
 
 		protected void btnAdd_OnClick(object sender, EventArgs e)
 		{
-			//gvData.AddNewRow();
+			gvData.AddNewRow();
 		}
 
 		protected void btnImport_OnClick(object sender, EventArgs e)

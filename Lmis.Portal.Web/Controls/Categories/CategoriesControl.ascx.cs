@@ -44,7 +44,7 @@ namespace Lmis.Portal.Web.Controls.Categories
 
 		protected void btnEdit_OnCommand(object sender, CommandEventArgs e)
 		{
-			var entityID = DataConverter.ToNullableGuid(tvData.SelectedValue);
+			var entityID = DataConverter.ToNullableGuid(e.CommandArgument);
 			if (entityID == null)
 				return;
 
@@ -53,7 +53,7 @@ namespace Lmis.Portal.Web.Controls.Categories
 
 		protected void btnDelete_OnCommand(object sender, CommandEventArgs e)
 		{
-			var entityID = DataConverter.ToNullableGuid(tvData.SelectedValue);
+			var entityID = DataConverter.ToNullableGuid(e.CommandArgument);
 			if (entityID == null)
 				return;
 
@@ -62,7 +62,7 @@ namespace Lmis.Portal.Web.Controls.Categories
 
 		protected void btnAddChild_OnCommand(object sender, CommandEventArgs e)
 		{
-			var entityID = DataConverter.ToNullableGuid(tvData.SelectedValue);
+			var entityID = DataConverter.ToNullableGuid(e.CommandArgument);
 			if (entityID == null)
 				return;
 
@@ -77,8 +77,8 @@ namespace Lmis.Portal.Web.Controls.Categories
 		protected override void OnSetModel(object model, Type type)
 		{
 			var categoriesModel = (CategoriesModel)model;
-			tvData.DataSource = categoriesModel.List;
-			tvData.DataBind();
+			tlData.DataSource = categoriesModel.List;
+			tlData.DataBind();
 		}
 	}
 }

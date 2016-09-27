@@ -44,12 +44,12 @@
                             <asp:Label ID="Label6" runat="server">მესიჯის ტიპი</asp:Label>
                         </h3>
                         <div class="box_body_short">
-                            <mis:DropDownList runat="server" ID="ddlMessageType">
+                            <mis:ASPxComboBox runat="server" ID="ddlMessageType">
                                 <Items>
-                                    <asp:ListItem Text="სტანდარტული" Value="0" Selected="True" />
-                                    <asp:ListItem Text="ყველა" Value="1" />
+                                    <dx:ListEditItem Text="სტანდარტული" Value="0" Selected="True" />
+                                    <dx:ListEditItem Text="ყველა" Value="1" />
                                 </Items>
-                            </mis:DropDownList>
+                            </mis:ASPxComboBox>
                         </div>
                     </div>
                 </div>

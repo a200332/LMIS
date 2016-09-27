@@ -16,9 +16,9 @@
 					<h3>პროექტების ჩამონათვალი
 					</h3>
 					<div class="box_body_short">
-						<mis:DropDownList ID="cmbProject" TextField="Name" ValueField="ID" runat="server"
+						<mis:ASPxComboBox ID="cmbProject" TextField="Name" ValueField="ID" runat="server"
 							AutoPostBack="true" OnSelectedIndexChanged="cmbProject_SelectedIndexChanged">
-						</mis:DropDownList>
+						</mis:ASPxComboBox>
 						<asp:TextBox runat="server" ID="tbxKeyword"></asp:TextBox>
 						<asp:LinkButton ID="btnSearch" runat="server" ToolTip="დამატება" CssClass="icon"
 							Text="ძებნა" OnClick="btSearch_OnClick" />
@@ -127,9 +127,9 @@
 							<h3>
 								<asp:Label runat="server">რესურსის ტიპი</asp:Label></h3>
 							<div class="box_body_short">
-								<mis:DropDownList ID="cmbResourceType" TextField="Key" ValueField="Value"
+								<mis:ASPxComboBox ID="cmbResourceType" TextField="Key" ValueField="Value"
 									runat="server">
-								</mis:DropDownList>
+								</mis:ASPxComboBox>
 							</div>
 						</div>
 						<div class="box">

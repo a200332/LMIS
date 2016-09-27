@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using Lmis.Portal.Web.Bases;
 using Lmis.Portal.Web.Models;
 
@@ -8,12 +9,43 @@ namespace Lmis.Portal.Web.Controls.DataManipulation
 	{
 		protected void Page_Load(object sender, EventArgs e)
 		{
-			ApplyViewMode();
+			var model = Model;
+
+			FillLists(model);
+			ApplyViewMode(model);
 		}
 
-		private void ApplyViewMode()
+		private void FillLists(LogicModel model)
 		{
-			var model = Model;
+			if (model.SourceType == "Table")
+			{
+				var query = (from n in DataContext.LP_Tables
+							 where n.DateDeleted == null
+							 orderby n.Name
+							 select n);
+
+				var list = query.ToList();
+
+				cbxSource.DataSource = list;
+				cbxSource.DataBind();
+			}
+
+			if (model.SourceType == "Logic")
+			{
+				var query = (from n in DataContext.LP_Logics
+							 where n.DateDeleted == null
+							 orderby n.Name
+							 select n);
+
+				var list = query.ToList();
+
+				cbxSource.DataSource = list;
+				cbxSource.DataBind();
+			}
+		}
+
+		private void ApplyViewMode(LogicModel model)
+		{
 			if (model.Type == "Logic")
 			{
 				pnlLogic.Visible = true;
@@ -28,7 +60,10 @@ namespace Lmis.Portal.Web.Controls.DataManipulation
 
 		protected override void OnSetModel(object model, Type type)
 		{
-			ApplyViewMode();
+			var logicModel = (LogicModel)model;
+
+			FillLists(logicModel);
+			ApplyViewMode(logicModel);
 		}
 	}
 }

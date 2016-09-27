@@ -17,9 +17,9 @@
 					<h3>
 						<asp:Label runat="server">პროექტი/მოდული</asp:Label></h3>
 					<div class="box_body_short">
-						<mis:DropDownList ID="cmbProject" DataTextField="Name" DataValueField="ID"
+						<mis:ASPxComboBox ID="cmbProject" TextField="Name" ValueField="ID"
 							runat="server" AutoPostBack="true" OnSelectedIndexChanged="cmbProject_SelectedIndexChanged">
-						</mis:DropDownList>
+						</mis:ASPxComboBox>
 					</div>
 				</div>
 				<div class="clear"></div>

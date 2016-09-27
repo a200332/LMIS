@@ -3,8 +3,8 @@
 <asp:SqlDataSource runat="server" ID="sqlDs"></asp:SqlDataSource>
 
 <asp:Panel runat="server" ID="pnlGrid">
-	<ce:DataGrid runat="server" ID="mainGrid">
-	</ce:DataGrid>
+	<dx:ASPxGridView runat="server" ID="mainGrid">
+	</dx:ASPxGridView>
 </asp:Panel>
 <asp:Panel runat="server" ID="pnlChart">
 	<asp:Chart ID="mainChart" runat="server" Width="1150" Height="600">

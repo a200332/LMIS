@@ -1,22 +1,45 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="TablesControl.ascx.cs" Inherits="Lmis.Portal.Web.Controls.SchemaManipulation.TablesControl" %>
-<div style="width: 80px;">
-	<ce:ImageLinkButton ID="btnEdit" runat="server" ToolTip="Edit"
-		CommandArgument='<%# Eval("Key") %>'
-		DefaultImageUrl="~/App_Themes/Default/images/edit.png"
-		OnClick="btnEdit_OnClick" />
-	<ce:ImageLinkButton ID="btnDelete" runat="server" ToolTip="Delete"
-		DefaultImageUrl="~/App_Themes/Default/images/delete.png"
-		OnClick="btnDelete_OnClick" />
-	<ce:ImageLinkButton ID="btnAddChild" runat="server" ToolTip="Add"
-		DefaultImageUrl="~/App_Themes/Default/images/add.png"
-		OnClick="btnAddChild_OnClick" />
-	<ce:ImageLinkButton ID="btnSynch" runat="server" ToolTip="Synchronize"
-		DefaultImageUrl="~/App_Themes/Default/images/sync.png"
-		OnClick="btnSynch_OnClick" />
-	<ce:ImageLinkButton ID="btnTableData" runat="server" ToolTip="Table Data"
-		DefaultImageUrl="~/App_Themes/Default/images/edit.png"
-		OnClick="btnSynch_OnClick" />
-</div>
-<div>
-	<ce:TreeView runat="server" ID="tvData" KeyFieldName="ID" ParentFieldName="ParentID" TextFieldName="Name" OnSelectedNodeChanged="tvData_OnSelectedNodeChanged"></ce:TreeView>
-</div>
+<dx:ASPxTreeList runat="server" KeyFieldName="ID" ParentFieldName="ParentID" ID="tlData">
+	<Columns>
+		<dx:TreeListDataColumn>
+			<DataCellTemplate>
+				<div style="width: 80px;">
+					<ce:ImageLinkButton runat="server" ToolTip="Edit" 
+						Visible='<%# GetEditVisible(Container.DataItem) %>' 
+						CommandArgument='<%# Eval("Key") %>' 
+						DefaultImageUrl="~/App_Themes/Default/images/edit.png" 
+						ID="btnEdit" 
+						OnCommand="btnEdit_OnCommand" />
+					<ce:ImageLinkButton runat="server" ToolTip="Delete" 
+						Visible='<%# GetDeleteVisible(Container.DataItem) %>' 
+						CommandArgument='<%# Eval("Key") %>' 
+						DefaultImageUrl="~/App_Themes/Default/images/delete.png" 
+						ID="btnDelete" 
+						OnCommand="btnDelete_OnCommand" />
+					<ce:ImageLinkButton runat="server" ToolTip="Add" 
+						Visible='<%# GetAddVisible(Container.DataItem) %>' 
+						CommandArgument='<%# Eval("Key") %>' 
+						DefaultImageUrl="~/App_Themes/Default/images/add.png" 
+						ID="btnAddChild" 
+						OnCommand="btnAddChild_OnCommand" />
+					<ce:ImageLinkButton runat="server" ToolTip="Synchronize" 
+						Visible='<%# GetSynchVisible(Container.DataItem) %>' 
+						CommandArgument='<%# Eval("Key") %>' 
+						DefaultImageUrl="~/App_Themes/Default/images/sync.png" 
+						ID="btnSync" 
+						OnCommand="btnSynch_OnCommand" />
+					<ce:ImageLinkButton runat="server" ToolTip="Table Data" 
+						Visible='<%# GetTableDataVisible(Container.DataItem) %>' 
+						CommandArgument='<%# Eval("Key") %>' 
+						DefaultImageUrl="~/App_Themes/Default/images/edit.png" 
+						ID="btnTableData"
+						NavigateUrl='<%# GetTableDataUrl(Container.DataItem) %>'  />
+				</div>
+			</DataCellTemplate>
+		</dx:TreeListDataColumn>
+		<dx:TreeListDataColumn FieldName="Name" Name="Name" Caption="Name">
+			<HeaderStyle Wrap="True" HorizontalAlign="Center"></HeaderStyle>
+			<CellStyle Wrap="True" HorizontalAlign="Center"></CellStyle>
+		</dx:TreeListDataColumn>
+	</Columns>
+</dx:ASPxTreeList>

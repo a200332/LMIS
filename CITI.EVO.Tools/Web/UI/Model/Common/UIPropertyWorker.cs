@@ -3,13 +3,12 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Configuration;
 using System.Globalization;
-using System.Linq;
 using System.Reflection;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using CITI.EVO.Tools.Extensions;
 using CITI.EVO.Tools.Utils;
 using CITI.EVO.Tools.Web.UI.Model.Interfaces;
+using DevExpress.Web;
 
 namespace CITI.EVO.Tools.Web.UI.Model.Common
 {
@@ -263,6 +262,46 @@ namespace CITI.EVO.Tools.Web.UI.Model.Common
 				return;
 			}
 
+			if (control is ASPxSpinEdit)
+			{
+				var container = (ASPxSpinEdit)control;
+				container.Value = propertyValue;
+
+				return;
+			}
+
+			if (control is ASPxDateEdit)
+			{
+				var container = (ASPxDateEdit)control;
+				container.Value = propertyValue;
+
+				return;
+			}
+
+			if (control is ASPxTimeEdit)
+			{
+				var container = (ASPxTimeEdit)control;
+				container.Value = propertyValue;
+
+				return;
+			}
+
+			if (control is ASPxComboBox)
+			{
+				var container = (ASPxComboBox)control;
+
+				var selItem = container.Items.FindByValue(propertyValue);
+				if (selItem != null)
+					container.SelectedItem = selItem;
+				else if (container.DropDownStyle == DropDownStyle.DropDown)
+				{
+					container.Text = Convert.ToString(propertyValue);
+					container.Value = Convert.ToString(propertyValue);
+				}
+
+				return;
+			}
+
 			if (control is ListControl)
 			{
 				var container = (ListControl)control;
@@ -287,18 +326,6 @@ namespace CITI.EVO.Tools.Web.UI.Model.Common
 				}
 
 				return;
-			}
-
-			if (control is TreeView)
-			{
-				var container = (TreeView)control;
-				var value = Convert.ToString(propertyValue);
-
-				var selNode = container.GetAllNodes().FirstOrDefault(n => n.Value == value);
-				if (selNode != null)
-				{
-					selNode.Selected = true;
-				}
 			}
 
 			throw new Exception("Unable to detect control type");
@@ -401,6 +428,24 @@ namespace CITI.EVO.Tools.Web.UI.Model.Common
 				return container.Text;
 			}
 
+			if (control is ASPxSpinEdit)
+			{
+				var container = (ASPxSpinEdit)control;
+				return container.Value;
+			}
+
+			if (control is ASPxDateEdit)
+			{
+				var container = (ASPxDateEdit)control;
+				return container.Value;
+			}
+
+			if (control is ASPxTimeEdit)
+			{
+				var container = (ASPxTimeEdit)control;
+				return container.Value;
+			}
+
 			if (control is ListControl)
 			{
 				var container = (ListControl)control;
@@ -427,19 +472,22 @@ namespace CITI.EVO.Tools.Web.UI.Model.Common
 				return @set;
 			}
 
-			if (control is TreeView)
+			if (control is ASPxComboBox)
 			{
-				var container = (TreeView)control;
+				var container = (ASPxComboBox)control;
 
-				var selNode = container.SelectedNode;
-				if (selNode == null)
-					return null;
+				var selItem = container.SelectedItem;
+				if (selItem != null)
+					return selItem.Value;
 
-				return selNode.Value;
+				if (container.DropDownStyle == DropDownStyle.DropDown)
+					return container.Text;
+
+				return null;
 			}
+         
 
-
-			throw new Exception("Unable to detect control value");
+            throw new Exception("Unable to detect control value");
 		}
 		private Object ConvertValue(Object value, Type type)
 		{

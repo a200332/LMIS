@@ -6,9 +6,9 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using CITI.EVO.Tools.Helpers;
 using CITI.EVO.Tools.Utils;
+using DevExpress.Web.ASPxTreeList;
 using Lmis.Portal.Web.Bases;
 using Lmis.Portal.Web.Models;
-using CITI.EVO.Tools.Extensions;
 
 public partial class Controls_DataDisplay_CategoriesControl : BaseExtendedControl<CategoriesModel>
 {
@@ -26,18 +26,10 @@ public partial class Controls_DataDisplay_CategoriesControl : BaseExtendedContro
 	protected override void OnSetModel(object model, Type type)
 	{
 		var categoriesModel = (CategoriesModel)model;
-		tvData.DataSource = categoriesModel.List;
-		tvData.DataBind();
+		tlData.DataSource = categoriesModel.List;
+		tlData.DataBind();
 
 		ExpandTo();
-	}
-
-	protected void tvData_OnSelectedNodeChanged(object sender, EventArgs e)
-	{
-		var value = tvData.SelectedValue;
-		var url = String.Format("~/Handlers/CategoryImage.ashx?CategoryID={0}", value);
-
-		Response.Redirect(url);
 	}
 
 	protected void ExpandTo()
@@ -46,7 +38,7 @@ public partial class Controls_DataDisplay_CategoriesControl : BaseExtendedContro
 		if (categoryID == null)
 			return;
 
-		var nodes = (from n in tvData.GetAllNodes()
+		var nodes = (from n in tlData.GetAllNodes()
 					 let m = n.DataItem as CategoryModel
 					 where m.ID == categoryID
 					 select n);
@@ -56,7 +48,7 @@ public partial class Controls_DataDisplay_CategoriesControl : BaseExtendedContro
 			ExpandNode(node);
 			//SetSelected(node);
 
-			node.Selected = true;
+			node.Focus();
 		}
 	}
 
@@ -73,25 +65,25 @@ public partial class Controls_DataDisplay_CategoriesControl : BaseExtendedContro
 		return String.Format("~/Handlers/CategoryImage.ashx?CategoryID={0}", eval);
 	}
 
-	protected void ExpandNode(TreeNode node)
+	protected void ExpandNode(TreeListNode node)
 	{
-		var parent = node.Parent;
+		var parent = node.ParentNode;
 
 		while (parent != null)
 		{
 			parent.Expanded = true;
-			parent = parent.Parent;
+			parent = parent.ParentNode;
 		}
 	}
 
-	protected void SetSelected(TreeNode node)
+	protected void SetSelected(TreeListNode node)
 	{
 		var parent = node;
 
 		while (parent != null)
 		{
 			parent.Selected = true;
-			parent = parent.Parent;
+			parent = parent.ParentNode;
 		}
 	}
 }

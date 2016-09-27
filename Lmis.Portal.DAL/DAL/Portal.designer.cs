@@ -42,6 +42,9 @@ namespace Lmis.Portal.DAL.DAL
     partial void InsertLP_Logic(LP_Logic instance);
     partial void UpdateLP_Logic(LP_Logic instance);
     partial void DeleteLP_Logic(LP_Logic instance);
+    partial void InsertLP_ReportLogic(LP_ReportLogic instance);
+    partial void UpdateLP_ReportLogic(LP_ReportLogic instance);
+    partial void DeleteLP_ReportLogic(LP_ReportLogic instance);
     partial void InsertLP_Report(LP_Report instance);
     partial void UpdateLP_Report(LP_Report instance);
     partial void DeleteLP_Report(LP_Report instance);
@@ -109,6 +112,14 @@ namespace Lmis.Portal.DAL.DAL
 			}
 		}
 		
+		public System.Data.Linq.Table<LP_ReportLogic> LP_ReportLogics
+		{
+			get
+			{
+				return this.GetTable<LP_ReportLogic>();
+			}
+		}
+		
 		public System.Data.Linq.Table<LP_Report> LP_Reports
 		{
 			get
@@ -136,7 +147,7 @@ namespace Lmis.Portal.DAL.DAL
 		
 		private EntitySet<LP_Column> _Columns;
 		
-		private EntitySet<LP_Report> _Reports;
+		private EntitySet<LP_Logic> _Logics;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -157,7 +168,7 @@ namespace Lmis.Portal.DAL.DAL
 		public LP_Table()
 		{
 			this._Columns = new EntitySet<LP_Column>(new Action<LP_Column>(this.attach_Columns), new Action<LP_Column>(this.detach_Columns));
-			this._Reports = new EntitySet<LP_Report>(new Action<LP_Report>(this.attach_Reports), new Action<LP_Report>(this.detach_Reports));
+			this._Logics = new EntitySet<LP_Logic>(new Action<LP_Logic>(this.attach_Logics), new Action<LP_Logic>(this.detach_Logics));
 			OnCreated();
 		}
 		
@@ -181,7 +192,7 @@ namespace Lmis.Portal.DAL.DAL
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Name", DbType="NVarChar(250)", UpdateCheck=UpdateCheck.Never)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Name", DbType="NVarChar(250)")]
 		public string Name
 		{
 			get
@@ -274,16 +285,16 @@ namespace Lmis.Portal.DAL.DAL
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="LP_Table_LP_Report", Storage="_Reports", ThisKey="ID", OtherKey="TableID")]
-		public EntitySet<LP_Report> Reports
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="LP_Table_LP_Logic", Storage="_Logics", ThisKey="ID", OtherKey="TableID")]
+		public EntitySet<LP_Logic> Logics
 		{
 			get
 			{
-				return this._Reports;
+				return this._Logics;
 			}
 			set
 			{
-				this._Reports.Assign(value);
+				this._Logics.Assign(value);
 			}
 		}
 		
@@ -319,13 +330,13 @@ namespace Lmis.Portal.DAL.DAL
 			entity.Table = null;
 		}
 		
-		private void attach_Reports(LP_Report entity)
+		private void attach_Logics(LP_Logic entity)
 		{
 			this.SendPropertyChanging();
 			entity.Table = this;
 		}
 		
-		private void detach_Reports(LP_Report entity)
+		private void detach_Logics(LP_Logic entity)
 		{
 			this.SendPropertyChanging();
 			entity.Table = null;
@@ -623,13 +634,13 @@ namespace Lmis.Portal.DAL.DAL
 		
 		private string _Name;
 		
+		private string _Type;
+		
 		private System.DateTime _DateCreated;
 		
 		private System.Nullable<System.DateTime> _DateChanged;
 		
 		private System.Nullable<System.DateTime> _DateDeleted;
-		
-		private string _Type;
 		
 		private EntityRef<LP_Table> _Table;
 		
@@ -643,14 +654,14 @@ namespace Lmis.Portal.DAL.DAL
     partial void OnTableIDChanged();
     partial void OnNameChanging(string value);
     partial void OnNameChanged();
+    partial void OnTypeChanging(string value);
+    partial void OnTypeChanged();
     partial void OnDateCreatedChanging(System.DateTime value);
     partial void OnDateCreatedChanged();
     partial void OnDateChangedChanging(System.Nullable<System.DateTime> value);
     partial void OnDateChangedChanged();
     partial void OnDateDeletedChanging(System.Nullable<System.DateTime> value);
     partial void OnDateDeletedChanged();
-    partial void OnTypeChanging(string value);
-    partial void OnTypeChanged();
     #endregion
 		
 		public LP_Column()
@@ -679,7 +690,7 @@ namespace Lmis.Portal.DAL.DAL
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TableID", DbType="UniqueIdentifier", UpdateCheck=UpdateCheck.Never)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TableID", DbType="UniqueIdentifier")]
 		public System.Nullable<System.Guid> TableID
 		{
 			get
@@ -703,7 +714,7 @@ namespace Lmis.Portal.DAL.DAL
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Name", DbType="NVarChar(250)", UpdateCheck=UpdateCheck.Never)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Name", DbType="NVarChar(250)")]
 		public string Name
 		{
 			get
@@ -719,6 +730,26 @@ namespace Lmis.Portal.DAL.DAL
 					this._Name = value;
 					this.SendPropertyChanged("Name");
 					this.OnNameChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Type", DbType="NVarChar(250)")]
+		public string Type
+		{
+			get
+			{
+				return this._Type;
+			}
+			set
+			{
+				if ((this._Type != value))
+				{
+					this.OnTypeChanging(value);
+					this.SendPropertyChanging();
+					this._Type = value;
+					this.SendPropertyChanged("Type");
+					this.OnTypeChanged();
 				}
 			}
 		}
@@ -779,26 +810,6 @@ namespace Lmis.Portal.DAL.DAL
 					this._DateDeleted = value;
 					this.SendPropertyChanged("DateDeleted");
 					this.OnDateDeletedChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Type", DbType="NVarChar(250)", UpdateCheck=UpdateCheck.Never)]
-		public string Type
-		{
-			get
-			{
-				return this._Type;
-			}
-			set
-			{
-				if ((this._Type != value))
-				{
-					this.OnTypeChanging(value);
-					this.SendPropertyChanging();
-					this._Type = value;
-					this.SendPropertyChanged("Type");
-					this.OnTypeChanged();
 				}
 			}
 		}
@@ -866,7 +877,11 @@ namespace Lmis.Portal.DAL.DAL
 		
 		private System.Guid _ID;
 		
+		private System.Nullable<System.Guid> _TableID;
+		
 		private string _Name;
+		
+		private string _Type;
 		
 		private System.Xml.Linq.XElement _RawData;
 		
@@ -876,9 +891,17 @@ namespace Lmis.Portal.DAL.DAL
 		
 		private System.Nullable<System.DateTime> _DateDeleted;
 		
-		private string _Type;
+		private System.Nullable<System.Guid> _LogicID;
 		
-		private EntitySet<LP_Report> _Reports;
+		private string _SourceType;
+		
+		private EntitySet<LP_ReportLogic> _ReportLogics;
+		
+		private EntitySet<LP_Logic> _Parents;
+		
+		private EntityRef<LP_Table> _Table;
+		
+		private EntityRef<LP_Logic> _Child;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -886,8 +909,12 @@ namespace Lmis.Portal.DAL.DAL
     partial void OnCreated();
     partial void OnIDChanging(System.Guid value);
     partial void OnIDChanged();
+    partial void OnTableIDChanging(System.Nullable<System.Guid> value);
+    partial void OnTableIDChanged();
     partial void OnNameChanging(string value);
     partial void OnNameChanged();
+    partial void OnTypeChanging(string value);
+    partial void OnTypeChanged();
     partial void OnRawDataChanging(System.Xml.Linq.XElement value);
     partial void OnRawDataChanged();
     partial void OnDateCreatedChanging(System.DateTime value);
@@ -896,13 +923,18 @@ namespace Lmis.Portal.DAL.DAL
     partial void OnDateChangedChanged();
     partial void OnDateDeletedChanging(System.Nullable<System.DateTime> value);
     partial void OnDateDeletedChanged();
-    partial void OnTypeChanging(string value);
-    partial void OnTypeChanged();
+    partial void OnLogicIDChanging(System.Nullable<System.Guid> value);
+    partial void OnLogicIDChanged();
+    partial void OnSourceTypeChanging(string value);
+    partial void OnSourceTypeChanged();
     #endregion
 		
 		public LP_Logic()
 		{
-			this._Reports = new EntitySet<LP_Report>(new Action<LP_Report>(this.attach_Reports), new Action<LP_Report>(this.detach_Reports));
+			this._ReportLogics = new EntitySet<LP_ReportLogic>(new Action<LP_ReportLogic>(this.attach_ReportLogics), new Action<LP_ReportLogic>(this.detach_ReportLogics));
+			this._Parents = new EntitySet<LP_Logic>(new Action<LP_Logic>(this.attach_Parents), new Action<LP_Logic>(this.detach_Parents));
+			this._Table = default(EntityRef<LP_Table>);
+			this._Child = default(EntityRef<LP_Logic>);
 			OnCreated();
 		}
 		
@@ -926,7 +958,31 @@ namespace Lmis.Portal.DAL.DAL
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Name", DbType="NVarChar(250)", UpdateCheck=UpdateCheck.Never)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TableID", DbType="UniqueIdentifier")]
+		public System.Nullable<System.Guid> TableID
+		{
+			get
+			{
+				return this._TableID;
+			}
+			set
+			{
+				if ((this._TableID != value))
+				{
+					if (this._Table.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnTableIDChanging(value);
+					this.SendPropertyChanging();
+					this._TableID = value;
+					this.SendPropertyChanged("TableID");
+					this.OnTableIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Name", DbType="NVarChar(250)")]
 		public string Name
 		{
 			get
@@ -942,6 +998,26 @@ namespace Lmis.Portal.DAL.DAL
 					this._Name = value;
 					this.SendPropertyChanged("Name");
 					this.OnNameChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Type", DbType="NVarChar(250)")]
+		public string Type
+		{
+			get
+			{
+				return this._Type;
+			}
+			set
+			{
+				if ((this._Type != value))
+				{
+					this.OnTypeChanging(value);
+					this.SendPropertyChanging();
+					this._Type = value;
+					this.SendPropertyChanged("Type");
+					this.OnTypeChanged();
 				}
 			}
 		}
@@ -1026,36 +1102,141 @@ namespace Lmis.Portal.DAL.DAL
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Type", DbType="NVarChar(250)", UpdateCheck=UpdateCheck.Never)]
-		public string Type
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_LogicID", DbType="UniqueIdentifier")]
+		public System.Nullable<System.Guid> LogicID
 		{
 			get
 			{
-				return this._Type;
+				return this._LogicID;
 			}
 			set
 			{
-				if ((this._Type != value))
+				if ((this._LogicID != value))
 				{
-					this.OnTypeChanging(value);
+					if (this._Child.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnLogicIDChanging(value);
 					this.SendPropertyChanging();
-					this._Type = value;
-					this.SendPropertyChanged("Type");
-					this.OnTypeChanged();
+					this._LogicID = value;
+					this.SendPropertyChanged("LogicID");
+					this.OnLogicIDChanged();
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="LP_Logic_LP_Report", Storage="_Reports", ThisKey="ID", OtherKey="LogicID")]
-		public EntitySet<LP_Report> Reports
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SourceType", DbType="NVarChar(250)")]
+		public string SourceType
 		{
 			get
 			{
-				return this._Reports;
+				return this._SourceType;
 			}
 			set
 			{
-				this._Reports.Assign(value);
+				if ((this._SourceType != value))
+				{
+					this.OnSourceTypeChanging(value);
+					this.SendPropertyChanging();
+					this._SourceType = value;
+					this.SendPropertyChanged("SourceType");
+					this.OnSourceTypeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="LP_Logic_LP_ReportLogic", Storage="_ReportLogics", ThisKey="ID", OtherKey="LogicID")]
+		public EntitySet<LP_ReportLogic> ReportLogics
+		{
+			get
+			{
+				return this._ReportLogics;
+			}
+			set
+			{
+				this._ReportLogics.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="LP_Logic_LP_Logic", Storage="_Parents", ThisKey="ID", OtherKey="LogicID")]
+		public EntitySet<LP_Logic> Parents
+		{
+			get
+			{
+				return this._Parents;
+			}
+			set
+			{
+				this._Parents.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="LP_Table_LP_Logic", Storage="_Table", ThisKey="TableID", OtherKey="ID", IsForeignKey=true)]
+		public LP_Table Table
+		{
+			get
+			{
+				return this._Table.Entity;
+			}
+			set
+			{
+				LP_Table previousValue = this._Table.Entity;
+				if (((previousValue != value) 
+							|| (this._Table.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Table.Entity = null;
+						previousValue.Logics.Remove(this);
+					}
+					this._Table.Entity = value;
+					if ((value != null))
+					{
+						value.Logics.Add(this);
+						this._TableID = value.ID;
+					}
+					else
+					{
+						this._TableID = default(Nullable<System.Guid>);
+					}
+					this.SendPropertyChanged("Table");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="LP_Logic_LP_Logic", Storage="_Child", ThisKey="LogicID", OtherKey="ID", IsForeignKey=true)]
+		public LP_Logic Child
+		{
+			get
+			{
+				return this._Child.Entity;
+			}
+			set
+			{
+				LP_Logic previousValue = this._Child.Entity;
+				if (((previousValue != value) 
+							|| (this._Child.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Child.Entity = null;
+						previousValue.Parents.Remove(this);
+					}
+					this._Child.Entity = value;
+					if ((value != null))
+					{
+						value.Parents.Add(this);
+						this._LogicID = value.ID;
+					}
+					else
+					{
+						this._LogicID = default(Nullable<System.Guid>);
+					}
+					this.SendPropertyChanged("Child");
+				}
 			}
 		}
 		
@@ -1079,36 +1260,42 @@ namespace Lmis.Portal.DAL.DAL
 			}
 		}
 		
-		private void attach_Reports(LP_Report entity)
+		private void attach_ReportLogics(LP_ReportLogic entity)
 		{
 			this.SendPropertyChanging();
 			entity.Logic = this;
 		}
 		
-		private void detach_Reports(LP_Report entity)
+		private void detach_ReportLogics(LP_ReportLogic entity)
 		{
 			this.SendPropertyChanging();
 			entity.Logic = null;
 		}
+		
+		private void attach_Parents(LP_Logic entity)
+		{
+			this.SendPropertyChanging();
+			entity.Child = this;
+		}
+		
+		private void detach_Parents(LP_Logic entity)
+		{
+			this.SendPropertyChanging();
+			entity.Child = null;
+		}
 	}
 	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.LP_Reports")]
-	public partial class LP_Report : INotifyPropertyChanging, INotifyPropertyChanged
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.LP_ReportLogics")]
+	public partial class LP_ReportLogic : INotifyPropertyChanging, INotifyPropertyChanged
 	{
 		
 		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
 		
 		private System.Guid _ID;
 		
-		private System.Guid _CategoryID;
+		private System.Nullable<System.Guid> _ReportID;
 		
-		private System.Guid _LogicID;
-		
-		private System.Guid _TableID;
-		
-		private string _Type;
-		
-		private string _Name;
+		private System.Nullable<System.Guid> _LogicID;
 		
 		private System.DateTime _DateCreated;
 		
@@ -1116,11 +1303,9 @@ namespace Lmis.Portal.DAL.DAL
 		
 		private System.Nullable<System.DateTime> _DateDeleted;
 		
-		private EntityRef<LP_Category> _Category;
-		
 		private EntityRef<LP_Logic> _Logic;
 		
-		private EntityRef<LP_Table> _Table;
+		private EntityRef<LP_Report> _Report;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -1128,16 +1313,10 @@ namespace Lmis.Portal.DAL.DAL
     partial void OnCreated();
     partial void OnIDChanging(System.Guid value);
     partial void OnIDChanged();
-    partial void OnCategoryIDChanging(System.Guid value);
-    partial void OnCategoryIDChanged();
-    partial void OnLogicIDChanging(System.Guid value);
+    partial void OnReportIDChanging(System.Nullable<System.Guid> value);
+    partial void OnReportIDChanged();
+    partial void OnLogicIDChanging(System.Nullable<System.Guid> value);
     partial void OnLogicIDChanged();
-    partial void OnTableIDChanging(System.Guid value);
-    partial void OnTableIDChanged();
-    partial void OnTypeChanging(string value);
-    partial void OnTypeChanged();
-    partial void OnNameChanging(string value);
-    partial void OnNameChanged();
     partial void OnDateCreatedChanging(System.DateTime value);
     partial void OnDateCreatedChanged();
     partial void OnDateChangedChanging(System.Nullable<System.DateTime> value);
@@ -1146,11 +1325,10 @@ namespace Lmis.Portal.DAL.DAL
     partial void OnDateDeletedChanged();
     #endregion
 		
-		public LP_Report()
+		public LP_ReportLogic()
 		{
-			this._Category = default(EntityRef<LP_Category>);
 			this._Logic = default(EntityRef<LP_Logic>);
-			this._Table = default(EntityRef<LP_Table>);
+			this._Report = default(EntityRef<LP_Report>);
 			OnCreated();
 		}
 		
@@ -1174,7 +1352,275 @@ namespace Lmis.Portal.DAL.DAL
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CategoryID", DbType="UniqueIdentifier NOT NULL", UpdateCheck=UpdateCheck.Never)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ReportID", DbType="UniqueIdentifier")]
+		public System.Nullable<System.Guid> ReportID
+		{
+			get
+			{
+				return this._ReportID;
+			}
+			set
+			{
+				if ((this._ReportID != value))
+				{
+					if (this._Report.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnReportIDChanging(value);
+					this.SendPropertyChanging();
+					this._ReportID = value;
+					this.SendPropertyChanged("ReportID");
+					this.OnReportIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_LogicID", DbType="UniqueIdentifier")]
+		public System.Nullable<System.Guid> LogicID
+		{
+			get
+			{
+				return this._LogicID;
+			}
+			set
+			{
+				if ((this._LogicID != value))
+				{
+					if (this._Logic.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnLogicIDChanging(value);
+					this.SendPropertyChanging();
+					this._LogicID = value;
+					this.SendPropertyChanged("LogicID");
+					this.OnLogicIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DateCreated", DbType="DateTime NOT NULL")]
+		public System.DateTime DateCreated
+		{
+			get
+			{
+				return this._DateCreated;
+			}
+			set
+			{
+				if ((this._DateCreated != value))
+				{
+					this.OnDateCreatedChanging(value);
+					this.SendPropertyChanging();
+					this._DateCreated = value;
+					this.SendPropertyChanged("DateCreated");
+					this.OnDateCreatedChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DateChanged", DbType="DateTime")]
+		public System.Nullable<System.DateTime> DateChanged
+		{
+			get
+			{
+				return this._DateChanged;
+			}
+			set
+			{
+				if ((this._DateChanged != value))
+				{
+					this.OnDateChangedChanging(value);
+					this.SendPropertyChanging();
+					this._DateChanged = value;
+					this.SendPropertyChanged("DateChanged");
+					this.OnDateChangedChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DateDeleted", DbType="DateTime")]
+		public System.Nullable<System.DateTime> DateDeleted
+		{
+			get
+			{
+				return this._DateDeleted;
+			}
+			set
+			{
+				if ((this._DateDeleted != value))
+				{
+					this.OnDateDeletedChanging(value);
+					this.SendPropertyChanging();
+					this._DateDeleted = value;
+					this.SendPropertyChanged("DateDeleted");
+					this.OnDateDeletedChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="LP_Logic_LP_ReportLogic", Storage="_Logic", ThisKey="LogicID", OtherKey="ID", IsForeignKey=true)]
+		public LP_Logic Logic
+		{
+			get
+			{
+				return this._Logic.Entity;
+			}
+			set
+			{
+				LP_Logic previousValue = this._Logic.Entity;
+				if (((previousValue != value) 
+							|| (this._Logic.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Logic.Entity = null;
+						previousValue.ReportLogics.Remove(this);
+					}
+					this._Logic.Entity = value;
+					if ((value != null))
+					{
+						value.ReportLogics.Add(this);
+						this._LogicID = value.ID;
+					}
+					else
+					{
+						this._LogicID = default(Nullable<System.Guid>);
+					}
+					this.SendPropertyChanged("Logic");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="LP_Report_LP_ReportLogic", Storage="_Report", ThisKey="ReportID", OtherKey="ID", IsForeignKey=true)]
+		public LP_Report Report
+		{
+			get
+			{
+				return this._Report.Entity;
+			}
+			set
+			{
+				LP_Report previousValue = this._Report.Entity;
+				if (((previousValue != value) 
+							|| (this._Report.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Report.Entity = null;
+						previousValue.ReportLogics.Remove(this);
+					}
+					this._Report.Entity = value;
+					if ((value != null))
+					{
+						value.ReportLogics.Add(this);
+						this._ReportID = value.ID;
+					}
+					else
+					{
+						this._ReportID = default(Nullable<System.Guid>);
+					}
+					this.SendPropertyChanged("Report");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.LP_Reports")]
+	public partial class LP_Report : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private System.Guid _ID;
+		
+		private System.Guid _CategoryID;
+		
+		private string _Type;
+		
+		private string _Name;
+		
+		private System.DateTime _DateCreated;
+		
+		private System.Nullable<System.DateTime> _DateChanged;
+		
+		private System.Nullable<System.DateTime> _DateDeleted;
+		
+		private EntitySet<LP_ReportLogic> _ReportLogics;
+		
+		private EntityRef<LP_Category> _Category;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnIDChanging(System.Guid value);
+    partial void OnIDChanged();
+    partial void OnCategoryIDChanging(System.Guid value);
+    partial void OnCategoryIDChanged();
+    partial void OnTypeChanging(string value);
+    partial void OnTypeChanged();
+    partial void OnNameChanging(string value);
+    partial void OnNameChanged();
+    partial void OnDateCreatedChanging(System.DateTime value);
+    partial void OnDateCreatedChanged();
+    partial void OnDateChangedChanging(System.Nullable<System.DateTime> value);
+    partial void OnDateChangedChanged();
+    partial void OnDateDeletedChanging(System.Nullable<System.DateTime> value);
+    partial void OnDateDeletedChanged();
+    #endregion
+		
+		public LP_Report()
+		{
+			this._ReportLogics = new EntitySet<LP_ReportLogic>(new Action<LP_ReportLogic>(this.attach_ReportLogics), new Action<LP_ReportLogic>(this.detach_ReportLogics));
+			this._Category = default(EntityRef<LP_Category>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ID", DbType="UniqueIdentifier NOT NULL", IsPrimaryKey=true)]
+		public System.Guid ID
+		{
+			get
+			{
+				return this._ID;
+			}
+			set
+			{
+				if ((this._ID != value))
+				{
+					this.OnIDChanging(value);
+					this.SendPropertyChanging();
+					this._ID = value;
+					this.SendPropertyChanged("ID");
+					this.OnIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CategoryID", DbType="UniqueIdentifier NOT NULL")]
 		public System.Guid CategoryID
 		{
 			get
@@ -1198,55 +1644,7 @@ namespace Lmis.Portal.DAL.DAL
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_LogicID", DbType="UniqueIdentifier NOT NULL", UpdateCheck=UpdateCheck.Never)]
-		public System.Guid LogicID
-		{
-			get
-			{
-				return this._LogicID;
-			}
-			set
-			{
-				if ((this._LogicID != value))
-				{
-					if (this._Logic.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnLogicIDChanging(value);
-					this.SendPropertyChanging();
-					this._LogicID = value;
-					this.SendPropertyChanged("LogicID");
-					this.OnLogicIDChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TableID", DbType="UniqueIdentifier NOT NULL", UpdateCheck=UpdateCheck.Never)]
-		public System.Guid TableID
-		{
-			get
-			{
-				return this._TableID;
-			}
-			set
-			{
-				if ((this._TableID != value))
-				{
-					if (this._Table.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnTableIDChanging(value);
-					this.SendPropertyChanging();
-					this._TableID = value;
-					this.SendPropertyChanged("TableID");
-					this.OnTableIDChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Type", DbType="NVarChar(250)", UpdateCheck=UpdateCheck.Never)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Type", DbType="NVarChar(250) NOT NULL", CanBeNull=false)]
 		public string Type
 		{
 			get
@@ -1266,7 +1664,7 @@ namespace Lmis.Portal.DAL.DAL
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Name", DbType="NVarChar(250)", UpdateCheck=UpdateCheck.Never)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Name", DbType="NVarChar(250)")]
 		public string Name
 		{
 			get
@@ -1346,6 +1744,19 @@ namespace Lmis.Portal.DAL.DAL
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="LP_Report_LP_ReportLogic", Storage="_ReportLogics", ThisKey="ID", OtherKey="ReportID")]
+		public EntitySet<LP_ReportLogic> ReportLogics
+		{
+			get
+			{
+				return this._ReportLogics;
+			}
+			set
+			{
+				this._ReportLogics.Assign(value);
+			}
+		}
+		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="LP_Category_LP_Report", Storage="_Category", ThisKey="CategoryID", OtherKey="ID", IsForeignKey=true)]
 		public LP_Category Category
 		{
@@ -1380,74 +1791,6 @@ namespace Lmis.Portal.DAL.DAL
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="LP_Logic_LP_Report", Storage="_Logic", ThisKey="LogicID", OtherKey="ID", IsForeignKey=true)]
-		public LP_Logic Logic
-		{
-			get
-			{
-				return this._Logic.Entity;
-			}
-			set
-			{
-				LP_Logic previousValue = this._Logic.Entity;
-				if (((previousValue != value) 
-							|| (this._Logic.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Logic.Entity = null;
-						previousValue.Reports.Remove(this);
-					}
-					this._Logic.Entity = value;
-					if ((value != null))
-					{
-						value.Reports.Add(this);
-						this._LogicID = value.ID;
-					}
-					else
-					{
-						this._LogicID = default(System.Guid);
-					}
-					this.SendPropertyChanged("Logic");
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="LP_Table_LP_Report", Storage="_Table", ThisKey="TableID", OtherKey="ID", IsForeignKey=true)]
-		public LP_Table Table
-		{
-			get
-			{
-				return this._Table.Entity;
-			}
-			set
-			{
-				LP_Table previousValue = this._Table.Entity;
-				if (((previousValue != value) 
-							|| (this._Table.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Table.Entity = null;
-						previousValue.Reports.Remove(this);
-					}
-					this._Table.Entity = value;
-					if ((value != null))
-					{
-						value.Reports.Add(this);
-						this._TableID = value.ID;
-					}
-					else
-					{
-						this._TableID = default(System.Guid);
-					}
-					this.SendPropertyChanged("Table");
-				}
-			}
-		}
-		
 		public event PropertyChangingEventHandler PropertyChanging;
 		
 		public event PropertyChangedEventHandler PropertyChanged;
@@ -1466,6 +1809,18 @@ namespace Lmis.Portal.DAL.DAL
 			{
 				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
+		}
+		
+		private void attach_ReportLogics(LP_ReportLogic entity)
+		{
+			this.SendPropertyChanging();
+			entity.Report = this;
+		}
+		
+		private void detach_ReportLogics(LP_ReportLogic entity)
+		{
+			this.SendPropertyChanging();
+			entity.Report = null;
 		}
 	}
 }

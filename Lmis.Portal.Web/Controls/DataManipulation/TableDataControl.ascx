@@ -12,6 +12,11 @@
 </div>
 <div>
 	<asp:SqlDataSource runat="server" ID="sqlDs"></asp:SqlDataSource>
-	<ce:DataGrid runat="server" ID="gvData" DataSourceID="sqlDs">
-	</ce:DataGrid>
+	<dx:ASPxGridView runat="server" ID="gvData" DataSourceID="sqlDs"
+		OnCellEditorInitialize="gvData_CellEditorInitialize"
+		OnRowInserting="gvData_RowInserting"
+		OnRowUpdating="gvData_RowUpdating"
+		OnRowDeleting="gvData_OnRowDeleting">
+		<SettingsEditing Mode="PopupEditForm" NewItemRowPosition="Top" />
+	</dx:ASPxGridView>
 </div>

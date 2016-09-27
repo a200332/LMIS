@@ -33,6 +33,16 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="DevExpress.Data.v16.1, Version=16.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Pdf.v16.1.Core, Version=16.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Printing.v16.1.Core, Version=16.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.PivotGrid.v16.1.Core, Version=16.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Web.ASPxPivotGrid.v16.1, Version=16.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Web.ASPxTreeList.v16.1, Version=16.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Office.v16.1.Core, Version=16.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.RichEdit.v16.1.Core, Version=16.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Web.v16.1, Version=16.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraPivotGrid.v16.1, Version=16.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DocumentFormat.OpenXml, Version=2.5.5631.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Dependencies\3rdparty\Web\DocumentFormat.OpenXml.dll</HintPath>
@@ -183,12 +193,16 @@
     <Compile Include="Web\UI\Configs\ImageLinkButton\ImageLinkButtonSection.cs" />
     <Compile Include="Web\UI\Configs\ImageLinkButton\ImageUrlElement.cs" />
     <Compile Include="Web\UI\Configs\ImageLinkButton\ImageUrlElementCollection.cs" />
+    <Compile Include="Web\UI\Controls\ASPxComboBox.cs" />
+    <Compile Include="Web\UI\Controls\ASPxGridView.cs" />
+    <Compile Include="Web\UI\Controls\ASPxGridViewDataTextColumn.cs" />
+    <Compile Include="Web\UI\Controls\ASPxPivotGrid.cs" />
+    <Compile Include="Web\UI\Controls\ASPxTreeList.cs" />
     <Compile Include="Web\UI\Controls\AutoActiveLink.cs" />
     <Compile Include="Web\UI\Controls\BulletedList.cs" />
     <Compile Include="Web\UI\Controls\Button.cs" />
     <Compile Include="Web\UI\Controls\CheckBox.cs" />
     <Compile Include="Web\UI\Controls\CheckBoxList.cs" />
-    <Compile Include="Web\UI\Controls\DataGrid.cs" />
     <Compile Include="Web\UI\Controls\DropDownList.cs" />
     <Compile Include="Web\UI\Controls\ExtendedFileUpload.cs" />
     <Compile Include="Web\UI\Controls\ExtendedImageUpload.cs" />
@@ -203,7 +217,6 @@
     <Compile Include="Web\UI\Controls\RadioButton.cs" />
     <Compile Include="Web\UI\Controls\RadioButtonList.cs" />
     <Compile Include="Web\UI\Controls\TextBox.cs" />
-    <Compile Include="Web\UI\Controls\TreeView.cs" />
     <Compile Include="Web\UI\Helpers\CollectionDataView.cs" />
     <Compile Include="Web\UI\Helpers\CollectionItemDescriptor.cs" />
     <Compile Include="Web\UI\Helpers\CollectionItemPropertyDescriptor.cs" />

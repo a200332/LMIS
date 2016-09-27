@@ -1,4 +1,5 @@
-﻿using Lmis.Portal.DAL.DAL;
+﻿using System.Linq;
+using Lmis.Portal.DAL.DAL;
 using Lmis.Portal.Web.Converters.Common;
 using Lmis.Portal.Web.Models;
 
@@ -24,8 +25,17 @@ namespace Lmis.Portal.Web.Converters.EntityToModel
 			target.Name = source.Name;
 			target.Type = source.Type;
 			target.CategoryID = source.CategoryID;
-			target.TableID = source.TableID;
-			target.LogicID = source.LogicID;
+
+			var query = (from n in source.ReportLogics
+						 where n.DateDeleted == null &&
+							   n.Logic != null
+						 select n.Logic);
+
+
+			var converter = new LogicEntityModelConverter(DbContext);
+			var models = query.Select(n => converter.Convert(n));
+
+			target.Logics = new LogicsModel { List = models.ToList() };
 		}
 	}
 }

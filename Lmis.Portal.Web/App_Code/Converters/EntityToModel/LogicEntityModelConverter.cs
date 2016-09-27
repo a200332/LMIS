@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Xml.Linq;
 using Lmis.Portal.DAL.DAL;
 using Lmis.Portal.Web.Converters.Common;
@@ -29,16 +30,19 @@ namespace Lmis.Portal.Web.Converters.EntityToModel
 			target.Name = source.Name;
 			target.Type = source.Type;
 
+			if (source.SourceType == "Table")
+				target.SourceID = source.TableID;
+
+			if (source.SourceType == "Logic")
+				target.SourceID = source.LogicID;
+
 			var logicXElem = source.RawData;
 			if (logicXElem == null)
 				return;
 
 			target.Query = GetQuery(logicXElem);
+			target.ExpressionsLogic = GetExpressionsLogic(logicXElem);
 
-			target.FilterBy = GetExpressionsList("FilterBy", logicXElem);
-			target.GroupBy = GetNamedExpressionsList("GroupBy", logicXElem);
-			target.OrderBy = GetExpressionsList("OrderBy", logicXElem);
-			target.Select = GetNamedExpressionsList("Select", logicXElem);
 		}
 
 		private String GetQuery(XElement logicXElem)
@@ -47,6 +51,18 @@ namespace Lmis.Portal.Web.Converters.EntityToModel
 				return logicXElem.Value;
 
 			return null;
+		}
+
+		private ExpressionsLogicModel GetExpressionsLogic(XElement logicXElem)
+		{
+			var model = new ExpressionsLogicModel();
+
+			model.FilterBy = GetExpressionsList("FilterBy", logicXElem);
+			model.GroupBy = GetNamedExpressionsList("GroupBy", logicXElem);
+			model.OrderBy = GetExpressionsList("OrderBy", logicXElem);
+			model.Select = GetNamedExpressionsList("Select", logicXElem);
+
+			return model;
 		}
 
 		private ExpressionsListModel GetExpressionsList(String name, XElement logicXElem)

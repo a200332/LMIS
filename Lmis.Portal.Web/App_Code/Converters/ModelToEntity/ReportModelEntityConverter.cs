@@ -28,9 +28,26 @@ namespace Lmis.Portal.Web.Converters.ModelToEntity
 		{
 			target.Name = source.Name;
 			target.CategoryID = source.CategoryID.Value;
-			target.LogicID = source.LogicID.Value;
-			target.TableID = source.TableID.Value;
 			target.Type = source.Type;
+
+			foreach (var entity in target.ReportLogics)
+				entity.DateDeleted = DateTime.Now;
+
+			if (source.Logics != null && source.Logics.List != null)
+			{
+				foreach (var logicModel in source.Logics.List)
+				{
+					var entity = new LP_ReportLogic
+					{
+						ID = Guid.NewGuid(),
+						DateCreated = DateTime.Now,
+						ReportID = target.ID,
+						LogicID = logicModel.ID,
+					};
+
+					target.ReportLogics.Add(entity);
+				}
+			}
 		}
 	}
 }

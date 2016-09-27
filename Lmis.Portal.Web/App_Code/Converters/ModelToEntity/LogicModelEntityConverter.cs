@@ -31,6 +31,13 @@ namespace Lmis.Portal.Web.Converters.ModelToEntity
 			//target.ID = source.ID;
 			target.Name = source.Name;
 			target.Type = source.Type;
+
+			if (source.SourceType == "Table")
+				target.TableID = source.SourceID;
+
+			if (source.SourceType == "Logic")
+				target.LogicID = source.SourceID;
+
 			target.RawData = GetRawData(source);
 		}
 
@@ -47,6 +54,15 @@ namespace Lmis.Portal.Web.Converters.ModelToEntity
 			return new XElement("Query", model.Query);
 		}
 		private XElement GetLogicXml(LogicModel model)
+		{
+			var expressionsLogic = model.ExpressionsLogic;
+			if (expressionsLogic != null)
+				return GetLogicXml(expressionsLogic);
+
+			return null;
+		}
+
+		private XElement GetLogicXml(ExpressionsLogicModel model)
 		{
 			var logicXElem = new XElement("Logic");
 

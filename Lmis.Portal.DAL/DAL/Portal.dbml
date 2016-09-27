@@ -3,12 +3,12 @@
   <Table Name="dbo.LP_Tables" Member="LP_Tables">
     <Type Name="LP_Table">
       <Column Name="ID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="Name" Type="System.String" DbType="NVarChar(250)" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(250)" CanBeNull="true" />
       <Column Name="DateCreated" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
       <Column Name="DateChanged" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
       <Column Name="DateDeleted" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
       <Association Name="LP_Table_LP_Column" Member="Columns" ThisKey="ID" OtherKey="TableID" Type="LP_Column" />
-      <Association Name="LP_Table_LP_Report" Member="Reports" ThisKey="ID" OtherKey="TableID" Type="LP_Report" />
+      <Association Name="LP_Table_LP_Logic" Member="Logics" ThisKey="ID" OtherKey="TableID" Type="LP_Logic" />
     </Type>
   </Table>
   <Table Name="dbo.LP_Categories" Member="LP_Categories">
@@ -27,41 +27,56 @@
   <Table Name="dbo.LP_Columns" Member="LP_Columns">
     <Type Name="LP_Column">
       <Column Name="ID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="TableID" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" UpdateCheck="Never" />
-      <Column Name="Name" Type="System.String" DbType="NVarChar(250)" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="TableID" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(250)" CanBeNull="true" />
+      <Column Name="Type" Type="System.String" DbType="NVarChar(250)" CanBeNull="true" />
       <Column Name="DateCreated" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
       <Column Name="DateChanged" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
       <Column Name="DateDeleted" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Column Name="Type" Type="System.String" DbType="NVarChar(250)" CanBeNull="true" UpdateCheck="Never" />
       <Association Name="LP_Table_LP_Column" Member="Table" ThisKey="TableID" OtherKey="ID" Type="LP_Table" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.LP_Logics" Member="LP_Logics">
     <Type Name="LP_Logic">
       <Column Name="ID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="Name" Type="System.String" DbType="NVarChar(250)" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="TableID" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(250)" CanBeNull="true" />
+      <Column Name="Type" Type="System.String" DbType="NVarChar(250)" CanBeNull="true" />
       <Column Name="RawData" Type="System.Xml.Linq.XElement" DbType="Xml" CanBeNull="true" UpdateCheck="Never" />
       <Column Name="DateCreated" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
       <Column Name="DateChanged" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
       <Column Name="DateDeleted" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Column Name="Type" Type="System.String" DbType="NVarChar(250)" CanBeNull="true" UpdateCheck="Never" />
-      <Association Name="LP_Logic_LP_Report" Member="Reports" ThisKey="ID" OtherKey="LogicID" Type="LP_Report" />
+      <Column Name="LogicID" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
+      <Column Name="SourceType" Type="System.String" DbType="NVarChar(250)" CanBeNull="true" />
+      <Association Name="LP_Logic_LP_ReportLogic" Member="ReportLogics" ThisKey="ID" OtherKey="LogicID" Type="LP_ReportLogic" />
+      <Association Name="LP_Logic_LP_Logic" Member="Parents" ThisKey="ID" OtherKey="LogicID" Type="LP_Logic" />
+      <Association Name="LP_Table_LP_Logic" Member="Table" ThisKey="TableID" OtherKey="ID" Type="LP_Table" IsForeignKey="true" />
+      <Association Name="LP_Logic_LP_Logic" Member="Child" ThisKey="LogicID" OtherKey="ID" Type="LP_Logic" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.LP_ReportLogics" Member="LP_ReportLogics">
+    <Type Name="LP_ReportLogic">
+      <Column Name="ID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="ReportID" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
+      <Column Name="LogicID" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
+      <Column Name="DateCreated" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="DateChanged" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="DateDeleted" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Association Name="LP_Logic_LP_ReportLogic" Member="Logic" ThisKey="LogicID" OtherKey="ID" Type="LP_Logic" IsForeignKey="true" />
+      <Association Name="LP_Report_LP_ReportLogic" Member="Report" ThisKey="ReportID" OtherKey="ID" Type="LP_Report" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.LP_Reports" Member="LP_Reports">
     <Type Name="LP_Report">
       <Column Name="ID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="CategoryID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" UpdateCheck="Never" />
-      <Column Name="LogicID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" UpdateCheck="Never" />
-      <Column Name="TableID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" UpdateCheck="Never" />
-      <Column Name="Type" Type="System.String" DbType="NVarChar(250)" CanBeNull="true" UpdateCheck="Never" />
-      <Column Name="Name" Type="System.String" DbType="NVarChar(250)" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="CategoryID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="Type" Type="System.String" DbType="NVarChar(250) NOT NULL" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(250)" CanBeNull="true" />
       <Column Name="DateCreated" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
       <Column Name="DateChanged" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
       <Column Name="DateDeleted" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Association Name="LP_Report_LP_ReportLogic" Member="ReportLogics" ThisKey="ID" OtherKey="ReportID" Type="LP_ReportLogic" />
       <Association Name="LP_Category_LP_Report" Member="Category" ThisKey="CategoryID" OtherKey="ID" Type="LP_Category" IsForeignKey="true" />
-      <Association Name="LP_Logic_LP_Report" Member="Logic" ThisKey="LogicID" OtherKey="ID" Type="LP_Logic" IsForeignKey="true" />
-      <Association Name="LP_Table_LP_Report" Member="Table" ThisKey="TableID" OtherKey="ID" Type="LP_Table" IsForeignKey="true" />
     </Type>
   </Table>
 </Database>

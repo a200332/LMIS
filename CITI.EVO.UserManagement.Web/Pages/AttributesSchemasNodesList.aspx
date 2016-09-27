@@ -216,7 +216,7 @@
 																			<asp:Label runat="server">კატეგორია</asp:Label>
 																		</div>
 																		<div class="box_popup">
-																			<mis:DropDownList ID="cmbAttributeCategories" CssClass="content_left_dropdown" ValueField="ID" Width="180px" TextField="Name" ValueType="System.Guid"
+																			<mis:ASPxComboBox ID="cmbAttributeCategories" CssClass="content_left_dropdown" ValueField="ID" Width="180px" TextField="Name" ValueType="System.Guid"
 																				runat="server" />
 																		</div>
 																	</div>
@@ -225,7 +225,7 @@
 																			<asp:Label runat="server">ტიპი</asp:Label>
 																		</div>
 																		<div class="box_popup">
-																			<mis:DropDownList ID="cmbAttributeTypes" CssClass="content_left_dropdown" ValueField="ID" Width="180px" TextField="Name" ValueType="System.Guid"
+																			<mis:ASPxComboBox ID="cmbAttributeTypes" CssClass="content_left_dropdown" ValueField="ID" Width="180px" TextField="Name" ValueType="System.Guid"
 																				runat="server" />
 																		</div>
 																	</div>

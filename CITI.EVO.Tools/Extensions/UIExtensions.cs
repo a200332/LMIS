@@ -7,26 +7,23 @@ using System.Text;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using CITI.EVO.Tools.Utils;
+using DevExpress.Web;
 
 namespace CITI.EVO.Tools.Extensions
 {
 	public static class UIExtensions
 	{
-		public static IEnumerable<TreeNode> GetAllNodes(this TreeView treeView)
+		public static void InsertEmptyItem<TItem>(this IList<TItem> list, Action<TItem> action)
 		{
-			var roots = treeView.Nodes.Cast<TreeNode>();
-			var stack = new Stack<TreeNode>(roots);
-
-			while (stack.Count > 0)
+			if (list == null)
 			{
-				var node = stack.Pop();
-
-				var children = node.ChildNodes.Cast<TreeNode>();
-				foreach (var child in children)
-					stack.Push(child);
-
-				yield return node;
+				return;
 			}
+
+			var instance = Activator.CreateInstance<TItem>();
+			action(instance);
+
+			list.Insert(0, instance);
 		}
 
 		public static Object GetFormViewState(StateBag viewState)
@@ -70,6 +67,45 @@ namespace CITI.EVO.Tools.Extensions
 
 			return flag;
 		}
+		public static bool TrySetSelectedValue(this ASPxComboBox list, Object value)
+		{
+			if (list == null || list.Items == null)
+			{
+				return false;
+			}
+
+			if (value == null)
+			{
+				list.SelectedItem = null;
+				return true;
+			}
+
+			if (list.ValueType != null)
+			{
+				var type = value.GetType();
+				if (list.ValueType != type)
+				{
+					var message = String.Format("ValueType ({0}) of ASPxComboBox ({1}) and type of setting value ({2}) to set is not same", list.ID, list.ValueType, type);
+					throw new Exception(message);
+				}
+			}
+
+			list.SelectedItem = list.Items.FindByValue(value);
+			return true;
+		}
+
+
+		public static String TryGetStringValue(this ASPxComboBox list)
+		{
+			var selectedItem = list.SelectedItem;
+			if (selectedItem == null)
+			{
+				return null;
+			}
+
+			var value = DataConverter.ToString(selectedItem.Value);
+			return value;
+		}
 
 		public static String TryGetStringValue(this ListControl list)
 		{
@@ -96,6 +132,36 @@ namespace CITI.EVO.Tools.Extensions
 			{
 				value = null;
 			}
+
+			return value;
+		}
+
+		public static Guid? TryGetGuidValue(this ASPxComboBox list, bool emptyGuidAsNull = true)
+		{
+			var selectedItem = list.SelectedItem;
+			if (selectedItem == null)
+			{
+				return null;
+			}
+
+			var value = DataConverter.ToNullableGuid(selectedItem.Value);
+			if (value == Guid.Empty && emptyGuidAsNull)
+			{
+				value = null;
+			}
+
+			return value;
+		}
+
+		public static int? TryGetIntValue(this ASPxComboBox list)
+		{
+			var selectedItem = list.SelectedItem;
+			if (selectedItem == null)
+			{
+				return null;
+			}
+
+			var value = DataConverter.ToNullableInt(selectedItem.Value);
 
 			return value;
 		}
@@ -141,6 +207,11 @@ namespace CITI.EVO.Tools.Extensions
 		}
 
 		public static void DataBind(this BaseDataBoundControl control, Object dataSource)
+		{
+			control.DataSource = dataSource;
+			control.DataBind();
+		}
+		public static void DataBind(this ASPxDataWebControlBase control, Object dataSource)
 		{
 			control.DataSource = dataSource;
 			control.DataBind();

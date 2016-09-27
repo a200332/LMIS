@@ -5,7 +5,10 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using CITI.EVO.Tools.Extensions;
+using Lmis.Portal.DAL.DAL;
+using Lmis.Portal.Web.Converters.EntityToModel;
 using Lmis.Portal.Web.Models;
+using Lmis.Portal.Web.Models.Common;
 
 namespace Lmis.Portal.Web.BLL
 {
@@ -22,10 +25,14 @@ namespace Lmis.Portal.Web.BLL
 		private const String groupFormat = "GROUP BY {0}";
 		private const String orderFormat = "ORDER BY {0}";
 
-		private readonly TableModel _tableModel;
-		private readonly LogicModel _logicModel;
+		private readonly String _querySource;
 
-		private readonly String _tableName;
+		private readonly String _sourceType;
+
+		private readonly LogicModel _logicModel;
+		private readonly PortalDataContext _dbContext;
+
+		private readonly ExpressionsLogicModel _expressionsLogicModel;
 
 		private readonly IDictionary<String, SqlDbType> _dbTypes;
 
@@ -35,32 +42,62 @@ namespace Lmis.Portal.Web.BLL
 		private readonly IDictionary<String, String> _allColumnsParams;
 		private readonly IDictionary<String, String> _primaryColumnsParams;
 
-		public QueryGenerator(TableModel tableModel, LogicModel logicModel)
+		public QueryGenerator(PortalDataContext dbContext, LogicModel logicModel)
 		{
-			_tableModel = tableModel;
+			_dbContext = dbContext;
 			_logicModel = logicModel;
+			_sourceType = _logicModel.SourceType;
 
-			_tableName = GetCorrectName(_tableModel.Name);
+			var columns = (List<ColumnModel>)null;
 
-			var dbTypesQuery = (from n in tableModel.Columns
-								let t = GetDataType(n.Type)
-								let m = GetCorrectName(n.Name)
-								select new KeyValuePair<String, SqlDbType>(m, t));
+			if (_logicModel.SourceType == "Table")
+			{
+				var table = dbContext.LP_Tables.First(n => n.ID == _logicModel.SourceID);
 
-			_dbTypes = dbTypesQuery.ToDictionary();
+				var converter = new TableEntityModelConverter(_dbContext);
+				var model = converter.Convert(table);
 
-			var allColumnsQuery = (from n in _tableModel.Columns
-								   let m = GetCorrectName(n.Name)
-								   select new KeyValuePair<String, String>(n.Name, m));
+				columns = model.Columns;
+				_querySource = GetCorrectName(model.Name);
 
-			_allColumns = allColumnsQuery.ToDictionary();
+				var dbTypesQuery = (from n in columns
+									let t = GetDataType(n.Type)
+									let m = GetCorrectName(n.Name)
+									select new KeyValuePair<String, SqlDbType>(m, t));
 
-			var primaryColumnsQuery = (from n in _tableModel.Columns
-									   where n.IsPrimary
+				_dbTypes = dbTypesQuery.ToDictionary();
+
+				var allColumnsQuery = (from n in columns
 									   let m = GetCorrectName(n.Name)
 									   select new KeyValuePair<String, String>(n.Name, m));
 
-			_primaryColumns = primaryColumnsQuery.ToDictionary();
+				_allColumns = allColumnsQuery.ToDictionary();
+
+				var primaryColumnsQuery = (from n in columns
+										   where n.IsPrimary
+										   let m = GetCorrectName(n.Name)
+										   select new KeyValuePair<String, String>(n.Name, m));
+
+				_primaryColumns = primaryColumnsQuery.ToDictionary();
+
+			}
+			else if (_logicModel.SourceType == "Logic")
+			{
+				var logic = dbContext.LP_Logics.First(n => n.ID == _logicModel.SourceID);
+
+				var converter = new LogicEntityModelConverter(_dbContext);
+				var model = converter.Convert(logic);
+
+				var queryGen = new QueryGenerator(_dbContext, model);
+
+				var selectQuery = queryGen.SelectQuery(true);
+
+				_querySource = String.Format("({0})", selectQuery);
+
+				_dbTypes = queryGen.DbTypes;
+				_allColumns = queryGen.AllColumns;
+				_primaryColumns = queryGen.PrimaryColumns;
+			}
 
 			if (_primaryColumns.Count == 0)
 				_primaryColumns = _allColumns;
@@ -105,6 +142,10 @@ namespace Lmis.Portal.Web.BLL
 
 		public String SelectQuery()
 		{
+			return SelectQuery(false);
+		}
+		public String SelectQuery(bool noOrders)
+		{
 			var selectFields = GetSelect().ToList();
 			var filterFields = GetFilters().ToList();
 			var groupFields = GetGroupers().ToList();
@@ -115,7 +156,7 @@ namespace Lmis.Portal.Web.BLL
 			if (selectFields.Count > 0)
 			{
 				var fields = String.Join(", ", selectFields);
-				var select = String.Format(selectFormat, fields, _tableName);
+				var select = String.Format(selectFormat, fields, _querySource);
 
 				queryParts.Add(select);
 			}
@@ -123,7 +164,7 @@ namespace Lmis.Portal.Web.BLL
 			{
 				var names = String.Join(", ", _allColumns.Values);
 
-				var select = String.Format(selectFormat, names, _tableName);
+				var select = String.Format(selectFormat, names, _querySource);
 				queryParts.Add(select);
 			}
 
@@ -143,12 +184,15 @@ namespace Lmis.Portal.Web.BLL
 				queryParts.Add(groupers);
 			}
 
-			if (orderFields.Count > 0)
+			if (!noOrders)
 			{
-				var fields = String.Join(", ", orderFields);
-				var orders = String.Format(orderFormat, fields);
+				if (orderFields.Count > 0)
+				{
+					var fields = String.Join(", ", orderFields);
+					var orders = String.Format(orderFormat, fields);
 
-				queryParts.Add(orders);
+					queryParts.Add(orders);
+				}
 			}
 
 			var sqlQuery = String.Join(Environment.NewLine, queryParts);
@@ -157,17 +201,23 @@ namespace Lmis.Portal.Web.BLL
 
 		public String InsertQuery()
 		{
+			if (_sourceType != "Table")
+				throw new NotSupportedException();
+
 			var @params = _allColumns.Select(n => _allColumnsParams[n.Value]);
 
 			var columnsText = String.Join(", ", _allColumns.Values);
 			var valuesText = String.Join(", ", @params);
 
-			var query = String.Format(insertFormat, _tableName, columnsText, valuesText);
+			var query = String.Format(insertFormat, _querySource, columnsText, valuesText);
 			return query;
 		}
 
 		public String UpdateQuery()
 		{
+			if (_sourceType != "Table")
+				throw new NotSupportedException();
+
 			var setTexts = (from n in _allColumnsParams
 							let m = String.Format("{0} = {1}", n.Key, n.Value)
 							select m);
@@ -181,7 +231,7 @@ namespace Lmis.Portal.Web.BLL
 
 			using (var writer = new StringWriter())
 			{
-				writer.WriteLine(updateFormat, _tableName, setText);
+				writer.WriteLine(updateFormat, _querySource, setText);
 
 				if (!String.IsNullOrWhiteSpace(whereText))
 					writer.WriteLine(whereFormat, whereText);
@@ -192,6 +242,9 @@ namespace Lmis.Portal.Web.BLL
 
 		public String DeleteQuery()
 		{
+			if (_sourceType != "Table")
+				throw new NotSupportedException();
+
 			var whereTexts = (from n in _primaryColumnsParams
 							  let m = String.Format("{0} = {1}", n.Key, n.Value)
 							  select m);
@@ -200,7 +253,7 @@ namespace Lmis.Portal.Web.BLL
 
 			using (var writer = new StringWriter())
 			{
-				writer.WriteLine(deleteFormat, _tableName);
+				writer.WriteLine(deleteFormat, _querySource);
 
 				if (!String.IsNullOrWhiteSpace(whereText))
 					writer.WriteLine(whereFormat, whereText);
@@ -211,66 +264,85 @@ namespace Lmis.Portal.Web.BLL
 
 		public String DeleteAllQuery()
 		{
-			return String.Format(deleteFormat, _tableName);
+			if (_sourceType != "Table")
+				throw new NotSupportedException();
+
+			return String.Format(deleteFormat, _querySource);
 		}
 
 		public String TruncateQuery()
 		{
-			return String.Format(truncateFormat, _tableName);
+			if (_sourceType != "Table")
+				throw new NotSupportedException();
+
+			return String.Format(truncateFormat, _querySource);
 		}
 
 		private IEnumerable<String> GetFilters()
 		{
-			if (_logicModel == null ||
-				_logicModel.FilterBy == null ||
-				_logicModel.FilterBy.Expressions == null)
-				yield break;
-
-			foreach (var exp in _logicModel.FilterBy.Expressions)
-			{
-				if (exp != null && !String.IsNullOrWhiteSpace(exp.Expression))
-					yield return exp.Expression;
-			}
+			return GetExpressions("FilterBy");
 		}
 
 		private IEnumerable<String> GetOrders()
 		{
-			if (_logicModel == null ||
-				_logicModel.OrderBy == null ||
-				_logicModel.OrderBy.Expressions == null)
+			return GetExpressions("OrderBy");
+		}
+
+		private IEnumerable<String> GetGroupers()
+		{
+			return GetExpressions("GroupBy");
+		}
+
+		private IEnumerable<String> GetSelect()
+		{
+			return GetExpressions("Select");
+		}
+
+		private IEnumerable<String> GetExpressions(String type)
+		{
+			if (type == "Select")
+			{
+				if (_expressionsLogicModel != null)
+					return GetExpressions(_expressionsLogicModel.Select);
+			}
+
+			if (type == "GroupBy")
+			{
+				if (_expressionsLogicModel != null)
+					return GetExpressions(_expressionsLogicModel.GroupBy);
+			}
+
+			if (type == "OrderBy")
+			{
+				if (_expressionsLogicModel != null)
+					return GetExpressions(_expressionsLogicModel.OrderBy);
+			}
+
+			if (type == "FilterBy")
+			{
+				if (_expressionsLogicModel != null)
+					return GetExpressions(_expressionsLogicModel.FilterBy);
+			}
+
+			return Enumerable.Empty<String>();
+		}
+		private IEnumerable<String> GetExpressions(ExpressionsListModel model)
+		{
+			if (model == null || model.Expressions == null)
 				yield break;
 
-			foreach (var exp in _logicModel.OrderBy.Expressions)
+			foreach (var exp in model.Expressions)
 			{
 				if (exp != null && !String.IsNullOrWhiteSpace(exp.Expression))
 					yield return exp.Expression;
 			}
 		}
-
-		private IEnumerable<String> GetGroupers()
+		private IEnumerable<String> GetExpressions(NamedExpressionsListModel model)
 		{
-			if (_logicModel == null ||
-				_logicModel.GroupBy == null ||
-				_logicModel.GroupBy.Expressions == null)
+			if (model == null || model.Expressions == null)
 				yield break;
 
-			foreach (var exp in _logicModel.GroupBy.Expressions)
-			{
-				if (!String.IsNullOrWhiteSpace(exp.Name))
-					yield return String.Format("{0} AS {1}", exp.Expression, exp.Name);
-				else
-					yield return exp.Expression;
-			}
-		}
-
-		private IEnumerable<String> GetSelect()
-		{
-			if (_logicModel == null ||
-				_logicModel.Select == null ||
-				_logicModel.Select.Expressions == null)
-				yield break;
-
-			foreach (var exp in _logicModel.Select.Expressions)
+			foreach (var exp in model.Expressions)
 			{
 				if (exp != null && !String.IsNullOrWhiteSpace(exp.Expression))
 				{
