@@ -1,5 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Configuration;
+using System.Data.SqlClient;
+using System.Linq;
 using System.Text.RegularExpressions;
 using Lmis.Portal.Web.Bases;
 using Lmis.Portal.Web.BLL;
@@ -7,6 +10,7 @@ using Lmis.Portal.Web.Models;
 using System.Web.UI;
 using CITI.EVO.Tools.Extensions;
 using System.Web.UI.DataVisualization.Charting;
+using System.Web.UI.WebControls;
 
 namespace Lmis.Portal.Web.Controls.DataDisplay
 {
@@ -22,16 +26,14 @@ namespace Lmis.Portal.Web.Controls.DataDisplay
 			if (unitModel == null)
 				return;
 
-			var sqlQuery = GetQuery(unitModel);
-
-			sqlDs.ConnectionString = GetConnectionString();
-			sqlDs.SelectCommand = sqlQuery;
-			sqlDs.CacheKeyDependency = sqlQuery.ComputeMd5();
-			sqlDs.CacheExpirationPolicy = DataSourceCacheExpiry.Sliding;
-			sqlDs.CacheDuration = 900;
+			var sqlQueries = GetQueries(unitModel);
 
 			if (unitModel.Type == "Grid")
 			{
+				var sqlQuery = sqlQueries.FirstOrDefault();
+
+				var sqlDs = CreateDataSource(sqlQuery);
+
 				pnlChart.Visible = false;
 				pnlGrid.Visible = true;
 
@@ -43,26 +45,55 @@ namespace Lmis.Portal.Web.Controls.DataDisplay
 				pnlChart.Visible = true;
 				pnlGrid.Visible = false;
 
-				var series = mainChart.Series["MainSeries"];
-				series.ChartType = GetChartType(unitModel.Type);
+				foreach (var sqlQuery in sqlQueries)
+				{
+					var chartType = GetChartType(unitModel.Type);
+					var sqlDs = CreateDataSource(sqlQuery);
 
-				mainChart.DataSource = sqlDs;
+					var series = CreateSeries(sqlDs, chartType);
+					mainChart.Series.Add(series);
+				}
+
+				mainChart.DataSource = null;
 				mainGrid.DataSource = null;
 			}
 		}
 
-		protected String GetQuery(ReportUnitModel unitModel)
+		private Series CreateSeries(SqlDataSource sqlDs, SeriesChartType chartType)
 		{
-			var tableModel = unitModel.Table;
-			var logicModel = unitModel.Logic;
+			var series = new Series("");
+			series.YValueMembers = "";
+			series.XValueMember = "";
+			series.ChartType = chartType;
 
-			if (logicModel.Type == "Query")
-				return logicModel.Query;
+			FillValues(series, sqlDs);
 
-			var queryGenerator = new QueryGenerator(tableModel, logicModel);
-			var sqlQuery = queryGenerator.SelectQuery();
+			return series;
+		}
 
-			return sqlQuery;
+		private void FillValues(Series series, SqlDataSource sqlDs)
+		{
+
+		}
+
+		protected IEnumerable<String> GetQueries(ReportUnitModel unitModel)
+		{
+			var logicsModel = unitModel.Logics;
+			if (logicsModel == null || logicsModel.List == null)
+				yield break;
+
+			foreach (var logicModel in logicsModel.List)
+			{
+				var sqlQuery = logicModel.Query;
+
+				if (logicModel.Type != "Query")
+				{
+					var queryGenerator = new QueryGenerator(DataContext, logicModel);
+					sqlQuery = queryGenerator.SelectQuery();
+				}
+
+				yield return sqlQuery;
+			}
 		}
 
 		private String GetConnectionString()
@@ -78,6 +109,20 @@ namespace Lmis.Portal.Web.Controls.DataDisplay
 				return value;
 
 			return SeriesChartType.Line;
+		}
+
+		private SqlDataSource CreateDataSource(String sqlQuery)
+		{
+			var sqlDs = new SqlDataSource
+			{
+				ConnectionString = GetConnectionString(),
+				SelectCommand = sqlQuery,
+				CacheKeyDependency = sqlQuery.ComputeMd5(),
+				CacheExpirationPolicy = DataSourceCacheExpiry.Sliding,
+				CacheDuration = 900
+			};
+
+			return sqlDs;
 		}
 	}
 }

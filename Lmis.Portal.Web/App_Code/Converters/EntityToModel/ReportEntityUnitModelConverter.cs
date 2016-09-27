@@ -1,4 +1,5 @@
-﻿using Lmis.Portal.DAL.DAL;
+﻿using System.Linq;
+using Lmis.Portal.DAL.DAL;
 using Lmis.Portal.Web.Converters.Common;
 using Lmis.Portal.Web.Models;
 
@@ -6,12 +7,10 @@ namespace Lmis.Portal.Web.Converters.EntityToModel
 {
 	public class ReportEntityUnitModelConverter : SingleModelConverterBase<LP_Report, ReportUnitModel>
 	{
-		private readonly TableEntityModelConverter tableConverter;
 		private readonly LogicEntityModelConverter logicConverter;
 
 		public ReportEntityUnitModelConverter(PortalDataContext dbContext) : base(dbContext)
 		{
-			tableConverter = new TableEntityModelConverter(dbContext);
 			logicConverter = new LogicEntityModelConverter(dbContext);
 		}
 
@@ -29,8 +28,15 @@ namespace Lmis.Portal.Web.Converters.EntityToModel
 			target.Name = source.Name;
 			target.Type = source.Type;
 			target.CategoryID = source.CategoryID;
-			target.Table = tableConverter.Convert(source.Table);
-			target.Logic = logicConverter.Convert(source.Logic);
+
+			var logics = (from n in source.ReportLogics
+						  where n.DateDeleted == null &&
+								n.Logic != null
+						  select n.Logic);
+
+			var models = logics.Select(n => logicConverter.Convert(n));
+
+			target.Logics = new LogicsModel { List = models.ToList() };
 		}
 	}
 }

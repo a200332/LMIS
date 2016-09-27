@@ -1,7 +1,5 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="ReportUnitControl.ascx.cs" Inherits="Lmis.Portal.Web.Controls.DataDisplay.ReportUnitControl" %>
 
-<asp:SqlDataSource runat="server" ID="sqlDs"></asp:SqlDataSource>
-
 <asp:Panel runat="server" ID="pnlGrid">
 	<dx:ASPxGridView runat="server" ID="mainGrid">
 	</dx:ASPxGridView>

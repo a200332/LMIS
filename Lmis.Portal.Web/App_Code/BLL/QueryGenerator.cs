@@ -47,8 +47,7 @@ namespace Lmis.Portal.Web.BLL
 			_dbContext = dbContext;
 			_logicModel = logicModel;
 			_sourceType = _logicModel.SourceType;
-
-			var columns = (List<ColumnModel>)null;
+			_expressionsLogicModel = logicModel.ExpressionsLogic;
 
 			if (_logicModel.SourceType == "Table")
 			{
@@ -57,7 +56,7 @@ namespace Lmis.Portal.Web.BLL
 				var converter = new TableEntityModelConverter(_dbContext);
 				var model = converter.Convert(table);
 
-				columns = model.Columns;
+				var columns = model.Columns;
 				_querySource = GetCorrectName(model.Name);
 
 				var dbTypesQuery = (from n in columns

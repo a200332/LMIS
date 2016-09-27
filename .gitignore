@@ -7,23 +7,8 @@
 /packages
 /PrecompiledWeb
 
-/CITI.EVO.CommonData.DAL/Bin
-/CITI.EVO.CommonData.DAL/obj
-/CITI.EVO.CommonData.Svc/Bin
-/CITI.EVO.CommonData.Svc/obj
-/CITI.EVO.CommonData.Web/Bin
-/CITI.EVO.Proxies/obj
-/CITI.EVO.Rpc/obj
-/CITI.EVO.Tools/obj
-
 /Lmis.Tools/Bin
 /Lmis.Tools/obj
-
-/CITI.EVO.UserManagement.DAL/Bin
-/CITI.EVO.UserManagement.DAL/obj
-/CITI.EVO.UserManagement.Svc/Bin
-/CITI.EVO.UserManagement.Svc/obj
-/CITI.EVO.UserManagement.Web/Bin
 
 /Lmis.Portal.Web/Bin
 
@@ -36,4 +21,22 @@
 /Lmis.Contracts/Bin
 /Lmis.Contracts/obj
 
+/CITI.EVO.Rpc/obj
+/CITI.EVO.Tools/obj
+/CITI.EVO.Proxies/obj
+
 /CITI.EVO.RpcHub.Web/Bin
+/CITI.EVO.CommonData.Web/Bin
+/CITI.EVO.UserManagement.Web/Bin
+
+/CITI.EVO.CommonData.DAL/Bin
+/CITI.EVO.CommonData.DAL/obj
+
+/CITI.EVO.CommonData.Svc/Bin
+/CITI.EVO.CommonData.Svc/obj
+
+/CITI.EVO.UserManagement.DAL/Bin
+/CITI.EVO.UserManagement.DAL/obj
+
+/CITI.EVO.UserManagement.Svc/Bin
+/CITI.EVO.UserManagement.Svc/obj

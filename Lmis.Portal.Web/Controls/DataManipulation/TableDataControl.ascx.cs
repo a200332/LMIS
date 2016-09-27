@@ -31,7 +31,7 @@ namespace Lmis.Portal.Web.Controls.DataManipulation
 			var logicModel = dataModel.Logic;
 			var tableModel = dataModel.Table;
 
-			var queryGen = new QueryGenerator(tableModel, logicModel);
+			var queryGen = new QueryGenerator(DataContext, logicModel);
 
 			sqlDs.ConnectionString = GetConnectionString();
 
@@ -189,7 +189,7 @@ namespace Lmis.Portal.Web.Controls.DataManipulation
 			var dataSet = ExcelUtil.ConvertToDataSet(fuImport.FileBytes);
 			var dataTable = dataSet.Tables[tableName];
 
-			var queryGen = new QueryGenerator(tableModel, logicModel);
+			var queryGen = new QueryGenerator(DataContext, logicModel);
 
 			var connectionString = GetConnectionString();
 
@@ -247,7 +247,7 @@ namespace Lmis.Portal.Web.Controls.DataManipulation
 			var tableModel = Model.Table;
 			var logicModel = Model.Logic;
 
-			var queryGen = new QueryGenerator(tableModel, logicModel);
+			var queryGen = new QueryGenerator(DataContext, logicModel);
 
 			var connectionString = GetConnectionString();
 

@@ -13,8 +13,6 @@ namespace Lmis.Portal.Web.Models
 
 		public String Name { get; set; }
 
-		public LogicModel Logic { get; set; }
-
-		public TableModel Table { get; set; }
+		public LogicsModel Logics { get; set; }
 	}
 }
