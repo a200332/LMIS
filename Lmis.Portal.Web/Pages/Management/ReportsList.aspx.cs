@@ -11,6 +11,11 @@ namespace Lmis.Portal.Web.Pages.Management
 {
 	public partial class ReportsList : BasePage
 	{
+		public Guid? CategoryID
+		{
+			get { return DataConverter.ToNullableGuid(Request["CategoryID"]); }
+		}
+
 		protected void Page_Load(object sender, EventArgs e)
 		{
 			FillCategories();
@@ -20,66 +25,23 @@ namespace Lmis.Portal.Web.Pages.Management
 
 		protected void btnAddReport_OnClick(object sender, EventArgs e)
 		{
-			var categoryID = DataConverter.ToNullableGuid(Request["CategoryID"]);
-			if (categoryID == null)
+			if (CategoryID == null)
 				return;
 
-			reportControl.Model = new ReportModel()
-			{
-				CategoryID = categoryID
-			};
-
-			mpeAddEditReport.Show();
-		}
-
-		protected void btnSaveReport_OnClick(object sender, EventArgs e)
-		{
-			var model = reportControl.Model;
-
-			var converter = new ReportModelEntityConverter(DataContext);
-
-			var entity = DataContext.LP_Reports.FirstOrDefault(n => n.ID == model.ID);
-			if (entity == null)
-			{
-				entity = converter.Convert(model);
-				DataContext.LP_Reports.InsertOnSubmit(entity);
-			}
-			else
-			{
-				converter.FillObject(entity, model);
-			}
-
-			DataContext.SubmitChanges();
-
-			FillReportsGrid();
+			var url = String.Format("~/Pages/Management/AddEditReport.aspx?Mode=Add&CategoryID={0}", CategoryID);
+			Response.Redirect(url);
 		}
 
 		protected void reportsControl_OnViewReport(object sender, GenericEventArgs<Guid> e)
 		{
-			var entity = DataContext.LP_Reports.FirstOrDefault(n => n.ID == e.Value);
-			if (entity == null)
-				return;
-
-			var converter = new ReportEntityModelConverter(DataContext);
-			var model = converter.Convert(entity);
-
-			reportControl.Model = model;
-
-			mpeAddEditReport.Show();
+			var url = String.Format("~/Pages/Management/AddEditReport.aspx?Mode=View&ReportID={0}&CategoryID={1}", e.Value, CategoryID);
+			Response.Redirect(url);
 		}
 
 		protected void reportsControl_OnEditReport(object sender, GenericEventArgs<Guid> e)
 		{
-			var entity = DataContext.LP_Reports.FirstOrDefault(n => n.ID == e.Value);
-			if (entity == null)
-				return;
-
-			var converter = new ReportEntityModelConverter(DataContext);
-			var model = converter.Convert(entity);
-
-			reportControl.Model = model;
-
-			mpeAddEditReport.Show();
+			var url = String.Format("~/Pages/Management/AddEditReport.aspx?Mode=Edit&ReportID={0}&CategoryID={1}", e.Value, CategoryID);
+			Response.Redirect(url);
 		}
 
 		protected void reportsControl_OnDeleteReport(object sender, GenericEventArgs<Guid> e)
@@ -107,12 +69,8 @@ namespace Lmis.Portal.Web.Pages.Management
 
 		protected void FillReportsGrid()
 		{
-			var categoryID = DataConverter.ToNullableGuid(Request["CategoryID"]);
-			if (categoryID == null)
-				return;
-
 			var entities = (from n in DataContext.LP_Reports
-							where n.DateDeleted == null && n.CategoryID == categoryID
+							where n.DateDeleted == null && n.CategoryID == CategoryID
 							orderby n.DateCreated descending
 							select n).ToList();
 

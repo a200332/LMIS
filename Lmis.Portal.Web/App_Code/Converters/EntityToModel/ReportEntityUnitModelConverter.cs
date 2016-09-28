@@ -7,11 +7,11 @@ namespace Lmis.Portal.Web.Converters.EntityToModel
 {
 	public class ReportEntityUnitModelConverter : SingleModelConverterBase<LP_Report, ReportUnitModel>
 	{
-		private readonly LogicEntityModelConverter logicConverter;
+		private readonly ReportLogicEntityModelConverter reportLogicConverter;
 
 		public ReportEntityUnitModelConverter(PortalDataContext dbContext) : base(dbContext)
 		{
-			logicConverter = new LogicEntityModelConverter(dbContext);
+			reportLogicConverter = new ReportLogicEntityModelConverter(dbContext);
 		}
 
 		public override ReportUnitModel Convert(LP_Report source)
@@ -32,11 +32,11 @@ namespace Lmis.Portal.Web.Converters.EntityToModel
 			var logics = (from n in source.ReportLogics
 						  where n.DateDeleted == null &&
 								n.Logic != null
-						  select n.Logic);
+						  select n);
 
-			var models = logics.Select(n => logicConverter.Convert(n));
+			var models = logics.Select(n => reportLogicConverter.Convert(n));
 
-			target.Logics = new LogicsModel { List = models.ToList() };
+			target.ReportLogics = new ReportLogicsModel { List = models.ToList() };
 		}
 	}
 }

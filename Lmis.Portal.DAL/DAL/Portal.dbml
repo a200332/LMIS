@@ -62,6 +62,8 @@
       <Column Name="DateCreated" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
       <Column Name="DateChanged" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
       <Column Name="DateDeleted" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="ConfigXml" Type="System.Xml.Linq.XElement" DbType="XML" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="Type" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" UpdateCheck="Never" />
       <Association Name="LP_Logic_LP_ReportLogic" Member="Logic" ThisKey="LogicID" OtherKey="ID" Type="LP_Logic" IsForeignKey="true" />
       <Association Name="LP_Report_LP_ReportLogic" Member="Report" ThisKey="ReportID" OtherKey="ID" Type="LP_Report" IsForeignKey="true" />
     </Type>

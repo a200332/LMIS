@@ -29,13 +29,12 @@ namespace Lmis.Portal.Web.Converters.EntityToModel
 			var query = (from n in source.ReportLogics
 						 where n.DateDeleted == null &&
 							   n.Logic != null
-						 select n.Logic);
+						 select n);
 
-
-			var converter = new LogicEntityModelConverter(DbContext);
+			var converter = new ReportLogicEntityModelConverter(DbContext);
 			var models = query.Select(n => converter.Convert(n));
 
-			target.Logics = new LogicsModel { List = models.ToList() };
+			target.ReportLogics = new ReportLogicsModel { List = models.ToList() };
 		}
 	}
 }

@@ -1303,6 +1303,10 @@ namespace Lmis.Portal.DAL.DAL
 		
 		private System.Nullable<System.DateTime> _DateDeleted;
 		
+		private System.Xml.Linq.XElement _ConfigXml;
+		
+		private string _Type;
+		
 		private EntityRef<LP_Logic> _Logic;
 		
 		private EntityRef<LP_Report> _Report;
@@ -1323,6 +1327,10 @@ namespace Lmis.Portal.DAL.DAL
     partial void OnDateChangedChanged();
     partial void OnDateDeletedChanging(System.Nullable<System.DateTime> value);
     partial void OnDateDeletedChanged();
+    partial void OnConfigXmlChanging(System.Xml.Linq.XElement value);
+    partial void OnConfigXmlChanged();
+    partial void OnTypeChanging(string value);
+    partial void OnTypeChanged();
     #endregion
 		
 		public LP_ReportLogic()
@@ -1456,6 +1464,46 @@ namespace Lmis.Portal.DAL.DAL
 					this._DateDeleted = value;
 					this.SendPropertyChanged("DateDeleted");
 					this.OnDateDeletedChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ConfigXml", DbType="XML", UpdateCheck=UpdateCheck.Never)]
+		public System.Xml.Linq.XElement ConfigXml
+		{
+			get
+			{
+				return this._ConfigXml;
+			}
+			set
+			{
+				if ((this._ConfigXml != value))
+				{
+					this.OnConfigXmlChanging(value);
+					this.SendPropertyChanging();
+					this._ConfigXml = value;
+					this.SendPropertyChanged("ConfigXml");
+					this.OnConfigXmlChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Type", DbType="NVarChar(50)", UpdateCheck=UpdateCheck.Never)]
+		public string Type
+		{
+			get
+			{
+				return this._Type;
+			}
+			set
+			{
+				if ((this._Type != value))
+				{
+					this.OnTypeChanging(value);
+					this.SendPropertyChanging();
+					this._Type = value;
+					this.SendPropertyChanged("Type");
+					this.OnTypeChanged();
 				}
 			}
 		}

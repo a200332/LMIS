@@ -1,9 +1,10 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="ReportControl.ascx.cs" Inherits="Lmis.Portal.Web.Controls.SchemaManipulation.ReportControl" %>
 
 <%@ Register Src="~/Controls/Common/HiddenFieldValueControl.ascx" TagPrefix="lmis" TagName="HiddenFieldValueControl" %>
-<%@ Register Src="~/Controls/DataManipulation/LogicsControl.ascx" TagPrefix="lmis" TagName="LogicsControl" %>
+<%@ Register Src="~/Controls/SchemaManipulation/ReportLogicsControl.ascx" TagPrefix="lmis" TagName="ReportLogicsControl" %>
 
 <lmis:HiddenFieldValueControl runat="server" ID="hdID" Property="ReportModel.ID" />
+<lmis:HiddenFieldValueControl runat="server" ID="hdCategoryID" Property="ReportModel.CategoryID" />
 
 <table>
 	<tr>
@@ -15,25 +16,19 @@
 	<tr>
 		<td>Category</td>
 		<td>
-			<dx:ASPxComboBox runat="server" ID="cbxCategory" Property="ReportModel.CategoryID" ValueType="System.Guid" ValueField="ID" TextField="Name" />
-		</td>
-	</tr>
-	<tr>
-		<td>Table</td>
-		<td>
-			<dx:ASPxComboBox runat="server" ID="cbxTable" Property="ReportModel.TableID" ValueType="System.Guid" ValueField="ID" TextField="Name" />
-		</td>
-	</tr>
-	<tr>
-		<td>Logic</td>
-		<td>
-			<dx:ASPxComboBox runat="server" ID="cbxLogic" Property="ReportModel.LogicID" ValueType="System.Guid" ValueField="ID" TextField="Name" />
+			<dx:ASPxComboBox runat="server" ID="cbxCategory" Enabled="False" Property="ReportModel.CategoryID" ValueType="System.Guid" ValueField="ID" TextField="Name" />
 		</td>
 	</tr>
 	<tr>
 		<td>Type</td>
 		<td>
 			<dx:ASPxComboBox runat="server" ID="cbxType" Property="ReportModel.Type" ValueType="System.String">
+				<Items>
+					<dx:ListEditItem Text="Grid" Value="Grid" Selected="True" />
+					<dx:ListEditItem Text="Chart" Value="Chart"  />
+				</Items>
+			</dx:ASPxComboBox>
+<%--			<dx:ASPxComboBox runat="server" ID="cbxType" Property="ReportModel.Type" ValueType="System.String">
 				<Items>
 					<dx:ListEditItem Text="Grid" Value="Grid" Selected="True" />
 					<dx:ListEditItem Text="Line" Value="Line"  />
@@ -65,13 +60,13 @@
 					<dx:ListEditItem Text="ErrorBar" Value="ErrorBar" />
 					<dx:ListEditItem Text="BoxPlot" Value="BoxPlot" />
 				</Items>
-			</dx:ASPxComboBox>
+			</dx:ASPxComboBox>--%>
 		</td>
 	</tr>
 	<tr>
 		<td>Logics</td>
 		<td>
-			<lmis:LogicsControl runat="server" ID="logicsControl" Property="ReportModel.Logics" />
+			<lmis:ReportLogicsControl runat="server" ID="logicsControl" Property="ReportModel.ReportLogics" />
 		</td>
 	</tr>
 </table>

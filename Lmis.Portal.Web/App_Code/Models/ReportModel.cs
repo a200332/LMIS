@@ -14,6 +14,6 @@ namespace Lmis.Portal.Web.Models
 
 		public String Name { get; set; }
 
-		public LogicsModel Logics { get; set; }
+		public ReportLogicsModel ReportLogics { get; set; }
 	}
 }
