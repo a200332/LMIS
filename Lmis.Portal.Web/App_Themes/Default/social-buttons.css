@@ -272,21 +272,21 @@ a.sb,
 ================================================ */
         a.sb.twitter,
         .sb a.twitter {
-            background-image: url(Default/images/twitter_bird_orig.png);
+            background-image: url(images/twitter_bird_orig.png);
             -webkit-transition: color .25s ease-out;
             transition: all  .25s ease-out;
         }
 
             a.sb.twitter:hover,
             .sb a.twitter:hover {
-                background-image: url(Default/images/white_twitter_bird.png);
+                background-image: url(images/white_twitter_bird.png);
                 -webkit-transition: color .25s ease-out;
                 transition: all  .25s ease-out;
             }
 
         a.sb.facebook,
         .sb a.facebook {
-            background-image: url(Default/images/facebook_orig.png);
+            background-image: url(images/facebook_orig.png);
             -webkit-transition: color .25s ease-out;
             transition: all  .25s ease-out;
         }
@@ -294,7 +294,7 @@ a.sb,
 
             a.sb.facebook:hover,
             .sb a.facebook:hover {
-                background-image: url(Default/images/white_facebook.png);
+                background-image: url(images/white_facebook.png);
                 -webkit-transition: color .25s ease-out;
                 transition: all  .25s ease-out;
             }
@@ -303,14 +303,14 @@ a.sb,
 
         a.sb.linkedin,
         .sb a.linkedin {
-            background-image: url('Default/images/linkedin_orig.png');
+            background-image: url('images/linkedin_orig.png');
             -webkit-transition: all  .25s ease-out;
             transition: all  .25s ease-out;
         }
 
             a.sb.linkedin:hover,
             .sb a.linkedin:hover {
-                background-image: url(Default/images/white_linkedin.png);
+                background-image: url(images/white_linkedin.png);
                 -webkit-transition: all  .25s ease-out;
                 transition: all  .25s ease-out;
             }
@@ -332,7 +332,7 @@ a.sb,
         .sb.black a.twitter,
         a.sb.gray.twitter,
         .sb.gray a.twitter {
-            background-image: url(Default/images/white_twitter_bird.png);
+            background-image: url(images/white_twitter_bird.png);
         }
 
         a.sb.blue.facebook,
@@ -351,7 +351,7 @@ a.sb,
         .sb.black a.facebook,
         a.sb.gray.facebook,
         .sb.gray a.facebook {
-            background-image: url(Default/images/white_facebook.png);
+            background-image: url(images/white_facebook.png);
         }
 
 
@@ -371,7 +371,7 @@ a.sb,
         .sb.black a.linkedin,
         a.sb.gray.linkedin,
         .sb.gray a.linkedin {
-            background-image: url(Default/images/white_linkedin.png);
+            background-image: url(images/white_linkedin.png);
         }
 
 

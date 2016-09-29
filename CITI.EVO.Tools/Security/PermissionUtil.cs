@@ -351,7 +351,7 @@ namespace CITI.EVO.Tools.Security
 			if (!ConfigSettings.ResourcePathAutoGeneration)
 				yield break;
 
-			query = from n in UserInterfaceUtil.TraverseControls(control)
+			query = from n in UserInterfaceUtil.TraverseChildren(control)
 					let m = n as IPermissionDependent
 					where m != null && string.IsNullOrWhiteSpace(m.PermissionKey)
 					let fullName = GetControlFullName(n)

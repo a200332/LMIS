@@ -210,7 +210,7 @@ namespace CITI.EVO.Tools.Utils
 
 
 			var cache = CommonObjectCache.InitObjectCache(trnCacheKey, () => new Dictionary<String, String>());
-			var controls = UserInterfaceUtil.TraverseControls(control);
+			var controls = UserInterfaceUtil.TraverseChildren(control);
 
 			var query = from ctl in controls
 						let trn = ctl as ITranslatable

@@ -120,7 +120,7 @@ namespace CITI.EVO.Tools.Web.Bases
 		{
 			if (_controlsCache == null)
 			{
-				var allControls = UserInterfaceUtil.TraverseControls(this);
+				var allControls = UserInterfaceUtil.TraverseChildren(this);
 				_controlsCache = allControls.ToLookup(n => n.ID);
 			}
 

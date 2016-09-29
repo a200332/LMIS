@@ -34,6 +34,8 @@ namespace Lmis.Portal.Web.BLL
 
 		private readonly ExpressionsLogicModel _expressionsLogicModel;
 
+		private readonly ISet<String> _outputColumns;
+
 		private readonly IDictionary<String, SqlDbType> _dbTypes;
 
 		private readonly IDictionary<String, String> _allColumns;
@@ -59,13 +61,6 @@ namespace Lmis.Portal.Web.BLL
 				var columns = model.Columns;
 				_querySource = GetCorrectName(model.Name);
 
-				var dbTypesQuery = (from n in columns
-									let t = GetDataType(n.Type)
-									let m = GetCorrectName(n.Name)
-									select new KeyValuePair<String, SqlDbType>(m, t));
-
-				_dbTypes = dbTypesQuery.ToDictionary();
-
 				var allColumnsQuery = (from n in columns
 									   let m = GetCorrectName(n.Name)
 									   select new KeyValuePair<String, String>(n.Name, m));
@@ -78,6 +73,15 @@ namespace Lmis.Portal.Web.BLL
 										   select new KeyValuePair<String, String>(n.Name, m));
 
 				_primaryColumns = primaryColumnsQuery.ToDictionary();
+
+				var dbTypesQuery = (from n in columns
+									let t = GetDataType(n.Type)
+									let m = GetCorrectName(n.Name)
+									select new KeyValuePair<String, SqlDbType>(m, t));
+
+				_dbTypes = dbTypesQuery.ToDictionary();
+
+				_outputColumns = GetSelect().ToHashSet();
 
 			}
 			else if (_logicModel.SourceType == "Logic")
@@ -93,12 +97,23 @@ namespace Lmis.Portal.Web.BLL
 
 				_querySource = String.Format("({0})", selectQuery);
 
-				_dbTypes = queryGen.DbTypes;
-				_allColumns = queryGen.AllColumns;
-				_primaryColumns = queryGen.PrimaryColumns;
+				var allColumnsQuery = (from n in queryGen.OutputColumns
+									   let m = GetCorrectName(n)
+									   select new KeyValuePair<String, String>(n, m));
+
+				_allColumns = allColumnsQuery.ToDictionary();
+
+				var dbTypesQuery = (from n in queryGen.OutputColumns
+									let m = GetCorrectName(n)
+									let t = queryGen.DbTypes[m]
+									select new KeyValuePair<String, SqlDbType>(m, t));
+
+				_dbTypes = dbTypesQuery.ToDictionary();
+
+				_outputColumns = GetSelect().ToHashSet();
 			}
 
-			if (_primaryColumns.Count == 0)
+			if (_primaryColumns == null || _primaryColumns.Count == 0)
 				_primaryColumns = _allColumns;
 
 			var allParamsQuery = (from n in _allColumns
@@ -112,6 +127,11 @@ namespace Lmis.Portal.Web.BLL
 									  select new KeyValuePair<String, String>(n.Value, p));
 
 			_primaryColumnsParams = primaryParamsQuery.ToDictionary();
+		}
+
+		public ISet<String> OutputColumns
+		{
+			get { return _outputColumns; }
 		}
 
 		public IDictionary<String, SqlDbType> DbTypes

@@ -1,0 +1,21 @@
+﻿.coming-soon {
+    font-size: 44px;
+    color: #29abe2;
+}
+.book {
+    border-bottom: 1px solid #29abe2;
+    height: 30px;
+}
+
+.book-title {
+    font-size: 16px;
+
+    font-weight: bold;
+    text-align: left;
+}
+
+.book-description {
+    font-size: 12px;
+    text-align: left;
+    padding-bottom: 15px;
+}

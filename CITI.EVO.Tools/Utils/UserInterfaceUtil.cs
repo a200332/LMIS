@@ -9,12 +9,12 @@ namespace CITI.EVO.Tools.Utils
 {
 	public static class UserInterfaceUtil
 	{
-	    public static Object GetTruncatedLabel(Object eval)
-	    {
-	        return GetTruncatedLabel(eval, 20);
-	    }
-        
-        public static Object GetTruncatedLabel(Object eval, int visibleCharCount)
+		public static Object GetTruncatedLabel(Object eval)
+		{
+			return GetTruncatedLabel(eval, 20);
+		}
+
+		public static Object GetTruncatedLabel(Object eval, int visibleCharCount)
 		{
 			var text = Convert.ToString(eval);
 
@@ -23,7 +23,7 @@ namespace CITI.EVO.Tools.Utils
 
 			if (text.Length > visibleCharCount)
 			{
-				label.Text = String.Format("{0}...", text.Substring(0, visibleCharCount-3));
+				label.Text = String.Format("{0}...", text.Substring(0, visibleCharCount - 3));
 				label.ToolTip = text;
 
 				label.ForeColor = Color.DodgerBlue;
@@ -46,11 +46,20 @@ namespace CITI.EVO.Tools.Utils
 			return text;
 		}
 
-		public static IEnumerable<Control> TraverseControls(Control control)
+		public static IEnumerable<Control> TraverseParents(Control control)
 		{
-			return TraverseControls(control, null);
+			while (control != null)
+			{
+				yield return control;
+				control = control.Parent;
+			}
 		}
-		public static IEnumerable<Control> TraverseControls(Control control, Predicate<Control> skipChildren)
+
+		public static IEnumerable<Control> TraverseChildren(Control control)
+		{
+			return TraverseChildren(control, null);
+		}
+		public static IEnumerable<Control> TraverseChildren(Control control, Predicate<Control> skipChildren)
 		{
 			var stack = new Stack<Control>();
 
@@ -90,5 +99,4 @@ namespace CITI.EVO.Tools.Utils
 			return null;
 		}
 	}
-
 }

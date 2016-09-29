@@ -34,7 +34,7 @@ namespace CITI.EVO.Tools.Web.UI.Model.Common
 
 		private static IList<Control> GetAllChildren(Control parent)
 		{
-			var collection = UserInterfaceUtil.TraverseControls(parent, ShouldChildrenSkiped);
+			var collection = UserInterfaceUtil.TraverseChildren(parent, ShouldChildrenSkiped);
 			var children = new List<Control>(collection);
 
 			return children;
