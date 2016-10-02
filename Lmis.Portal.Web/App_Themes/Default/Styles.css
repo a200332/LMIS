@@ -19,3 +19,22 @@
     text-align: left;
     padding-bottom: 15px;
 }
+.chat {
+    position: fixed;
+    right: 0;
+    bottom: 80px;
+}.chat img {
+    text-align: right;
+    bottom: 134px;
+    z-index: 10000;
+    float: right;
+     border-left: 1px solid white;
+}
+
+ #chat-body {
+     background-color:#b4c91c;
+     width: 55px;
+     height: 55px;
+ }
+#chat-body input[type=text]
+ { height: 10px;}

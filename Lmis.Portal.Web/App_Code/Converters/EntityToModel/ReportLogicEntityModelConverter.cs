@@ -45,6 +45,7 @@ namespace Lmis.Portal.Web.Converters.EntityToModel
 			{
 				var model = new BindingInfoModel
 				{
+					ID = (Guid?)bindingXElem.Element("ID"),
 					Target = (String)bindingXElem.Element("Target"),
 					Source = (String)bindingXElem.Element("Source"),
 					Caption = (String)bindingXElem.Element("Caption"),

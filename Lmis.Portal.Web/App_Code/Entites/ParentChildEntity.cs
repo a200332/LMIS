@@ -12,5 +12,6 @@ namespace Lmis.Portal.Web.Entites
 		public String Name { get; set; }
 
 		public Guid? ParentID { get; set; }
+		public String Type { get; set; }
 	}
 }

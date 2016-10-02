@@ -5,15 +5,10 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-public partial class _Default : System.Web.UI.Page
+public partial class Admin : System.Web.UI.MasterPage
 {
 	protected void Page_Load(object sender, EventArgs e)
 	{
 
-	}
-
-	protected void brnOK_OnClick(object sender, EventArgs e)
-	{
-		
 	}
 }

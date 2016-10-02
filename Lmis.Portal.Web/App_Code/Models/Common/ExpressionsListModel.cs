@@ -1,8 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Lmis.Portal.Web.Models.Common
 {
-    public class ExpressionsListModel
+	[Serializable]
+	public class ExpressionsListModel
     {
         public List<ExpressionModel> Expressions { get; set; }
     }

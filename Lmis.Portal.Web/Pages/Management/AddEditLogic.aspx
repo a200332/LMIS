@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.master" AutoEventWireup="true" CodeFile="AddEditLogic.aspx.cs" Inherits="Lmis.Portal.Web.Pages.Management.AddEditLogic" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Admin.master" AutoEventWireup="true" CodeFile="AddEditLogic.aspx.cs" Inherits="Lmis.Portal.Web.Pages.Management.AddEditLogic" %>
 
 <%@ Register Src="~/Controls/DataManipulation/LogicControl.ascx" TagPrefix="lmis" TagName="LogicControl" %>
 
@@ -10,10 +10,10 @@
 	</div>
 	<div>
 		<div class="left">
-			<ce:ImageLinkButton runat="server" DefaultImageUrl="~/App_Themes/Default/Images/save_normal.png" ID="btnSaveLogic" ToolTip="დამატება" OnClick="btnSaveLogic_OnClick" />
+			<ce:ImageLinkButton runat="server" DefaultImageUrl="~/App_Themes/Default/Images/save.png" ID="btnSaveLogic" ToolTip="დამატება" OnClick="btnSaveLogic_OnClick" />
 		</div>
 		<div class="right">
-			<ce:ImageLinkButton runat="server" DefaultImageUrl="~/App_Themes/Default/Images/close_normal.png" ID="btnCancelLogic" ToolTip="დახურვა" />
+			<ce:ImageLinkButton runat="server" DefaultImageUrl="~/App_Themes/Default/Images/close.png" ID="btnCancelLogic" ToolTip="დახურვა" />
 		</div>
 	</div>
 </asp:Content>

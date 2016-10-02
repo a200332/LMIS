@@ -81,7 +81,7 @@ namespace Lmis.Portal.Web.BLL
 
 				_dbTypes = dbTypesQuery.ToDictionary();
 
-				_outputColumns = GetSelect().ToHashSet();
+				_outputColumns = GetOutputs().ToHashSet();
 
 			}
 			else if (_logicModel.SourceType == "Logic")
@@ -110,7 +110,7 @@ namespace Lmis.Portal.Web.BLL
 
 				_dbTypes = dbTypesQuery.ToDictionary();
 
-				_outputColumns = GetSelect().ToHashSet();
+				_outputColumns = GetOutputs().ToHashSet();
 			}
 
 			if (_primaryColumns == null || _primaryColumns.Count == 0)
@@ -310,6 +310,19 @@ namespace Lmis.Portal.Web.BLL
 		private IEnumerable<String> GetGroupers()
 		{
 			return GetExpressions("GroupBy");
+		}
+
+		private IEnumerable<String> GetOutputs()
+		{
+			if (_expressionsLogicModel == null)
+				yield break;
+
+			var expressionsListModel = _expressionsLogicModel.Select;
+			if (expressionsListModel == null || expressionsListModel.Expressions == null)
+				yield break;
+
+			foreach (var expressionModel in expressionsListModel.Expressions)
+				yield return expressionModel.Name;
 		}
 
 		private IEnumerable<String> GetSelect()

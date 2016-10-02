@@ -26,22 +26,18 @@ public class CategoryImage : IHttpHandler
 		response.ContentType = "image/png";
 
 		var catetoryID = DataConverter.ToNullableGuid(request["CategoryID"]);
-		var imagePath = server.MapPath("~/App_Themes/Default/Images/analitycactive.png");
+		var imagePath = server.MapPath("~/App_Themes/Default/Images/transparent.png");
+		var fileBytes = File.ReadAllBytes(imagePath);
 
 		using (var db = new PortalDataContext())
 		{
 			var category = db.LP_Categories.FirstOrDefault(n => n.ID == catetoryID);
-			if (category != null)
+			if (category != null && category.Image != null && category.Image.Length > 0)
 			{
-				var fileVirtPath = String.Format("~/Files/{0:n}.png", category.ID);
-				var filePhysPath = server.MapPath(fileVirtPath);
-
-				if (File.Exists(filePhysPath))
-					imagePath = filePhysPath;
+				fileBytes = category.Image.ToArray();
 			}
 		}
 
-		var bytes = File.ReadAllBytes(imagePath);
-		response.BinaryWrite(bytes);
+		response.BinaryWrite(fileBytes);
 	}
 }

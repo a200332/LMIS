@@ -23,6 +23,7 @@ namespace Lmis.Portal.Web.Converters.EntityToModel
 			target.ID = source.ID;
 			target.Name = source.Name;
 			target.ParentID = source.ParentID;
+			target.Image = (source.Image != null ? source.Image.ToArray() : null);
 		}
 	}
 }

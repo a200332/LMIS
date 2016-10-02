@@ -5,15 +5,13 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
-	<table>
-		<tr>
-			<td>
-				<lmis:CategoriesControl runat="server" ID="categoriesControl" />
-			</td>
-			<td>
-				<lmis:ReportUnitsControl runat="server" ID="reportUnitsControl" />
-			</td>
-		</tr>
-	</table>
+    <div class="left" style="width: 256px;">
+        <lmis:CategoriesControl runat="server" ID="categoriesControl" />
+    </div>
+    <div class="left" style="width: 740px;">
+        <lmis:ReportUnitsControl runat="server" ID="reportUnitsControl" />
+    </div>
+
+
 </asp:Content>
 

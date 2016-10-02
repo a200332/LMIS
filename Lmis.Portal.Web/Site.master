@@ -1,4 +1,4 @@
-﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="Site.master.cs" Inherits="Site" %>
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="Site.master.cs" Inherits="Lmis.Portal.Web.Site" %>
 
 <!DOCTYPE html>
 
@@ -9,158 +9,187 @@
     </asp:ContentPlaceHolder>
 </head>
 <body class="horizontal-center">
-<div style="min-height: 100%; position: relative;">
-    <form id="form1" runat="server">
-    <asp:ScriptManager ID="ScriptManager1" runat="server">
-        <Scripts>
-	        <asp:ScriptReference Path="~/Scripts/Video.js"/>
-			<asp:ScriptReference Path="~/Scripts/jquery.min.js"/>
-			<asp:ScriptReference Path="~/Scripts/jquery.bxslider.js"/>
-        </Scripts>
-    </asp:ScriptManager>
-		
-    <script type="text/javascript">
-        function listenSelected() {
-            var text = getSelectionText();
-            if (text == "" || text == null) {
-	            return false;
-            }
+    <div style="min-height: 100%; position: relative;">
+        <form id="form1" runat="server">
+            <asp:ScriptManager ID="ScriptManager1" runat="server">
+                <Scripts>
 
-            var audio = document.getElementById("listenAudio");
-            if (audio != null) {
-                var url = "http://api.naturalreaders.com/v2/tts/?r=0&s=0&t=" + encodeURIComponent(text);
-                audio.src = url;
-                audio.play();
-            }
-        }
+                    <asp:ScriptReference Path="~/Scripts/jquery.min.js" />
+                    <asp:ScriptReference Path="~/Scripts/doctextsizer.js" />
 
-        function getSelectionText() {
-        	var text = "";
+                </Scripts>
+            </asp:ScriptManager>
+            <script>
 
-            if (window.getSelection) {
-                text = window.getSelection().toString();
-            } else if (document.selection && document.selection.type != "Control") {
-                text = document.selection.createRange().text;
-            }
+                $(document).ready(function () {
+                    $(".chat").click(function () {
+                        $("#chat-body").animate({ width: '250px' });
+                    });
+                }); </script>
+            <script type="text/javascript">
+                function listenSelected() {
+                    var text = getSelectionText();
+                    if (text == "" || text == null) {
+                        return false;
+                    }
 
-            return text;
-        }
-    </script>
+                    var audio = document.getElementById("listenAudio");
+                    if (audio != null) {
+                        var url = "http://api.naturalreaders.com/v2/tts/?r=0&s=0&t=" + encodeURIComponent(text);
+                        audio.src = url;
+                        audio.play();
+                    }
+                }
 
-    <audio id="listenAudio" src="" style="display: none;"></audio>
-    <header id="header">
-        <div class="top-bg">
-            <nav class="top ">
-                <div class="box-social">
-                    <ul>
-                        <a href="#" class="sb small no-border linkedin">LinkedIn</a>
-                        <a href="#" class="sb small no-border facebook">Facebook</a>
-                        <a href="#" class="sb small no-border twitter">Twitter</a>
-                        <a href="javascript:listenSelected();" class="sb small no-border twitter">Twitter</a>
+                function getSelectionText() {
+                    var text = "";
+
+                    if (window.getSelection) {
+                        text = window.getSelection().toString();
+                    } else if (document.selection && document.selection.type != "Control") {
+                        text = document.selection.createRange().text;
+                    }
+
+                    return text;
+                }
+            </script>
+            <script type="text/javascript">
+                //documenttextsizer.setup("shared_css_class_of_toggler_controls")
+                documenttextsizer.setup("texttoggler")
+
+            </script>
+            <audio id="listenAudio" src="" style="display: none;"></audio>
+            <header id="header">
+                <div class="top-bg">
+                    <nav class="top ">
+                        <div class="box-social">
+                            <ul>
+                                <li>
+                                    <a href="#" class="sb small no-border linkedin">LinkedIn</a>
+                                    <a href="#" class="sb small no-border facebook">Facebook</a>
+                                    <a href="#" class="sb small no-border twitter">Twitter</a>
+                                    <a href="javascript:listenSelected();" class="sb small no-border voice">Twitter</a>
+                                </li>
+                            </ul>
+
+                        </div>
+                        <div class="top-right">
+                            <ul>
+                                <li><a href="#">English</a></li>
+                                <li>|</li>
+                                <li class="language"><a>Georgian</a></li>
+                                <li>
+                                    <asp:Image ImageUrl="~/App_Themes/Default/images/top-right.png" runat="server" /></li>
+                                <li><a href="http://evolution.ge/Citi/Forum" target="blanck">Forum</a></li>
+                                <li>
+                                    <asp:Image ImageUrl="~/App_Themes/Default/images/top-right.png" runat="server" /></li>
+                                <li><a>FAQ</a></li>
+                                <li>
+                                    <asp:Image ImageUrl="~/App_Themes/Default/images/top-right.png" runat="server" /></li>
+                                <li><a>Sign In</a></li>
+                            </ul>
+                        </div>
+                    </nav>
+                </div>
+                <div class="header">
+                    <div class="header-items">
+                        <div class="header-title">
+                            Plan The Future
+                        </div>
+                        <div class="search-box">
+                            <input type="text" name="search" placeholder="Search..">
+                        </div>
+                    </div>
+                </div>
+                <div class="menu-line">
+                    <ul class="menu">
+                        <li>
+                            <asp:HyperLink runat="server" NavigateUrl="~/Default.aspx">HOME</asp:HyperLink>
+                        </li>
+                        <li>
+                            <asp:HyperLink runat="server" NavigateUrl="~/Pages/User/AboutUs.aspx">About us</asp:HyperLink>
+                        </li>
+                        <li>
+                            <asp:HyperLink runat="server" NavigateUrl="~/Pages/User/Dashboard.aspx">Data</asp:HyperLink>
+                        </li>
+                        <li>
+                            <asp:HyperLink runat="server" NavigateUrl="~/Pages/User/Career.aspx">career</asp:HyperLink>
+                        </li>
+                        <li>
+                            <asp:HyperLink runat="server" NavigateUrl="~/Pages/User/Surveys.aspx">Surveys</asp:HyperLink>
+                        </li>
+                        <li>
+                            <asp:HyperLink runat="server" NavigateUrl="~/Pages/User/Projects.aspx">projects/Programs</asp:HyperLink>
+                        </li>
+                        <li>
+                            <asp:HyperLink runat="server" NavigateUrl="~/Pages/User/News.aspx">News</asp:HyperLink>
+                        </li>
+                        <li>
+                            <asp:HyperLink runat="server" NavigateUrl="~/Pages/User/ContactUs.aspx">Contact Us</asp:HyperLink>
+                        </li>
+                        <li style="float: right">
+
+                            <a href="#" class="texttoggler" rel="xsmallview" title="extra small size">
+                                <img src="xsmallview.png" /></a>
+                            <a href="#" class="texttoggler" rel="smallview" title="small size">
+                                <img src="smallview.png" /></a>
+                            <a href="#" class="texttoggler" rel="normalview" title="normal size">
+                                <img src="normalview.png" /></a>
+                            <a href="#" class="texttoggler" rel="largeview" title="large size">
+                                <img src="largeview.png" /></a>
+                            <a href="#" class="texttoggler" rel="xlargeview" title="extra large size">
+                                <img src="xlargeview.png" /></a>
+                        </li>
                     </ul>
-
                 </div>
-                <div class="top-right">
 
+            </header>
+            <section id="content">
+                <div class="content">
+                    <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+                    </asp:ContentPlaceHolder>
+                </div>
+                <div class="clear"></div>
+                <div class="bottom">
+                    <div class="bottom-links" style="padding-top: 55px;">
+                        <ul>
+                            <li>
+                                <ce:ImageLinkButton NavigateUrl="~/Pages/User/GovermentalWebsites.aspx" DefaultImageUrl="~/App_Themes/Default/images/govrenmental.png" runat="server" />
+                            </li>
+                            <li>
+                                <ce:ImageLinkButton NavigateUrl="~/Pages/User/InformationalCenter.aspx" DefaultImageUrl="~/App_Themes/Default/images/inf-center.png" runat="server" />
+                            </li>
+                            <li>
+                                <ce:ImageLinkButton NavigateUrl="~/Pages/User/UsefulLinks.aspx" DefaultImageUrl="~/App_Themes/Default/images/us-links.png" runat="server" />
+                            </li>
+                            <li>
+                                <ce:ImageLinkButton NavigateUrl="~/Pages/User/WorldStatistics.aspx" DefaultImageUrl="~/App_Themes/Default/images/w-stat.png" runat="server" />
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="bottom-geo">
+                        <ce:ImageLinkButton runat="server" NavigateUrl="~/Pages/User/GeorgiaInNumbers.aspx" DefaultImageUrl="~/App_Themes/Default/images/bn-geo.png" />
+                    </div>
+                </div>
+            </section>
+            <div class="chat">
+
+                <img src="App_Themes/Default/images/chat.png" />
+                <div id="chat-body">
+                    <input type="text" name="fname">
+                </div>
+            </div>
+
+            <footer id="footer">
+                <div class="footer">
                     <ul>
-                        <li><a>English</a></li>
-                        <li>|</li>
-                        <li class="language"><a>Georgian</a></li>
-                        <li>
-                            <asp:Image ImageUrl="~/App_Themes/Default/images/top-right.png" runat="server" /></li>
-                        <li><a>Forum</a></li>
-                        <li>
-                            <asp:Image ImageUrl="~/App_Themes/Default/images/top-right.png" runat="server" /></li>
-                        <li><a>FAQ</a></li>
-                        <li>
-                            <asp:Image ImageUrl="~/App_Themes/Default/images/top-right.png" runat="server" /></li>
-                        <li><a>Sign In</a></li>
+                        <li class="left">
+                            <asp:Image runat="server" ImageUrl="~/App_Themes/Default/images/f-logo.png" /></li>
+                        <li class="right copyright">© 2016  All rights reserved</li>
                     </ul>
-
                 </div>
-            </nav>
-        </div>
-        <div class="header">
-            <div class="header-items">
-                <div class="header-title">
-                    Plan The Future
-                </div>
-                <div class="search-box">
-                    <form>
-                    <input type="text" name="search" placeholder="Search..">
-                    </form>
-                </div>
-            </div>
-        </div>
-        <div class="menu-line">
-
-            <ul class="menu">
-                <li>
-                    <asp:HyperLink runat="server" NavigateUrl="~/Default.aspx">HOME</asp:HyperLink>
-                </li>
-                <li>
-                    <asp:HyperLink runat="server" NavigateUrl="~/Pages/User/AboutUs.aspx">About us</asp:HyperLink>
-                </li>
-                <li>
-                    <asp:HyperLink runat="server" NavigateUrl="~/Pages/User/Dashboard.aspx">Data</asp:HyperLink>
-                </li>
-                <li>
-                    <asp:HyperLink runat="server" NavigateUrl="~/Pages/User/Career.aspx">career</asp:HyperLink>
-                </li>
-                <li>
-                    <asp:HyperLink runat="server" NavigateUrl="~/Pages/User/Surveys.aspx">Surveys</asp:HyperLink>
-                </li>
-                <li>
-                    <asp:HyperLink runat="server" NavigateUrl="~/Pages/User/Projects.aspx">projects/Programs</asp:HyperLink>
-                </li>
-                <li>
-                    <asp:HyperLink runat="server" NavigateUrl="~/Pages/User/News.aspx">News</asp:HyperLink>
-                </li>
-                <li>
-                    <asp:HyperLink runat="server" NavigateUrl="~/Pages/User/ContactUs.aspx">Contact Us</asp:HyperLink>
-                </li>
-            </ul>
-        </div>
-
-    </header>
-    <section id="content">
-        <div class="content">
-            <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
-            </asp:ContentPlaceHolder>
-        </div>
-        <div class="clear"></div>
-        <div class="bottom">
-            <div class="bottom-links" style="padding-top: 55px;">
-                <ul>
-                    <li>
-                        <ce:ImageLinkButton NavigateUrl="~/Pages/User/GovermentalWebsites.aspx" DefaultImageUrl="~/App_Themes/Default/images/govrenmental.png" runat="server" />
-                    </li>
-                    <li>
-                        <ce:ImageLinkButton NavigateUrl="~/Pages/User/InformationalCenter.aspx" DefaultImageUrl="~/App_Themes/Default/images/inf-center.png" runat="server" />
-                    </li>
-                    <li>
-                        <ce:ImageLinkButton NavigateUrl="~/Pages/User/UsefulLinks.aspx" DefaultImageUrl="~/App_Themes/Default/images/us-links.png" runat="server" />
-                    </li>
-                    <li>
-                        <ce:ImageLinkButton NavigateUrl="~/Pages/User/WorldStatistics.aspx" DefaultImageUrl="~/App_Themes/Default/images/w-stat.png" runat="server" />
-                    </li>
-                </ul>
-            </div>
-            <div class="bottom-geo">
-                <ce:ImageLinkButton runat="server" NavigateUrl="~/Pages/User/GeorgiaInNumbers.aspx" DefaultImageUrl="~/App_Themes/Default/images/bn-geo.png" />
-            </div>
-        </div>
-    </section>
-    <footer id="footer">
-        <div class="footer">
-            <ul>
-                <li class="left">
-                    <asp:Image runat="server" ImageUrl="~/App_Themes/Default/images/f-logo.png" /></li>
-                <li class="right copyright">© 2016  All rights reserved</li>
-            </ul>
-        </div>
-    </footer>
-       
-    </form> </div>
+            </footer>
+        </form>
+    </div>
 </body>
 </html>

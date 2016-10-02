@@ -26,10 +26,10 @@ namespace Lmis.Portal.Web.Converters.EntityToModel
 			target.Name = source.Name;
 			target.Columns = new List<ColumnModel>();
 
-			FillColumnს(target.Columns, source.Columns);
+			FillColumns(target.Columns, source.Columns);
 		}
 
-		public void FillColumnს(List<ColumnModel> models, IEnumerable<LP_Column> entities)
+		public void FillColumns(List<ColumnModel> models, IEnumerable<LP_Column> entities)
 		{
 			foreach (var entity in entities.OrderBy(n => n.DateCreated))
 			{

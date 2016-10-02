@@ -58,7 +58,7 @@ namespace Lmis.Portal.Web.Controls.SchemaManipulation
 			if (entityId == null)
 				return;
 
-			OnViewReport(entityId.Value);
+			OnEditReport(entityId.Value);
 		}
 
 		protected void btnDelete_OnCommand(object sender, CommandEventArgs e)

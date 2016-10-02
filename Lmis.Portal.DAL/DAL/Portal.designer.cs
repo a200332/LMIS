@@ -361,6 +361,8 @@ namespace Lmis.Portal.DAL.DAL
 		
 		private System.Nullable<System.DateTime> _DateDeleted;
 		
+		private System.Data.Linq.Binary _Image;
+		
 		private EntitySet<LP_Category> _Children;
 		
 		private EntitySet<LP_Report> _Reports;
@@ -383,6 +385,8 @@ namespace Lmis.Portal.DAL.DAL
     partial void OnDateChangedChanged();
     partial void OnDateDeletedChanging(System.Nullable<System.DateTime> value);
     partial void OnDateDeletedChanged();
+    partial void OnImageChanging(System.Data.Linq.Binary value);
+    partial void OnImageChanged();
     #endregion
 		
 		public LP_Category()
@@ -513,6 +517,26 @@ namespace Lmis.Portal.DAL.DAL
 					this._DateDeleted = value;
 					this.SendPropertyChanged("DateDeleted");
 					this.OnDateDeletedChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Image", DbType="VarBinary(MAX)", UpdateCheck=UpdateCheck.Never)]
+		public System.Data.Linq.Binary Image
+		{
+			get
+			{
+				return this._Image;
+			}
+			set
+			{
+				if ((this._Image != value))
+				{
+					this.OnImageChanging(value);
+					this.SendPropertyChanging();
+					this._Image = value;
+					this.SendPropertyChanged("Image");
+					this.OnImageChanged();
 				}
 			}
 		}
@@ -895,9 +919,9 @@ namespace Lmis.Portal.DAL.DAL
 		
 		private string _SourceType;
 		
-		private EntitySet<LP_ReportLogic> _ReportLogics;
-		
 		private EntitySet<LP_Logic> _Parents;
+		
+		private EntitySet<LP_ReportLogic> _ReportLogics;
 		
 		private EntityRef<LP_Table> _Table;
 		
@@ -931,8 +955,8 @@ namespace Lmis.Portal.DAL.DAL
 		
 		public LP_Logic()
 		{
-			this._ReportLogics = new EntitySet<LP_ReportLogic>(new Action<LP_ReportLogic>(this.attach_ReportLogics), new Action<LP_ReportLogic>(this.detach_ReportLogics));
 			this._Parents = new EntitySet<LP_Logic>(new Action<LP_Logic>(this.attach_Parents), new Action<LP_Logic>(this.detach_Parents));
+			this._ReportLogics = new EntitySet<LP_ReportLogic>(new Action<LP_ReportLogic>(this.attach_ReportLogics), new Action<LP_ReportLogic>(this.detach_ReportLogics));
 			this._Table = default(EntityRef<LP_Table>);
 			this._Child = default(EntityRef<LP_Logic>);
 			OnCreated();
@@ -1146,19 +1170,6 @@ namespace Lmis.Portal.DAL.DAL
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="LP_Logic_LP_ReportLogic", Storage="_ReportLogics", ThisKey="ID", OtherKey="LogicID")]
-		public EntitySet<LP_ReportLogic> ReportLogics
-		{
-			get
-			{
-				return this._ReportLogics;
-			}
-			set
-			{
-				this._ReportLogics.Assign(value);
-			}
-		}
-		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="LP_Logic_LP_Logic", Storage="_Parents", ThisKey="ID", OtherKey="LogicID")]
 		public EntitySet<LP_Logic> Parents
 		{
@@ -1169,6 +1180,19 @@ namespace Lmis.Portal.DAL.DAL
 			set
 			{
 				this._Parents.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="LP_Logic_LP_ReportLogic", Storage="_ReportLogics", ThisKey="ID", OtherKey="LogicID")]
+		public EntitySet<LP_ReportLogic> ReportLogics
+		{
+			get
+			{
+				return this._ReportLogics;
+			}
+			set
+			{
+				this._ReportLogics.Assign(value);
 			}
 		}
 		
@@ -1260,18 +1284,6 @@ namespace Lmis.Portal.DAL.DAL
 			}
 		}
 		
-		private void attach_ReportLogics(LP_ReportLogic entity)
-		{
-			this.SendPropertyChanging();
-			entity.Logic = this;
-		}
-		
-		private void detach_ReportLogics(LP_ReportLogic entity)
-		{
-			this.SendPropertyChanging();
-			entity.Logic = null;
-		}
-		
 		private void attach_Parents(LP_Logic entity)
 		{
 			this.SendPropertyChanging();
@@ -1282,6 +1294,18 @@ namespace Lmis.Portal.DAL.DAL
 		{
 			this.SendPropertyChanging();
 			entity.Child = null;
+		}
+		
+		private void attach_ReportLogics(LP_ReportLogic entity)
+		{
+			this.SendPropertyChanging();
+			entity.Logic = this;
+		}
+		
+		private void detach_ReportLogics(LP_ReportLogic entity)
+		{
+			this.SendPropertyChanging();
+			entity.Logic = null;
 		}
 	}
 	

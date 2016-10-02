@@ -39,7 +39,7 @@
 					<ce:ImageLinkButton runat="server" DefaultImageUrl="~/App_Themes/Default/Images/add.png" ID="btnNewReportLogic" ToolTip="დამატება" OnClick="btnNewReportLogic_OnClick" />
 				</div>
 				<div>
-					<lmis:ReportLogicsControl runat="server" ID="logicsControl" Property="ReportModel.ReportLogics" />
+					<lmis:ReportLogicsControl runat="server" ID="reportLogicsControl" Property="ReportModel.ReportLogics" />
 				</div>
 			</td>
 		</tr>
@@ -63,10 +63,10 @@
 			</div>
 			<div class="fieldsetforicons">
 				<div class="left">
-					<ce:ImageLinkButton runat="server" DefaultImageUrl="~/App_Themes/Default/Images/save_normal.png" ID="btnSaveReportLogic" ToolTip="დამატება" OnClick="btnSaveReportLogic_OnClick" />
+					<ce:ImageLinkButton runat="server" DefaultImageUrl="~/App_Themes/Default/Images/save.png" ID="btnSaveReportLogic" ToolTip="დამატება" OnClick="btnSaveReportLogic_OnClick" />
 				</div>
 				<div class="right">
-					<ce:ImageLinkButton runat="server" DefaultImageUrl="~/App_Themes/Default/Images/close_normal.png" ID="btnCancelReportLogic" ToolTip="დახურვა" />
+					<ce:ImageLinkButton runat="server" DefaultImageUrl="~/App_Themes/Default/Images/close.png" ID="btnCancelReportLogic" ToolTip="დახურვა" />
 				</div>
 			</div>
 		</div>

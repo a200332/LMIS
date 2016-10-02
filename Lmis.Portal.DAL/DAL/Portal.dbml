@@ -19,6 +19,7 @@
       <Column Name="DateCreated" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
       <Column Name="DateChanged" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
       <Column Name="DateDeleted" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Image" Type="System.Data.Linq.Binary" DbType="VarBinary(MAX)" CanBeNull="true" UpdateCheck="Never" />
       <Association Name="LP_Category_LP_Category" Member="Children" ThisKey="ID" OtherKey="ParentID" Type="LP_Category" />
       <Association Name="LP_Category_LP_Report" Member="Reports" ThisKey="ID" OtherKey="CategoryID" Type="LP_Report" />
       <Association Name="LP_Category_LP_Category" Member="Parent" ThisKey="ParentID" OtherKey="ID" Type="LP_Category" IsForeignKey="true" />
@@ -48,8 +49,8 @@
       <Column Name="DateDeleted" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
       <Column Name="LogicID" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
       <Column Name="SourceType" Type="System.String" DbType="NVarChar(250)" CanBeNull="true" />
-      <Association Name="LP_Logic_LP_ReportLogic" Member="ReportLogics" ThisKey="ID" OtherKey="LogicID" Type="LP_ReportLogic" />
       <Association Name="LP_Logic_LP_Logic" Member="Parents" ThisKey="ID" OtherKey="LogicID" Type="LP_Logic" />
+      <Association Name="LP_Logic_LP_ReportLogic" Member="ReportLogics" ThisKey="ID" OtherKey="LogicID" Type="LP_ReportLogic" />
       <Association Name="LP_Table_LP_Logic" Member="Table" ThisKey="TableID" OtherKey="ID" Type="LP_Table" IsForeignKey="true" />
       <Association Name="LP_Logic_LP_Logic" Member="Child" ThisKey="LogicID" OtherKey="ID" Type="LP_Logic" IsForeignKey="true" />
     </Type>

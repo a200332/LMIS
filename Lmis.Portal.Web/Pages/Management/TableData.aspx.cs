@@ -21,9 +21,16 @@ namespace Lmis.Portal.Web.Pages.Management
 			var converter = new TableEntityModelConverter(DataContext);
 			var model = converter.Convert(table);
 
+			var logic = new LogicModel
+			{
+				SourceID = model.ID,
+				SourceType = "Table",
+			};
+
 			var tableDataModel = new TableDataModel
 			{
 				Table = model,
+				Logic = logic
 			};
 
 			tableDataControl.Model = tableDataModel;

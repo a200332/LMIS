@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.master" AutoEventWireup="true" CodeFile="CategoriesList.aspx.cs" Inherits="Lmis.Portal.Web.Pages.Management.CategoriesList" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Admin.master" AutoEventWireup="true" CodeFile="CategoriesList.aspx.cs" Inherits="Lmis.Portal.Web.Pages.Management.CategoriesList" %>
 
 <%@ Register Src="~/Controls/Categories/CategoriesControl.ascx" TagPrefix="lmis" TagName="CategoriesControl" %>
 <%@ Register Src="~/Controls/Categories/CategoryControl.ascx" TagPrefix="lmis" TagName="CategoryControl" %>
@@ -33,10 +33,10 @@
 				</div>
 				<div class="fieldsetforicons">
 					<div class="left">
-						<ce:ImageLinkButton runat="server" DefaultImageUrl="~/App_Themes/Default/Images/save_normal.png" ID="btnSaveCatevory" ToolTip="დამატება" OnClick="btnSaveCatevory_OnClick" />
+						<ce:ImageLinkButton runat="server" DefaultImageUrl="~/App_Themes/Default/Images/save.png" ID="btnSaveCatevory" ToolTip="დამატება" OnClick="btnSaveCatevory_OnClick" />
 					</div>
 					<div class="right">
-						<ce:ImageLinkButton runat="server" DefaultImageUrl="~/App_Themes/Default/Images/close_normal.png" ID="btnCancelCategory" ToolTip="დახურვა" />
+						<ce:ImageLinkButton runat="server" DefaultImageUrl="~/App_Themes/Default/Images/close.png" ID="btnCancelCategory" ToolTip="დახურვა" />
 					</div>
 				</div>
 			</div>

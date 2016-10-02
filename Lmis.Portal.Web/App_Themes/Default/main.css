@@ -748,8 +748,7 @@ li.rm-search {
     margin-bottom: 64px;
 }
 
-.bottom-links {
-    border-top: 1px solid #d7d7d7;
+
 
 @font-face {
     font-family: 'Header';
@@ -1075,7 +1074,7 @@ body {
     font-size: 14px;
     float: right;
     background-color: white;
-    background-image: url('images/search.png');
+    background-image: url('images/search-b.png');
     background-position: 315px 0;
     background-repeat: no-repeat;
     padding: 12px 20px 12px 20px;
@@ -1504,7 +1503,8 @@ li.rm-search {
 }
 
 .bottom-links ul li {
-    float: left;padding-right: 5px;
+    float: left;
+    padding-right: 5px;
 }
 
 
@@ -1522,9 +1522,6 @@ li.rm-search {
     padding-top: 55px;
 }*/
 
-.bottom-links ul li {
-    float: left;padding-right: 5px;
-}
 
 
 .bottom-geo {

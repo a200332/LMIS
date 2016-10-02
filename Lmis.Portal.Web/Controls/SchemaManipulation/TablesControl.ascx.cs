@@ -163,6 +163,7 @@ namespace Lmis.Portal.Web.Controls.SchemaManipulation
 							ID = columnModel.ID,
 							Name = columnModel.Name,
 							ParentID = tblEntity.ID,
+							Type = columnModel.Type
 						};
 
 						yield return colEntity;

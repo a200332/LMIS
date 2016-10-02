@@ -40,13 +40,13 @@
 	<tr>
 		<td>Table</td>
 		<td>
-			<dx:ASPxComboBox runat="server" ID="cbxTable" Property="ReportLogicModel.TableID" ValueType="System.Guid" ValueField="ID" TextField="Name" AutoPostBack="True" OnSelectedIndexChanged="cbxTable_OnSelectedIndexChanged" />
+			<dx:ASPxComboBox runat="server" ID="cbxTable" ValueType="System.Guid" ValueField="ID" TextField="Name" AutoPostBack="True" OnSelectedIndexChanged="cbxTable_OnSelectedIndexChanged" />
 		</td>
 	</tr>
 	<tr>
 		<td>Logic</td>
 		<td>
-			<dx:ASPxComboBox runat="server" ID="cbxLogic" Property="ReportLogicModel.LogicID" ValueType="System.Guid" ValueField="ID" TextField="Name" AutoPostBack="True" OnSelectedIndexChanged="cbxLogic_OnSelectedIndexChanged" />
+			<dx:ASPxComboBox runat="server" ID="cbxLogic" ValueType="System.Guid" ValueField="ID" TextField="Name" AutoPostBack="True" OnSelectedIndexChanged="cbxLogic_OnSelectedIndexChanged" />
 		</td>
 	</tr>
 	<tr>
@@ -89,7 +89,7 @@
 								</asp:Panel>
 							</td>
 							<td>
-								<ce:ImageLinkButton runat="server" ToolTip="Edit" Target="_blank" CommandArgument='<%# Eval("ID") %>' DefaultImageUrl="~/App_Themes/Default/images/edit.png" ID="btnEdit" OnClick="btnSaveBinding_OnClick" />
+								<ce:ImageLinkButton runat="server" ToolTip="Save" Target="_blank" DefaultImageUrl="~/App_Themes/Default/images/save.png" ID="btnSaveBinding" OnClick="btnSaveBinding_OnClick" />
 							</td>
 						</tr>
 					</table>
@@ -98,7 +98,7 @@
 							runat="server"
 							AutoGenerateColumns="False"
 							ClientInstanceName="gvChartBindings"
-							KeyFieldName="ID"
+							KeyFieldName="Key"
 							Width="100%"
 							ClientIDMode="AutoID"
 							EnableRowsCache="False"
@@ -106,8 +106,8 @@
 							<Columns>
 								<dx:GridViewDataTextColumn Caption=" " FieldName="" VisibleIndex="0">
 									<DataItemTemplate>
-										<ce:ImageLinkButton runat="server" ToolTip="Edit" Target="_blank" CommandArgument='<%# Eval("Key") %>' DefaultImageUrl="~/App_Themes/Default/images/edit.png" ID="btnEdit" OnCommand="btnEditBinding_OnCommand" Visible="False" />
-										<ce:ImageLinkButton runat="server" ToolTip="Delete" Target="_blank" CommandArgument='<%# Eval("Key") %>' DefaultImageUrl="~/App_Themes/Default/images/delete.png" ID="btnDelete" OnCommand="btnDeleteBinding_OnCommand" />
+										<ce:ImageLinkButton runat="server" ToolTip="Edit" Target="_blank" CommandArgument='<%# Eval("Key") %>' DefaultImageUrl="~/App_Themes/Default/images/edit.png" ID="btnEditChartBinding" OnCommand="btnEditChartBinding_OnCommand" Visible="False" />
+										<ce:ImageLinkButton runat="server" ToolTip="Delete" Target="_blank" CommandArgument='<%# Eval("Key") %>' DefaultImageUrl="~/App_Themes/Default/images/delete.png" ID="btnDeleteChartBinding" OnCommand="btnDeleteChartBinding_OnCommand" />
 									</DataItemTemplate>
 								</dx:GridViewDataTextColumn>
 								<dx:GridViewDataTextColumn Caption="Caption" FieldName="Caption" />
@@ -121,7 +121,7 @@
 							runat="server"
 							AutoGenerateColumns="False"
 							ClientInstanceName="gvGridBindings"
-							KeyFieldName="ID"
+							KeyFieldName="Key"
 							Width="100%"
 							ClientIDMode="AutoID"
 							EnableRowsCache="False"
@@ -129,8 +129,8 @@
 							<Columns>
 								<dx:GridViewDataTextColumn Caption=" " FieldName="" VisibleIndex="0">
 									<DataItemTemplate>
-										<ce:ImageLinkButton runat="server" ToolTip="Edit" Target="_blank" CommandArgument='<%# Eval("Key") %>' DefaultImageUrl="~/App_Themes/Default/images/edit.png" ID="btnEdit" OnCommand="btnEditBinding_OnCommand" Visible="False" />
-										<ce:ImageLinkButton runat="server" ToolTip="Delete" Target="_blank" CommandArgument='<%# Eval("Key") %>' DefaultImageUrl="~/App_Themes/Default/images/delete.png" ID="btnDelete" OnCommand="btnDeleteBinding_OnCommand" />
+										<ce:ImageLinkButton runat="server" ToolTip="Edit" Target="_blank" CommandArgument='<%# Eval("Key") %>' DefaultImageUrl="~/App_Themes/Default/images/edit.png" ID="btnEditGridBinding" OnCommand="btnEditGridBinding_OnCommand" Visible="False" />
+										<ce:ImageLinkButton runat="server" ToolTip="Delete" Target="_blank" CommandArgument='<%# Eval("Key") %>' DefaultImageUrl="~/App_Themes/Default/images/delete.png" ID="btnDeleteGridBinding" OnCommand="btnDeleteGridBinding_OnCommand" />
 									</DataItemTemplate>
 								</dx:GridViewDataTextColumn>
 								<dx:GridViewDataTextColumn Caption="Caption" FieldName="Caption" />

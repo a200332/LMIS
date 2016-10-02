@@ -29,6 +29,7 @@ namespace Lmis.Portal.Web.Converters.EntityToModel
 			target.ID = source.ID;
 			target.Name = source.Name;
 			target.Type = source.Type;
+			target.SourceType = source.SourceType;
 
 			if (source.SourceType == "Table")
 				target.SourceID = source.TableID;

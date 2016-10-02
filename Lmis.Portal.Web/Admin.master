@@ -1,0 +1,131 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="Admin.master.cs" Inherits="Admin" %>
+
+<!DOCTYPE html>
+
+<html>
+<head runat="server">
+	<title>Plan The Future</title>
+	<asp:ContentPlaceHolder ID="head" runat="server">
+	</asp:ContentPlaceHolder>
+</head>
+<body class="horizontal-center">
+	<div style="min-height: 100%; position: relative;">
+		<form id="form1" runat="server">
+			<asp:ScriptManager ID="ScriptManager1" runat="server">
+				<Scripts>
+					<%--					<asp:ScriptReference Path="~/Scripts/Video.js" />
+					<asp:ScriptReference Path="~/Scripts/jquery.min.js" />
+					<asp:ScriptReference Path="~/Scripts/jquery.bxslider.js" />--%>
+				</Scripts>
+			</asp:ScriptManager>
+
+			<script type="text/javascript">
+				function listenSelected() {
+					var text = getSelectionText();
+					if (text == "" || text == null) {
+						return false;
+					}
+
+					var audio = document.getElementById("listenAudio");
+					if (audio != null) {
+						var url = "http://api.naturalreaders.com/v2/tts/?r=0&s=0&t=" + encodeURIComponent(text);
+						audio.src = url;
+						audio.play();
+					}
+				}
+
+				function getSelectionText() {
+					var text = "";
+
+					if (window.getSelection) {
+						text = window.getSelection().toString();
+					} else if (document.selection && document.selection.type != "Control") {
+						text = document.selection.createRange().text;
+					}
+
+					return text;
+				}
+			</script>
+			<audio id="listenAudio" src="" style="display: none;"></audio>
+			<header id="header">
+				<div class="top-bg">
+					<nav class="top ">
+						<div class="box-social">
+							<ul>
+								<li>
+									<a href="#" class="sb small no-border linkedin">LinkedIn</a>
+									<a href="#" class="sb small no-border facebook">Facebook</a>
+									<a href="#" class="sb small no-border twitter">Twitter</a>
+									<a href="javascript:listenSelected();" class="sb small no-border voice">Twitter</a>
+								</li>
+							</ul>
+
+						</div>
+						<div class="top-right">
+							<ul>
+								<li><a href="#">English</a></li>
+								<li>|</li>
+								<li class="language"><a>Georgian</a></li>
+								<li>
+									<asp:Image ImageUrl="~/App_Themes/Default/images/top-right.png" runat="server" /></li>
+								<li><a>Forum</a></li>
+								<li>
+									<asp:Image ImageUrl="~/App_Themes/Default/images/top-right.png" runat="server" /></li>
+								<li><a>FAQ</a></li>
+								<li>
+									<asp:Image ImageUrl="~/App_Themes/Default/images/top-right.png" runat="server" /></li>
+								<li><a>Sign In</a></li>
+							</ul>
+						</div>
+					</nav>
+				</div>
+				<div class="header">
+					<div class="header-items">
+						<div class="header-title">
+							Plan The Future
+						</div>
+						<div class="search-box">
+							<input type="text" name="search" placeholder="Search..">
+						</div>
+					</div>
+				</div>
+				<div class="menu-line">
+					<ul class="menu">
+						<li>
+							<asp:HyperLink runat="server" NavigateUrl="~/Default.aspx">HOME</asp:HyperLink>
+						</li>
+						<li>
+							<asp:HyperLink runat="server" NavigateUrl="~/Pages/Management/CategoriesList.aspx">Categories</asp:HyperLink>
+						</li>
+						<li>
+							<asp:HyperLink runat="server" NavigateUrl="~/Pages/Management/TablesList.aspx">Tables</asp:HyperLink>
+						</li>
+						<li>
+							<asp:HyperLink runat="server" NavigateUrl="~/Pages/Management/LogicsList.aspx">Logics</asp:HyperLink>
+						</li>
+						<li>
+							<asp:HyperLink runat="server" NavigateUrl="~/Pages/Management/ReportsList.aspx">Reports</asp:HyperLink>
+						</li>
+					</ul>
+				</div>
+
+			</header>
+			<section id="content">
+				<div class="content">
+					<asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+					</asp:ContentPlaceHolder>
+				</div>
+			</section>
+			<footer id="footer">
+				<div class="footer">
+					<ul>
+						<li class="left">
+							<asp:Image runat="server" ImageUrl="~/App_Themes/Default/images/f-logo.png" /></li>
+						<li class="right copyright">© 2016  All rights reserved</li>
+					</ul>
+				</div>
+			</footer>
+		</form>
+	</div>
+</body>
+</html>

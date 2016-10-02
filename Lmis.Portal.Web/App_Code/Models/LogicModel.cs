@@ -3,6 +3,7 @@ using Lmis.Portal.Web.Models.Common;
 
 namespace Lmis.Portal.Web.Models
 {
+	[Serializable]
     public class LogicModel
     {
         public Guid? ID { get; set; }

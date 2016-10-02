@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.master" AutoEventWireup="true" CodeFile="ReportsList.aspx.cs" Inherits="Lmis.Portal.Web.Pages.Management.ReportsList" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Admin.master" AutoEventWireup="true" CodeFile="ReportsList.aspx.cs" Inherits="Lmis.Portal.Web.Pages.Management.ReportsList" %>
 
 <%@ Register Src="~/Controls/SchemaManipulation/ReportsControl.ascx" TagPrefix="lmis" TagName="ReportsControl" %>
 <%@ Register Src="~/Controls/DataDisplay/CategoriesControl.ascx" TagPrefix="lmis" TagName="CategoriesControl" %>

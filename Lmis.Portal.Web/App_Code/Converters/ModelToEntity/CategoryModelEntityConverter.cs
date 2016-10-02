@@ -27,6 +27,7 @@ namespace Lmis.Portal.Web.Converters.ModelToEntity
 			//target.ID = source.ID.Value;
 			target.Name = source.Name;
 			target.ParentID = source.ParentID;
+			target.Image = source.Image;
 		}
 	}
 }

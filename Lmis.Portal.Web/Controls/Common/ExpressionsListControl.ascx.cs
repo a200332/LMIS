@@ -1,15 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Web.UI;
+using System.Web.UI.WebControls;
 using Lmis.Portal.Web.Bases;
 using Lmis.Portal.Web.Models.Common;
 using CITI.EVO.Tools.Extensions;
+using CITI.EVO.Tools.Utils;
 
 namespace Lmis.Portal.Web.Controls.Common
 {
 	public partial class ExpressionsListControl : BaseExtendedControl<ExpressionsListModel>
 	{
-		protected List<ExpressionModel> Expressions
+		public List<ExpressionModel> Expressions
 		{
 			get
 			{
@@ -27,81 +30,86 @@ namespace Lmis.Portal.Web.Controls.Common
 
 		protected void Page_Load(object sender, EventArgs e)
 		{
-
+			gvExpressions.DataSource = Expressions;
+			gvExpressions.DataBind();
 		}
 
 		protected void Page_PreRender(object sender, EventArgs e)
 		{
-			var list = new List<ExpressionModel>();
-			if (Expressions != null)
-				list.AddRange(Expressions);
-
-			list.Insert(0, new ExpressionModel { Expression = "- New -" });
-
-			var index = lstExpressions.SelectedIndex;
-			if (index >= list.Count)
-				index = list.Count - 1;
-
-			lstExpressions.DataSource = list;
-			lstExpressions.DataBind();
-
-			lstExpressions.SelectedIndex = index;
+			gvExpressions.DataSource = Expressions;
+			gvExpressions.DataBind();
 		}
 
-		protected void btnSave_OnClick(object sender, ImageClickEventArgs e)
+		protected void btnSave_OnClick(object sender, EventArgs e)
 		{
-			if (String.IsNullOrWhiteSpace(txtExpression.Text))
+			var model = expressionControl.Model;
+			if (String.IsNullOrWhiteSpace(model.Expression))
 				return;
 
-			if (lstExpressions.SelectedIndex < 1)
+			if (model.Key != null)
 			{
-				var entry = new ExpressionModel
+				var oldModel = Expressions.FirstOrDefault(n => n.Key == model.Key);
+				if (oldModel != null)
 				{
-					Expression = txtExpression.Text,
-					OutputType = ddlType.TryGetStringValue(),
-				};
-
-				Expressions.Insert(0, entry);
+					oldModel.Expression = model.Expression;
+					oldModel.OutputType = model.OutputType;
+				}
 			}
 			else
 			{
-				var entry = Expressions[lstExpressions.SelectedIndex - 1];
-				entry.Expression = txtExpression.Text;
-				entry.OutputType = ddlType.TryGetStringValue();
-			}
-		}
+				var newModel = new ExpressionModel
+				{
+					Key = Guid.NewGuid(),
+					Expression = model.Expression,
+					OutputType = model.OutputType
+				};
 
-		protected void btnDelete_OnClick(object sender, ImageClickEventArgs e)
-		{
-			if (lstExpressions.SelectedIndex < 1)
-				return;
-
-			Expressions.RemoveAt(lstExpressions.SelectedIndex - 1);
-
-			txtExpression.Text = String.Empty;
-			ddlType.SelectedIndex = 0;
-		}
-
-		protected void lstExpressions_OnSelectedIndexChanged(object sender, EventArgs e)
-		{
-			if (lstExpressions.SelectedIndex < 1)
-			{
-				txtExpression.Text = String.Empty;
-				return;
+				Expressions.Add(newModel);
 			}
 
-			var entry = Expressions[lstExpressions.SelectedIndex - 1];
-			txtExpression.Text = entry.Expression;
-			ddlType.TrySetSelectedValue(entry.OutputType);
+			mpeExpression.Hide();
+		}
+
+		protected void btnAdd_OnClick(object sender, EventArgs e)
+		{
+			expressionControl.Model = new ExpressionModel();
+
+			mpeExpression.Show();
+		}
+
+		protected void btnDelete_OnCommand(object sender, CommandEventArgs e)
+		{
+			var key = DataConverter.ToNullableGuid(e.CommandArgument);
+			if (key == null)
+				return;
+
+			var model = Expressions.FirstOrDefault(n => n.Key == key);
+			if (model == null)
+				return;
+
+			Expressions.Remove(model);
+		}
+
+		protected void btnEdit_OnCommand(object sender, CommandEventArgs e)
+		{
+			var key = DataConverter.ToNullableGuid(e.CommandArgument);
+			if (key == null)
+				return;
+
+			var model = Expressions.FirstOrDefault(n => n.Key == key);
+			if (model == null)
+				return;
+
+			expressionControl.Model = model;
+
+			mpeExpression.Show();
 		}
 
 		protected override void OnGetModel(object model, Type type)
 		{
 			var expModel = model as ExpressionsListModel;
 			if (expModel == null)
-			{
 				return;
-			}
 
 			expModel.Expressions = Expressions;
 		}
@@ -110,9 +118,7 @@ namespace Lmis.Portal.Web.Controls.Common
 		{
 			var expModel = model as ExpressionsListModel;
 			if (expModel == null)
-			{
 				return;
-			}
 
 			Expressions = expModel.Expressions;
 		}

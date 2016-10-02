@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.master" AutoEventWireup="true" CodeFile="AddEditTable.aspx.cs" Inherits="Lmis.Portal.Web.Pages.Management.AddEditTable" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Admin.master" AutoEventWireup="true" CodeFile="AddEditTable.aspx.cs" Inherits="Lmis.Portal.Web.Pages.Management.AddEditTable" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
 </asp:Content>

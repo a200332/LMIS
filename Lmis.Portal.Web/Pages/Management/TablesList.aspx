@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.master" AutoEventWireup="true" CodeFile="TablesList.aspx.cs" Inherits="Lmis.Portal.Web.Pages.Management.TablesList" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Admin.master" AutoEventWireup="true" CodeFile="TablesList.aspx.cs" Inherits="Lmis.Portal.Web.Pages.Management.TablesList" %>
 
 <%@ Register Src="~/Controls/SchemaManipulation/TablesControl.ascx" TagPrefix="lmis" TagName="TablesControl" %>
 <%@ Register Src="~/Controls/SchemaManipulation/TableControl.ascx" TagPrefix="lmis" TagName="TableControl" %>
@@ -37,7 +37,7 @@
 				</div>
 				<div class="fieldsetforicons">
 					<div class="left">
-						<ce:ImageLinkButton runat="server" DefaultImageUrl="~/App_Themes/Default/Images/save_normal.png" ID="btnSaveTable" ToolTip="დამატება" OnClick="btnSaveTable_OnClick" />
+						<ce:ImageLinkButton runat="server" DefaultImageUrl="~/App_Themes/Default/Images/save.png" ID="btnSaveTable" ToolTip="დამატება" OnClick="btnSaveTable_OnClick" />
 					</div>
 					<div class="right">
 						<ce:ImageLinkButton runat="server" DefaultImageUrl="~/App_Themes/Default/Images/close_normal.png" ID="btnCancelTable" ToolTip="დახურვა" />
@@ -64,10 +64,10 @@
 				</div>
 				<div class="fieldsetforicons">
 					<div class="left">
-						<ce:ImageLinkButton runat="server" DefaultImageUrl="~/App_Themes/Default/Images/save_normal.png" ID="btnSaveColumn" ToolTip="დამატება" OnClick="btnSaveColumn_OnClick" />
+						<ce:ImageLinkButton runat="server" DefaultImageUrl="~/App_Themes/Default/Images/save.png" ID="btnSaveColumn" ToolTip="დამატება" OnClick="btnSaveColumn_OnClick" />
 					</div>
 					<div class="right">
-						<ce:ImageLinkButton runat="server" DefaultImageUrl="~/App_Themes/Default/Images/close_normal.png" ID="btnCancelColumn" ToolTip="დახურვა" />
+						<ce:ImageLinkButton runat="server" DefaultImageUrl="~/App_Themes/Default/Images/close.png" ID="btnCancelColumn" ToolTip="დახურვა" />
 					</div>
 				</div>
 			</div>

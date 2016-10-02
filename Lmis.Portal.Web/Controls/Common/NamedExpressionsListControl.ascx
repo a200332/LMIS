@@ -1,33 +1,52 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="NamedExpressionsListControl.ascx.cs" Inherits="Lmis.Portal.Web.Controls.Common.NamedExpressionsListControl" %>
-<table>
-    <tr>
-        <td>Name:</td>
-        <td>
-            <asp:TextBox runat="server" ID="txtName" Width="164px" />
-        </td>
-        <td>Expression:</td>
-        <td>
-            <asp:TextBox runat="server" ID="txtExpression" Width="164px" />
-        </td>
-        <td>Type:</td>
-        <td>
-            <asp:DropDownList runat="server" ID="ddlType">
-                <Items>
-                    <asp:ListItem Text="Unspecified" Value="Unspecified" />
-                    <asp:ListItem Text="Text" Value="Text" />
-                    <asp:ListItem Text="Number" Value="Number" />
-                    <asp:ListItem Text="DateTime" Value="DateTime" />
-                </Items>
-            </asp:DropDownList>
-        </td>
-        <td>
-            <asp:ImageButton runat="server" ID="btnSave" ImageUrl="~/App_Themes/default/images/add.png" text="Save" OnClick="btnSave_OnClick" />
-            <asp:ImageButton runat="server" ID="btnDelete" ImageUrl="~/App_Themes/default/images/delete.png" text="Save" OnClick="btnDelete_OnClick" />
-        </td>
-    </tr>
-    <tr>
-        <td colspan="7">
-            <asp:ListBox ID="lstExpressions" Width="449" runat="server" DataTextField="Name" DataValueField="Name" AutoPostBack="True" OnSelectedIndexChanged="lstExpressions_OnSelectedIndexChanged"></asp:ListBox>
-        </td>
-    </tr>
-</table>
+
+<%@ Register Src="~/Controls/Common/NamedExpressionControl.ascx" TagPrefix="local" TagName="NamedExpressionControl" %>
+
+<div>
+	<div>
+		<ce:ImageLinkButton runat="server" ToolTip="New" DefaultImageUrl="~/App_Themes/Default/images/add.png" ID="btnAdd" OnCommand="btnAdd_OnClick" />
+	</div>
+	<div>
+		<asp:GridView ID="gvExpressions" runat="server" AutoGenerateColumns="False"
+			Width="100%">
+			<Columns>
+				<asp:TemplateField>
+					<ItemTemplate>
+						<ce:ImageLinkButton runat="server" ToolTip="Edit" CommandArgument='<%# Eval("Key") %>' DefaultImageUrl="~/App_Themes/Default/images/edit.png" ID="btnEdit" OnCommand="btnEdit_OnCommand" />
+						<ce:ImageLinkButton runat="server" ToolTip="Delete" CommandArgument='<%# Eval("Key") %>' DefaultImageUrl="~/App_Themes/Default/images/delete.png" ID="btnDelete" OnCommand="btnDelete_OnCommand" />
+					</ItemTemplate>
+				</asp:TemplateField>
+				<asp:BoundField HeaderText="Name" DataField="Name" />
+				<asp:BoundField HeaderText="Expression" DataField="Expression" />
+				<asp:BoundField HeaderText="OutputType" DataField="OutputType" />
+			</Columns>
+		</asp:GridView>
+	</div>
+</div>
+<div>
+	<act:ModalPopupExtender runat="server" ID="mpeExpression" TargetControlID="btnExpressionFake"
+		Enabled="true" BackgroundCssClass="modalBackground" PopupControlID="pnlExpression"
+		CancelControlID="btnCancel" />
+	<asp:Button runat="server" ID="btnExpressionFake" Style="display: none" />
+	<asp:Panel runat="server" ID="pnlExpression">
+		<div class="popup">
+			<div>
+			</div>
+			<div class="popup_fieldset">
+				<h2>Report Logic</h2>
+				<div class="title_separator"></div>
+				<div class="box">
+					<local:NamedExpressionControl runat="server" ID="namedExpressionControl" />
+				</div>
+			</div>
+			<div class="fieldsetforicons">
+				<div class="left">
+					<ce:ImageLinkButton runat="server" DefaultImageUrl="~/App_Themes/Default/Images/save.png" ID="btnSave" ToolTip="დამატება" OnClick="btnSave_OnClick" />
+				</div>
+				<div class="right">
+					<ce:ImageLinkButton runat="server" DefaultImageUrl="~/App_Themes/Default/Images/close.png" ID="btnCancel" ToolTip="დახურვა" />
+				</div>
+			</div>
+		</div>
+	</asp:Panel>
+</div>

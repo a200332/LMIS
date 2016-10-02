@@ -1,11 +1,11 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="ReportUnitControl.ascx.cs" Inherits="Lmis.Portal.Web.Controls.DataDisplay.ReportUnitControl" %>
 
 <asp:Panel runat="server" ID="pnlGrid">
-	<dx:ASPxGridView runat="server" ID="mainGrid">
+	<dx:ASPxGridView runat="server" ID="mainGrid" Width="740">
 	</dx:ASPxGridView>
 </asp:Panel>
 <asp:Panel runat="server" ID="pnlChart">
-	<asp:Chart ID="mainChart" runat="server" Width="1150" Height="600">
+	<asp:Chart ID="mainChart" runat="server" Width="740" Height="300">
 		<Titles>
 			<asp:Title Name="Default" Text="" TextStyle="Shadow" Font="Times New Roman, 15pt" Docking="Top">
 			</asp:Title>

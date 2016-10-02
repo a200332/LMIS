@@ -274,21 +274,35 @@ a.sb,
         .sb a.twitter {
             background-image: url(images/twitter_bird_orig.png);
             -webkit-transition: color .25s ease-out;
-            transition: all  .25s ease-out;
+            transition: all .25s ease-out;
         }
 
             a.sb.twitter:hover,
             .sb a.twitter:hover {
                 background-image: url(images/white_twitter_bird.png);
                 -webkit-transition: color .25s ease-out;
-                transition: all  .25s ease-out;
+                transition: all .25s ease-out;
+            }
+
+        a.sb.voice,
+        .sb a.voice {
+            background-image: url(images/voice_orig.png);
+            -webkit-transition: color .25s ease-out;
+            transition: all .25s ease-out;
+        }
+
+            a.sb.voice:hover,
+            .sb a.voice:hover {
+                background-image: url(images/white_voice_orig.png);
+                -webkit-transition: color .25s ease-out;
+                transition: all .25s ease-out;
             }
 
         a.sb.facebook,
         .sb a.facebook {
             background-image: url(images/facebook_orig.png);
             -webkit-transition: color .25s ease-out;
-            transition: all  .25s ease-out;
+            transition: all .25s ease-out;
         }
 
 
@@ -296,7 +310,7 @@ a.sb,
             .sb a.facebook:hover {
                 background-image: url(images/white_facebook.png);
                 -webkit-transition: color .25s ease-out;
-                transition: all  .25s ease-out;
+                transition: all .25s ease-out;
             }
 
 
@@ -304,15 +318,15 @@ a.sb,
         a.sb.linkedin,
         .sb a.linkedin {
             background-image: url('images/linkedin_orig.png');
-            -webkit-transition: all  .25s ease-out;
-            transition: all  .25s ease-out;
+            -webkit-transition: all .25s ease-out;
+            transition: all .25s ease-out;
         }
 
             a.sb.linkedin:hover,
             .sb a.linkedin:hover {
                 background-image: url(images/white_linkedin.png);
-                -webkit-transition: all  .25s ease-out;
-                transition: all  .25s ease-out;
+                -webkit-transition: all .25s ease-out;
+                transition: all .25s ease-out;
             }
 
         /* white icons */

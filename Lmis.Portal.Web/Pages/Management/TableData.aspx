@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.master" AutoEventWireup="true" CodeFile="TableData.aspx.cs" Inherits="Lmis.Portal.Web.Pages.Management.TableData" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Admin.master" AutoEventWireup="true" CodeFile="TableData.aspx.cs" Inherits="Lmis.Portal.Web.Pages.Management.TableData" %>
 
 <%@ Register Src="~/Controls/DataManipulation/TableDataControl.ascx" TagPrefix="lmis" TagName="TableDataControl" %>
 

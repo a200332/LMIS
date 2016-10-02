@@ -41,5 +41,9 @@
 			<HeaderStyle Wrap="True" HorizontalAlign="Center"></HeaderStyle>
 			<CellStyle Wrap="True" HorizontalAlign="Center"></CellStyle>
 		</dx:TreeListDataColumn>
+		<dx:TreeListDataColumn FieldName="Type" Name="Type" Caption="Type">
+			<HeaderStyle Wrap="True" HorizontalAlign="Center"></HeaderStyle>
+			<CellStyle Wrap="True" HorizontalAlign="Center"></CellStyle>
+		</dx:TreeListDataColumn>
 	</Columns>
 </dx:ASPxTreeList>

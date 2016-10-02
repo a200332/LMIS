@@ -36,8 +36,8 @@ namespace Lmis.Portal.Web.Controls.DataDisplay
 				pnlGrid.Visible = true;
 
 				var entiry = entities.FirstOrDefault();
-
-				BindGridData(entiry);
+				if (entiry != null)
+					BindGridData(entiry);
 			}
 			else
 			{
@@ -56,7 +56,8 @@ namespace Lmis.Portal.Web.Controls.DataDisplay
 				var sqlDs = CreateDataSource(entity.SqlQuery);
 
 				var series = CreateSeries(entity.Bindings, sqlDs, chartType);
-				mainChart.Series.Add(series);
+				if (series != null)
+					mainChart.Series.Add(series);
 			}
 
 			mainChart.DataSource = null;
@@ -71,9 +72,11 @@ namespace Lmis.Portal.Web.Controls.DataDisplay
 
 			foreach (var model in entiry.Bindings)
 			{
-				var col = new GridViewDataColumn();
-				col.Caption = model.Caption;
-				col.FieldName = model.Source;
+				var col = new GridViewDataColumn
+				{
+					Caption = model.Caption,
+					FieldName = model.Source
+				};
 
 				mainGrid.Columns.Add(col);
 			}
@@ -86,16 +89,21 @@ namespace Lmis.Portal.Web.Controls.DataDisplay
 
 		private Series CreateSeries(IEnumerable<BindingInfoModel> models, SqlDataSource sqlDs, SeriesChartType chartType)
 		{
+			if (models == null)
+				return null;
+
 			var modelLp = models.ToLookup(n => n.Caption);
 
 			var modelsGrp = modelLp.FirstOrDefault();
+			if (modelsGrp == null)
+				return null;
 
 			var byTargetLp = modelsGrp.ToLookup(n => n.Target);
 
-			var yMembers = byTargetLp["YMember"];
+			var yMembers = byTargetLp["YValue"];
 			var yMember = String.Join(",", yMembers.Select(n => n.Source));
 
-			var xMembers = byTargetLp["XMember"];
+			var xMembers = byTargetLp["XValue"];
 			var xMember = String.Join(",", xMembers.Select(n => n.Source));
 
 			var series = new Series(modelsGrp.Key);
@@ -139,10 +147,19 @@ namespace Lmis.Portal.Web.Controls.DataDisplay
 			{
 				var logicModel = reportLogicModel.Logic;
 
+				var list = (List<BindingInfoModel>)null;
+
+				var bindings = reportLogicModel.Bindings;
+				if (bindings == null || bindings.List == null)
+					list = new List<BindingInfoModel>();
+				else
+					list = bindings.List;
+
 				var entity = new BindingInfoEntity
 				{
 					SqlQuery = logicModel.Query,
 					Type = reportLogicModel.Type,
+					Bindings = list,
 				};
 
 				if (logicModel.Type != "Query")

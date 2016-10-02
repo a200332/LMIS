@@ -89,6 +89,7 @@ namespace Lmis.Portal.Web.Converters.ModelToEntity
 				var bindingXElem = new XElement
 					(
 						"Binding",
+						new XElement("ID", bindingModel.ID),
 						new XElement("Target", bindingModel.Target),
 						new XElement("Source", bindingModel.Source),
 						new XElement("Caption", bindingModel.Caption)
