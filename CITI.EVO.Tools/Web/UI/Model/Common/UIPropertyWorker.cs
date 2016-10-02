@@ -262,6 +262,14 @@ namespace CITI.EVO.Tools.Web.UI.Model.Common
 				return;
 			}
 
+			if (control is FileUpload)
+			{
+				var container = (FileUpload)control;
+				//container.FileBytes = Convert.ToString(propertyValue);
+
+				return;
+			}
+
 			if (control is ASPxSpinEdit)
 			{
 				var container = (ASPxSpinEdit)control;
@@ -426,6 +434,12 @@ namespace CITI.EVO.Tools.Web.UI.Model.Common
 			{
 				var container = (Label)control;
 				return container.Text;
+			}
+
+			if (control is FileUpload)
+			{
+				var container = (FileUpload)control;
+				return container.FileBytes;
 			}
 
 			if (control is ASPxSpinEdit)

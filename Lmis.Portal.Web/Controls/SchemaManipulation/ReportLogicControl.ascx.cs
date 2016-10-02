@@ -137,7 +137,7 @@ namespace Lmis.Portal.Web.Controls.SchemaManipulation
 				var xBinding = new BindingInfoModel
 				{
 					ID = Guid.NewGuid(),
-					Caption = tbxChartCaption.Text,
+					Caption = cbxChartCaption.TryGetStringValue(),
 					Source = cbxChartXValue.TryGetStringValue(),
 					Target = "XValue"
 				};
@@ -145,7 +145,7 @@ namespace Lmis.Portal.Web.Controls.SchemaManipulation
 				var yBinding = new BindingInfoModel
 				{
 					ID = Guid.NewGuid(),
-					Caption = tbxChartCaption.Text,
+					Caption = cbxChartCaption.TryGetStringValue(),
 					Source = cbxChartYValue.TryGetStringValue(),
 					Target = "YValue"
 				};
@@ -212,6 +212,7 @@ namespace Lmis.Portal.Web.Controls.SchemaManipulation
 			{
 				pnlChartBinding.Visible = false;
 				pnlChartBindings.Visible = false;
+				trChartType.Visible = false;
 
 				pnlGridBinding.Visible = true;
 				pnlGridBindings.Visible = true;
@@ -220,6 +221,7 @@ namespace Lmis.Portal.Web.Controls.SchemaManipulation
 			{
 				pnlChartBinding.Visible = true;
 				pnlChartBindings.Visible = true;
+				trChartType.Visible = true;
 
 				pnlGridBinding.Visible = false;
 				pnlGridBindings.Visible = false;
@@ -258,6 +260,9 @@ namespace Lmis.Portal.Web.Controls.SchemaManipulation
 
 				cbxChartYValue.DataSource = columns;
 				cbxChartYValue.DataBind();
+
+				cbxChartCaption.DataSource = columns;
+				cbxChartCaption.DataBind();
 
 				cbxGridSource.DataSource = columns;
 				cbxGridSource.DataBind();

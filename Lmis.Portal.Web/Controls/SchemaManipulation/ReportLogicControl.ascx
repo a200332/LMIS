@@ -1,6 +1,6 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="ReportLogicControl.ascx.cs" Inherits="Lmis.Portal.Web.Controls.SchemaManipulation.ReportLogicControl" %>
 <table>
-	<tr>
+	<tr runat="server" ID="trChartType">
 		<td>Type</td>
 		<td>
 			<dx:ASPxComboBox runat="server" ID="cbxType" Property="ReportLogicModel.Type" ValueType="System.String">
@@ -75,7 +75,7 @@
 										<tr>
 											<td>Caption</td>
 											<td>
-												<asp:TextBox runat="server" ID="tbxChartCaption" /></td>
+												<dx:ASPxComboBox runat="server" ID="cbxChartCaption" ValueType="System.String" />
 											<td>XValue</td>
 											<td>
 												<dx:ASPxComboBox runat="server" ID="cbxChartXValue" ValueType="System.String" />

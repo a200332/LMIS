@@ -5,13 +5,17 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
-    <div class="left" style="width: 256px;">
-        <lmis:CategoriesControl runat="server" ID="categoriesControl" />
-    </div>
-    <div class="left" style="width: 740px;">
-        <lmis:ReportUnitsControl runat="server" ID="reportUnitsControl" />
-    </div>
-
-
+	<div class="left" style="width: 256px;">
+		<lmis:CategoriesControl runat="server" ID="categoriesControl" />
+	</div>
+	<div class="left" style="width: 740px;">
+		<div>
+			<asp:CheckBoxList runat="server" ID="lstReports" DataTextField="Name" DataValueField="ID" RepeatDirection="Horizontal" />
+			<ce:ImageLinkButton runat="server" ID="btnApply" DefaultImageUrl="~/App_Themes/Default/Images/search.png" ToolTip="Apply"></ce:ImageLinkButton>
+		</div>
+		<div>
+			<lmis:ReportUnitsControl runat="server" ID="reportUnitsControl" />
+		</div>
+	</div>
 </asp:Content>
 

@@ -17,5 +17,7 @@
 			</DataItemTemplate>
 		</dx:GridViewDataTextColumn>
 		<dx:GridViewDataTextColumn Caption="Name" FieldName="Name"/>
+		<dx:GridViewDataTextColumn Caption="Type" FieldName="Type"/>
+		<dx:GridViewDataTextColumn Caption="SourceType" FieldName="SourceType"/>
 	</Columns>
 </dx:ASPxGridView>

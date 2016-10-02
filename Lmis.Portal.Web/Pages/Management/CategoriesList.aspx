@@ -22,10 +22,8 @@
 				<div>
 				</div>
 				<div class="popup_fieldset">
-					<h2>ალერგია</h2>
-					<div class="title_separator"></div>
 					<div class="box">
-						<h3>ალერგია</h3>
+						<h3>Category</h3>
 					</div>
 					<div class="box">
 						<lmis:CategoryControl runat="server" ID="categoryControl" />

@@ -16,7 +16,7 @@
 		<td>
 			<fieldset>
 				<legend>Group By</legend>
-				<local:NamedExpressionsListControl runat="server" ID="groupByControl" Property="ExpressionsLogicModel.GroupBy" />
+				<local:ExpressionsListControl runat="server" ID="groupByControl" Property="ExpressionsLogicModel.GroupBy" />
 			</fieldset>
 		</td>
 	</tr>

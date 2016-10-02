@@ -107,6 +107,9 @@
                             <asp:HyperLink runat="server" NavigateUrl="~/Default.aspx">HOME</asp:HyperLink>
                         </li>
                         <li>
+                            <asp:HyperLink runat="server" NavigateUrl="~/Pages/Management/CategoriesList.aspx">ADMIN</asp:HyperLink>
+                        </li>
+                        <li>
                             <asp:HyperLink runat="server" NavigateUrl="~/Pages/User/AboutUs.aspx">About us</asp:HyperLink>
                         </li>
                         <li>

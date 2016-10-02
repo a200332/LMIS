@@ -59,7 +59,7 @@ namespace Lmis.Portal.Web.Converters.EntityToModel
 			var model = new ExpressionsLogicModel();
 
 			model.FilterBy = GetExpressionsList("FilterBy", logicXElem);
-			model.GroupBy = GetNamedExpressionsList("GroupBy", logicXElem);
+			model.GroupBy = GetExpressionsList("GroupBy", logicXElem);
 			model.OrderBy = GetExpressionsList("OrderBy", logicXElem);
 			model.Select = GetNamedExpressionsList("Select", logicXElem);
 
@@ -81,6 +81,7 @@ namespace Lmis.Portal.Web.Converters.EntityToModel
 			{
 				var model = new ExpressionModel
 				{
+					Key = (Guid?)itemXElem.Element("Key"),
 					Expression = (String)itemXElem.Element("Expression"),
 					OutputType = (String)itemXElem.Element("OutputType")
 				};
@@ -106,6 +107,7 @@ namespace Lmis.Portal.Web.Converters.EntityToModel
 			{
 				var model = new NamedExpressionModel
 				{
+					Key = (Guid?)itemXElem.Element("Key"),
 					Name = (String)itemXElem.Element("Name"),
 					Expression = (String)itemXElem.Element("Expression"),
 					OutputType = (String)itemXElem.Element("OutputType")

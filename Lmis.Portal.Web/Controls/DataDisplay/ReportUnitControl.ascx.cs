@@ -44,21 +44,104 @@ namespace Lmis.Portal.Web.Controls.DataDisplay
 				pnlChart.Visible = true;
 				pnlGrid.Visible = false;
 
-				BindChartData(entities);
+				var entiry = entities.FirstOrDefault();
+				if (entiry != null)
+					BindChartData(entiry);
 			}
 		}
 
-		private void BindChartData(IEnumerable<BindingInfoEntity> entities)
+		private void BindChartData(BindingInfoEntity entity)
 		{
-			foreach (var entity in entities)
-			{
-				var chartType = GetChartType(entity.Type);
-				var sqlDs = CreateDataSource(entity.SqlQuery);
+			var chartType = GetChartType(entity.Type);
+			var sqlDs = CreateDataSource(entity.SqlQuery);
 
-				var series = CreateSeries(entity.Bindings, sqlDs, chartType);
-				if (series != null)
-					mainChart.Series.Add(series);
+			if (entity.Bindings == null)
+				return;
+
+			var modelLp = entity.Bindings.ToLookup(n => n.Caption);
+
+			var modelsGrp = modelLp.FirstOrDefault();
+			if (modelsGrp == null)
+				return;
+
+			var byTargetLp = modelsGrp.ToLookup(n => n.Target);
+
+			var yMembers = byTargetLp["YValue"];
+			var yMember = String.Join(",", yMembers.Select(n => n.Source));
+
+			var xMembers = byTargetLp["XValue"];
+			var xMember = String.Join(",", xMembers.Select(n => n.Source));
+
+			var dataView = (DataView)sqlDs.Select(new DataSourceSelectArguments());
+			if (dataView == null)
+				return;
+
+			var selCaption = (from n in Request.Form.AllKeys
+							  where n.StartsWith(cbxCaption.ClientID)
+							  let m = Request.Form[n]
+							  select m).FirstOrDefault();
+
+			var selXYValue = (from n in Request.Form.AllKeys
+							  where n.StartsWith(cbxXYSeries.ClientID)
+							  let m = Request.Form[n]
+							  select m).FirstOrDefault();
+
+			var captions = (from DataRowView n in dataView
+							let v = n[modelsGrp.Key]
+							orderby v
+							select v).Distinct().ToList();
+
+			captions.Insert(0, String.Empty);
+
+			cbxCaption.DataSource = captions;
+			cbxCaption.DataBind();
+
+			cbxCaption.TrySetSelectedValue(selCaption);
+
+			var xyValues = (from DataRowView n in dataView
+							let v = n[xMember]
+							orderby v
+							select v).Distinct().ToList();
+
+			xyValues.Insert(0, String.Empty);
+
+			cbxXYSeries.DataSource = xyValues;
+			cbxXYSeries.DataBind();
+
+			cbxXYSeries.TrySetSelectedValue(selXYValue);
+
+			var collection = (from DataRowView n in dataView
+							  select n);
+
+			if (!String.IsNullOrWhiteSpace(selCaption))
+			{
+				collection = (from n in collection
+							  let v = Convert.ToString(n[modelsGrp.Key])
+							  where v == selCaption
+							  select n);
 			}
+
+			if (!String.IsNullOrWhiteSpace(selXYValue))
+			{
+				collection = (from n in collection
+							  let v = Convert.ToString(n[yMember])
+							  where v == selXYValue
+							  select n);
+			}
+
+			mainChart.DataBindCrossTable(collection, modelsGrp.Key, xMember, yMember, String.Empty, PointSortOrder.Ascending);
+
+			foreach (var series in mainChart.Series)
+			{
+				series.Legend = "Default";
+				series.BorderWidth = 2;
+				series.ChartType = chartType;
+				series.IsValueShownAsLabel = true;
+				series.ToolTip = "#SERIESNAME #VALX/#VALY";
+				series.Palette = ChartColorPalette.BrightPastel;
+			}
+
+			mainChart.ApplyPaletteColors();
 
 			mainChart.DataSource = null;
 			mainGrid.DataSource = null;
@@ -85,56 +168,6 @@ namespace Lmis.Portal.Web.Controls.DataDisplay
 			mainGrid.DataSource = sqlDs;
 
 			mainChart.DataSource = null;
-		}
-
-		private Series CreateSeries(IEnumerable<BindingInfoModel> models, SqlDataSource sqlDs, SeriesChartType chartType)
-		{
-			if (models == null)
-				return null;
-
-			var modelLp = models.ToLookup(n => n.Caption);
-
-			var modelsGrp = modelLp.FirstOrDefault();
-			if (modelsGrp == null)
-				return null;
-
-			var byTargetLp = modelsGrp.ToLookup(n => n.Target);
-
-			var yMembers = byTargetLp["YValue"];
-			var yMember = String.Join(",", yMembers.Select(n => n.Source));
-
-			var xMembers = byTargetLp["XValue"];
-			var xMember = String.Join(",", xMembers.Select(n => n.Source));
-
-			var series = new Series(modelsGrp.Key);
-			series.YValueMembers = yMember;
-			series.XValueMember = xMember;
-			series.ChartType = chartType;
-
-			FillValues(series, sqlDs);
-
-			return series;
-		}
-
-		private void FillValues(Series series, SqlDataSource sqlDs)
-		{
-			var dataView = (DataView)sqlDs.Select(new DataSourceSelectArguments());
-			var dataTable = dataView.ToTable();
-
-			var yFields = series.YValueMembers.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
-			var xField = series.XValueMember;
-
-			foreach (DataRow dataRow in dataTable.Rows)
-			{
-				var dataPoint = new DataPoint();
-
-				var xValue = dataRow[xField];
-				var yValues = yFields.Select(n => dataRow[n]);
-
-				dataPoint.SetValueXY(xValue, yValues);
-
-				series.Points.Add(dataPoint);
-			}
 		}
 
 		protected IEnumerable<BindingInfoEntity> GetQueries(ReportUnitModel unitModel)

@@ -31,6 +31,7 @@ namespace Lmis.Portal.Web.Converters.ModelToEntity
 			//target.ID = source.ID;
 			target.Name = source.Name;
 			target.Type = source.Type;
+			target.SourceType = source.SourceType;
 
 			if (source.SourceType == "Table")
 				target.TableID = source.SourceID;
@@ -95,6 +96,7 @@ namespace Lmis.Portal.Web.Converters.ModelToEntity
 			foreach (var item in model.Expressions)
 			{
 				var itemXElem = new XElement("Item",
+											new XElement("Key", item.Key),
 											new XElement("Expression", item.Expression),
 											new XElement("OutputType", item.OutputType));
 
@@ -114,6 +116,7 @@ namespace Lmis.Portal.Web.Converters.ModelToEntity
 			foreach (var item in model.Expressions)
 			{
 				var itemXElem = new XElement("Item",
+											new XElement("Key", item.Key),
 											new XElement("Name", item.Name),
 											new XElement("Expression", item.Expression),
 											new XElement("OutputType", item.OutputType));

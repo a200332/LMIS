@@ -197,7 +197,7 @@ namespace Lmis.Portal.Web.BLL
 
 			if (groupFields.Count > 0)
 			{
-				var fields = String.Join(", ", filterFields);
+				var fields = String.Join(", ", groupFields);
 				var groupers = String.Format(groupFormat, fields);
 
 				queryParts.Add(groupers);

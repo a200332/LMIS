@@ -4,7 +4,7 @@
 
 <div>
 	<div>
-		<ce:ImageLinkButton runat="server" ToolTip="New" DefaultImageUrl="~/App_Themes/Default/images/add.png" ID="btnAdd" OnCommand="btnAdd_OnClick" Visible="False" />
+		<ce:ImageLinkButton runat="server" ToolTip="New" DefaultImageUrl="~/App_Themes/Default/images/add.png" ID="btnAdd" OnCommand="btnAdd_OnClick" />
 	</div>
 	<div>
 		<asp:GridView ID="gvExpressions" runat="server" AutoGenerateColumns="False" Width="100%">
