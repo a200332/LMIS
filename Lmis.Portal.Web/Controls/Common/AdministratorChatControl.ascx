@@ -1,9 +1,12 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="AdministratorChatControl.ascx.cs" Inherits="Controls_Common_AdministratorChatControl" %>
-<link href="../../App_Themes/Default/chat-theme.css" rel="stylesheet" />
-
 
 <script type="text/javascript">
     var chatHub = null;
+
+    $(document).ready(function () {
+        console.log("sssss");
+        startConversation();
+    });
 
     function startConversation() {
         console.log("Starting conversation!!!");
@@ -12,6 +15,8 @@
         console.log(chatHub);
         chatHub.client.sendMessage = chutHub_sendMessage;
         chatHub.client.updateConnectedUsers = updateConnectedUsers;
+        chatHub.client.disconnected = chutHub_disconnected;
+
 
         $.connection.hub.start().done(chatProcess_start);
 
@@ -30,6 +35,11 @@
         return false;
     };
 
+    function chutHub_disconnected(user) {
+
+        console.log("removing user:" + user);
+        $("#onlineusers option[value=" + user + "]").remove();
+    }
 
 
     function updateConnectedUsers(users) {
@@ -41,21 +51,35 @@
             var name = users[i];
             console.log("adding user - " + name);
 
-            if (name != $('#txtName').val()) {
+            if (name != $('#currentUsername').val()) {
                 $('#onlineusers').append("<option value=" + name + ">" + name + "</option>");
             }
         }
 
     }
 
+    
+
     function send() {
+
+        if (chatHub == null) {
+            startConversation();
+        }
+
         console.log("sending message!!!");
 
         var message = $("#txtMessage").val();
-        var name = $("#txtName").val();
+        var name = $("#currentUsername").val();
+
+
+        if (message != null && message.length === 0) {
+            return false;
+        }
 
         var li = "<li> Me: " + message + "</li>";
         $("#ulChat").append(li);
+
+        $("#txtMessage").val('');
 
         var client = $("#onlineusers").val();
         console.log("sending message:" + client);
@@ -65,14 +89,14 @@
 
     function chatProcess_start() {
         if (chatHub != null) {
-            var groupName = $("#txtName").val();
+            var groupName = $("#currentUsername").val();
             console.log(groupName);
             chatHub.server.startConversation(groupName);
 
             $("#dvMessagenger").show();
             $("#dvConversation").hide();
 
-            chat.server.notify($('#txtName').val(), $.connection.hub.id);
+            chat.server.notify($('#currentUsername').val(), $.connection.hub.id);
         } else {
             console.log("chatHub is null!!!");
         }
@@ -81,7 +105,6 @@
 
 
     function chutHub_sendMessage(name, from, message) {
-        console.log("sssqewqewqeqw");
         var capt = from;
         if (capt.length > 2) {
             capt = capt.substring(0, 2);
@@ -91,50 +114,54 @@
         return false;
     }
 
-
+    function handle(e) {
+        if (e.keyCode === 13) {
+            send();
+        }
+    }
 
 </script>
 
 <input type="hidden" id="nickname" />
+<input type="hidden" id="currentUsername" value="Administrator" />
 
 <div id="dvConversation">
-    <div class="container">
-        <div class="row">
-            <p>
-                <input id="txtName" class="form-control input-lg" placeholder="სახელი" style="width: 200px" />
-            </p>
-            <p>
-                <input type="button" id="btnStart" class="btn btn-primary" onclick="startConversation()" value="დაწყება">
-            </p>
-        </div>
-    </div>
+    <table>
+        <tr>
+            <td>
+                <ce:ImageLinkButton runat="server" DefaultImageUrl="~/App_Themes/Default/images/start.png" OnClientClick="startConversation(); return false;" ToolTip="Start conversation" />
+            </td>
+        </tr>
+    </table>
 </div>
 
-<div id="dvMessagenger" style="display: none;">
-    <div class="container">
-        <div class="row">
-
-            <select id="onlineusers">
-            </select>
+<div id="chat-body" class="hide">
+    <div id="dvMessagenger" style="display: none;">
+        <div class="right-menu">
+            <table>
+                <tr>
+                    <td>
+                        <select id="onlineusers">
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <ul class="chat" id="ulChat" style="display: block; padding: 5px; margin-top: 5px; height: 250px; overflow: auto;">
+                        </ul>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <input id="txtMessage" type="text" placeholder="Message..." style="font-size: 11px; width: 180px; height: 24px; border: 1px gray solid;" onkeydown="handle(event);" />
+                    </td>
+               
+                    <td>
+                        <ce:ImageLinkButton runat="server" DefaultImageUrl="~/App_Themes/Default/images/send.png" OnClientClick="send(); return false;" ToolTip="Send message" />
+                    </td>
+                   
+                </tr>
+            </table>
         </div>
-        <table>
-            <tr>
-                <td>
-                    <ul class="chat" id="ulChat">
-                    </ul>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <input id="txtMessage" type="text"  placeholder="Type your message here..." />
-
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <input type="button" id="btn-chat" value="გაგზავნა" onclick="send()" />
-                </td>
-            </tr>
-        </table>
     </div>
 </div>

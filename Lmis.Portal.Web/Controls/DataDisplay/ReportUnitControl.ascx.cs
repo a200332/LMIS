@@ -22,6 +22,12 @@ namespace Lmis.Portal.Web.Controls.DataDisplay
 		{
 		}
 
+		protected void Page_PreRender(object sender, EventArgs e)
+		{
+			lnkChartGrid.HRef = String.Format("javascript:showHide('{0}', '{1}');", dvChartGrid.ClientID, dvChartImage.ClientID);
+			lnkChartImage.HRef = String.Format("javascript:showHide('{0}', '{1}');", dvChartImage.ClientID, dvChartGrid.ClientID);
+		}
+
 		protected void btnCaptionsOK_OnClick(object sender, EventArgs e)
 		{
 
@@ -143,6 +149,8 @@ namespace Lmis.Portal.Web.Controls.DataDisplay
 				bottomTitle.Text = yMember;
 
 			mainChart.ApplyPaletteColors();
+
+			BindChartGrid(collection, modelsGrp.Key, xMember, yMember);
 		}
 
 		private void BindGridData(BindingInfoEntity entiry)
@@ -170,6 +178,78 @@ namespace Lmis.Portal.Web.Controls.DataDisplay
 			mainGrid.AutoGenerateColumns = (mainGrid.Columns.Count == 0);
 			mainGrid.KeyFieldName = keyColumns;
 			mainGrid.DataSource = sqlDs;
+		}
+
+		private void BindChartGrid(IEnumerable<DataRowView> collection, String groupMember, String yMember, String xMember)
+		{
+			var dataRowViewsYQuery = (from DataRowView n in collection
+									  let v = n[yMember]
+									  orderby v
+									  select new
+									  {
+										  Grouper = v,
+										  DataRow = n
+									  });
+
+			var dataRowViewsYLp = dataRowViewsYQuery.ToLookup(n => n.Grouper);
+
+			var xColumns = dataRowViewsYLp.Select(n => n.Key).ToList();
+
+			var yColumnsQuery = (from DataRowView n in collection
+								 let v = Convert.ToString(n[groupMember])
+								 orderby v
+								 select v).Distinct();
+
+			var yColumns = yColumnsQuery.ToList();
+			yColumns.Insert(0, yMember);
+
+			var dataTable = new DataTable();
+			foreach (var yColumn in yColumns)
+			{
+				dataTable.Columns.Add(yColumn).AllowDBNull = true;
+			}
+
+			foreach (var xColumn in xColumns)
+			{
+				var dataRow = dataTable.NewRow();
+				dataRow[yMember] = Convert.ToString(xColumn);
+
+				var dataRowViewsYGrp = dataRowViewsYLp[xColumn];
+
+				var dataRowViewsGroupQuery = from n in dataRowViewsYGrp
+											 let d = n.DataRow
+											 let v = d[groupMember]
+											 orderby v
+											 select new
+											 {
+												 Grouper = v,
+												 DataRow = d
+											 };
+
+				var dataRowViewsGroupLp = dataRowViewsGroupQuery.ToLookup(n => n.Grouper);
+
+				foreach (var yColumn in yColumns)
+				{
+					if (yColumn == yMember)
+						continue;
+
+					var dataRowViewsGroupGrp = dataRowViewsGroupLp[yColumn];
+
+					var values = (from n in dataRowViewsGroupGrp
+								  let v = n.DataRow[xMember]
+								  let m = DataConverter.ToNullableDecimal(v)
+								  where m != null
+								  select m);
+
+					var value = values.Sum();
+					dataRow[yColumn] = value;
+				}
+
+				dataTable.Rows.Add(dataRow);
+			}
+
+			chartGrid.DataSource = dataTable;
+			chartGrid.DataBind();
 		}
 
 		protected IEnumerable<BindingInfoEntity> GetQueries(ReportUnitModel unitModel)
@@ -253,7 +333,6 @@ namespace Lmis.Portal.Web.Controls.DataDisplay
 
 			return values;
 		}
-
 
 		private SeriesChartType GetChartType(String type)
 		{

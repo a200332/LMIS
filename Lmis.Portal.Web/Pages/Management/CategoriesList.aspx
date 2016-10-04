@@ -6,39 +6,38 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
-	<div style="text-align: left;">
-		<ce:ImageLinkButton runat="server" ToolTip="Add Category" DefaultImageUrl="~/App_Themes/Default/images/add.png" ID="btnAddNew" OnClick="btnAddCategory_OnClick" />
-	</div>
-	<div>
-		<lmis:CategoriesControl runat="server" ID="categoriesControl" OnAddChildCategory="categoriesControl_OnAddChildCategory" OnEditCategory="categoriesControl_OnEditCategory" OnDeleteCategory="categoriesControl_OnDeleteCategory" />
-	</div>
-	<div>
-		<act:ModalPopupExtender runat="server" ID="mpeAddEditCategory" TargetControlID="btnAddEditCategoryFake"
-			Enabled="true" BackgroundCssClass="modalBackground" PopupControlID="pnlAddEditCategory"
-			CancelControlID="btnCancelCategory" />
-		<asp:Button runat="server" ID="btnAddEditCategoryFake" Style="display: none" />
-		<asp:Panel runat="server" ID="pnlAddEditCategory">
-			<div class="popup">
-				<div>
-				</div>
-				<div class="popup_fieldset">
-					<div class="box">
-						<h3>Category</h3>
-					</div>
-					<div class="box">
-						<lmis:CategoryControl runat="server" ID="categoryControl" />
-					</div>
-				</div>
-				<div class="fieldsetforicons">
-					<div class="left">
+    <div style="text-align: left;">
+        <ce:ImageLinkButton runat="server" ToolTip="Add Category" DefaultImageUrl="~/App_Themes/Default/images/add.png" ID="btnAddNew" OnClick="btnAddCategory_OnClick" />
+    </div>
+    <div>
+        <lmis:CategoriesControl runat="server" ID="categoriesControl" OnAddChildCategory="categoriesControl_OnAddChildCategory" OnEditCategory="categoriesControl_OnEditCategory" OnDeleteCategory="categoriesControl_OnDeleteCategory" />
+    </div>
+    <div>
+        <act:ModalPopupExtender runat="server" ID="mpeAddEditCategory" TargetControlID="btnAddEditCategoryFake"
+            Enabled="true" BackgroundCssClass="modalBackground" PopupControlID="pnlAddEditCategory"
+            CancelControlID="btnCancelCategory" />
+        <asp:Button runat="server" ID="btnAddEditCategoryFake" Style="display: none" />
+        <asp:Panel runat="server" ID="pnlAddEditCategory">
+            <div class="popup">
+  
+                <div class="popup_fieldset">
+
+                    <div class="popup-title">Category</div>
+                    <div class="title_separator"></div>
+                    <div class="box">
+                        <lmis:CategoryControl runat="server" ID="categoryControl" />
+                    </div>
+            </div>
+            <div class="fieldsetforicons">
+					<div class="left" style="margin-right: 10px;">
 						<ce:ImageLinkButton runat="server" DefaultImageUrl="~/App_Themes/Default/Images/save.png" ID="btnSaveCatevory" ToolTip="დამატება" OnClick="btnSaveCatevory_OnClick" />
 					</div>
-					<div class="right">
+					<div class="left">
 						<ce:ImageLinkButton runat="server" DefaultImageUrl="~/App_Themes/Default/Images/close.png" ID="btnCancelCategory" ToolTip="დახურვა" />
 					</div>
 				</div>
 			</div>
-		</asp:Panel>
-	</div>
+        </asp:Panel>
+    </div>
 </asp:Content>
 

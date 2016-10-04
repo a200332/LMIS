@@ -47,10 +47,6 @@
                         ],
                         selectedIndex: 1
                     });
-
-                    
-
-
                 });
 
                 function listenSelected() {
@@ -78,11 +74,17 @@
 
                     return text;
                 }
-            </script>
-            <script type="text/javascript">
+
+                function showHide(showElement, hideElement) {
+                	var showElementId = '#' + showElement;
+                	var hideElementId = '#' + hideElement;
+
+                	$(hideElementId).hide();
+                	$(showElementId).show();
+                }
+
                 //documenttextsizer.setup("shared_css_class_of_toggler_controls")
                 documenttextsizer.setup("texttoggler");
-
             </script>
             <audio id="listenAudio" src="" style="display: none;"></audio>
             <header id="header">

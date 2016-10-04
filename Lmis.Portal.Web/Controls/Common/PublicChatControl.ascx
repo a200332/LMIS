@@ -4,7 +4,7 @@
     var chatHub = null;
 
     function startConversation() {
-        console.log("Starting conversation!!!");
+        console.log("Startingc conversation!!!");
 
         chatHub = $.connection.chatHub;
         console.log(chatHub);
@@ -18,8 +18,16 @@
     function send() {
         console.log("sending message!!!");
         var message = $("#txtMessage").val();
+
+        if (message.length === 0) {
+            return false;
+        }
+
+        $("#txtMessage").val('');
         var from = $("#txtName").val();
         var name = $("#lblAdmiName").val();
+
+
 
         var li = "<li> Me: " + message + "</li>";
         $("#ulChat").append(li);
@@ -46,6 +54,13 @@
         return false;
     }
 
+    function disconnect() {
+        if (chatHub != null) {
+            console.log("disconnecting");
+            $.connection.hub.stop();
+        }
+    }
+
 
     function chutHub_sendMessage(name, from, message) {
         $("#lblAdmiName").val(from);
@@ -65,6 +80,11 @@
         }
     });
 
+    function handle(e) {
+        if (e.keyCode === 13) {
+            send();
+        }
+    }
 
 </script>
 <div id="chat-body" class="hide">
@@ -81,13 +101,15 @@
             </tr>
             <tr>
                 <td>
-                    <input id="txtMessage" type="text" placeholder="Message..." />
+
+                    <input id="txtMessage" type="text" placeholder="Message..." style="font-size: 11px; width: 180px; height: 24px; border: 1px gray solid;" onkeydown = "handle(event);"     />
                 </td>
-            </tr>
-            <tr>
+          
                 <td>
-                    <input type="button"   id="btn-chat" value="Send" onclick="send()" />
-                </td>
+                    <ce:ImageLinkButton runat="server" DefaultImageUrl="~/App_Themes/Default/images/send.png" OnClientClick="send(); return false;" ToolTip="Send message" />
+                </td><td>
+                        <ce:ImageLinkButton runat="server" DefaultImageUrl="~/App_Themes/Default/images/chat-close.png" OnClientClick="disconnect(); return false;" ToolTip="Leave Conversation" />
+                    </td>
             </tr>
         </table>
     </div>
@@ -96,14 +118,14 @@
         <table>
             <tr>
                 <td>
-                    <input id="txtName" type="text" placeholder="Name" style="width: 200px" />
+                    <input id="txtName" type="text" placeholder="Name" style="width:180px" />
 
                 </td>
-            </tr>
-            <tr>
+           
                 <td>
-                    <input type="button" id="btnStart" onclick="startConversation()" value="Start">
+                    <ce:ImageLinkButton runat="server" DefaultImageUrl="~/App_Themes/Default/images/start.png" OnClientClick="startConversation(); return false;" ToolTip="Start conversation" />
                 </td>
+                 
             </tr>
         </table>
     </div>

@@ -16,14 +16,16 @@
 		<form id="form1" runat="server">
 			<asp:ScriptManager ID="ScriptManager1" runat="server">
 				<Scripts>
-					<asp:ScriptReference Path="~/Scripts/jquery.min.js" />
-					<asp:ScriptReference Path="~/Scripts/jquery-1.9.1.min.js" />
-					<asp:ScriptReference Path="~/Scripts/jquery.cookie.js" />
-					<asp:ScriptReference Path="~/Scripts/jquery.textresizer.js" />
-					<asp:ScriptReference Path="~/Scripts/jquery.textresizer.min.js" />
-					<asp:ScriptReference Path="~/Scripts/jquery-1.6.4.min.js" />
-					<asp:ScriptReference Path="~/Scripts/jquery.signalR-2.2.1.min.js" />
-					<asp:ScriptReference Path="~/signalr/hubs" />
+				    
+                    <asp:ScriptReference Path="~/Scripts/jquery.min.js" />
+                    <asp:ScriptReference Path="~/Scripts/jquery-1.9.1.min.js" />
+                    <asp:ScriptReference Path="~/Scripts/jquery.cookie.js" />
+                    <asp:ScriptReference Path="~/Scripts/jquery.textresizer.js" />
+                    <asp:ScriptReference Path="~/Scripts/jquery.textresizer.min.js" />
+                    <asp:ScriptReference Path="~/Scripts/jquery-1.6.4.min.js" />
+                    <asp:ScriptReference Path="~/Scripts/jquery.signalR-2.2.1.min.js" />
+                    <asp:ScriptReference Path="~/signalr/hubs" />
+
 				</Scripts>
 			</asp:ScriptManager>
 
@@ -143,6 +145,11 @@
 					</asp:ContentPlaceHolder>
 				</div>
 			</section>
+            
+            <hmis:AdministratorChatControl runat="server" ID="ceAdministratorChatControl" />
+            <div class="chat-b">
+                <asp:Image ImageUrl="~/App_Themes/Default/images/chat.png" runat="server" />
+            </div>
 			<footer id="footer">
 				<div class="footer">
 					<ul>

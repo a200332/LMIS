@@ -2,6 +2,7 @@
 using System.Collections.Concurrent;
 using System.Linq;
 using System.Threading.Tasks;
+using CITI.EVO.Tools.Extensions;
 using Microsoft.AspNet.SignalR;
 using Microsoft.AspNet.SignalR.Hubs;
 
@@ -21,14 +22,22 @@ public class ChatHub : Hub
 
     public void Send(string name, string message, string from)
     {
-        Clients.Client(clientsDictionary[name]).sendMessage(name, from, message);
+        var key = clientsDictionary.GetValueOrDefault(name);
+        if (key != null)
+        {
+            Clients.Client(key).sendMessage(name, from, message);
+        }
     }
 
     public override Task OnDisconnected(bool stopCalled)
     {
         var name = clientsDictionary.FirstOrDefault(x => x.Value == Context.ConnectionId.ToString());
-        string s;
-        clientsDictionary.TryRemove(name.Key, out s);
-        return Clients.All.disconnected(name.Key);
+        if (name.Key != null)
+        {
+            string s;
+            clientsDictionary.TryRemove(name.Key, out s);
+            return Clients.All.disconnected(name.Key);
+        }
+        return Task.CompletedTask;
     }
 }
