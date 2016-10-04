@@ -1,0 +1,74 @@
+#textsizer-classnames {
+    margin-bottom: 6px;
+}
+
+    #textsizer-classnames p {
+        display: inline;
+    }
+
+
+
+    li span
+ul.textresizer {
+    list-style: none;
+    display: inline;
+    margin: 0px;
+    padding: 0px;
+}
+
+    ul.textresizer li {
+        display: inline;
+        margin: 0px;
+        margin-right: 4px;
+        padding: 0px;
+        vertical-align: bottom;
+        color: #6b537c;
+    }
+
+    ul.textresizer a {
+        padding: 2px 3px;
+        font-weight: bold;
+        text-decoration: none;
+    }
+
+
+        ul.textresizer a:hover {
+            color: #905bb5;
+        }
+
+    ul.textresizer .small-text {
+        font-size: 12px;
+    }
+
+    ul.textresizer .medium-text {
+        font-size: 14px;
+    }
+
+    ul.textresizer .large-text {
+        font-size: 16px;
+    }
+
+    ul.textresizer .larger-text {
+        font-size: 18px;
+    }
+
+    ul.textresizer a.textresizer-active {
+        color: #905bb5;
+    }
+
+
+#content.small-text {
+    font-size: 12px;
+}
+
+#content.medium-text {
+    font-size: 14px;
+}
+
+#content.large-text {
+    font-size: 16px;
+}
+
+#content.larger-text {
+    font-size: 18px;
+}

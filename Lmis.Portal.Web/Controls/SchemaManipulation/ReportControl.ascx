@@ -10,6 +10,12 @@
 <div>
 	<table>
 		<tr>
+			<td>Public</td>
+			<td>
+				<asp:CheckBox runat="server" ID="chkPublic" Property="ReportModel.Public" />
+			</td>
+		</tr>
+		<tr>
 			<td>Name</td>
 			<td>
 				<asp:TextBox runat="server" ID="tbxName" Property="ReportModel.Name" />
@@ -21,6 +27,12 @@
 				<dx:ASPxComboBox runat="server" ID="cbxCategory" Enabled="False" Property="ReportModel.CategoryID" ValueType="System.Guid" ValueField="ID" TextField="Name" />
 			</td>
 		</tr>
+		<tr>
+			<td>Category</td>
+			<td>
+				<asp:TextBox runat="server" ID="tbxDescription" Property="ReportModel.Description" TextMode="MultiLine" />
+			</td>
+		</tr>		
 		<tr>
 			<td>Type</td>
 			<td>

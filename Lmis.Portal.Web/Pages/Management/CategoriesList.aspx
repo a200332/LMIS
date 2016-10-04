@@ -6,7 +6,7 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
-	<div>
+	<div style="text-align: left;">
 		<ce:ImageLinkButton runat="server" ToolTip="Add Category" DefaultImageUrl="~/App_Themes/Default/images/add.png" ID="btnAddNew" OnClick="btnAddCategory_OnClick" />
 	</div>
 	<div>

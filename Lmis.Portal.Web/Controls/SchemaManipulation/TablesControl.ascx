@@ -1,6 +1,10 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="TablesControl.ascx.cs" Inherits="Lmis.Portal.Web.Controls.SchemaManipulation.TablesControl" %>
 <dx:ASPxTreeList runat="server" KeyFieldName="ID" ParentFieldName="ParentID" ID="tlData">
-	<Columns>
+	<images>
+			<ExpandedButton Width="12px" Height="10px" Url="~/App_Themes/Default/Images/Collapse.png"></ExpandedButton>
+			<CollapsedButton Width="12px" Height="10px" Url="~/App_Themes/Default/Images/Expand.png"></CollapsedButton>
+		</images>
+	<columns>
 		<dx:TreeListDataColumn>
 			<DataCellTemplate>
 				<div style="width: 80px;">
@@ -45,5 +49,5 @@
 			<HeaderStyle Wrap="True" HorizontalAlign="Center"></HeaderStyle>
 			<CellStyle Wrap="True" HorizontalAlign="Center"></CellStyle>
 		</dx:TreeListDataColumn>
-	</Columns>
+	</columns>
 </dx:ASPxTreeList>

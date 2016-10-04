@@ -1641,6 +1641,10 @@ namespace Lmis.Portal.DAL.DAL
 		
 		private System.Nullable<System.DateTime> _DateDeleted;
 		
+		private System.Nullable<bool> _Public;
+		
+		private string _Description;
+		
 		private EntitySet<LP_ReportLogic> _ReportLogics;
 		
 		private EntityRef<LP_Category> _Category;
@@ -1663,6 +1667,10 @@ namespace Lmis.Portal.DAL.DAL
     partial void OnDateChangedChanged();
     partial void OnDateDeletedChanging(System.Nullable<System.DateTime> value);
     partial void OnDateDeletedChanged();
+    partial void OnPublicChanging(System.Nullable<bool> value);
+    partial void OnPublicChanged();
+    partial void OnDescriptionChanging(string value);
+    partial void OnDescriptionChanged();
     #endregion
 		
 		public LP_Report()
@@ -1812,6 +1820,46 @@ namespace Lmis.Portal.DAL.DAL
 					this._DateDeleted = value;
 					this.SendPropertyChanged("DateDeleted");
 					this.OnDateDeletedChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Public", DbType="BIT", UpdateCheck=UpdateCheck.Never)]
+		public System.Nullable<bool> Public
+		{
+			get
+			{
+				return this._Public;
+			}
+			set
+			{
+				if ((this._Public != value))
+				{
+					this.OnPublicChanging(value);
+					this.SendPropertyChanging();
+					this._Public = value;
+					this.SendPropertyChanged("Public");
+					this.OnPublicChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Description", DbType="NVarChar(MAX)", UpdateCheck=UpdateCheck.Never)]
+		public string Description
+		{
+			get
+			{
+				return this._Description;
+			}
+			set
+			{
+				if ((this._Description != value))
+				{
+					this.OnDescriptionChanging(value);
+					this.SendPropertyChanging();
+					this._Description = value;
+					this.SendPropertyChanged("Description");
+					this.OnDescriptionChanged();
 				}
 			}
 		}

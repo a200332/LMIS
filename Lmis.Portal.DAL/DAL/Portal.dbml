@@ -78,6 +78,8 @@
       <Column Name="DateCreated" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
       <Column Name="DateChanged" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
       <Column Name="DateDeleted" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Public" Type="System.Boolean" DbType="BIT" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="Description" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" UpdateCheck="Never" />
       <Association Name="LP_Report_LP_ReportLogic" Member="ReportLogics" ThisKey="ID" OtherKey="ReportID" Type="LP_ReportLogic" />
       <Association Name="LP_Category_LP_Report" Member="Category" ThisKey="CategoryID" OtherKey="ID" Type="LP_Category" IsForeignKey="true" />
     </Type>

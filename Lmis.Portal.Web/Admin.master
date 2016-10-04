@@ -1,5 +1,8 @@
 ﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="Admin.master.cs" Inherits="Admin" %>
 
+<%@ Register Src="~/Controls/Common/AdministratorChatControl.ascx" TagPrefix="hmis" TagName="AdministratorChatControl" %>
+
+
 <!DOCTYPE html>
 
 <html>
@@ -13,13 +16,37 @@
 		<form id="form1" runat="server">
 			<asp:ScriptManager ID="ScriptManager1" runat="server">
 				<Scripts>
-					<%--					<asp:ScriptReference Path="~/Scripts/Video.js" />
 					<asp:ScriptReference Path="~/Scripts/jquery.min.js" />
-					<asp:ScriptReference Path="~/Scripts/jquery.bxslider.js" />--%>
+					<asp:ScriptReference Path="~/Scripts/jquery-1.9.1.min.js" />
+					<asp:ScriptReference Path="~/Scripts/jquery.cookie.js" />
+					<asp:ScriptReference Path="~/Scripts/jquery.textresizer.js" />
+					<asp:ScriptReference Path="~/Scripts/jquery.textresizer.min.js" />
+					<asp:ScriptReference Path="~/Scripts/jquery-1.6.4.min.js" />
+					<asp:ScriptReference Path="~/Scripts/jquery.signalR-2.2.1.min.js" />
+					<asp:ScriptReference Path="~/signalr/hubs" />
 				</Scripts>
 			</asp:ScriptManager>
 
 			<script type="text/javascript">
+				$(document).ready(function () {
+					$('.hide').hide();
+					$(".chat-b").click(function () {
+						$("#chat-body").toggle();
+					});
+
+					$("#textsizer-classnames a").textresizer({
+						target: "#content",
+						type: "cssClass",
+						sizes: [
+				            "small-text",
+				            "medium-text",
+				            "large-text",
+				            "larger-text"
+						],
+						selectedIndex: 1
+					});
+				});
+
 				function listenSelected() {
 					var text = getSelectionText();
 					if (text == "" || text == null) {

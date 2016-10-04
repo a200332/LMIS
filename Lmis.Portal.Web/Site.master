@@ -1,5 +1,8 @@
 ﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="Site.master.cs" Inherits="Lmis.Portal.Web.Site" %>
 
+<%@ Register Src="~/Controls/Common/PublicChatControl.ascx" TagPrefix="hmis" TagName="PublicChatControl" %>
+
+
 <!DOCTYPE html>
 
 <html>
@@ -7,6 +10,8 @@
     <title>Plan The Future</title>
     <asp:ContentPlaceHolder ID="head" runat="server">
     </asp:ContentPlaceHolder>
+  
+
 </head>
 <body class="horizontal-center">
     <div style="min-height: 100%; position: relative;">
@@ -15,18 +20,39 @@
                 <Scripts>
 
                     <asp:ScriptReference Path="~/Scripts/jquery.min.js" />
-                    <asp:ScriptReference Path="~/Scripts/doctextsizer.js" />
+                    <asp:ScriptReference Path="~/Scripts/jquery-1.9.1.min.js" />
+                    <asp:ScriptReference Path="~/Scripts/jquery.cookie.js" />
+                    <asp:ScriptReference Path="~/Scripts/jquery.textresizer.js" />
+                    <asp:ScriptReference Path="~/Scripts/jquery.textresizer.min.js" />
+                    <asp:ScriptReference Path="~/Scripts/jquery-1.6.4.min.js" />
+                    <asp:ScriptReference Path="~/Scripts/jquery.signalR-2.2.1.min.js" />
+                    <asp:ScriptReference Path="~/signalr/hubs" />
 
                 </Scripts>
             </asp:ScriptManager>
-            <script>
-
-                $(document).ready(function () {
-                    $(".chat").click(function () {
-                        $("#chat-body").animate({ width: '250px' });
-                    });
-                }); </script>
             <script type="text/javascript">
+                $(document).ready(function () {
+                    $('.hide').hide();
+                    $(".chat-b").click(function () {
+                        $("#chat-body").toggle();
+                    });
+                    $("#textsizer-classnames a").textresizer({
+                        target: "#content",
+                        type: "cssClass",
+                        sizes: [
+                            "small-text",
+                            "medium-text",
+                            "large-text",
+                            "larger-text"
+                        ],
+                        selectedIndex: 1
+                    });
+
+                    
+
+
+                });
+
                 function listenSelected() {
                     var text = getSelectionText();
                     if (text == "" || text == null) {
@@ -55,7 +81,7 @@
             </script>
             <script type="text/javascript">
                 //documenttextsizer.setup("shared_css_class_of_toggler_controls")
-                documenttextsizer.setup("texttoggler")
+                documenttextsizer.setup("texttoggler");
 
             </script>
             <audio id="listenAudio" src="" style="display: none;"></audio>
@@ -96,6 +122,10 @@
                         <div class="header-title">
                             Plan The Future
                         </div>
+                        <div class="left" style="margin-top: 10px;">
+                            <asp:Image ImageUrl="~/App_Themes/Default/images/logo.png" runat="server" />
+                        </div>
+
                         <div class="search-box">
                             <input type="text" name="search" placeholder="Search..">
                         </div>
@@ -130,22 +160,21 @@
                         <li>
                             <asp:HyperLink runat="server" NavigateUrl="~/Pages/User/ContactUs.aspx">Contact Us</asp:HyperLink>
                         </li>
-                        <li style="float: right">
 
-                            <a href="#" class="texttoggler" rel="xsmallview" title="extra small size">
-                                <img src="xsmallview.png" /></a>
-                            <a href="#" class="texttoggler" rel="smallview" title="small size">
-                                <img src="smallview.png" /></a>
-                            <a href="#" class="texttoggler" rel="normalview" title="normal size">
-                                <img src="normalview.png" /></a>
-                            <a href="#" class="texttoggler" rel="largeview" title="large size">
-                                <img src="largeview.png" /></a>
-                            <a href="#" class="texttoggler" rel="xlargeview" title="extra large size">
-                                <img src="xlargeview.png" /></a>
-                        </li>
                     </ul>
-                </div>
+                    <div style="float: right">
+                        <div id="textsizer-classnames">
 
+                            <ul class="textresizer">
+                                <li><a href="#nogo" class="small-text" title="Small">A</a></li>
+                                <li><a href="#nogo" class="medium-text" title="Medium">A</a></li>
+                                <li><a href="#nogo" class="large-text" title="Large">A</a></li>
+                                <li><a href="#nogo" class="larger-text" title="Larger">A</a></li>
+                            </ul>
+                        </div>
+
+                    </div>
+                </div>
             </header>
             <section id="content">
                 <div class="content">
@@ -154,7 +183,7 @@
                 </div>
                 <div class="clear"></div>
                 <div class="bottom">
-                    <div class="bottom-links" style="padding-top: 55px;">
+                    <div class="bottom-links" style="padding-top: 45px;">
                         <ul>
                             <li>
                                 <ce:ImageLinkButton NavigateUrl="~/Pages/User/GovermentalWebsites.aspx" DefaultImageUrl="~/App_Themes/Default/images/govrenmental.png" runat="server" />
@@ -175,12 +204,10 @@
                     </div>
                 </div>
             </section>
-            <div class="chat">
+            <hmis:PublicChatControl runat="server" ID="lmisPublicChatControl" />
 
-                <img src="App_Themes/Default/images/chat.png" />
-                <div id="chat-body">
-                    <input type="text" name="fname">
-                </div>
+            <div class="chat-b">
+                <asp:Image ImageUrl="~/App_Themes/Default/images/chat.png" runat="server" />
             </div>
 
             <footer id="footer">

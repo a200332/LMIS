@@ -29,6 +29,7 @@ namespace Lmis.Portal.Web.Converters.EntityToModel
 		public override void FillObject(ReportLogicModel target, LP_ReportLogic source)
 		{
 			target.ID = source.ID;
+			target.Type = source.Type;
 			target.Logic = logicConverter.Convert(source.Logic);
 
 			var bindings = new BindingInfosModel

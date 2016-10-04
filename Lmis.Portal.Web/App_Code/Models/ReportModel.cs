@@ -14,6 +14,10 @@ namespace Lmis.Portal.Web.Models
 
 		public String Name { get; set; }
 
+		public bool? Public { get; set; }
+
+		public String Description { get; set; }
+
 		public ReportLogicsModel ReportLogics { get; set; }
 	}
 }

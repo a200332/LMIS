@@ -7,7 +7,7 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
-	<div>
+	<div style="text-align: left;">
 		<ce:ImageLinkButton runat="server" ToolTip="Add Table" DefaultImageUrl="~/App_Themes/Default/images/add.png" ID="btnAddNew" OnClick="btnAddTable_OnClick" />
 	</div>
 	<div>
@@ -40,7 +40,7 @@
 						<ce:ImageLinkButton runat="server" DefaultImageUrl="~/App_Themes/Default/Images/save.png" ID="btnSaveTable" ToolTip="დამატება" OnClick="btnSaveTable_OnClick" />
 					</div>
 					<div class="right">
-						<ce:ImageLinkButton runat="server" DefaultImageUrl="~/App_Themes/Default/Images/close_normal.png" ID="btnCancelTable" ToolTip="დახურვა" />
+						<ce:ImageLinkButton runat="server" DefaultImageUrl="~/App_Themes/Default/Images/close.png" ID="btnCancelTable" ToolTip="დახურვა" />
 					</div>
 				</div>
 			</div>

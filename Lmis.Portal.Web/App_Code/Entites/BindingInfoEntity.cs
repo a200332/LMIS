@@ -9,10 +9,9 @@ namespace Lmis.Portal.Web.Entites
 	/// </summary>
 	public class BindingInfoEntity
 	{
-		public String SqlQuery { get; set; }
-
+		public String Name { get; set; }
 		public String Type { get; set; }
-
+		public String SqlQuery { get; set; }
 		public IList<BindingInfoModel> Bindings { get; set; }
 	}
 }

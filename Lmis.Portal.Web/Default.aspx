@@ -20,7 +20,7 @@
 	<%--<div class="left">
         <img src="App_Themes/Default/images/home-article.png" />
     </div>--%>
-	<a href="Pages/User/eBooks.aspx">
+	<a href="Pages/User/eBooks.aspx" target="blanck">
 		<div class="left e-book">
 		</div>
 	</a>

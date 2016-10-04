@@ -22,11 +22,26 @@ namespace Lmis.Portal.Web.Controls.DataDisplay
 		{
 		}
 
+		protected void btnCaptionsOK_OnClick(object sender, EventArgs e)
+		{
+
+		}
+
+		protected void btnXYSeriesOK_OnClick(object sender, EventArgs e)
+		{
+
+		}
+
 		protected override void OnSetModel(object model, Type type)
 		{
 			var unitModel = model as ReportUnitModel;
 			if (unitModel == null)
 				return;
+
+			mainChart.DataSource = null;
+			mainGrid.DataSource = null;
+
+			pnlDescription.InnerHtml = unitModel.Description;
 
 			var entities = GetQueries(unitModel);
 
@@ -52,6 +67,8 @@ namespace Lmis.Portal.Web.Controls.DataDisplay
 
 		private void BindChartData(BindingInfoEntity entity)
 		{
+			lblChartTitle.Text = entity.Name;
+
 			var chartType = GetChartType(entity.Type);
 			var sqlDs = CreateDataSource(entity.SqlQuery);
 
@@ -76,60 +93,32 @@ namespace Lmis.Portal.Web.Controls.DataDisplay
 			if (dataView == null)
 				return;
 
-			var selCaption = (from n in Request.Form.AllKeys
-							  where n.StartsWith(cbxCaption.ClientID)
-							  let m = Request.Form[n]
-							  select m).FirstOrDefault();
+			FillCaptionsList(dataView, modelsGrp.Key);
+			FillXYValuesList(dataView, xMember);
 
-			var selXYValue = (from n in Request.Form.AllKeys
-							  where n.StartsWith(cbxXYSeries.ClientID)
-							  let m = Request.Form[n]
-							  select m).FirstOrDefault();
-
-			var captions = (from DataRowView n in dataView
-							let v = n[modelsGrp.Key]
-							orderby v
-							select v).Distinct().ToList();
-
-			captions.Insert(0, String.Empty);
-
-			cbxCaption.DataSource = captions;
-			cbxCaption.DataBind();
-
-			cbxCaption.TrySetSelectedValue(selCaption);
-
-			var xyValues = (from DataRowView n in dataView
-							let v = n[xMember]
-							orderby v
-							select v).Distinct().ToList();
-
-			xyValues.Insert(0, String.Empty);
-
-			cbxXYSeries.DataSource = xyValues;
-			cbxXYSeries.DataBind();
-
-			cbxXYSeries.TrySetSelectedValue(selXYValue);
+			var selCaptions = GetSelectedCaptions().ToHashSet();
+			var selXYValues = GetSelectedXYSeries().ToHashSet();
 
 			var collection = (from DataRowView n in dataView
 							  select n);
 
-			if (!String.IsNullOrWhiteSpace(selCaption))
+			if (selCaptions.Count > 0)
 			{
 				collection = (from n in collection
 							  let v = Convert.ToString(n[modelsGrp.Key])
-							  where v == selCaption
+							  where selCaptions.Contains(v)
 							  select n);
 			}
 
-			if (!String.IsNullOrWhiteSpace(selXYValue))
+			if (selXYValues.Count > 0)
 			{
 				collection = (from n in collection
 							  let v = Convert.ToString(n[yMember])
-							  where v == selXYValue
+							  where selXYValues.Contains(v)
 							  select n);
 			}
 
-			mainChart.DataBindCrossTable(collection, modelsGrp.Key, xMember, yMember, String.Empty, PointSortOrder.Ascending);
+			mainChart.DataBindCrossTable(collection, modelsGrp.Key, xMember, yMember, String.Empty);
 
 			foreach (var series in mainChart.Series)
 			{
@@ -141,10 +130,19 @@ namespace Lmis.Portal.Web.Controls.DataDisplay
 				series.Palette = ChartColorPalette.BrightPastel;
 			}
 
-			mainChart.ApplyPaletteColors();
+			//var defaultTitle = mainChart.Titles["Default"];
+			//if (defaultTitle != null)
+			//	defaultTitle.Text = entity.Name;
 
-			mainChart.DataSource = null;
-			mainGrid.DataSource = null;
+			var leftTitle = mainChart.Titles["Left"];
+			if (leftTitle != null)
+				leftTitle.Text = xMember;
+
+			var bottomTitle = mainChart.Titles["Bottom"];
+			if (bottomTitle != null)
+				bottomTitle.Text = yMember;
+
+			mainChart.ApplyPaletteColors();
 		}
 
 		private void BindGridData(BindingInfoEntity entiry)
@@ -153,21 +151,25 @@ namespace Lmis.Portal.Web.Controls.DataDisplay
 
 			mainGrid.Columns.Clear();
 
+			lblGridTitle.Text = entiry.Name;
+
+			var keyFields = entiry.Bindings.Select(n => n.Source);
+			var keyColumns = String.Join(";", keyFields);
+
 			foreach (var model in entiry.Bindings)
 			{
 				var col = new GridViewDataColumn
 				{
 					Caption = model.Caption,
-					FieldName = model.Source
+					FieldName = model.Source,
 				};
 
 				mainGrid.Columns.Add(col);
 			}
 
 			mainGrid.AutoGenerateColumns = (mainGrid.Columns.Count == 0);
+			mainGrid.KeyFieldName = keyColumns;
 			mainGrid.DataSource = sqlDs;
-
-			mainChart.DataSource = null;
 		}
 
 		protected IEnumerable<BindingInfoEntity> GetQueries(ReportUnitModel unitModel)
@@ -190,8 +192,9 @@ namespace Lmis.Portal.Web.Controls.DataDisplay
 
 				var entity = new BindingInfoEntity
 				{
-					SqlQuery = logicModel.Query,
+					Name = unitModel.Name,
 					Type = reportLogicModel.Type,
+					SqlQuery = logicModel.Query,
 					Bindings = list,
 				};
 
@@ -204,6 +207,53 @@ namespace Lmis.Portal.Web.Controls.DataDisplay
 				yield return entity;
 			}
 		}
+
+		protected void FillCaptionsList(DataView dataView, String member)
+		{
+			FillFilterListBox(lstCaptions, dataView, member);
+		}
+
+		protected void FillXYValuesList(DataView dataView, String member)
+		{
+			FillFilterListBox(lstXYSeries, dataView, member);
+		}
+
+		protected void FillFilterListBox(CheckBoxList listBox, DataView dataView, String member)
+		{
+			var values = (from DataRowView n in dataView
+						  let v = n[member]
+						  orderby v
+						  select v).Distinct().ToList();
+
+			listBox.DataSource = values;
+			listBox.DataBind();
+
+			var selValues = GetListBoxSelectedValues(listBox).ToHashSet();
+
+			foreach (ListItem listItem in listBox.Items)
+				listItem.Selected = selValues.Contains(listItem.Value);
+		}
+
+		protected IEnumerable<String> GetSelectedCaptions()
+		{
+			return GetListBoxSelectedValues(lstCaptions);
+		}
+
+		protected IEnumerable<String> GetSelectedXYSeries()
+		{
+			return GetListBoxSelectedValues(lstXYSeries);
+		}
+
+		protected IEnumerable<String> GetListBoxSelectedValues(CheckBoxList listBox)
+		{
+			var values = (from n in Request.Form.AllKeys
+						  where n.StartsWith(listBox.UniqueID)
+						  let m = Request.Form[n]
+						  select m);
+
+			return values;
+		}
+
 
 		private SeriesChartType GetChartType(String type)
 		{

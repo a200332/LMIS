@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text.RegularExpressions;
 using System.Web.UI.WebControls;
 using CITI.EVO.Tools.Utils;
@@ -65,7 +66,7 @@ namespace Lmis.Portal.Web.Controls.SchemaManipulation
 			var tablesModel = (TablesModel)model;
 			if (tablesModel.List != null)
 			{
-				var list = GetEntities(tablesModel.List);
+				var list = GetEntities(tablesModel.List).ToList();
 
 				tlData.DataSource = list;
 				tlData.DataBind();

@@ -1,6 +1,11 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="CategoriesControl.ascx.cs" Inherits="Controls_DataDisplay_CategoriesControl" %>
 <dx:ASPxTreeList runat="server" KeyFieldName="ID" ParentFieldName="ParentID" ID="tlData">
-	<settingsbehavior allowfocusednode="True" allowsort="False" allowellipsisintext="True" />
+	<settings showtreelines="False" showcolumnheaders="False" />
+	<settingsbehavior allowfocusednode="True" allowsort="False" allowellipsisintext="True" expandcollapseaction="NodeClick" />
+	<images>
+		<ExpandedButton Width="0px" Height="0px" Url="~/App_Themes/Default/Images/Collapse.png"></ExpandedButton>
+		<CollapsedButton Width="0px" Height="0px" Url="~/App_Themes/Default/Images/Expand.png"></CollapsedButton>
+	</images>
 	<columns>
 			<dx:TreeListDataColumn FieldName="Name" Name="Name" Caption="Name">
 				<DataCellTemplate>
