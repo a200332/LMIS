@@ -17,14 +17,14 @@ https://tenders.procurement.gov.ge/public/?go=190216&amp;lang=ge
 3. In Solution Explorer select each *CITI.EVO.CommonData.MSBuild.xml* file after click on *Tools->MSBuild*
 4. Do same as step 3 for each **.MSBuild.xml* file
 
-# Contributing to LMIS
+# Contributing Guidlines
 
 Here are the guidelines we would like you to follow:
 
  - [Submission Guidelines](#submit-issue)
  - [Commit Message Guidelines](#commit)
 
-### <a name="submit-issue"></a> Submitting an Issue
+## <a name="submit-issue"></a> Submitting an Issue
 Before you submit an issue, search the archive, maybe your question was already answered.
 
 If your issue appears to be a bug, and hasn't been reported, open a new issue.
