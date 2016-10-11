@@ -15,10 +15,14 @@
 	</a>
 	<div class="right-menu">
 		<ul>
-			<li class="vertical-center right-menu-padding rm-search"><a href="#">Job Finder</a></li>
-			<li class="vertical-center right-menu-padding rm-profile"><a href="#">Create  Profile</a></li>
-			<li class="vertical-center right-menu-padding rm-postjob"><a href="#">Post the job</a></li>
-			<li class="last vertical-center right-menu-padding rm-rate"><a href="#">Rate the website</a></li>
+			<li class="vertical-center right-menu-padding rm-search"><a href="#">
+				<ce:Label runat="server">Job Finder</ce:Label></a></li>
+			<li class="vertical-center right-menu-padding rm-profile"><a href="#">
+				<ce:Label runat="server">Create  Profile</ce:Label></a></li>
+			<li class="vertical-center right-menu-padding rm-postjob"><a href="#">
+				<ce:Label runat="server">Post the job</ce:Label></a></li>
+			<li class="last vertical-center right-menu-padding rm-rate"><a href="#">
+				<ce:Label runat="server">Rate the website</ce:Label></a></li>
 		</ul>
 		<%--<img src="App_Themes/Default/images/left-article.png" />--%>
 	</div>

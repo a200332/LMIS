@@ -6,17 +6,17 @@
 
 <table>
 	<tr>
-		<td>Title</td>
+		<td><ce:Label runat="server">Title</ce:Label></td>
 		<td>
 			<asp:TextBox runat="server" ID="tbxTitle" Property="EBookModel.Title" /></td>
 	</tr>
 	<tr>
-		<td>Url</td>
+		<td><ce:Label runat="server">Url</ce:Label></td>
 		<td>
 			<asp:TextBox runat="server" ID="tbxUrl" Property="EBookModel.Url" /></td>
 	</tr>
 	<tr>
-		<td>Description</td>
+		<td><ce:Label runat="server">Description</ce:Label></td>
 		<td>
 			<asp:TextBox runat="server" ID="tbxDescription" Property="EBookModel.Description" /></td>
 	</tr>

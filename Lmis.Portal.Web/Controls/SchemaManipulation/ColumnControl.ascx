@@ -4,12 +4,12 @@
 <lmis:HiddenFieldValueControl runat="server" ID="hdID" Property="ColumnModel.ID" />
 <lmis:HiddenFieldValueControl runat="server" ID="hdTableID" Property="ColumnModel.TableID" />
 <ul>
-    <li>Name</li>
+    <li><ce:Label runat="server">Name</ce:Label></li>
     <li>
         <asp:TextBox runat="server" ID="tbxName" Property="ColumnModel.Name"></asp:TextBox></li>
 </ul>
 <ul>
-    <li>Type</li>
+    <li><ce:Label runat="server">Type</ce:Label></li>
     <li>
         <asp:DropDownList runat="server" Width="195" ID="ddlType" Property="ColumnModel.Type">
             <Items>

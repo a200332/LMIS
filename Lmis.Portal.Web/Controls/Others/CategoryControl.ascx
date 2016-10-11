@@ -4,12 +4,12 @@
 <lmis:HiddenFieldValueControl runat="server" ID="hdID" Property="CategoryModel.ID" />
 <lmis:HiddenFieldValueControl runat="server" ID="hdParentID" Property="CategoryModel.ParentID" />
 <ul>
-	<li>Category Name</li>
+	<li><ce:Label runat="server">Category Name</ce:Label></li>
 	<li>
 		<asp:TextBox runat="server" Width="150" ID="tbxName" Property="CategoryModel.Name"></asp:TextBox></li>
 </ul>
 <ul>
-	<li>Category Icon</li>
+	<li><ce:Label runat="server">Category Icon</ce:Label></li>
 	<li>
 		<asp:FileUpload runat="server" Width="200" ID="fuImage" Property="CategoryModel.Image" /></li>
 </ul>

@@ -1,7 +1,8 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="ReportLogicControl.ascx.cs" Inherits="Lmis.Portal.Web.Controls.SchemaManipulation.ReportLogicControl" %>
 <table>
-	<tr runat="server" ID="trChartType">
-		<td>Type</td>
+	<tr runat="server" id="trChartType">
+		<td>
+			<ce:Label runat="server">Type</ce:Label></td>
 		<td>
 			<dx:ASPxComboBox runat="server" ID="cbxType" Property="ReportLogicModel.Type" ValueType="System.String">
 				<Items>
@@ -38,13 +39,15 @@
 		</td>
 	</tr>
 	<tr>
-		<td>Table</td>
+		<td>
+			<ce:Label runat="server">Table</ce:Label></td>
 		<td>
 			<dx:ASPxComboBox runat="server" ID="cbxTable" ValueType="System.Guid" ValueField="ID" TextField="Name" AutoPostBack="True" OnSelectedIndexChanged="cbxTable_OnSelectedIndexChanged" />
 		</td>
 	</tr>
 	<tr>
-		<td>Logic</td>
+		<td>
+			<ce:Label runat="server">Logic</ce:Label></td>
 		<td>
 			<dx:ASPxComboBox runat="server" ID="cbxLogic" ValueType="System.Guid" ValueField="ID" TextField="Name" AutoPostBack="True" OnSelectedIndexChanged="cbxLogic_OnSelectedIndexChanged" />
 		</td>
@@ -52,7 +55,8 @@
 	<tr>
 		<td colspan="2">
 			<fieldset>
-				<legend>Bindings</legend>
+				<legend>
+					<ce:Label runat="server">Bindings</ce:Label></legend>
 				<div>
 					<table>
 						<tr>
@@ -60,10 +64,12 @@
 								<asp:Panel runat="server" ID="pnlGridBinding">
 									<table>
 										<tr>
-											<td>Caption</td>
+											<td>
+												<ce:Label runat="server">Caption</ce:Label></td>
 											<td>
 												<asp:TextBox runat="server" ID="tbxGridCaption" /></td>
-											<td>Source</td>
+											<td>
+												<ce:Label runat="server">Source</ce:Label></td>
 											<td>
 												<dx:ASPxComboBox runat="server" ID="cbxGridSource" ValueType="System.String" />
 											</td>
@@ -73,14 +79,17 @@
 								<asp:Panel runat="server" ID="pnlChartBinding">
 									<table>
 										<tr>
-											<td>Caption</td>
+											<td>
+												<ce:Label runat="server">Caption</ce:Label></td>
 											<td>
 												<dx:ASPxComboBox runat="server" ID="cbxChartCaption" ValueType="System.String" />
-											<td>XValue</td>
+												<td>
+													<ce:Label runat="server">XValue</ce:Label></td>
 											<td>
 												<dx:ASPxComboBox runat="server" ID="cbxChartXValue" ValueType="System.String" />
 											</td>
-											<td>YValue</td>
+											<td>
+												<ce:Label runat="server">YValue</ce:Label></td>
 											<td>
 												<dx:ASPxComboBox runat="server" ID="cbxChartYValue" ValueType="System.String" />
 											</td>

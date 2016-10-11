@@ -3,7 +3,8 @@
 
 <lmis:HiddenFieldValueControl runat="server" ID="hdID" Property="TableModel.ID" />
 <ul>
-    <li>Table Name</li>
-    <li>
-        <asp:TextBox runat="server" ID="tbxName" Property="TableModel.Name"></asp:TextBox></li>
+	<li>
+		<ce:Label runat="server">Table Name</ce:Label></li>
+	<li>
+		<asp:TextBox runat="server" ID="tbxName" Property="TableModel.Name"></asp:TextBox></li>
 </ul>

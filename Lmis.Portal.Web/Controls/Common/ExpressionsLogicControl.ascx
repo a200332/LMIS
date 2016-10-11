@@ -3,27 +3,31 @@
 <%@ Register Src="~/Controls/Common/NamedExpressionsListControl.ascx" TagPrefix="local" TagName="NamedExpressionsListControl" %>
 <%@ Register Src="~/Controls/Common/ExpressionsListControl.ascx" TagPrefix="local" TagName="ExpressionsListControl" %>
 
-<div class="popup-title">Where conditions</div>
+<div class="popup-title">
+	<ce:Label runat="server">Where conditions</ce:Label></div>
 <div class="admin-title-separator"></div>
 <div class="admin-fieldset">
-    <local:ExpressionsListControl runat="server" ID="filterByControl" Property="ExpressionsLogicModel.FilterBy" />
+	<local:ExpressionsListControl runat="server" ID="filterByControl" Property="ExpressionsLogicModel.FilterBy" />
 </div>
-<div class="popup-title">Group By</div>
+<div class="popup-title">
+	<ce:Label runat="server">Group By</ce:Label></div>
 <div class="admin-title-separator"></div>
 <div class="admin-fieldset">
-    <local:ExpressionsListControl runat="server" ID="groupByControl" Property="ExpressionsLogicModel.GroupBy" />
+	<local:ExpressionsListControl runat="server" ID="groupByControl" Property="ExpressionsLogicModel.GroupBy" />
 
 </div>
-<div class="popup-title">Order By</div>
+<div class="popup-title">
+	<ce:Label runat="server">Order By</ce:Label></div>
 <div class="admin-title-separator"></div>
 <div class="admin-fieldset">
-    <local:ExpressionsListControl runat="server" ID="orderByControl" Property="ExpressionsLogicModel.OrderBy" />
+	<local:ExpressionsListControl runat="server" ID="orderByControl" Property="ExpressionsLogicModel.OrderBy" />
 
 </div>
-<div class="popup-title">Select</div>
+<div class="popup-title">
+	<ce:Label runat="server">Select</ce:Label></div>
 <div class="admin-title-separator"></div>
 <div class="admin-fieldset">
-    <local:NamedExpressionsListControl runat="server" ID="selectControl" Property="ExpressionsLogicModel.Select" />
+	<local:NamedExpressionsListControl runat="server" ID="selectControl" Property="ExpressionsLogicModel.Select" />
 
 </div>
 

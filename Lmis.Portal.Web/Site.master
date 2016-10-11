@@ -148,18 +148,24 @@
 						</div>
 						<div class="top-right">
 							<ul>
-								<li><a href="#">English</a></li>
+								<li>
+									<ce:ImageLinkButton runat="server" ID="btEngLang" OnClick="btEngLang_Click">English</ce:ImageLinkButton></li>
 								<li>|</li>
-								<li class="language"><a>Georgian</a></li>
+								<li>
+									<ce:ImageLinkButton runat="server" ID="btGeoLang" OnClick="btGeoLang_Click">Georgian</ce:ImageLinkButton></li>
+								<li class="language"></li>
 								<li>
 									<asp:Image ImageUrl="~/App_Themes/Default/images/top-right.png" runat="server" /></li>
-								<li><a href="http://evolution.ge/Citi/Forum" target="blanck">Forum</a></li>
+								<li><a href="http://evolution.ge/Citi/Forum" target="blanck">
+									<ce:Label runat="server">Forum</ce:Label></a></li>
 								<li>
 									<asp:Image ImageUrl="~/App_Themes/Default/images/top-right.png" runat="server" /></li>
-								<li><a>FAQ</a></li>
+								<li><a>
+									<ce:Label runat="server">FAQ</ce:Label></a></li>
 								<li>
 									<asp:Image ImageUrl="~/App_Themes/Default/images/top-right.png" runat="server" /></li>
-								<li><a>Sign In</a></li>
+								<li><a>
+									<ce:Label runat="server">Sign In</ce:Label></a></li>
 							</ul>
 						</div>
 					</nav>
@@ -181,41 +187,45 @@
 				<div class="menu-line">
 					<ul class="menu">
 						<li class="">
-							<asp:HyperLink runat="server" CssClass="mcolor" NavigateUrl="~/Default.aspx">HOME</asp:HyperLink>
+							<asp:HyperLink runat="server" CssClass="mcolor" NavigateUrl="~/Default.aspx"><ce:Label runat="server">HOME</ce:Label></asp:HyperLink>
 						</li>
 						<li>
-							<asp:HyperLink runat="server" CssClass="mcolor" NavigateUrl="~/Pages/Management/CategoriesList.aspx">ADMIN</asp:HyperLink>
+							<asp:HyperLink runat="server" CssClass="mcolor" NavigateUrl="~/Pages/Management/CategoriesList.aspx"><ce:Label runat="server">ADMIN</ce:Label></asp:HyperLink>
 						</li>
 						<li>
-							<asp:HyperLink runat="server" CssClass="mcolor" NavigateUrl="~/Pages/User/AboutUs.aspx">About us</asp:HyperLink>
+							<asp:HyperLink runat="server" CssClass="mcolor" NavigateUrl="~/Pages/User/AboutUs.aspx"><ce:Label runat="server">About us</ce:Label></asp:HyperLink>
 						</li>
 						<li>
-							<asp:HyperLink runat="server" CssClass="mcolor" NavigateUrl="~/Pages/User/Dashboard.aspx">Data</asp:HyperLink>
+							<asp:HyperLink runat="server" CssClass="mcolor" NavigateUrl="~/Pages/User/Dashboard.aspx"><ce:Label runat="server">Data</ce:Label></asp:HyperLink>
 						</li>
 						<li>
-							<asp:HyperLink runat="server" CssClass="mcolor" NavigateUrl="~/Pages/User/Career.aspx">career</asp:HyperLink>
+							<asp:HyperLink runat="server" CssClass="mcolor" NavigateUrl="~/Pages/User/Career.aspx"><ce:Label runat="server">career</ce:Label></asp:HyperLink>
 						</li>
 						<li>
-							<asp:HyperLink runat="server" CssClass="mcolor" NavigateUrl="~/Pages/User/Surveys.aspx">Surveys</asp:HyperLink>
+							<asp:HyperLink runat="server" CssClass="mcolor" NavigateUrl="~/Pages/User/Surveys.aspx"><ce:Label runat="server">Surveys</ce:Label></asp:HyperLink>
 						</li>
 						<li>
-							<asp:HyperLink runat="server" CssClass="mcolor" NavigateUrl="~/Pages/User/Projects.aspx">projects/Programs</asp:HyperLink>
+							<asp:HyperLink runat="server" CssClass="mcolor" NavigateUrl="~/Pages/User/Projects.aspx"><ce:Label runat="server">projects/Programs</ce:Label></asp:HyperLink>
 						</li>
 						<li>
-							<asp:HyperLink runat="server" CssClass="mcolor" NavigateUrl="~/Pages/User/News.aspx">News</asp:HyperLink>
+							<asp:HyperLink runat="server" CssClass="mcolor" NavigateUrl="~/Pages/User/News.aspx"><ce:Label runat="server">News</ce:Label></asp:HyperLink>
 						</li>
 						<li>
-							<asp:HyperLink runat="server" CssClass="mcolor" NavigateUrl="~/Pages/User/ContactUs.aspx">Contact Us</asp:HyperLink>
+							<asp:HyperLink runat="server" CssClass="mcolor" NavigateUrl="~/Pages/User/ContactUs.aspx"><ce:Label runat="server">Contact Us</ce:Label></asp:HyperLink>
 						</li>
 
 					</ul>
 					<div style="float: right">
 						<div id="textsizer-classnames">
 							<ul class="textresizer" id="text-resizer-controls">
-								<li><a href="#nogo" id="small" class="small-text" title="Small">A</a></li>
-								<li><a href="#nogo" id="medium" class="medium-text" title="Medium">A</a></li>
-								<li><a href="#nogo" id="large" class="large-text" title="Large">A</a></li>
-								<li><a href="#nogo" id="larger" class="larger-text" title="Larger">A</a></li>
+								<li><a href="#nogo" id="small" class="small-text" title="Small">
+									<ce:Label runat="server">A</ce:Label></a></li>
+								<li><a href="#nogo" id="medium" class="medium-text" title="Medium">
+									<ce:Label runat="server">A</ce:Label></a></li>
+								<li><a href="#nogo" id="large" class="large-text" title="Large">
+									<ce:Label runat="server">A</ce:Label></a></li>
+								<li><a href="#nogo" id="larger" class="larger-text" title="Larger">
+									<ce:Label runat="server">A</ce:Label></a></li>
 							</ul>
 						</div>
 
@@ -248,7 +258,8 @@
 					<ul>
 						<li class="left">
 							<asp:Image runat="server" ImageUrl="~/App_Themes/Default/images/f-logo.png" /></li>
-						<li class="right copyright">© 2016  All rights reserved</li>
+						<li class="right copyright">
+							<ce:Label runat="server">© 2016  All rights reserved</ce:Label></li>
 					</ul>
 				</div>
 			</footer>

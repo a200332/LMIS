@@ -16,15 +16,15 @@
 		<form id="form1" runat="server">
 			<asp:ScriptManager ID="ScriptManager1" runat="server">
 				<Scripts>
-				    
-                    <asp:ScriptReference Path="~/Scripts/jquery.min.js" />
-                    <asp:ScriptReference Path="~/Scripts/jquery-1.9.1.min.js" />
-                    <asp:ScriptReference Path="~/Scripts/jquery.cookie.js" />
-                    <asp:ScriptReference Path="~/Scripts/jquery.textresizer.js" />
-                    <asp:ScriptReference Path="~/Scripts/jquery.textresizer.min.js" />
-                    <asp:ScriptReference Path="~/Scripts/jquery-1.6.4.min.js" />
-                    <asp:ScriptReference Path="~/Scripts/jquery.signalR-2.2.1.min.js" />
-                    <asp:ScriptReference Path="~/signalr/hubs" />
+
+					<asp:ScriptReference Path="~/Scripts/jquery.min.js" />
+					<asp:ScriptReference Path="~/Scripts/jquery-1.9.1.min.js" />
+					<asp:ScriptReference Path="~/Scripts/jquery.cookie.js" />
+					<asp:ScriptReference Path="~/Scripts/jquery.textresizer.js" />
+					<asp:ScriptReference Path="~/Scripts/jquery.textresizer.min.js" />
+					<asp:ScriptReference Path="~/Scripts/jquery-1.6.4.min.js" />
+					<asp:ScriptReference Path="~/Scripts/jquery.signalR-2.2.1.min.js" />
+					<asp:ScriptReference Path="~/signalr/hubs" />
 
 				</Scripts>
 			</asp:ScriptManager>
@@ -121,28 +121,28 @@
 				<div class="menu-line">
 					<ul class="menu">
 						<li>
-							<asp:HyperLink runat="server" CssClass="mcolor" NavigateUrl="~/Default.aspx">HOME</asp:HyperLink>
+							<asp:HyperLink runat="server" CssClass="mcolor" NavigateUrl="~/Default.aspx"><ce:Label runat="server">HOME</ce:Label></asp:HyperLink>
 						</li>
 						<li>
-							<asp:HyperLink runat="server" CssClass="mcolor" NavigateUrl="~/Pages/Management/CategoriesList.aspx">Categories</asp:HyperLink>
+							<asp:HyperLink runat="server" CssClass="mcolor" NavigateUrl="~/Pages/Management/CategoriesList.aspx"><ce:Label runat="server">Categories</ce:Label></asp:HyperLink>
 						</li>
 						<li>
-							<asp:HyperLink runat="server" CssClass="mcolor" NavigateUrl="~/Pages/Management/TablesList.aspx">Tables</asp:HyperLink>
+							<asp:HyperLink runat="server" CssClass="mcolor" NavigateUrl="~/Pages/Management/TablesList.aspx"><ce:Label runat="server">Tables</ce:Label></asp:HyperLink>
 						</li>
 						<li>
-							<asp:HyperLink runat="server" CssClass="mcolor" NavigateUrl="~/Pages/Management/LogicsList.aspx">Logics</asp:HyperLink>
+							<asp:HyperLink runat="server" CssClass="mcolor" NavigateUrl="~/Pages/Management/LogicsList.aspx"><ce:Label runat="server">Logics</ce:Label></asp:HyperLink>
 						</li>
 						<li>
-							<asp:HyperLink runat="server" CssClass="mcolor" NavigateUrl="~/Pages/Management/ReportsList.aspx">Reports</asp:HyperLink>
+							<asp:HyperLink runat="server" CssClass="mcolor" NavigateUrl="~/Pages/Management/ReportsList.aspx"><ce:Label runat="server">Reports</ce:Label></asp:HyperLink>
 						</li>
 						<li>
-							<asp:HyperLink runat="server" CssClass="mcolor" NavigateUrl="~/Pages/Management/VideosList.aspx">Videos</asp:HyperLink>
+							<asp:HyperLink runat="server" CssClass="mcolor" NavigateUrl="~/Pages/Management/VideosList.aspx"><ce:Label runat="server">Videos</ce:Label></asp:HyperLink>
 						</li>
 						<li>
-							<asp:HyperLink runat="server" CssClass="mcolor" NavigateUrl="~/Pages/Management/LinksList.aspx">Links</asp:HyperLink>
+							<asp:HyperLink runat="server" CssClass="mcolor" NavigateUrl="~/Pages/Management/LinksList.aspx"><ce:Label runat="server">Links</ce:Label></asp:HyperLink>
 						</li>
 						<li>
-							<asp:HyperLink runat="server" CssClass="mcolor" NavigateUrl="~/Pages/Management/BooksList.aspx">eBooks</asp:HyperLink>
+							<asp:HyperLink runat="server" CssClass="mcolor" NavigateUrl="~/Pages/Management/BooksList.aspx"><ce:Label runat="server">eBooks</ce:Label></asp:HyperLink>
 						</li>
 					</ul>
 				</div>
@@ -154,11 +154,11 @@
 					</asp:ContentPlaceHolder>
 				</div>
 			</section>
-            
-            <hmis:AdministratorChatControl runat="server" ID="ceAdministratorChatControl" />
-            <div class="chat-b">
-                <asp:Image ImageUrl="~/App_Themes/Default/images/chat.png" runat="server" />
-            </div>
+
+			<hmis:AdministratorChatControl runat="server" ID="ceAdministratorChatControl" />
+			<div class="chat-b">
+				<asp:Image ImageUrl="~/App_Themes/Default/images/chat.png" runat="server" />
+			</div>
 			<footer id="footer">
 				<div class="footer">
 					<ul>

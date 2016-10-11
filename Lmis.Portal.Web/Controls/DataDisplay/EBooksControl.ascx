@@ -3,10 +3,10 @@
 	<ItemTemplate>
 		<a class="book" href='<%# Eval("Url") %>' target="blanck">
 			<div class="book-title">
-				<%# Eval("Title") %>
+				<ce:Label runat="server" Text='<%# Eval("Title") %>' />
 			</div>
 			<div class="book-description">
-				<%# Eval("Description") %>
+				<ce:Label runat="server" Text='<%# Eval("Description") %>' />
 			</div>
 			<div class="book-description">
 			</div>

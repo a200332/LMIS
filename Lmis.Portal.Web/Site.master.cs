@@ -23,6 +23,16 @@ namespace Lmis.Portal.Web
 			FillMainLinks();
 		}
 
+		protected void btEngLang_Click(object sender, EventArgs e)
+		{
+			LanguageUtil.SetLanguage("en-US");
+		}
+
+		protected void btGeoLang_Click(object sender, EventArgs e)
+		{
+			LanguageUtil.SetLanguage("ka-GE");
+		}
+
 		private void FillMainLinks()
 		{
 			var page = Page as BasePage;
