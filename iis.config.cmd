@@ -17,33 +17,38 @@ appcmd set app /app.name:"Default Web Site/" /[path='/'].physicalPath:"C:\inetpu
 appcmd set app /app.name:"Default Web Site/" /applicationPool:DefaultAppPool
 
 appcmd add apppool /name:Molhsa.Base /managedRuntimeVersion:v4.0 /managedPipelineMode:Integrated
+appcmd add apppool /name:Lmis.Base /managedRuntimeVersion:v4.0 /managedPipelineMode:Integrated
 appcmd add apppool /name:CITI.EVO.CommonData.Web /managedRuntimeVersion:v4.0 /managedPipelineMode:Integrated
 appcmd add apppool /name:CITI.EVO.RpcHub.Web /managedRuntimeVersion:v4.0 /managedPipelineMode:Integrated
 appcmd add apppool /name:CITI.EVO.UserManagement.Web /managedRuntimeVersion:v4.0 /managedPipelineMode:Integrated
 appcmd add apppool /name:Lmis.Portal.Web /managedRuntimeVersion:v4.0 /managedPipelineMode:Integrated
 
 appcmd set apppool /apppool.name:Molhsa.Base /managedRuntimeVersion:v4.0 /managedPipelineMode:Integrated
+appcmd set apppool /apppool.name:Lmis.Base /managedRuntimeVersion:v4.0 /managedPipelineMode:Integrated
 appcmd set apppool /apppool.name:CITI.EVO.RpcHub.Web /managedRuntimeVersion:v4.0 /managedPipelineMode:Integrated
 appcmd set apppool /apppool.name:CITI.EVO.CommonData.Web /managedRuntimeVersion:v4.0 /managedPipelineMode:Integrated
 appcmd set apppool /apppool.name:CITI.EVO.UserManagement.Web /managedRuntimeVersion:v4.0 /managedPipelineMode:Integrated
 appcmd set apppool /apppool.name:Lmis.Portal.Web /managedRuntimeVersion:v4.0 /managedPipelineMode:Integrated
 
-appcmd add app /site.name:"Default Web Site" /path:"/Molhsa" /physicalPath:"%sourcesPath%Molhsa.Base"
-appcmd add app /site.name:"Default Web Site" /path:"/Molhsa/CITI.EVO.RpcHub.Web" /physicalPath:"%sourcesPath%CITI.EVO.RpcHub.Web"
-appcmd add app /site.name:"Default Web Site" /path:"/Molhsa/CITI.EVO.CommonData.Web" /physicalPath:"%sourcesPath%CITI.EVO.CommonData.Web"
-appcmd add app /site.name:"Default Web Site" /path:"/Molhsa/CITI.EVO.UserManagement.Web" /physicalPath:"%sourcesPath%CITI.EVO.UserManagement.Web"
-appcmd add app /site.name:"Default Web Site" /path:"/Molhsa/Lmis.Portal.Web" /physicalPath:"%sourcesPath%Lmis.Portal.Web"
+appcmd add app /site.name:"Default Web Site" /path:"/Molhsa" /physicalPath:"C:\inetpub\wwwroot\Base"
+appcmd add app /site.name:"Default Web Site" /path:"/Molhsa/Lmis" /physicalPath:"C:\inetpub\wwwroot\Base"
+appcmd add app /site.name:"Default Web Site" /path:"/Molhsa/Lmis/CITI.EVO.RpcHub.Web" /physicalPath:"%sourcesPath%CITI.EVO.RpcHub.Web"
+appcmd add app /site.name:"Default Web Site" /path:"/Molhsa/Lmis/CITI.EVO.CommonData.Web" /physicalPath:"%sourcesPath%CITI.EVO.CommonData.Web"
+appcmd add app /site.name:"Default Web Site" /path:"/Molhsa/Lmis/CITI.EVO.UserManagement.Web" /physicalPath:"%sourcesPath%CITI.EVO.UserManagement.Web"
+appcmd add app /site.name:"Default Web Site" /path:"/Molhsa/Lmis/Lmis.Portal.Web" /physicalPath:"%sourcesPath%Lmis.Portal.Web"
 
-appcmd set app /app.name:"Default Web Site/Molhsa" /[path='/'].physicalPath:"%sourcesPath%Molhsa.Base"
-appcmd set app /app.name:"Default Web Site/Molhsa/CITI.EVO.RpcHub.Web" /[path='/'].physicalPath:"%sourcesPath%CITI.EVO.RpcHub.Web"
-appcmd set app /app.name:"Default Web Site/Molhsa/CITI.EVO.CommonData.Web" /[path='/'].physicalPath:"%sourcesPath%CITI.EVO.CommonData.Web"
-appcmd set app /app.name:"Default Web Site/Molhsa/CITI.EVO.UserManagement.Web" /[path='/'].physicalPath:"%sourcesPath%CITI.EVO.UserManagement.Web"
-appcmd set app /app.name:"Default Web Site/Molhsa/Lmis.Portal.Web" /[path='/'].physicalPath:"%sourcesPath%Lmis.Portal.Web"
+appcmd set app /app.name:"Default Web Site/Molhsa" /[path='/'].physicalPath:"C:\inetpub\wwwroot\Base"
+appcmd set app /app.name:"Default Web Site/Molhsa/Lmis" /[path='/'].physicalPath:"C:\inetpub\wwwroot\Base"
+appcmd set app /app.name:"Default Web Site/Molhsa/Lmis/CITI.EVO.RpcHub.Web" /[path='/'].physicalPath:"%sourcesPath%CITI.EVO.RpcHub.Web"
+appcmd set app /app.name:"Default Web Site/Molhsa/Lmis/CITI.EVO.CommonData.Web" /[path='/'].physicalPath:"%sourcesPath%CITI.EVO.CommonData.Web"
+appcmd set app /app.name:"Default Web Site/Molhsa/Lmis/CITI.EVO.UserManagement.Web" /[path='/'].physicalPath:"%sourcesPath%CITI.EVO.UserManagement.Web"
+appcmd set app /app.name:"Default Web Site/Molhsa/Lmis/Lmis.Portal.Web" /[path='/'].physicalPath:"%sourcesPath%Lmis.Portal.Web"
 
-appcmd set app /app.name:"Default Web Site/Molhsa" /applicationPool:Molhsa.Base
-appcmd set app /app.name:"Default Web Site/Molhsa/CITI.EVO.RpcHub.Web" /applicationPool:CITI.EVO.RpcHub.Web
-appcmd set app /app.name:"Default Web Site/Molhsa/CITI.EVO.CommonData.Web" /applicationPool:CITI.EVO.CommonData.Web
-appcmd set app /app.name:"Default Web Site/Molhsa/CITI.EVO.UserManagement.Web" /applicationPool:CITI.EVO.UserManagement.Web
-appcmd set app /app.name:"Default Web Site/Molhsa/Lmis.Portal.Web" /applicationPool:Lmis.Portal.Web
+appcmd set app /app.name:"Default Web Site/Molhsa" /[path='/'].physicalPath:"C:\inetpub\wwwroot\Base"
+appcmd set app /app.name:"Default Web Site/Molhsa/Lmis" /[path='/'].physicalPath:"C:\inetpub\wwwroot\Base"
+appcmd set app /app.name:"Default Web Site/Molhsa/Lmis/CITI.EVO.RpcHub.Web" /applicationPool:CITI.EVO.RpcHub.Web
+appcmd set app /app.name:"Default Web Site/Molhsa/Lmis/CITI.EVO.CommonData.Web" /applicationPool:CITI.EVO.CommonData.Web
+appcmd set app /app.name:"Default Web Site/Molhsa/Lmis/CITI.EVO.UserManagement.Web" /applicationPool:CITI.EVO.UserManagement.Web
+appcmd set app /app.name:"Default Web Site/Molhsa/Lmis/Lmis.Portal.Web" /applicationPool:Lmis.Portal.Web
 
 pause

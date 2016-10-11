@@ -38,13 +38,13 @@ namespace Lmis.Portal.Web.Pages.Management
 			logicsControl.Model = model;
 		}
 
-		protected void logicsControl_OnEditLogic(object sender, GenericEventArgs<Guid> e)
+		protected void logicsControl_OnEditItem(object sender, GenericEventArgs<Guid> e)
 		{
 			var url = String.Format("~/Pages/Management/AddEditLogic.aspx?LogicID={0}", e.Value);
 			Response.Redirect(url);
 		}
 
-		protected void logicsControl_OnDeleteLogic(object sender, GenericEventArgs<Guid> e)
+		protected void logicsControl_OnDeleteItem(object sender, GenericEventArgs<Guid> e)
 		{
 			var entity = DataContext.LP_Logics.FirstOrDefault(n => n.ID == e.Value);
 			if (entity != null)
@@ -55,7 +55,7 @@ namespace Lmis.Portal.Web.Pages.Management
 			FillLogicsGrid();
 		}
 
-		protected void logicsControl_OnViewLogic(object sender, GenericEventArgs<Guid> e)
+		protected void logicsControl_OnViewItem(object sender, GenericEventArgs<Guid> e)
 		{
 			var url = String.Format("~/Pages/Management/AddEditLogic.aspx?LogicID={0}", e.Value);
 			Response.Redirect(url);

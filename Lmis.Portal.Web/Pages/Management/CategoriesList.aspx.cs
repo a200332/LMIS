@@ -15,7 +15,7 @@ namespace Lmis.Portal.Web.Pages.Management
 			FillCategories();
 		}
 
-		protected void categoriesControl_OnAddChildCategory(object sender, GenericEventArgs<Guid> e)
+		protected void categoriesControl_OnAddChild(object sender, GenericEventArgs<Guid> e)
 		{
 			var entity = DataContext.LP_Categories.FirstOrDefault(n => n.ID == e.Value);
 			if (entity == null)
@@ -28,7 +28,7 @@ namespace Lmis.Portal.Web.Pages.Management
 			mpeAddEditCategory.Show();
 		}
 
-		protected void categoriesControl_OnEditCategory(object sender, GenericEventArgs<Guid> e)
+		protected void categoriesControl_OnEditItem(object sender, GenericEventArgs<Guid> e)
 		{
 			var entity = DataContext.LP_Categories.FirstOrDefault(n => n.ID == e.Value);
 			if (entity == null)
@@ -41,7 +41,7 @@ namespace Lmis.Portal.Web.Pages.Management
 			mpeAddEditCategory.Show();
 		}
 
-		protected void categoriesControl_OnDeleteCategory(object sender, GenericEventArgs<Guid> e)
+		protected void categoriesControl_OnDeleteItem(object sender, GenericEventArgs<Guid> e)
 		{
 			var entity = DataContext.LP_Categories.FirstOrDefault(n => n.ID == e.Value);
 			if (entity == null)

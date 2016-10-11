@@ -8,11 +8,11 @@
 	<div>
 		<lmis:LogicControl runat="server" ID="logicControl" />
 	</div>
-	<div>
-		<div class="left">
+	<div style="margin-bottom: 60px;">
+		<div class="left" style="padding-right: 10px; ">
 			<ce:ImageLinkButton runat="server" DefaultImageUrl="~/App_Themes/Default/Images/save.png" ID="btnSaveLogic" ToolTip="დამატება" OnClick="btnSaveLogic_OnClick" />
 		</div>
-		<div class="right">
+		<div class="left">
 			<ce:ImageLinkButton runat="server" DefaultImageUrl="~/App_Themes/Default/Images/close.png" ID="btnCancelLogic" ToolTip="დახურვა" />
 		</div>
 	</div>

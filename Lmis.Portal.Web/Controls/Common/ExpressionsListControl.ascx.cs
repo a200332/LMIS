@@ -77,7 +77,7 @@ namespace Lmis.Portal.Web.Controls.Common
 			mpeExpression.Show();
 		}
 
-		protected void btnDelete_OnCommand(object sender, CommandEventArgs e)
+		protected override void btnDelete_OnCommand(object sender, CommandEventArgs e)
 		{
 			var key = DataConverter.ToNullableGuid(e.CommandArgument);
 			if (key == null)
@@ -90,7 +90,7 @@ namespace Lmis.Portal.Web.Controls.Common
 			Expressions.Remove(model);
 		}
 
-		protected void btnEdit_OnCommand(object sender, CommandEventArgs e)
+		protected override void btnEdit_OnCommand(object sender, CommandEventArgs e)
 		{
 			var key = DataConverter.ToNullableGuid(e.CommandArgument);
 			if (key == null)

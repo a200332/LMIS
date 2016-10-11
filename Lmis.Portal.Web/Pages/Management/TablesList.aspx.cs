@@ -24,7 +24,7 @@ namespace Lmis.Portal.Web.Pages.Management
 			mpeAddEditTable.Show();
 		}
 
-		protected void tablesControl_OnEditTable(object sender, GenericEventArgs<Guid> e)
+		protected void tablesControl_OnEditItem(object sender, GenericEventArgs<Guid> e)
 		{
 			var entity = DataContext.LP_Tables.FirstOrDefault(n => n.ID == e.Value);
 			if (entity == null)
@@ -38,7 +38,7 @@ namespace Lmis.Portal.Web.Pages.Management
 			mpeAddEditTable.Show();
 		}
 
-		protected void tablesControl_OnDeleteTable(object sender, GenericEventArgs<Guid> e)
+		protected void tablesControl_OnDeleteItem(object sender, GenericEventArgs<Guid> e)
 		{
 			var entity = DataContext.LP_Tables.FirstOrDefault(n => n.ID == e.Value);
 			if (entity == null)

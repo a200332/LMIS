@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using CITI.EVO.Tools.Utils;
 using Lmis.Portal.Web.Bases;
 using Lmis.Portal.Web.Models;
 
@@ -73,6 +74,11 @@ namespace Lmis.Portal.Web.Controls.SchemaManipulation
 
 			cbxCategory.DataSource = categories;
 			cbxCategory.DataBind();
+
+			var languages = LanguageUtil.GetLanguages();
+
+			cbxLanguage.DataSource = languages;
+			cbxLanguage.DataBind();
 		}
 	}
 }

@@ -80,8 +80,54 @@
       <Column Name="DateDeleted" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
       <Column Name="Public" Type="System.Boolean" DbType="BIT" CanBeNull="true" UpdateCheck="Never" />
       <Column Name="Description" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="Language" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" UpdateCheck="Never" />
       <Association Name="LP_Report_LP_ReportLogic" Member="ReportLogics" ThisKey="ID" OtherKey="ReportID" Type="LP_ReportLogic" />
       <Association Name="LP_Category_LP_Report" Member="Category" ThisKey="CategoryID" OtherKey="ID" Type="LP_Category" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.LP_Videos" Member="LP_Videos">
+    <Type Name="LP_Video">
+      <Column Name="ID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Title" Type="System.String" DbType="NVarChar(400)" CanBeNull="true" />
+      <Column Name="Url" Type="System.String" DbType="NVarChar(400)" CanBeNull="true" />
+      <Column Name="Description" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="DateCreated" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="DateChanged" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="DateDeleted" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.LP_Links" Member="LP_Links">
+    <Type Name="LP_Link">
+      <Column Name="ID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="ParentID" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
+      <Column Name="Image" Type="System.Data.Linq.Binary" DbType="VarBinary(MAX)" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="Title" Type="System.String" DbType="NVarChar(400)" CanBeNull="true" />
+      <Column Name="Url" Type="System.String" DbType="NVarChar(400)" CanBeNull="true" />
+      <Column Name="Description" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="DateCreated" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="DateChanged" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="DateDeleted" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Association Name="LP_Link_LP_Link" Member="Children" ThisKey="ID" OtherKey="ParentID" Type="LP_Link" />
+      <Association Name="LP_Link_LP_Link" Member="Parent" ThisKey="ParentID" OtherKey="ID" Type="LP_Link" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.LP_EBooks" Member="LP_EBooks">
+    <Type Name="LP_EBook">
+      <Column Name="ID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Title" Type="System.String" DbType="NVarChar(400)" CanBeNull="true" />
+      <Column Name="Url" Type="System.String" DbType="NVarChar(400)" CanBeNull="true" />
+      <Column Name="Description" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="DateCreated" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="DateChanged" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="DateDeleted" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="LP_News">
+    <Type Name="LP_News">
+      <Column Name="ID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="DateCreated" Type="System.DateTime" DbType="DateTime" CanBeNull="false" UpdateCheck="Never" />
+      <Column Name="DateChanged" Type="System.DateTime" DbType="DateTime" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="DateDeleted" Type="System.DateTime" DbType="DateTime" CanBeNull="true" UpdateCheck="Never" />
     </Type>
   </Table>
 </Database>

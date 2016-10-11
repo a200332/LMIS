@@ -14,20 +14,6 @@ namespace Lmis.Portal.Web.Controls.SchemaManipulation
 {
 	public partial class TablesControl : BaseExtendedControl<TablesModel>
 	{
-		public event EventHandler<GenericEventArgs<Guid>> EditTable;
-		protected virtual void OnEditTable(Guid value)
-		{
-			if (EditTable != null)
-				EditTable(this, new GenericEventArgs<Guid>(value));
-		}
-
-		public event EventHandler<GenericEventArgs<Guid>> DeleteTable;
-		protected virtual void OnDeleteTable(Guid value)
-		{
-			if (DeleteTable != null)
-				DeleteTable(this, new GenericEventArgs<Guid>(value));
-		}
-
 		public event EventHandler<GenericEventArgs<Guid>> AddNewColumn;
 		protected virtual void OnAddNewColumn(Guid value)
 		{
@@ -73,7 +59,7 @@ namespace Lmis.Portal.Web.Controls.SchemaManipulation
 			}
 		}
 
-		protected void btnEdit_OnCommand(object sender, CommandEventArgs e)
+		protected override void btnEdit_OnCommand(object sender, CommandEventArgs e)
 		{
 			var command = Convert.ToString(e.CommandArgument);
 
@@ -86,12 +72,12 @@ namespace Lmis.Portal.Web.Controls.SchemaManipulation
 				return;
 
 			if (typeName == "table")
-				OnEditTable(entityId.Value);
+				OnEditItem(entityId.Value);
 			else if (typeName == "column")
 				OnEditColumn(entityId.Value);
 		}
 
-		protected void btnDelete_OnCommand(object sender, CommandEventArgs e)
+		protected override void btnDelete_OnCommand(object sender, CommandEventArgs e)
 		{
 			var command = Convert.ToString(e.CommandArgument);
 
@@ -104,7 +90,7 @@ namespace Lmis.Portal.Web.Controls.SchemaManipulation
 				return;
 
 			if (typeName == "table")
-				OnDeleteTable(entityId.Value);
+				OnDeleteItem(entityId.Value);
 			else if (typeName == "column")
 				OnDeleteColumn(entityId.Value);
 		}

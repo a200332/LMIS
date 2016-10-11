@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "Lmis.Portal.Web", "http://localhost/Molhsa/Lmis.Portal.Web", "{A599C522-847B-46B6-A231-477D5C24AB8F}"
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "Lmis.Portal.Web", "http://localhost/Molhsa/Lmis/Lmis.Portal.Web", "{A599C522-847B-46B6-A231-477D5C24AB8F}"
 	ProjectSection(WebsiteProperties) = preProject
 		UseIISExpress = "false"
 		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.6.1"
@@ -42,7 +42,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CITI.EVO.Proxies", "CITI.EV
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CITI.EVO.Rpc", "CITI.EVO.Rpc\CITI.EVO.Rpc.csproj", "{416C5D23-950C-46B2-A2AB-784FBA7A376C}"
 EndProject
-Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "CITI.EVO.RpcHub.Web", "http://localhost/Molhsa/CITI.EVO.RpcHub.Web", "{6EBA73AD-05CF-41DB-B534-A098D8CE1D36}"
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "CITI.EVO.RpcHub.Web", "http://localhost/Molhsa/Lmis/CITI.EVO.RpcHub.Web", "{6EBA73AD-05CF-41DB-B534-A098D8CE1D36}"
 	ProjectSection(WebsiteProperties) = preProject
 		UseIISExpress = "false"
 		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.5.1"
@@ -63,7 +63,7 @@ Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "CITI.EVO.RpcHub.Web", "http
 		SlnRelativePath = "CITI.EVO.RpcHub.Web\"
 	EndProjectSection
 EndProject
-Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "CITI.EVO.UserManagement.Web", "http://localhost/Molhsa/CITI.EVO.UserManagement.Web", "{DEF34AA1-D98C-479B-BC4B-2DF39AD4D7AC}"
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "CITI.EVO.UserManagement.Web", "http://localhost/Molhsa/Lmis/CITI.EVO.UserManagement.Web", "{DEF34AA1-D98C-479B-BC4B-2DF39AD4D7AC}"
 	ProjectSection(WebsiteProperties) = preProject
 		UseIISExpress = "false"
 		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.5.1"
@@ -115,7 +115,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CommonData", "CommonData", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CITI.EVO.CommonData.Svc", "CITI.EVO.CommonData.Svc\CITI.EVO.CommonData.Svc.csproj", "{5B8F965A-240C-4B1A-93B5-87160C20E47E}"
 EndProject
-Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "CITI.EVO.CommonData.Web", "http://localhost/Molhsa/CITI.EVO.CommonData.Web", "{6365B462-8F7B-4484-8CFB-E54879FE4EDB}"
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "CITI.EVO.CommonData.Web", "http://localhost/Molhsa/Lmis/CITI.EVO.CommonData.Web", "{6365B462-8F7B-4484-8CFB-E54879FE4EDB}"
 	ProjectSection(WebsiteProperties) = preProject
 		UseIISExpress = "false"
 		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.5.1"

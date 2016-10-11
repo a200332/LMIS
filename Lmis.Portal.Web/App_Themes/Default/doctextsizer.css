@@ -57,18 +57,18 @@ ul.textresizer {
     }
 
 
-#content.small-text {
+#content.small-text   {
     font-size: 12px;
 }
 
-#content.medium-text {
+#content.medium-text   {
     font-size: 14px;
 }
 
-#content.large-text {
+#content.large-text  {
     font-size: 16px;
 }
 
-#content.larger-text {
+#content.larger-text  {
     font-size: 18px;
 }

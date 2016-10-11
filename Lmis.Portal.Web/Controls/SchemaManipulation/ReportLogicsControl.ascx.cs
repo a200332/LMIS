@@ -33,15 +33,5 @@ namespace Lmis.Portal.Web.Controls.SchemaManipulation
 			gvData.DataSource = query.ToList();
 			gvData.DataBind();
 		}
-
-		protected void btnEdit_OnCommand(object sender, CommandEventArgs e)
-		{
-			
-		}
-
-		protected void btnDelete_OnCommand(object sender, CommandEventArgs e)
-		{
-			
-		}
 	}
 }

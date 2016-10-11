@@ -32,19 +32,19 @@ namespace Lmis.Portal.Web.Pages.Management
 			Response.Redirect(url);
 		}
 
-		protected void reportsControl_OnViewReport(object sender, GenericEventArgs<Guid> e)
+		protected void reportsControl_OnViewItem(object sender, GenericEventArgs<Guid> e)
 		{
 			var url = String.Format("~/Pages/Management/AddEditReport.aspx?Mode=View&ReportID={0}&CategoryID={1}", e.Value, CategoryID);
 			Response.Redirect(url);
 		}
 
-		protected void reportsControl_OnEditReport(object sender, GenericEventArgs<Guid> e)
+		protected void reportsControl_OnEditItem(object sender, GenericEventArgs<Guid> e)
 		{
 			var url = String.Format("~/Pages/Management/AddEditReport.aspx?Mode=Edit&ReportID={0}&CategoryID={1}", e.Value, CategoryID);
 			Response.Redirect(url);
 		}
 
-		protected void reportsControl_OnDeleteReport(object sender, GenericEventArgs<Guid> e)
+		protected void reportsControl_OnDeleteItem(object sender, GenericEventArgs<Guid> e)
 		{
 			var entity = DataContext.LP_Reports.FirstOrDefault(n => n.ID == e.Value);
 			if (entity == null)

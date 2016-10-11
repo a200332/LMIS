@@ -1,227 +1,258 @@
 ﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="Site.master.cs" Inherits="Lmis.Portal.Web.Site" %>
 
-<%@ Register Src="~/Controls/Common/PublicChatControl.ascx" TagPrefix="hmis" TagName="PublicChatControl" %>
+<%@ Register Src="~/Controls/Common/PublicChatControl.ascx" TagPrefix="lmis" TagName="PublicChatControl" %>
+<%@ Register Src="~/Controls/DataDisplay/MainLinksControl.ascx" TagPrefix="lmis" TagName="MainLinksControl" %>
 
 
 <!DOCTYPE html>
 
 <html>
 <head runat="server">
-    <title>Plan The Future</title>
-    <asp:ContentPlaceHolder ID="head" runat="server">
-    </asp:ContentPlaceHolder>
-  
-
+	<title>Plan The Future</title>
+	<asp:ContentPlaceHolder ID="head" runat="server">
+	</asp:ContentPlaceHolder>
 </head>
 <body class="horizontal-center">
-    <div style="min-height: 100%; position: relative;">
-        <form id="form1" runat="server">
-            <asp:ScriptManager ID="ScriptManager1" runat="server">
-                <Scripts>
+	<div style="min-height: 100%; position: relative;">
+		<form id="form1" runat="server">
+			<asp:ScriptManager ID="ScriptManager1" runat="server">
+				<Scripts>
 
-                    <asp:ScriptReference Path="~/Scripts/jquery.min.js" />
-                    <asp:ScriptReference Path="~/Scripts/jquery-1.9.1.min.js" />
-                    <asp:ScriptReference Path="~/Scripts/jquery.cookie.js" />
-                    <asp:ScriptReference Path="~/Scripts/jquery.textresizer.js" />
-                    <asp:ScriptReference Path="~/Scripts/jquery.textresizer.min.js" />
-                    <asp:ScriptReference Path="~/Scripts/jquery-1.6.4.min.js" />
-                    <asp:ScriptReference Path="~/Scripts/jquery.signalR-2.2.1.min.js" />
-                    <asp:ScriptReference Path="~/signalr/hubs" />
+					<asp:ScriptReference Path="~/Scripts/jquery-1.9.1.min.js" />
+					<asp:ScriptReference Path="~/Scripts/jquery.cookie.js" />
+					<asp:ScriptReference Path="~/Scripts/jquery.bxslider.js" />
+					<asp:ScriptReference Path="~/Scripts/jquery.signalR-2.2.1.min.js" />
 
-                </Scripts>
-            </asp:ScriptManager>
-            <script type="text/javascript">
-                $(document).ready(function () {
-                    $('.hide').hide();
-                    $(".chat-b").click(function () {
-                        $("#chat-body").toggle();
-                    });
-                    $("#textsizer-classnames a").textresizer({
-                        target: "#content",
-                        type: "cssClass",
-                        sizes: [
-                            "small-text",
-                            "medium-text",
-                            "large-text",
-                            "larger-text"
-                        ],
-                        selectedIndex: 1
-                    });
-                });
+					<asp:ScriptReference Path="~/signalr/hubs" />
 
-                function listenSelected() {
-                    var text = getSelectionText();
-                    if (text == "" || text == null) {
-                        return false;
-                    }
+				</Scripts>
+			</asp:ScriptManager>
+			<script type="text/javascript">
+				$('.bxslider').bxSlider({
+					video: true,
+					useCSS: false
+				});
 
-                    var audio = document.getElementById("listenAudio");
-                    if (audio != null) {
-                        var url = "http://api.naturalreaders.com/v2/tts/?r=0&s=0&t=" + encodeURIComponent(text);
-                        audio.src = url;
-                        audio.play();
-                    }
-                }
+				$(document).ready(function () {
 
-                function getSelectionText() {
-                    var text = "";
+					$('.hide').hide();
+					$(".chat-b").click(function () {
+						$("#chat-body").toggle();
+					});
 
-                    if (window.getSelection) {
-                        text = window.getSelection().toString();
-                    } else if (document.selection && document.selection.type != "Control") {
-                        text = document.selection.createRange().text;
-                    }
+					$("#small").click(function (event) {
+						event.preventDefault();
 
-                    return text;
-                }
+						//კლასით პოვნა
+						$("#content").find(".coming-soon").animate({ "font-size": "12px" });
+						$("#content").find(".dxtlControl a").animate({ "font-size": "12px" });
+						$("#content").find(".book-title").animate({ "font-size": "12px" });
 
-                function showHide(showElement, hideElement) {
-                	var showElementId = '#' + showElement;
-                	var hideElementId = '#' + hideElement;
 
-                	$(hideElementId).hide();
-                	$(showElementId).show();
-                }
+						$("#content").find("h1").animate({ "font-size": "12px" });
+						$("#content").find("h2").animate({ "font-size": "14px" });
+						$("#content").find("p").animate({ "font-size": "12px", "line-height": "16px" });
 
-                //documenttextsizer.setup("shared_css_class_of_toggler_controls")
-                documenttextsizer.setup("texttoggler");
-            </script>
-            <audio id="listenAudio" src="" style="display: none;"></audio>
-            <header id="header">
-                <div class="top-bg">
-                    <nav class="top ">
-                        <div class="box-social">
-                            <ul>
-                                <li>
-                                    <a href="#" class="sb small no-border linkedin">LinkedIn</a>
-                                    <a href="#" class="sb small no-border facebook">Facebook</a>
-                                    <a href="#" class="sb small no-border twitter">Twitter</a>
-                                    <a href="javascript:listenSelected();" class="sb small no-border voice">Twitter</a>
-                                </li>
-                            </ul>
+					});
 
-                        </div>
-                        <div class="top-right">
-                            <ul>
-                                <li><a href="#">English</a></li>
-                                <li>|</li>
-                                <li class="language"><a>Georgian</a></li>
-                                <li>
-                                    <asp:Image ImageUrl="~/App_Themes/Default/images/top-right.png" runat="server" /></li>
-                                <li><a href="http://evolution.ge/Citi/Forum" target="blanck">Forum</a></li>
-                                <li>
-                                    <asp:Image ImageUrl="~/App_Themes/Default/images/top-right.png" runat="server" /></li>
-                                <li><a>FAQ</a></li>
-                                <li>
-                                    <asp:Image ImageUrl="~/App_Themes/Default/images/top-right.png" runat="server" /></li>
-                                <li><a>Sign In</a></li>
-                            </ul>
-                        </div>
-                    </nav>
-                </div>
-                <div class="header">
-                    <div class="header-items">
-                        <div class="header-title">
-                            Plan The Future
-                        </div>
-                        <div class="left" style="margin-top: 10px;">
-                            <asp:Image ImageUrl="~/App_Themes/Default/images/logo.png" runat="server" />
-                        </div>
+					$("#medium").click(function (event) {
+						event.preventDefault();
 
-                        <div class="search-box">
-                            <input type="text" name="search" placeholder="Search..">
-                        </div>
-                    </div>
-                </div>
-                <div class="menu-line">
-                    <ul class="menu">
-                        <li>
-                            <asp:HyperLink runat="server" NavigateUrl="~/Default.aspx">HOME</asp:HyperLink>
-                        </li>
-                        <li>
-                            <asp:HyperLink runat="server" NavigateUrl="~/Pages/Management/CategoriesList.aspx">ADMIN</asp:HyperLink>
-                        </li>
-                        <li>
-                            <asp:HyperLink runat="server" NavigateUrl="~/Pages/User/AboutUs.aspx">About us</asp:HyperLink>
-                        </li>
-                        <li>
-                            <asp:HyperLink runat="server" NavigateUrl="~/Pages/User/Dashboard.aspx">Data</asp:HyperLink>
-                        </li>
-                        <li>
-                            <asp:HyperLink runat="server" NavigateUrl="~/Pages/User/Career.aspx">career</asp:HyperLink>
-                        </li>
-                        <li>
-                            <asp:HyperLink runat="server" NavigateUrl="~/Pages/User/Surveys.aspx">Surveys</asp:HyperLink>
-                        </li>
-                        <li>
-                            <asp:HyperLink runat="server" NavigateUrl="~/Pages/User/Projects.aspx">projects/Programs</asp:HyperLink>
-                        </li>
-                        <li>
-                            <asp:HyperLink runat="server" NavigateUrl="~/Pages/User/News.aspx">News</asp:HyperLink>
-                        </li>
-                        <li>
-                            <asp:HyperLink runat="server" NavigateUrl="~/Pages/User/ContactUs.aspx">Contact Us</asp:HyperLink>
-                        </li>
+						//კლასით პოვნა
+						$("#content").find(".coming-soon").animate({ "font-size": "14px" });
+						$("#content").find(".dxtlControl a").animate({ "font-size": "14px" });
+						$("#content").find(".book-title").animate({ "font-size": "14px" });
 
-                    </ul>
-                    <div style="float: right">
-                        <div id="textsizer-classnames">
+						$("#content").find("h1").animate({ "font-size": "14px" });
+						$("#content").find("h2").animate({ "font-size": "16px" });
+						$("#content").find("p").animate({ "font-size": "14px", "line-height": "20px" });
 
-                            <ul class="textresizer">
-                                <li><a href="#nogo" class="small-text" title="Small">A</a></li>
-                                <li><a href="#nogo" class="medium-text" title="Medium">A</a></li>
-                                <li><a href="#nogo" class="large-text" title="Large">A</a></li>
-                                <li><a href="#nogo" class="larger-text" title="Larger">A</a></li>
-                            </ul>
-                        </div>
+					});
 
-                    </div>
-                </div>
-            </header>
-            <section id="content">
-                <div class="content">
-                    <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
-                    </asp:ContentPlaceHolder>
-                </div>
-                <div class="clear"></div>
-                <div class="bottom">
-                    <div class="bottom-links" style="padding-top: 45px;">
-                        <ul>
-                            <li>
-                                <ce:ImageLinkButton NavigateUrl="~/Pages/User/GovermentalWebsites.aspx" DefaultImageUrl="~/App_Themes/Default/images/govrenmental.png" runat="server" />
-                            </li>
-                            <li>
-                                <ce:ImageLinkButton NavigateUrl="~/Pages/User/InformationalCenter.aspx" DefaultImageUrl="~/App_Themes/Default/images/inf-center.png" runat="server" />
-                            </li>
-                            <li>
-                                <ce:ImageLinkButton NavigateUrl="~/Pages/User/UsefulLinks.aspx" DefaultImageUrl="~/App_Themes/Default/images/us-links.png" runat="server" />
-                            </li>
-                            <li>
-                                <ce:ImageLinkButton NavigateUrl="~/Pages/User/WorldStatistics.aspx" DefaultImageUrl="~/App_Themes/Default/images/w-stat.png" runat="server" />
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="bottom-geo">
-                        <ce:ImageLinkButton runat="server" NavigateUrl="~/Pages/User/GeorgiaInNumbers.aspx" DefaultImageUrl="~/App_Themes/Default/images/bn-geo.png" />
-                    </div>
-                </div>
-            </section>
-            <hmis:PublicChatControl runat="server" ID="lmisPublicChatControl" />
+					$("#large").click(function (event) {
+						event.preventDefault();
+						//კლასით პოვნა
+						$("#content").find(".coming-soon").animate({ "font-size": "16px" });
+						$("#content").find(".dxtlControl a").animate({ "font-size": "16px" });
+						$("#content").find(".book-title").animate({ "font-size": "16px" });
 
-            <div class="chat-b">
-                <asp:Image ImageUrl="~/App_Themes/Default/images/chat.png" runat="server" />
-            </div>
+						$("#content").find("h1").animate({ "font-size": "16px" });
+						$("#content").find("h2").animate({ "font-size": "18px" });
+						$("#content").find("p").animate({ "font-size": "16px", "line-height": "20px" });
 
-            <footer id="footer">
-                <div class="footer">
-                    <ul>
-                        <li class="left">
-                            <asp:Image runat="server" ImageUrl="~/App_Themes/Default/images/f-logo.png" /></li>
-                        <li class="right copyright">© 2016  All rights reserved</li>
-                    </ul>
-                </div>
-            </footer>
-        </form>
-    </div>
+					});
+
+					$("#larger").click(function (event) {
+						event.preventDefault();
+
+						//კლასით პოვნა
+						$("#content").find(".coming-soon").animate({ "font-size": "18px" });
+						$("#content").find(".dxtlControl a").animate({ "font-size": "18px" });
+						$("#content").find(".book-title").animate({ "font-size": "18px" });
+
+						$("#content").find("h1").animate({ "font-size": "18px" });
+						$("#content").find("h2").animate({ "font-size": "20px" });
+						$("#content").find("p").animate({ "font-size": "18px", "line-height": "20px" });
+
+					});
+				});
+
+				function listenSelected() {
+					var text = getSelectionText();
+					if (text == "" || text == null) {
+						return false;
+					}
+
+					var audio = document.getElementById("listenAudio");
+					if (audio != null) {
+						var url = "http://api.naturalreaders.com/v2/tts/?r=0&s=0&t=" + encodeURIComponent(text);
+						audio.src = url;
+						audio.play();
+					}
+				}
+
+				function getSelectionText() {
+					var text = "";
+
+					if (window.getSelection) {
+						text = window.getSelection().toString();
+					} else if (document.selection && document.selection.type != "Control") {
+						text = document.selection.createRange().text;
+					}
+
+					return text;
+				}
+
+				function showHide(showElement, hideElement) {
+					var showElementId = '#' + showElement;
+					var hideElementId = '#' + hideElement;
+
+					$(hideElementId).hide();
+					$(showElementId).show();
+				}
+			</script>
+			<audio id="listenAudio" src="" style="display: none;"></audio>
+			<header id="header">
+				<div class="top-bg">
+					<nav class="top ">
+						<div class="box-social">
+							<ul>
+								<li>
+									<a href="#" class="sb small no-border linkedin">LinkedIn</a>
+									<a href="#" class="sb small no-border facebook">Facebook</a>
+									<a href="#" class="sb small no-border twitter">Twitter</a>
+									<a href="javascript:listenSelected();" class="sb small no-border voice">Twitter</a>
+								</li>
+							</ul>
+
+						</div>
+						<div class="top-right">
+							<ul>
+								<li><a href="#">English</a></li>
+								<li>|</li>
+								<li class="language"><a>Georgian</a></li>
+								<li>
+									<asp:Image ImageUrl="~/App_Themes/Default/images/top-right.png" runat="server" /></li>
+								<li><a href="http://evolution.ge/Citi/Forum" target="blanck">Forum</a></li>
+								<li>
+									<asp:Image ImageUrl="~/App_Themes/Default/images/top-right.png" runat="server" /></li>
+								<li><a>FAQ</a></li>
+								<li>
+									<asp:Image ImageUrl="~/App_Themes/Default/images/top-right.png" runat="server" /></li>
+								<li><a>Sign In</a></li>
+							</ul>
+						</div>
+					</nav>
+				</div>
+				<div class="header">
+					<div class="header-items">
+						<div class="header-title">
+							Plan The Future
+						</div>
+						<div class="left" style="margin-top: 10px;">
+							<asp:Image ImageUrl="~/App_Themes/Default/images/logo.png" runat="server" />
+						</div>
+
+						<div class="search-box">
+							<input type="text" name="search" placeholder="Search..">
+						</div>
+					</div>
+				</div>
+				<div class="menu-line">
+					<ul class="menu">
+						<li class="">
+							<asp:HyperLink runat="server" CssClass="mcolor" NavigateUrl="~/Default.aspx">HOME</asp:HyperLink>
+						</li>
+						<li>
+							<asp:HyperLink runat="server" CssClass="mcolor" NavigateUrl="~/Pages/Management/CategoriesList.aspx">ADMIN</asp:HyperLink>
+						</li>
+						<li>
+							<asp:HyperLink runat="server" CssClass="mcolor" NavigateUrl="~/Pages/User/AboutUs.aspx">About us</asp:HyperLink>
+						</li>
+						<li>
+							<asp:HyperLink runat="server" CssClass="mcolor" NavigateUrl="~/Pages/User/Dashboard.aspx">Data</asp:HyperLink>
+						</li>
+						<li>
+							<asp:HyperLink runat="server" CssClass="mcolor" NavigateUrl="~/Pages/User/Career.aspx">career</asp:HyperLink>
+						</li>
+						<li>
+							<asp:HyperLink runat="server" CssClass="mcolor" NavigateUrl="~/Pages/User/Surveys.aspx">Surveys</asp:HyperLink>
+						</li>
+						<li>
+							<asp:HyperLink runat="server" CssClass="mcolor" NavigateUrl="~/Pages/User/Projects.aspx">projects/Programs</asp:HyperLink>
+						</li>
+						<li>
+							<asp:HyperLink runat="server" CssClass="mcolor" NavigateUrl="~/Pages/User/News.aspx">News</asp:HyperLink>
+						</li>
+						<li>
+							<asp:HyperLink runat="server" CssClass="mcolor" NavigateUrl="~/Pages/User/ContactUs.aspx">Contact Us</asp:HyperLink>
+						</li>
+
+					</ul>
+					<div style="float: right">
+						<div id="textsizer-classnames">
+							<ul class="textresizer" id="text-resizer-controls">
+								<li><a href="#nogo" id="small" class="small-text" title="Small">A</a></li>
+								<li><a href="#nogo" id="medium" class="medium-text" title="Medium">A</a></li>
+								<li><a href="#nogo" id="large" class="large-text" title="Large">A</a></li>
+								<li><a href="#nogo" id="larger" class="larger-text" title="Larger">A</a></li>
+							</ul>
+						</div>
+
+					</div>
+				</div>
+			</header>
+			<section id="content">
+				<div class="content">
+					<asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+					</asp:ContentPlaceHolder>
+				</div>
+				<div class="clear"></div>
+				<div class="bottom">
+					<div class="bottom-links" style="padding-top: 45px;">
+						<lmis:MainLinksControl runat="server" ID="mainLinksControl" />
+					</div>
+					<div class="bottom-geo">
+						<ce:ImageLinkButton runat="server" NavigateUrl="~/Pages/User/GeorgiaInNumbers.aspx" DefaultImageUrl="~/App_Themes/Default/images/bn-geo.png" />
+					</div>
+				</div>
+			</section>
+			<lmis:PublicChatControl runat="server" ID="publicChatControl" />
+
+			<div class="chat-b">
+				<asp:Image ImageUrl="~/App_Themes/Default/images/chat.png" runat="server" />
+			</div>
+
+			<footer id="footer">
+				<div class="footer">
+					<ul>
+						<li class="left">
+							<asp:Image runat="server" ImageUrl="~/App_Themes/Default/images/f-logo.png" /></li>
+						<li class="right copyright">© 2016  All rights reserved</li>
+					</ul>
+				</div>
+			</footer>
+		</form>
+	</div>
 </body>
 </html>

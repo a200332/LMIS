@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
 using System.Threading;
 using System.Web;
+using CITI.EVO.Proxies;
 
 namespace CITI.EVO.Tools.Utils
 {
@@ -86,11 +88,10 @@ namespace CITI.EVO.Tools.Utils
 
 		public static IDictionary<String, String> GetLanguages()
 		{
-			//var languages = CommonProxy.GetLanguages();
-			//languages = languages.OrderBy(n => n.EngName).ToList();
+			var languages = CommonProxy.GetLanguages();
+			languages = languages.OrderBy(n => n.EngName).ToList();
 
-			//return languages.ToDictionary(k => k.NativeName, v => v.Pair);
-			return null;
+			return languages.ToDictionary(k => k.NativeName, v => v.Pair);
 		}
 
 		private static CultureInfo TryGetCultureInfo(String languagePair)

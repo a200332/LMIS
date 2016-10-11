@@ -2,4 +2,8 @@
 <%@ Register Src="~/Controls/Common/HiddenFieldValueControl.ascx" TagPrefix="lmis" TagName="HiddenFieldValueControl" %>
 
 <lmis:HiddenFieldValueControl runat="server" ID="hdID" Property="TableModel.ID" />
-<asp:TextBox runat="server" ID="tbxName" Property="TableModel.Name"></asp:TextBox>
+<ul>
+    <li>Table Name</li>
+    <li>
+        <asp:TextBox runat="server" ID="tbxName" Property="TableModel.Name"></asp:TextBox></li>
+</ul>

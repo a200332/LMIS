@@ -38,6 +38,7 @@ public class ChatHub : Hub
             clientsDictionary.TryRemove(name.Key, out s);
             return Clients.All.disconnected(name.Key);
         }
-        return Task.CompletedTask;
+
+	    return null;// Task.CompletedTask;
     }
 }

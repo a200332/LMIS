@@ -3,37 +3,27 @@
 <%@ Register Src="~/Controls/Common/NamedExpressionsListControl.ascx" TagPrefix="local" TagName="NamedExpressionsListControl" %>
 <%@ Register Src="~/Controls/Common/ExpressionsListControl.ascx" TagPrefix="local" TagName="ExpressionsListControl" %>
 
-<table>
-	<tr>
-		<td>
-			<fieldset>
-				<legend>Where conditions</legend>
-				<local:ExpressionsListControl runat="server" ID="filterByControl" Property="ExpressionsLogicModel.FilterBy" />
-			</fieldset>
-		</td>
-	</tr>
-	<tr>
-		<td>
-			<fieldset>
-				<legend>Group By</legend>
-				<local:ExpressionsListControl runat="server" ID="groupByControl" Property="ExpressionsLogicModel.GroupBy" />
-			</fieldset>
-		</td>
-	</tr>
-	<tr>
-		<td>
-			<fieldset>
-				<legend>Order By</legend>
-				<local:ExpressionsListControl runat="server" ID="orderByControl" Property="ExpressionsLogicModel.OrderBy" />
-			</fieldset>
-		</td>
-	</tr>
-	<tr>
-		<td>
-			<fieldset>
-				<legend>Select</legend>
-				<local:NamedExpressionsListControl runat="server" ID="selectControl" Property="ExpressionsLogicModel.Select" />
-			</fieldset>
-		</td>
-	</tr>
-</table>
+<div class="popup-title">Where conditions</div>
+<div class="admin-title-separator"></div>
+<div class="admin-fieldset">
+    <local:ExpressionsListControl runat="server" ID="filterByControl" Property="ExpressionsLogicModel.FilterBy" />
+</div>
+<div class="popup-title">Group By</div>
+<div class="admin-title-separator"></div>
+<div class="admin-fieldset">
+    <local:ExpressionsListControl runat="server" ID="groupByControl" Property="ExpressionsLogicModel.GroupBy" />
+
+</div>
+<div class="popup-title">Order By</div>
+<div class="admin-title-separator"></div>
+<div class="admin-fieldset">
+    <local:ExpressionsListControl runat="server" ID="orderByControl" Property="ExpressionsLogicModel.OrderBy" />
+
+</div>
+<div class="popup-title">Select</div>
+<div class="admin-title-separator"></div>
+<div class="admin-fieldset">
+    <local:NamedExpressionsListControl runat="server" ID="selectControl" Property="ExpressionsLogicModel.Select" />
+
+</div>
+

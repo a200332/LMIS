@@ -10,7 +10,7 @@
 		<ce:ImageLinkButton runat="server" ToolTip="Add Logic" DefaultImageUrl="~/App_Themes/Default/images/add.png" ID="btnAddNew" OnClick="btnAddLogic_OnClick" />
 	</div>
 	<div>
-		<lmis:LogicsControl runat="server" ID="logicsControl" OnEditLogic="logicsControl_OnEditLogic" OnDeleteLogic="logicsControl_OnDeleteLogic" OnViewLogic="logicsControl_OnViewLogic" />
+		<lmis:LogicsControl runat="server" ID="logicsControl" OnEditItem="logicsControl_OnEditItem" OnDeleteItem="logicsControl_OnDeleteItem" OnViewItem="logicsControl_OnViewItem" />
 	</div>
 </asp:Content>
 

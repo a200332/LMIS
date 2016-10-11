@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web.UI;
 using System.Web.UI.WebControls;
 using Lmis.Portal.Web.Bases;
 using Lmis.Portal.Web.Models.Common;
-using CITI.EVO.Tools.Extensions;
 using CITI.EVO.Tools.Utils;
 
 namespace Lmis.Portal.Web.Controls.Common
@@ -79,7 +77,7 @@ namespace Lmis.Portal.Web.Controls.Common
 			mpeExpression.Show();
 		}
 
-		protected void btnDelete_OnCommand(object sender, CommandEventArgs e)
+		protected override void btnDelete_OnCommand(object sender, CommandEventArgs e)
 		{
 			var key = DataConverter.ToNullableGuid(e.CommandArgument);
 			if (key == null)
@@ -92,7 +90,7 @@ namespace Lmis.Portal.Web.Controls.Common
 			Expressions.Remove(model);
 		}
 
-		protected void btnEdit_OnCommand(object sender, CommandEventArgs e)
+		protected override void btnEdit_OnCommand(object sender, CommandEventArgs e)
 		{
 			var key = DataConverter.ToNullableGuid(e.CommandArgument);
 			if (key == null)

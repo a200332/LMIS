@@ -1,25 +1,14 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.master" AutoEventWireup="true" CodeFile="Default.aspx.cs" Inherits="_Default" %>
 
+<%@ Register Src="~/Controls/DataDisplay/VideosControl.ascx" TagPrefix="lmis" TagName="VideosControl" %>
+
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
+	<link href="App_Themes/Default/slide.css" rel="stylesheet" />
 
-	<div class="video-slider" style="width: 529px; height: 349px; margin-top: 1px; margin-right: 1px; float: left;">
-		<!-- SLIDE 1 -->
-		<div class="slide">
-			<iframe width="530" height="348" src="https://www.youtube.com/embed/oBC7bA-PeSI"  seamless="seamless" allowfullscreen="allowfullscreen"></iframe>
-		</div>
-		<!-- SLIDE 2 -->
-		<div class="slide">
-			<iframe width="530" height="348" src="https://www.youtube.com/embed/uh57qksEeLE" seamless="seamless" allowfullscreen="allowfullscreen"></iframe>
-		</div>
-		<!-- END OF SLIDES -->
-		<div class="slide-arrow left"></div>
-		<div class="slide-arrow right"></div>
-	</div>
-	<%--<div class="left">
-        <img src="App_Themes/Default/images/home-article.png" />
-    </div>--%>
+	<lmis:VideosControl ID="videosControl" runat="server" />
+
 	<a href="Pages/User/eBooks.aspx" target="blanck">
 		<div class="left e-book">
 		</div>

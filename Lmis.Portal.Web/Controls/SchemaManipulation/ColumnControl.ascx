@@ -3,24 +3,20 @@
 
 <lmis:HiddenFieldValueControl runat="server" ID="hdID" Property="ColumnModel.ID" />
 <lmis:HiddenFieldValueControl runat="server" ID="hdTableID" Property="ColumnModel.TableID" />
-
-<table>
-	<tr>
-		<td>Name</td>
-		<td>
-			<asp:TextBox runat="server" ID="tbxName" Property="ColumnModel.Name"></asp:TextBox></td>
-	</tr>
-	<tr>
-		<td>Type</td>
-		<td>
-			<asp:DropDownList runat="server" ID="ddlType" Property="ColumnModel.Type">
-				<Items>
-					<asp:ListItem Text="String" Value="String" />
-					<asp:ListItem Text="Integer" Value="Integer" />
-					<asp:ListItem Text="Float" Value="Float" />
-					<asp:ListItem Text="DateTime" Value="DateTime" />
-				</Items>
-			</asp:DropDownList>
-		</td>
-	</tr>
-</table>
+<ul>
+    <li>Name</li>
+    <li>
+        <asp:TextBox runat="server" ID="tbxName" Property="ColumnModel.Name"></asp:TextBox></li>
+</ul>
+<ul>
+    <li>Type</li>
+    <li>
+        <asp:DropDownList runat="server" Width="195" ID="ddlType" Property="ColumnModel.Type">
+            <Items>
+                <asp:ListItem Text="String" Value="String" />
+                <asp:ListItem Text="Integer" Value="Integer" />
+                <asp:ListItem Text="Float" Value="Float" />
+                <asp:ListItem Text="DateTime" Value="DateTime" />
+            </Items>
+        </asp:DropDownList></li>
+</ul>

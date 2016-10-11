@@ -121,19 +121,28 @@
 				<div class="menu-line">
 					<ul class="menu">
 						<li>
-							<asp:HyperLink runat="server" NavigateUrl="~/Default.aspx">HOME</asp:HyperLink>
+							<asp:HyperLink runat="server" CssClass="mcolor" NavigateUrl="~/Default.aspx">HOME</asp:HyperLink>
 						</li>
 						<li>
-							<asp:HyperLink runat="server" NavigateUrl="~/Pages/Management/CategoriesList.aspx">Categories</asp:HyperLink>
+							<asp:HyperLink runat="server" CssClass="mcolor" NavigateUrl="~/Pages/Management/CategoriesList.aspx">Categories</asp:HyperLink>
 						</li>
 						<li>
-							<asp:HyperLink runat="server" NavigateUrl="~/Pages/Management/TablesList.aspx">Tables</asp:HyperLink>
+							<asp:HyperLink runat="server" CssClass="mcolor" NavigateUrl="~/Pages/Management/TablesList.aspx">Tables</asp:HyperLink>
 						</li>
 						<li>
-							<asp:HyperLink runat="server" NavigateUrl="~/Pages/Management/LogicsList.aspx">Logics</asp:HyperLink>
+							<asp:HyperLink runat="server" CssClass="mcolor" NavigateUrl="~/Pages/Management/LogicsList.aspx">Logics</asp:HyperLink>
 						</li>
 						<li>
-							<asp:HyperLink runat="server" NavigateUrl="~/Pages/Management/ReportsList.aspx">Reports</asp:HyperLink>
+							<asp:HyperLink runat="server" CssClass="mcolor" NavigateUrl="~/Pages/Management/ReportsList.aspx">Reports</asp:HyperLink>
+						</li>
+						<li>
+							<asp:HyperLink runat="server" CssClass="mcolor" NavigateUrl="~/Pages/Management/VideosList.aspx">Videos</asp:HyperLink>
+						</li>
+						<li>
+							<asp:HyperLink runat="server" CssClass="mcolor" NavigateUrl="~/Pages/Management/LinksList.aspx">Links</asp:HyperLink>
+						</li>
+						<li>
+							<asp:HyperLink runat="server" CssClass="mcolor" NavigateUrl="~/Pages/Management/BooksList.aspx">eBooks</asp:HyperLink>
 						</li>
 					</ul>
 				</div>

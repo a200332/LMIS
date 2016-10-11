@@ -5,50 +5,42 @@
 
 	<div style="margin: 8px;">
 		<asp:Panel runat="server" ID="pnlGrid">
-			<div style="text-align: left; float: left; margin-right: 8px;">
-				<ce:ImageLinkButton runat="server" DefaultImageUrl="~/App_Themes/Default/Images/excel.png" ID="btnRxport" ToolTip="Excel" />
-			</div>
 			<div class="left">
 				<asp:Label runat="server" ID="lblGridTitle" Font-Names="Times New Roman" Font-Size="13px" Font-Bold="True"></asp:Label>
 			</div>
+			<div style="text-align: right;">
+				<ce:ImageLinkButton runat="server" DefaultImageUrl="~/App_Themes/Default/Images/excel.png" ID="btnRxport" ToolTip="Excel" />
+			</div>
 			<div>
-				<div>
-					<dx:ASPxGridView runat="server" ID="mainGrid" Width="100%">
-						<Settings ShowHeaderFilterButton="True" ShowGroupPanel="False" />
-						<SettingsBehavior AllowFocusedRow="True" AllowSort="True" AllowGroup="True" />
-						<Styles>
-							<Cell HorizontalAlign="Left" />
-							<AlternatingRow Enabled="True" />
-							<Header BackColor="#b4e2f7"></Header>
-							<GroupPanel BackColor="#b4e2f7"></GroupPanel>
-						</Styles>
-					</dx:ASPxGridView>
-				</div>
+				<dx:ASPxGridView runat="server" ID="mainGrid" Width="100%">
+					<Settings ShowHeaderFilterButton="True" ShowGroupPanel="False" />
+					<SettingsBehavior AllowFocusedRow="True" AllowSort="True" AllowGroup="True" />
+					<Styles>
+						<Cell HorizontalAlign="Left" />
+						<AlternatingRow Enabled="True" />
+						<Header BackColor="#b4e2f7"></Header>
+						<GroupPanel BackColor="#b4e2f7"></GroupPanel>
+					</Styles>
+				</dx:ASPxGridView>
 			</div>
 		</asp:Panel>
 		<asp:Panel runat="server" ID="pnlChart">
-			<div class="left" style="margin-right: 5px;">
-				<ce:ImageLinkButton runat="server" DefaultImageUrl="~/App_Themes/Default/Images/filter.png" ID="btnCaptions" ToolTip="Series Filter" />
-			</div>
-			<div class="left" style="margin-right: 5px;">
-				<ce:ImageLinkButton runat="server" DefaultImageUrl="~/App_Themes/Default/Images/filter.png" ID="btnXYSeries" ToolTip="Y Filter" />
-			</div>
-			<div class="left" style="margin-right: 5px;">
-				<ce:ImageLinkButton runat="server" DefaultImageUrl="~/App_Themes/Default/Images/save.png" ID="btnImage" ToolTip="Save Image" />
-			</div>
 			<div class="left">
 				<asp:Label runat="server" ID="lblChartTitle" Font-Names="Times New Roman" Font-Size="13px" Font-Bold="True"></asp:Label>
 			</div>
+			<div style="text-align: right;">
+				<ce:ImageLinkButton runat="server" DefaultImageUrl="~/App_Themes/Default/Images/filter.png" ID="btnCaptions" ToolTip="Series Filter" />
+				<ce:ImageLinkButton runat="server" DefaultImageUrl="~/App_Themes/Default/Images/filter.png" ID="btnXYSeries" ToolTip="Y Filter" />
+				<ce:ImageLinkButton runat="server" DefaultImageUrl="~/App_Themes/Default/Images/save.png" ID="btnImage" ToolTip="Save Image" />
+				<a href="#" runat="server" id="lnkChartImage" title="Chart">
+					<asp:Image runat="server" ImageUrl="~/App_Themes/Default/Images/chart.png" />
+				</a>
+				<a href="#" runat="server" id="lnkChartGrid" title="Grid">
+					<asp:Image runat="server" ImageUrl="~/App_Themes/Default/Images/grid.png" />
+				</a>
+			</div>
 			<div class="clear"></div>
 			<div>
-				<div style="text-align: left;">
-					<a href="#" runat="server" id="lnkChartImage" title="Chart">
-						<asp:Image runat="server" ImageUrl="~/App_Themes/Default/Images/filter.png"/>
-					</a>
-					<a href="#" runat="server" id="lnkChartGrid" title="Grid">
-						<asp:Image runat="server" ImageUrl="~/App_Themes/Default/Images/filter.png"/>
-					</a>
-				</div>
 				<div runat="server" id="dvChartImage" style="display: block;">
 					<asp:Chart ID="mainChart" runat="server" Width="710" Height="350" IsMapEnabled="True">
 						<Titles>

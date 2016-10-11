@@ -18,9 +18,9 @@
 				<div>
 					<lmis:ReportsControl runat="server"
 						ID="reportsControl"
-						OnViewReport="reportsControl_OnViewReport"
-						OnEditReport="reportsControl_OnEditReport"
-						OnDeleteReport="reportsControl_OnDeleteReport" />
+						OnViewItem="reportsControl_OnViewItem"
+						OnEditItem="reportsControl_OnEditItem"
+						OnDeleteItem="reportsControl_OnDeleteItem" />
 				</div>
 			</td>
 		</tr>

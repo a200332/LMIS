@@ -12,8 +12,8 @@
 	</div>
 	<div>
 		<lmis:TablesControl runat="server" ID="tablesControl"
-			OnEditTable="tablesControl_OnEditTable"
-			OnDeleteTable="tablesControl_OnDeleteTable"
+			OnEditItem="tablesControl_OnEditItem"
+			OnDeleteItem="tablesControl_OnDeleteItem"
 			OnAddNewColumn="tablesControl_OnAddNewColumn"
 			OnEditColumn="tablesControl_OnEditColumn"
 			OnDeleteColumn="tablesControl_OnDeleteColumn"
@@ -26,20 +26,20 @@
 		<asp:Button runat="server" ID="btnAddEditTableFake" Style="display: none" />
 		<asp:Panel runat="server" ID="pnlAddEditTable">
 			<div class="popup">
-				<div>
-				</div>
-				<div class="popup_fieldset">
-					<h2>Table</h2>
-					<div class="title_separator"></div>
-					<div class="box">
+			 <div class="popup_fieldset">
+
+                    <div class="popup-title">Table</div>
+                    <div class="title_separator"></div>
+                    <div class="box">
+                      
 						<lmis:TableControl runat="server" ID="tableControl" />
 					</div>
 				</div>
 				<div class="fieldsetforicons">
-					<div class="left">
+					<div class="left" style="padding-right: 10px;">
 						<ce:ImageLinkButton runat="server" DefaultImageUrl="~/App_Themes/Default/Images/save.png" ID="btnSaveTable" ToolTip="დამატება" OnClick="btnSaveTable_OnClick" />
 					</div>
-					<div class="right">
+					<div class="left">
 						<ce:ImageLinkButton runat="server" DefaultImageUrl="~/App_Themes/Default/Images/close.png" ID="btnCancelTable" ToolTip="დახურვა" />
 					</div>
 				</div>
@@ -53,20 +53,21 @@
 		<asp:Button runat="server" ID="btnAddEditColumnFake" Style="display: none" />
 		<asp:Panel runat="server" ID="pnlAddEditColumn">
 			<div class="popup">
-				<div>
-				</div>
-				<div class="popup_fieldset">
-					<h2>Column</h2>
-					<div class="title_separator"></div>
-					<div class="box">
+			<div class="popup_fieldset">
+                    <div class="popup-title">Column</div>
+                    <div class="title_separator"></div>
+                    <div class="box">
+				
+				
+				
 						<lmis:ColumnControl runat="server" ID="columnControl" />
 					</div>
 				</div>
 				<div class="fieldsetforicons">
-					<div class="left">
+					<div class="left" style="padding-right: 10px;">
 						<ce:ImageLinkButton runat="server" DefaultImageUrl="~/App_Themes/Default/Images/save.png" ID="btnSaveColumn" ToolTip="დამატება" OnClick="btnSaveColumn_OnClick" />
 					</div>
-					<div class="right">
+					<div class="left">
 						<ce:ImageLinkButton runat="server" DefaultImageUrl="~/App_Themes/Default/Images/close.png" ID="btnCancelColumn" ToolTip="დახურვა" />
 					</div>
 				</div>
