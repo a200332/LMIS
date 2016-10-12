@@ -1,4 +1,4 @@
-﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="Admin.master.cs" Inherits="Admin" %>
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="Admin.master.cs" Inherits="Lmis.Portal.Web.Admin" %>
 
 <%@ Register Src="~/Controls/Common/AdministratorChatControl.ascx" TagPrefix="hmis" TagName="AdministratorChatControl" %>
 
@@ -92,18 +92,27 @@
 						</div>
 						<div class="top-right">
 							<ul>
-								<li><a href="#">English</a></li>
+								<li>
+									<ce:ImageLinkButton runat="server" ID="btEngLang" OnClick="btEngLang_Click">English</ce:ImageLinkButton></li>
 								<li>|</li>
-								<li class="language"><a>Georgian</a></li>
+								<li>
+									<ce:ImageLinkButton runat="server" ID="btGeoLang" OnClick="btGeoLang_Click">Georgian</ce:ImageLinkButton></li>
+								<li class="language"></li>
 								<li>
 									<asp:Image ImageUrl="~/App_Themes/Default/images/top-right.png" runat="server" /></li>
-								<li><a>Forum</a></li>
+								<li><a href="http://evolution.ge/Citi/Forum" target="blanck">
+									<ce:Label runat="server">Forum</ce:Label></a></li>
 								<li>
 									<asp:Image ImageUrl="~/App_Themes/Default/images/top-right.png" runat="server" /></li>
-								<li><a>FAQ</a></li>
+								<li><a>
+									<ce:Label runat="server">FAQ</ce:Label></a></li>
 								<li>
 									<asp:Image ImageUrl="~/App_Themes/Default/images/top-right.png" runat="server" /></li>
-								<li><a>Sign In</a></li>
+								<li>
+									<ce:ImageLinkButton runat="server" ID="btLogin" OnClick="btLogin_Click">Sign In</ce:ImageLinkButton>
+									<ce:ImageLinkButton runat="server" ID="btLogout" OnClick="btLogout_Click">Logout</ce:ImageLinkButton>
+									<ce:ImageLinkButton runat="server" ID="btTranslationMode" OnClick="btTranslationMode_Click">Translation Mode</ce:ImageLinkButton>
+								</li>
 							</ul>
 						</div>
 					</nav>

@@ -1,4 +1,5 @@
 ﻿<%@ Application Language="C#" %>
+<%@ Import Namespace="CITI.EVO.Tools.Security" %>
 <%@ Import Namespace="CITI.EVO.Tools.Utils" %>
 
 <script RunAt="server">
@@ -24,7 +25,7 @@
 	void Session_Start(object sender, EventArgs e)
 	{
 		// Code that runs when a new session is started
-
+		UmUtil.Instance.Login();
 	}
 
 	void Session_End(object sender, EventArgs e)

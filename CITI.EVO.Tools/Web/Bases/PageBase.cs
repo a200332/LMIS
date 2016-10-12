@@ -7,6 +7,7 @@ using System.Web.UI.WebControls;
 using CITI.EVO.Tools.Collections;
 using CITI.EVO.Tools.Extensions;
 using CITI.EVO.Tools.Helpers;
+using CITI.EVO.Tools.Security;
 using CITI.EVO.Tools.Utils;
 
 namespace CITI.EVO.Tools.Web.Bases
@@ -52,6 +53,14 @@ namespace CITI.EVO.Tools.Web.Bases
 		public NameObjectCollection PageSession
 		{
 			get { return InitPageSessionData(); }
+		}
+
+		protected override void OnInit(EventArgs e)
+		{
+			if (base.Master == null)
+				UmUtil.Instance.Login();
+
+			base.OnInit(e);
 		}
 
 		protected override Object LoadPageStateFromPersistenceMedium()

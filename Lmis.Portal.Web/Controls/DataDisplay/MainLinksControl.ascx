@@ -2,8 +2,12 @@
 <ul>
 	<asp:Repeater runat="server" ID="rptItems">
 		<ItemTemplate>
-			<li>
-				<ce:ImageLinkButton NavigateUrl='<%# GetSubLinksUrl(Eval("ID")) %>' DefaultImageUrl='<%# GetImageLink(Eval("ID")) %>' runat="server" />
+			<li class="mainlink">
+				<asp:HyperLink NavigateUrl='<%# GetSubLinksUrl(Eval("ID")) %>' runat="server">
+					<asp:Panel runat="server" style='<%# GetPanelStyle(Container.DataItem)%>'>
+						<ce:Label runat="server"><%# Eval("Title") %></ce:Label>
+					</asp:Panel>
+				</asp:HyperLink>
 			</li>
 		</ItemTemplate>
 	</asp:Repeater>

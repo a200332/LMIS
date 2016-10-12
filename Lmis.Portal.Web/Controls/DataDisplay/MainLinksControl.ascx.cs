@@ -32,5 +32,26 @@ namespace Lmis.Portal.Web.Controls.DataDisplay
 			var url = String.Format("~/Handlers/GetImage.ashx?Type=Link&ID={0}", eval);
 			return url;
 		}
+
+		protected object GetPanelStyle(object dataItem)
+		{
+			var model = dataItem as LinkModel;
+			if (model == null)
+				return null;
+
+			var format = "width:182px;height:128px;background-image: url({0});";
+			var imageUrl = GetImageLink(model.ID);
+			var absUrl = ConvertToAbsoluteUrl(imageUrl);
+
+			var style = String.Format(format, absUrl);
+			return style;
+		}
+
+		public String ConvertToAbsoluteUrl(string relativeUrl)
+		{
+			var protocol = (Request.IsSecureConnection ? "https" : "http");
+
+			return String.Format("{0}://{1}{2}", protocol, Request.Url.Host, Page.ResolveUrl(relativeUrl));
+		}
 	}
 }

@@ -1689,8 +1689,6 @@ namespace Lmis.Portal.DAL.DAL
 		
 		private string _Description;
 		
-		private string _Language;
-		
 		private EntitySet<LP_ReportLogic> _ReportLogics;
 		
 		private EntityRef<LP_Category> _Category;
@@ -1717,8 +1715,6 @@ namespace Lmis.Portal.DAL.DAL
     partial void OnPublicChanged();
     partial void OnDescriptionChanging(string value);
     partial void OnDescriptionChanged();
-    partial void OnLanguageChanging(string value);
-    partial void OnLanguageChanged();
     #endregion
 		
 		public LP_Report()
@@ -1908,26 +1904,6 @@ namespace Lmis.Portal.DAL.DAL
 					this._Description = value;
 					this.SendPropertyChanged("Description");
 					this.OnDescriptionChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Language", DbType="NVarChar(50)", UpdateCheck=UpdateCheck.Never)]
-		public string Language
-		{
-			get
-			{
-				return this._Language;
-			}
-			set
-			{
-				if ((this._Language != value))
-				{
-					this.OnLanguageChanging(value);
-					this.SendPropertyChanging();
-					this._Language = value;
-					this.SendPropertyChanged("Language");
-					this.OnLanguageChanged();
 				}
 			}
 		}

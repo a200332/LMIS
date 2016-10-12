@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
+using CITI.EVO.Tools.Utils;
 using CITI.EVO.Tools.Web.Bases;
 using CITI.EVO.UserManagement.DAL.Context;
 
@@ -17,7 +18,7 @@ namespace CITI.EVO.UserManagement.Web.Bases
         {
             get
             {
-                dataContext = (dataContext ?? new UserManagementDataContext());
+                dataContext = (dataContext ?? DcFactory.Create<UserManagementDataContext>());
                 return dataContext;
             }
         }

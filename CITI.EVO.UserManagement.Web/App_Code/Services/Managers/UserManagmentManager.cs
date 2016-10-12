@@ -196,7 +196,7 @@ namespace CITI.EVO.UserManagement.Web.Services.Managers
 				return null;
 			}
 
-			using (var db = new UserManagementDataContext())
+			using (var db = DcFactory.Create<UserManagementDataContext>())
 			{
 				var query = from user in db.UM_Users
 							where user.ID == tokenUser.ID
@@ -232,7 +232,7 @@ namespace CITI.EVO.UserManagement.Web.Services.Managers
 
 		public static List<ProjectContract> GetProjects()
 		{
-			using (var db = new UserManagementDataContext())
+			using (var db = DcFactory.Create<UserManagementDataContext>())
 			{
 				var items = db.UM_Projects.Where(n => n.DateDeleted == null).ToList();
 				return items.ToContracts();
@@ -246,7 +246,7 @@ namespace CITI.EVO.UserManagement.Web.Services.Managers
 				return null;
 			}
 
-			using (var db = new UserManagementDataContext())
+			using (var db = DcFactory.Create<UserManagementDataContext>())
 			{
 				var items = (from n in db.UM_Groups
 							 where n.ProjectID == projectID &&
@@ -272,7 +272,7 @@ namespace CITI.EVO.UserManagement.Web.Services.Managers
 				return null;
 			}
 
-			using (var db = new UserManagementDataContext())
+			using (var db = DcFactory.Create<UserManagementDataContext>())
 			{
 				var query = from n in db.UM_Users
 							select n;
@@ -302,7 +302,7 @@ namespace CITI.EVO.UserManagement.Web.Services.Managers
 				return null;
 			}
 
-			using (var db = new UserManagementDataContext())
+			using (var db = DcFactory.Create<UserManagementDataContext>())
 			{
 				var items = (from gu in db.UM_GroupUsers
 							 where gu.GroupID == groupID && gu.DateDeleted == null
@@ -323,7 +323,7 @@ namespace CITI.EVO.UserManagement.Web.Services.Managers
 				return null;
 			}
 
-			using (var db = new UserManagementDataContext())
+			using (var db = DcFactory.Create<UserManagementDataContext>())
 			{
 				var items = (from gu in db.UM_GroupUsers
 							 where gu.UserID == userID &&
@@ -344,7 +344,7 @@ namespace CITI.EVO.UserManagement.Web.Services.Managers
 			{
 				return null;
 			}
-			using (var db = new UserManagementDataContext())
+			using (var db = DcFactory.Create<UserManagementDataContext>())
 			{
 				var items = (from groupAttr in db.UM_GroupAttributes
 							 where groupAttr.GroupID == groupID &&
@@ -368,7 +368,7 @@ namespace CITI.EVO.UserManagement.Web.Services.Managers
 				return null;
 			}
 
-			using (var db = new UserManagementDataContext())
+			using (var db = DcFactory.Create<UserManagementDataContext>())
 			{
 				var globalItems = (from userAttr in db.UM_UserAttributes
 								   where userAttr.DateDeleted == null &&
@@ -409,7 +409,7 @@ namespace CITI.EVO.UserManagement.Web.Services.Managers
 				return null;
 			}
 
-			using (var db = new UserManagementDataContext())
+			using (var db = DcFactory.Create<UserManagementDataContext>())
 			{
 				var globalItems = (from userAttr in db.UM_UserAttributes
 								   where userAttr.DateDeleted == null &&
@@ -468,7 +468,7 @@ namespace CITI.EVO.UserManagement.Web.Services.Managers
 				return null;
 			}
 
-			using (var db = new UserManagementDataContext())
+			using (var db = DcFactory.Create<UserManagementDataContext>())
 			{
 				var usersQuery = from n in db.UM_Users
 								 select n;
@@ -522,7 +522,7 @@ namespace CITI.EVO.UserManagement.Web.Services.Managers
 
 		public static PermissionContract GetResourcePermission(Guid token, String resourcePath)
 		{
-			using (var db = new UserManagementDataContext())
+			using (var db = DcFactory.Create<UserManagementDataContext>())
 			{
 				var comparer = StringComparer.OrdinalIgnoreCase;
 
@@ -668,7 +668,7 @@ namespace CITI.EVO.UserManagement.Web.Services.Managers
 
 		private static PermissionContract GetPermissionContract(UM_Resource resource, Guid groupID, Guid projectID)
 		{
-			using (var db = new UserManagementDataContext())
+			using (var db = DcFactory.Create<UserManagementDataContext>())
 			{
 				var permission = (from n in db.UM_Permissions
 								  where n.DateDeleted == null &&
@@ -707,7 +707,7 @@ namespace CITI.EVO.UserManagement.Web.Services.Managers
 			var user = GetCurrentUser(token);
 			var userGroups = GetUserGroups(token, user.ID, moduleId.Value);
 
-			using (var db = new UserManagementDataContext())
+			using (var db = DcFactory.Create<UserManagementDataContext>())
 			{
 				var objectsList = userGroups.Select(p => p.ID).ToSortedSet();
 				objectsList.Add(moduleId.Value);
@@ -783,7 +783,7 @@ namespace CITI.EVO.UserManagement.Web.Services.Managers
 				return null;
 			}
 
-			using (var db = new UserManagementDataContext())
+			using (var db = DcFactory.Create<UserManagementDataContext>())
 			{
 				var projects = (from gu in db.UM_GroupUsers
 								where gu.UserID == currentUser.ID &&
@@ -812,7 +812,7 @@ namespace CITI.EVO.UserManagement.Web.Services.Managers
 				return false;
 			}
 
-			using (var db = new UserManagementDataContext())
+			using (var db = DcFactory.Create<UserManagementDataContext>())
 			{
 				var objectsList = userGroups.Select(p => p.ID).ToSortedSet();
 				objectsList.Add(moduleId.Value);

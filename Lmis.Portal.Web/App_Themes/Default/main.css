@@ -395,7 +395,7 @@ ul.menu li a,
 ul.menu li span {
     display: block;
     text-transform: uppercase;
-    padding: 0 15px;
+    padding: 0 6px;
     /*color: #919191;*/
     -webkit-transition: background .25s ease-out, color .25s ease-out;
     transition: background .25s ease-out, color .25s ease-out;
@@ -580,18 +580,18 @@ ul.menu > li.open span {
 
         .right-menu ul li a {
             color: #8a8a8a;
-            font-size: 18px;
+            font-size: 14px;
             font-style: italic;
         }
 
             .right-menu ul li a:hover {
                 color: white;
-                font-size: 18px;
+                font-size: 14px;
                 font-style: italic;
             }
 
 .right-menu-padding {
-    padding-left: 85px;
+    padding-left: 80px;
 }
 
 .right-menu ul li.last {
@@ -727,6 +727,7 @@ li.rm-search {
 
 
 #footer {
+    z-index: 6;
     position: fixed;
     clear: both;
     margin-top: 1px;
@@ -788,6 +789,21 @@ li.rm-search {
     float: right;
 }
 
+
+.mainlink span
+{z-index: 5;
+    position: absolute;
+    margin-left: -170px;
+    margin-top: 70px;
+    font-size: 18px;
+    color: white;
+    font-weight: bold;
+    text-align: left;
+    width: 160px;
+     text-transform: uppercase;
+         text-shadow: 2px 2px 8px black;
+
+}
 
 
 

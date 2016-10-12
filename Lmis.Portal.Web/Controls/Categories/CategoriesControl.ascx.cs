@@ -9,55 +9,23 @@ namespace Lmis.Portal.Web.Controls.Categories
 {
 	public partial class CategoriesControl : BaseExtendedControl<CategoriesModel>
 	{
-		public event EventHandler<EventArgs> AddNewCategory;
-		protected virtual void OnAddNewCategory()
+		public event EventHandler<EventArgs> AddNew;
+		protected virtual void OnAddNew()
 		{
-			if (AddNewCategory != null)
-				AddNewCategory(this, EventArgs.Empty);
+			if (AddNew != null)
+				AddNew(this, EventArgs.Empty);
 		}
 
-		public event EventHandler<GenericEventArgs<Guid>> EditCategory;
-		protected virtual void OnEditCategory(Guid value)
+		public event EventHandler<GenericEventArgs<Guid>> AddChild;
+		protected virtual void OnAddChild(Guid value)
 		{
-			if (EditCategory != null)
-				EditCategory(this, new GenericEventArgs<Guid>(value));
-		}
-
-		public event EventHandler<GenericEventArgs<Guid>> DeleteCategory;
-		protected virtual void OnDeleteCategory(Guid value)
-		{
-			if (DeleteCategory != null)
-				DeleteCategory(this, new GenericEventArgs<Guid>(value));
-		}
-
-		public event EventHandler<GenericEventArgs<Guid>> AddChildCategory;
-		protected virtual void OnAddChildCategory(Guid value)
-		{
-			if (AddChildCategory != null)
-				AddChildCategory(this, new GenericEventArgs<Guid>(value));
+			if (AddChild != null)
+				AddChild(this, new GenericEventArgs<Guid>(value));
 		}
 
 		protected void Page_Load(object sender, EventArgs e)
 		{
 
-		}
-
-		protected void btnEdit_OnCommand(object sender, CommandEventArgs e)
-		{
-			var entityID = DataConverter.ToNullableGuid(e.CommandArgument);
-			if (entityID == null)
-				return;
-
-			OnEditCategory(entityID.Value);
-		}
-
-		protected void btnDelete_OnCommand(object sender, CommandEventArgs e)
-		{
-			var entityID = DataConverter.ToNullableGuid(e.CommandArgument);
-			if (entityID == null)
-				return;
-
-			OnDeleteCategory(entityID.Value);
 		}
 
 		protected void btnAddChild_OnCommand(object sender, CommandEventArgs e)
@@ -66,12 +34,12 @@ namespace Lmis.Portal.Web.Controls.Categories
 			if (entityID == null)
 				return;
 
-			OnAddChildCategory(entityID.Value);
+			OnAddChild(entityID.Value);
 		}
 
 		protected void btnAddNew_OnClick(object sender, EventArgs e)
 		{
-			OnAddNewCategory();
+			OnAddNew();
 		}
 
 		protected override void OnSetModel(object model, Type type)

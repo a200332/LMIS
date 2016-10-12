@@ -5,6 +5,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Web;
@@ -22,7 +23,6 @@ namespace CITI.EVO.Tools.Utils
 
 		private const String trnKeyKey = "TrnKey";
 		private const String defaultTextKey = "DefaultText";
-		private const String moduleNameKey = "ModuleName";
 		private const String trnEditPageKey = "TrnEditPage";
 
 		private const String trnCacheKey = "$[TranslationUtil_Translations]";
@@ -32,8 +32,7 @@ namespace CITI.EVO.Tools.Utils
 
 		private const String contextEnableTranslationKey = "TranslationUtil_enableTranslation";
 
-		private const char delimiter = (char)1;
-		private const String editLinkFormat = "<a target=\"_blank\" href=\"{0}?moduleName={1}&trnKey={2}&languagePair={3}\">[T]</a>";
+		private const String editLinkFormat = @"[<a target='_blank' href='{0}?moduleName={1}&trnKey={2}&languagePair={3}'>TRN</a>]";
 
 		public static bool TranslationMode
 		{
@@ -86,7 +85,6 @@ namespace CITI.EVO.Tools.Utils
 			}
 		}
 
-
 		public static void ResetCache()
 		{
 			var context = HttpContext.Current;
@@ -119,7 +117,6 @@ namespace CITI.EVO.Tools.Utils
 			if (!String.IsNullOrWhiteSpace(trnKey))
 			{
 				var moduleName = PermissionUtil.ModuleName;
-				var trnEditPage = ConfigurationManager.AppSettings[trnEditPageKey];
 
 				String trnText;
 				if (!TranslationMode)
@@ -139,10 +136,10 @@ namespace CITI.EVO.Tools.Utils
 				}
 				else
 				{
-					trnText = CommonProxy.GetTranslatedText(moduleName, languagePair, trnKey, defaultText);
+					var editLink = GetTranslationLink(moduleName, trnKey, languagePair);
+					var cleanText = CommonProxy.GetTranslatedText(moduleName, languagePair, trnKey, defaultText);
 
-					var editLink = String.Format(editLinkFormat, trnEditPage, moduleName, trnKey, languagePair);
-					trnText = String.Concat(trnText, delimiter, editLink);
+					trnText = String.Concat(cleanText, editLink);
 				}
 
 				defaultText = trnText;
@@ -216,7 +213,7 @@ namespace CITI.EVO.Tools.Utils
 						let trn = ctl as ITranslatable
 						where trn != null &&
 							  !String.IsNullOrWhiteSpace(trn.Text)
-						let defText = GetClearText(trn.Text)
+						let defText = GetClearText(trn.TrnKey, languagePair, trn.Text)
 						let trnKey = (String.IsNullOrWhiteSpace(trn.TrnKey) ? CryptographyUtil.ComputeMD5(defText) : trn.TrnKey)
 						let cacheKey = String.Format("{0}|{1}|{2}", moduleName, trnKey, languagePair)
 						select new
@@ -261,39 +258,36 @@ namespace CITI.EVO.Tools.Utils
 
 		public static void ApplyTranslation(ITranslatable translatable)
 		{
-			var sw = HttpContext.Current.Items["ApplyTranslation_SW"] as Stopwatch;
-			if (sw == null)
-			{
-				sw = new Stopwatch();
-			}
-
-			sw.Start();
+			if (!EnableTranslation)
+				return;
 
 			if (String.IsNullOrEmpty(translatable.Text))
-			{
 				return;
-			}
 
-			var defaultText = GetClearText(translatable.Text);
+			var defaultText = GetClearText(translatable);
 			if (String.IsNullOrEmpty(translatable.TrnKey))
-			{
 				translatable.TrnKey = CryptographyUtil.ComputeMD5(defaultText);
-			}
 
 			translatable.Text = GetTranslatedText(translatable.TrnKey, defaultText);
-			sw.Stop();
 		}
 
-		private static String GetClearText(String text)
+		private static String GetClearText(ITranslatable translatable)
 		{
-			//var patternFormat = String.Concat(delimiter, "<a target=\"_blank\" href=\"{0}?moduleName={1}&trnKey=");
+			var languagePair = Thread.CurrentThread.CurrentCulture.Name;
+			return GetClearText(translatable.TrnKey, languagePair, translatable.Text);
+		}
 
-			//var moduleName = ConfigurationManager.AppSettings[moduleNameKey];
-			//var trnEditPage = ConfigurationManager.AppSettings[trnEditPageKey];
+		private static String GetClearText(String trnKey, String languagePair, String text)
+		{
+			if (!TranslationMode)
+				return text;
 
-			//var pattern = String.Format(patternFormat, trnEditPage, moduleName);
+			if (String.IsNullOrWhiteSpace(text))
+				return text;
 
-			var patternIndex = text.IndexOf(delimiter);
+			var editLink = GetTranslationLink(trnKey, languagePair);
+
+			var patternIndex = text.IndexOf(editLink, StringComparison.OrdinalIgnoreCase);
 			if (patternIndex > -1)
 			{
 				var clearText = text.Substring(0, patternIndex);
@@ -303,6 +297,18 @@ namespace CITI.EVO.Tools.Utils
 			return text;
 		}
 
+		private static String GetTranslationLink(String trnKey, String languagePair)
+		{
+			var moduleName = PermissionUtil.ModuleName;
+			return GetTranslationLink(moduleName, trnKey, languagePair);
+		}
+		private static String GetTranslationLink(String moduleName, String trnKey, String languagePair)
+		{
+			var trnEditPage = ConfigurationManager.AppSettings[trnEditPageKey];
+
+			var editLink = String.Format(editLinkFormat, trnEditPage, moduleName, trnKey, languagePair);
+			return editLink;
+		}
 	}
 
 }

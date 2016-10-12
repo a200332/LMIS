@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Web;
+using CITI.EVO.Tools.Utils;
 using CITI.EVO.UserManagement.DAL.Context;
 
 namespace CITI.EVO.UserManagement.Web.Utils
@@ -31,7 +32,7 @@ namespace CITI.EVO.UserManagement.Web.Utils
             loginName = loginName.Trim().ToLower();
 
 
-            using (var db = new UserManagementDataContext())
+            using (var db = DcFactory.Create<UserManagementDataContext>())
             {
                 CurrentUser = db.UM_Users.FirstOrDefault(n => n.LoginName == loginName &&
                                                               n.Password == password &&

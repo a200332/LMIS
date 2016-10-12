@@ -40,7 +40,7 @@ namespace CITI.EVO.UserManagement.Web.Common
         {
             lock (lockersDict)
             {
-                using (var db = new UserManagementDataContext())
+                using (var db = DcFactory.Create<UserManagementDataContext>())
                 {
                     //db.EnableChangesLog = false;
 
@@ -78,7 +78,7 @@ namespace CITI.EVO.UserManagement.Web.Common
             var locker = GetLocker(token);
             lock (locker)
             {
-                using (var db = new UserManagementDataContext())
+                using (var db = DcFactory.Create<UserManagementDataContext>())
                 {
                     //db.EnableChangesLog = false;
 
@@ -105,7 +105,7 @@ namespace CITI.EVO.UserManagement.Web.Common
             var locker = GetLocker(token);
             lock (locker)
             {
-                using (var db = new UserManagementDataContext())
+                using (var db = DcFactory.Create<UserManagementDataContext>())
                 {
                     //db.EnableChangesLog = false;
 
@@ -135,7 +135,7 @@ namespace CITI.EVO.UserManagement.Web.Common
         {
             lock (lockersDict)
             {
-                using (var db = new UserManagementDataContext())
+                using (var db = DcFactory.Create<UserManagementDataContext>())
                 {
                     //db.EnableChangesLog = false;
 
@@ -165,7 +165,7 @@ namespace CITI.EVO.UserManagement.Web.Common
             var locker = GetLocker(token);
             lock (locker)
             {
-                using (var db = new UserManagementDataContext())
+                using (var db = DcFactory.Create<UserManagementDataContext>())
                 {
                     //db.EnableChangesLog = false;
 

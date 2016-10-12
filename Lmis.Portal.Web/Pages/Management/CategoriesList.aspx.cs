@@ -5,6 +5,7 @@ using Lmis.Portal.Web.Common;
 using Lmis.Portal.Web.Converters.EntityToModel;
 using Lmis.Portal.Web.Converters.ModelToEntity;
 using Lmis.Portal.Web.Models;
+using Lmis.Portal.Web.Utils;
 
 namespace Lmis.Portal.Web.Pages.Management
 {
@@ -12,6 +13,8 @@ namespace Lmis.Portal.Web.Pages.Management
 	{
 		protected void Page_Load(object sender, EventArgs e)
 		{
+			UserUtil.GotoLoginIfNoSuperadmin();
+
 			FillCategories();
 		}
 

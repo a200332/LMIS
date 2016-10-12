@@ -164,8 +164,11 @@
 									<ce:Label runat="server">FAQ</ce:Label></a></li>
 								<li>
 									<asp:Image ImageUrl="~/App_Themes/Default/images/top-right.png" runat="server" /></li>
-								<li><a>
-									<ce:Label runat="server">Sign In</ce:Label></a></li>
+								<li>
+									<ce:ImageLinkButton runat="server" ID="btLogin" OnClick="btLogin_Click">Sign In</ce:ImageLinkButton>
+									<ce:ImageLinkButton runat="server" ID="btLogout" OnClick="btLogout_Click">Logout</ce:ImageLinkButton>
+									<ce:ImageLinkButton runat="server" ID="btTranslationMode" OnClick="btTranslationMode_Click">Translation Mode</ce:ImageLinkButton>
+								</li>
 							</ul>
 						</div>
 					</nav>
@@ -189,7 +192,7 @@
 						<li class="">
 							<asp:HyperLink runat="server" CssClass="mcolor" NavigateUrl="~/Default.aspx"><ce:Label runat="server">HOME</ce:Label></asp:HyperLink>
 						</li>
-						<li>
+						<li runat="server" id="liAdmin">
 							<asp:HyperLink runat="server" CssClass="mcolor" NavigateUrl="~/Pages/Management/CategoriesList.aspx"><ce:Label runat="server">ADMIN</ce:Label></asp:HyperLink>
 						</li>
 						<li>
@@ -202,10 +205,13 @@
 							<asp:HyperLink runat="server" CssClass="mcolor" NavigateUrl="~/Pages/User/Career.aspx"><ce:Label runat="server">career</ce:Label></asp:HyperLink>
 						</li>
 						<li>
-							<asp:HyperLink runat="server" CssClass="mcolor" NavigateUrl="~/Pages/User/Surveys.aspx"><ce:Label runat="server">Surveys</ce:Label></asp:HyperLink>
+							<asp:HyperLink runat="server" CssClass="mcolor" NavigateUrl="~/Pages/User/Surveys.aspx"><ce:Label runat="server">reports</ce:Label></asp:HyperLink>
 						</li>
 						<li>
 							<asp:HyperLink runat="server" CssClass="mcolor" NavigateUrl="~/Pages/User/Projects.aspx"><ce:Label runat="server">projects/Programs</ce:Label></asp:HyperLink>
+						</li>						
+						<li>
+							<asp:HyperLink runat="server" CssClass="mcolor" NavigateUrl="~/Pages/User/Legislation.aspx"><ce:Label runat="server">Legislation</ce:Label></asp:HyperLink>
 						</li>
 						<li>
 							<asp:HyperLink runat="server" CssClass="mcolor" NavigateUrl="~/Pages/User/News.aspx"><ce:Label runat="server">News</ce:Label></asp:HyperLink>
@@ -228,7 +234,6 @@
 									<ce:Label runat="server">A</ce:Label></a></li>
 							</ul>
 						</div>
-
 					</div>
 				</div>
 			</header>
@@ -247,6 +252,7 @@
 					</div>
 				</div>
 			</section>
+
 			<lmis:PublicChatControl runat="server" ID="publicChatControl" />
 
 			<div class="chat-b">

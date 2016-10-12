@@ -32,10 +32,10 @@
         <elementListCompartment Id="8f818245-84c9-471f-a3e7-30b82d28ec3f" absoluteBounds="6.265, 1.46, 1.9700000000000002, 1.7878011067708333" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="204ccc42-eb8e-454e-b765-f801c2d636d3" absoluteBounds="3.5, 0.875, 2, 2.7324039713541666">
+    <classShape Id="204ccc42-eb8e-454e-b765-f801c2d636d3" absoluteBounds="3.5, 0.875, 2, 2.5401025390625">
       <DataClassMoniker Name="/PortalDataContext/LP_Report" />
       <nestedChildShapes>
-        <elementListCompartment Id="a50f3c6a-bef0-4eae-8a09-0ebdb4e4bf58" absoluteBounds="3.515, 1.335, 1.9700000000000002, 2.1724039713541665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="a50f3c6a-bef0-4eae-8a09-0ebdb4e4bf58" absoluteBounds="3.515, 1.335, 1.9700000000000002, 1.9801025390625" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
     <associationConnector edgePoints="[(1.45923076923077 : 3.15549967447917); (1.45923076923077 : 3.40549967447917); (2.05461538461538 : 3.40549967447917); (2.05461538461538 : 3.15549967447917)]" fixedFrom="NotFixed" fixedTo="NotFixed">
@@ -59,14 +59,14 @@
         <classShapeMoniker Id="6f1dcd29-b258-4c33-8da0-a5dfa61a8d4a" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(5.5 : 7.48000325520833); (6.65625 : 7.48000325520833); (6.65625 : 3.34780110677083)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(5.5 : 7.48000325520833); (6.65625 : 7.48000325520833); (6.65625 : 3.34780110677083)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/PortalDataContext/LP_Logic/LP_Logic_LP_ReportLogic" />
       <nodes>
         <classShapeMoniker Id="6f1dcd29-b258-4c33-8da0-a5dfa61a8d4a" />
         <classShapeMoniker Id="70e10130-0040-4609-8316-f276657a679e" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(5.5 : 2.17390055338542); (6.25 : 2.17390055338542)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(5.5 : 2.17390055338542); (6.25 : 2.17390055338542)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/PortalDataContext/LP_Report/LP_Report_LP_ReportLogic" />
       <nodes>
         <classShapeMoniker Id="204ccc42-eb8e-454e-b765-f801c2d636d3" />

@@ -5,6 +5,7 @@ using Lmis.Portal.Web.Bases;
 using Lmis.Portal.Web.BLL;
 using Lmis.Portal.Web.Converters.EntityToModel;
 using Lmis.Portal.Web.Models;
+using Lmis.Portal.Web.Utils;
 
 namespace Lmis.Portal.Web.Pages.Management
 {
@@ -12,6 +13,8 @@ namespace Lmis.Portal.Web.Pages.Management
 	{
 		protected void Page_Load(object sender, EventArgs e)
 		{
+			UserUtil.GotoLoginIfNoSuperadmin();
+
 			var tableID = DataConverter.ToNullableGuid(Request["TableID"]);
 
 			var table = DataContext.LP_Tables.FirstOrDefault(n => n.ID == tableID);

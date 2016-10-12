@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.SessionState;
+using CITI.EVO.Tools.Utils;
 using CITI.EVO.UserManagement.DAL.Context;
 using CITI.EVO.UserManagement.Svc.Contracts;
 using CITI.EVO.UserManagement.Web.Extensions;
@@ -45,7 +46,7 @@ namespace CITI.EVO.UserManagement.Web.Utils
                 var dict = Session[UmProjectsKey] as IDictionary<Guid, ProjectContract>;
                 if (dict == null)
                 {
-                    using (var db = new UserManagementDataContext())
+                    using (var db = DcFactory.Create<UserManagementDataContext>())
                     {
                         var projects = db.UM_Projects.Where(n => n.DateDeleted == null).ToList();
                         var contracts = projects.ToContracts();
@@ -68,7 +69,7 @@ namespace CITI.EVO.UserManagement.Web.Utils
 
                 if (dict == null)
                 {
-                    using (var db = new UserManagementDataContext())
+                    using (var db = DcFactory.Create<UserManagementDataContext>())
                     {
                         var list = (from g in db.UM_Groups
                                     where g.DateDeleted == null
@@ -133,7 +134,7 @@ namespace CITI.EVO.UserManagement.Web.Utils
                 var dict = Session[UmGroupUsersKey] as IDictionary<Guid, GroupUserContract>;
                 if (dict == null)
                 {
-                    using (var db = new UserManagementDataContext())
+                    using (var db = DcFactory.Create<UserManagementDataContext>())
                     {
                         var list = (from g in db.UM_GroupUsers
                                     where g.DateDeleted == null
@@ -177,7 +178,7 @@ namespace CITI.EVO.UserManagement.Web.Utils
 
                 if (dict == null)
                 {
-                    using (var db = new UserManagementDataContext())
+                    using (var db = DcFactory.Create<UserManagementDataContext>())
                     {
                         var list = (from g in db.UM_Users
                                     where g.DateDeleted == null

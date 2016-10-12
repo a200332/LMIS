@@ -4,6 +4,7 @@ using CITI.EVO.Tools.Utils;
 using Lmis.Portal.Web.Bases;
 using Lmis.Portal.Web.Converters.EntityToModel;
 using Lmis.Portal.Web.Converters.ModelToEntity;
+using Lmis.Portal.Web.Utils;
 
 namespace Lmis.Portal.Web.Pages.Management
 {
@@ -11,6 +12,8 @@ namespace Lmis.Portal.Web.Pages.Management
 	{
 		protected void Page_Load(object sender, EventArgs e)
 		{
+			UserUtil.GotoLoginIfNoSuperadmin();
+
 			var logicID = DataConverter.ToNullableGuid(Request["LogicID"]);
 			if (logicID == null)
 				return;

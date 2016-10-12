@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using CITI.EVO.Tools.Utils;
 using CITI.EVO.UserManagement.DAL.Context;
 
 namespace CITI.EVO.UserManagement.Web.Manages
@@ -8,7 +9,7 @@ namespace CITI.EVO.UserManagement.Web.Manages
     {
         public static UM_User GetUser(Guid userID)
         {
-            using (var db = new UserManagementDataContext())
+            using (var db = DcFactory.Create<UserManagementDataContext>())
             {
                 return db.UM_Users.FirstOrDefault(n => n.ID == userID);
             }
@@ -18,7 +19,7 @@ namespace CITI.EVO.UserManagement.Web.Manages
         {
             loginName = (loginName ?? String.Empty);
 
-            using (var db = new UserManagementDataContext())
+            using (var db = DcFactory.Create<UserManagementDataContext>())
             {
                 var user = (from n in db.UM_Users
                             where n.DateDeleted == null &&
@@ -34,7 +35,7 @@ namespace CITI.EVO.UserManagement.Web.Manages
             if (user == null)
                 return;
 
-            using (var db = new UserManagementDataContext())
+            using (var db = DcFactory.Create<UserManagementDataContext>())
             {
                 var exUser = db.UM_Users.FirstOrDefault(n => n.ID == user.ID);
                 if (exUser == null)

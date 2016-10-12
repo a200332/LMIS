@@ -1,7 +1,9 @@
-﻿using System.Web.UI;
+﻿using System;
+using System.Web.UI;
 using CITI.EVO.Tools.Collections;
 using CITI.EVO.Tools.Extensions;
 using CITI.EVO.Tools.Helpers;
+using CITI.EVO.Tools.Security;
 
 namespace CITI.EVO.Tools.Web.Bases
 {
@@ -25,6 +27,12 @@ namespace CITI.EVO.Tools.Web.Bases
 		public NameObjectCollection PageSession
 		{
 			get { return Page.PageSession; }
+		}
+
+		protected override void OnInit(EventArgs e)
+		{
+			UmUtil.Instance.Login();
+			base.OnInit(e);
 		}
 	}
 }

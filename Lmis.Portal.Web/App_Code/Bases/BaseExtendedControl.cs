@@ -61,7 +61,7 @@ namespace Lmis.Portal.Web.Bases
 			if (entityId == null)
 				return;
 
-			OnViewItem(entityId.Value);
+			OnEditItem(entityId.Value);
 		}
 
 		protected virtual void btnDelete_OnCommand(object sender, CommandEventArgs e)
@@ -70,7 +70,7 @@ namespace Lmis.Portal.Web.Bases
 			if (entityId == null)
 				return;
 
-			OnViewItem(entityId.Value);
+			OnDeleteItem(entityId.Value);
 		}
 	}
 }
