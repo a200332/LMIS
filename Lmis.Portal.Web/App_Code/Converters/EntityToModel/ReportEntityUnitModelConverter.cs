@@ -29,6 +29,8 @@ namespace Lmis.Portal.Web.Converters.EntityToModel
 			target.Type = source.Type;
 			target.CategoryID = source.CategoryID;
 			target.Description = source.Description;
+			target.Interpretation = source.Interpretation;
+			target.InformationSource = source.InformationSource;
 
 			var logics = (from n in source.ReportLogics
 						  where n.DateDeleted == null &&

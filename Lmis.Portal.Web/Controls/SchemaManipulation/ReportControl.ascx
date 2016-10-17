@@ -42,6 +42,20 @@
 			<asp:TextBox runat="server" ID="tbxDescription" Property="ReportModel.Description" Width="480" TextMode="MultiLine" />
 		</li>
 	</ul>
+	<ul style="min-height: 25px; display: table; margin-bottom: 8px; height: auto;">
+		<li>
+			<ce:Label runat="server">Interpretation</ce:Label></li>
+		<li>
+			<asp:TextBox runat="server" ID="tbxInterpretation" Property="ReportModel.Interpretation" Width="480" TextMode="MultiLine" />
+		</li>
+	</ul>
+	<ul style="min-height: 25px; display: table; margin-bottom: 8px; height: auto;">
+		<li>
+			<ce:Label runat="server">Source</ce:Label></li>
+		<li>
+			<asp:TextBox runat="server" ID="tbxSource" Property="ReportModel.InformationSource" Width="480" TextMode="MultiLine" />
+		</li>
+	</ul>
 	<ul>
 		<li>
 			<ce:Label runat="server">Type</ce:Label></li>
@@ -58,7 +72,8 @@
 </div>
 <div class="wrapper"></div>
 <div class="popup-title">
-	<ce:Label runat="server">Logics</ce:Label></div>
+	<ce:Label runat="server">Logics</ce:Label>
+</div>
 <div class="admin-title-separator"></div>
 <div class="admin-fieldset">
 	<ce:ImageLinkButton runat="server" DefaultImageUrl="~/App_Themes/Default/Images/add.png" ID="btnNewReportLogic" ToolTip="დამატება" OnClick="btnNewReportLogic_OnClick" />

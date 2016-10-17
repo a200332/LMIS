@@ -1689,6 +1689,10 @@ namespace Lmis.Portal.DAL.DAL
 		
 		private string _Description;
 		
+		private string _Interpretation;
+		
+		private string _InformationSource;
+		
 		private EntitySet<LP_ReportLogic> _ReportLogics;
 		
 		private EntityRef<LP_Category> _Category;
@@ -1715,6 +1719,10 @@ namespace Lmis.Portal.DAL.DAL
     partial void OnPublicChanged();
     partial void OnDescriptionChanging(string value);
     partial void OnDescriptionChanged();
+    partial void OnInterpretationChanging(string value);
+    partial void OnInterpretationChanged();
+    partial void OnInformationSourceChanging(string value);
+    partial void OnInformationSourceChanged();
     #endregion
 		
 		public LP_Report()
@@ -1904,6 +1912,46 @@ namespace Lmis.Portal.DAL.DAL
 					this._Description = value;
 					this.SendPropertyChanged("Description");
 					this.OnDescriptionChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Interpretation", DbType="NVarChar(MAX)", UpdateCheck=UpdateCheck.Never)]
+		public string Interpretation
+		{
+			get
+			{
+				return this._Interpretation;
+			}
+			set
+			{
+				if ((this._Interpretation != value))
+				{
+					this.OnInterpretationChanging(value);
+					this.SendPropertyChanging();
+					this._Interpretation = value;
+					this.SendPropertyChanged("Interpretation");
+					this.OnInterpretationChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_InformationSource", DbType="NVarChar(MAX)", UpdateCheck=UpdateCheck.Never)]
+		public string InformationSource
+		{
+			get
+			{
+				return this._InformationSource;
+			}
+			set
+			{
+				if ((this._InformationSource != value))
+				{
+					this.OnInformationSourceChanging(value);
+					this.SendPropertyChanging();
+					this._InformationSource = value;
+					this.SendPropertyChanged("InformationSource");
+					this.OnInformationSourceChanged();
 				}
 			}
 		}

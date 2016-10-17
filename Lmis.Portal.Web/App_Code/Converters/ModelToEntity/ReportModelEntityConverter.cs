@@ -34,6 +34,8 @@ namespace Lmis.Portal.Web.Converters.ModelToEntity
 			target.Type = source.Type;
 			target.Public = source.Public;
 			target.Description = source.Description;
+			target.Interpretation = source.Interpretation;
+			target.InformationSource = source.InformationSource;
 
 			foreach (var entity in target.ReportLogics)
 				entity.DateDeleted = DateTime.Now;

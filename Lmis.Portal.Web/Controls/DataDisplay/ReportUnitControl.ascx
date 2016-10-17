@@ -44,7 +44,7 @@
 			<div>
 				<div runat="server" id="dvChartImage" style="display: block;">
 					<asp:Chart ID="mainChart" runat="server" Width="710" Height="350" IsMapEnabled="True">
-					<%--<Titles>
+						<%--<Titles>
 							<asp:Title Name="Default" Text="" TextStyle="Shadow" Font="Times New Roman, 15pt" Docking="Top">
 							</asp:Title>
 							<asp:Title Name="Left" Text="1" Font="Times New Roman, 10pt" Docking="Left">
@@ -139,7 +139,31 @@
 			</div>
 		</asp:Panel>
 		<div style="margin-top: 8px;">
-			<div style="text-align: left;" runat="server" id="pnlDescription"></div>
+			<div>
+				<table>
+					<tr runat="server" id="trDescription">
+						<td>
+							<ce:Label runat="server">Description:</ce:Label>&nbsp;</td>
+						<td>
+							<div runat="server" id="dvDescription"></div>
+						</td>
+					</tr>
+					<tr runat="server" id="trInterpretation">
+						<td>
+							<ce:Label runat="server">Interpretation:</ce:Label>&nbsp;</td>
+						<td>
+							<div runat="server" id="dvInterpretation"></div>
+						</td>
+					</tr>
+					<tr runat="server" id="trInformationSource">
+						<td>
+							<ce:Label runat="server">Information source:</ce:Label>&nbsp;</td>
+						<td>
+							<div runat="server" id="dvInformationSource"></div>
+						</td>
+					</tr>
+				</table>
+			</div>
 		</div>
 	</div>
 </div>

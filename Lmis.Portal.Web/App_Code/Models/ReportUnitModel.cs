@@ -15,7 +15,11 @@ namespace Lmis.Portal.Web.Models
 
 		public String Description { get; set; }
 
+		public String Interpretation { get; set; }
+
+		public String InformationSource { get; set; }
+
 		public ReportLogicsModel ReportLogics { get; set; }
-		
+	
 	}
 }

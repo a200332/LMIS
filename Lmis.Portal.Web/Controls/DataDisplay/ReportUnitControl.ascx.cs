@@ -52,7 +52,14 @@ namespace Lmis.Portal.Web.Controls.DataDisplay
 			mainChart.DataSource = null;
 			mainGrid.DataSource = null;
 
-			pnlDescription.InnerHtml = unitModel.Description;
+			dvDescription.InnerHtml = unitModel.Description;
+			trDescription.Visible = !String.IsNullOrWhiteSpace(unitModel.Description);
+
+			dvInterpretation.InnerHtml = unitModel.Interpretation;
+			trInterpretation.Visible = !String.IsNullOrWhiteSpace(unitModel.Interpretation);
+
+			dvInformationSource.InnerHtml = unitModel.InformationSource;
+			trInformationSource.Visible = !String.IsNullOrWhiteSpace(unitModel.InformationSource);
 
 			var entities = GetQueries(unitModel);
 

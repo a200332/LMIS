@@ -8,6 +8,8 @@ namespace Lmis.Portal.Web.Models
 	{
 		public Guid? ID { get; set; }
 
+		public String Language { get; set; }
+
 		public String Type { get; set; }
 
 		public Guid? CategoryID { get; set; }
@@ -17,6 +19,10 @@ namespace Lmis.Portal.Web.Models
 		public bool? Public { get; set; }
 
 		public String Description { get; set; }
+
+		public String Interpretation { get; set; }
+
+		public String InformationSource { get; set; }
 
 		public ReportLogicsModel ReportLogics { get; set; }
 	}

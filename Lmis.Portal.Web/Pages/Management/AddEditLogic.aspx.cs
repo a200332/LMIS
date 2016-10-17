@@ -14,18 +14,21 @@ namespace Lmis.Portal.Web.Pages.Management
 		{
 			UserUtil.GotoLoginIfNoSuperadmin();
 
-			var logicID = DataConverter.ToNullableGuid(Request["LogicID"]);
-			if (logicID == null)
-				return;
+			if (!IsPostBack)
+			{
+				var logicID = DataConverter.ToNullableGuid(Request["LogicID"]);
+				if (logicID == null)
+					return;
 
-			var entity = DataContext.LP_Logics.FirstOrDefault(n => n.ID == logicID);
-			if (entity == null)
-				return;
+				var entity = DataContext.LP_Logics.FirstOrDefault(n => n.ID == logicID);
+				if (entity == null)
+					return;
 
-			var converter = new LogicEntityModelConverter(DataContext);
-			var model = converter.Convert(entity);
+				var converter = new LogicEntityModelConverter(DataContext);
+				var model = converter.Convert(entity);
 
-			logicControl.Model = model;
+				logicControl.Model = model;
+			}
 		}
 
 		protected void btnSaveLogic_OnClick(object sender, EventArgs e)

@@ -40,3 +40,4 @@
 
 /CITI.EVO.UserManagement.Svc/Bin
 /CITI.EVO.UserManagement.Svc/obj
+*.log
