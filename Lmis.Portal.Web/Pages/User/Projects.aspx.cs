@@ -1,14 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
+using Lmis.Portal.Web.Bases;
 
-public partial class Pages_User_Projects : System.Web.UI.Page
+namespace Lmis.Portal.Web.Pages.User
 {
-    protected void Page_Load(object sender, EventArgs e)
-    {
+	public partial class Projects : BasePage
+	{
+		protected void Page_Load(object sender, EventArgs e)
+		{
 
-    }
+		}
+	}
 }

@@ -5,14 +5,19 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
-	<div style="border-left: 1px solid #e5e5e5; display: table; ">
-	    <div style="width: 3px; height: 35px; background-color: #29abe2; float: left;"></div>
+	<div style="border-left: 1px solid #e5e5e5; display: table;">
+		<div style="width: 3px; height: 35px; background-color: #29abe2; float: left;"></div>
 		<div class="left" style="width: 256px;">
-			<lmis:CategoriesControl runat="server" ID="categoriesControl" />
+			<div>
+				<ce:ImageLinkButton runat="server" ID="btnConfiguration" Text="Configuration" NavigateUrl="~/Pages/User/ReportsConfig.aspx" />
+			</div>
+			<div>
+				<lmis:CategoriesControl runat="server" ID="categoriesControl" TargetUrl="~/Pages/User/Dashboard.aspx" />
+			</div>
 		</div>
-		<div class="left" style="width: 740px; /*border: 1px solid #e5e5e5;*/ ">
-<%--		     <div style="width: 205px; height: 3px; background-color: #29abe2; "></div>--%>
-<%--			<div style="text-align: left; margin: 8px; ">
+		<div class="left" style="width: 740px; /*border: 1px solid #e5e5e5; */">
+			<%--		     <div style="width: 205px; height: 3px; background-color: #29abe2; "></div>--%>
+			<%--			<div style="text-align: left; margin: 8px; ">
 				<ce:ImageLinkButton runat="server" DefaultImageUrl="~/App_Themes/Default/Images/add.png" ID="btnReports" ToolTip="დამატება" style="display: none;" />
 			</div>--%>
 			<div class="clear"></div>
@@ -21,7 +26,7 @@
 			</div>
 		</div>
 	</div>
-<%--	<div>
+	<%--	<div>
 		<act:ModalPopupExtender runat="server" ID="mpeReports" TargetControlID="btnReports"
 			Enabled="true" BackgroundCssClass="modalBackground" PopupControlID="pnlReports"
 			CancelControlID="btnReportsClose" />

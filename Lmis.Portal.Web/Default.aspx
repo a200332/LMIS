@@ -9,7 +9,7 @@
 
 	<lmis:VideosControl ID="videosControl" runat="server" />
 
-	<a href="Pages/User/eBooks.aspx" target="blanck">
+	<a href="Pages/User/eBooks.aspx" target="_blank">
 		<div class="left e-book">
 		</div>
 	</a>

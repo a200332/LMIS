@@ -793,7 +793,7 @@ li.rm-search {
 .mainlink span
 {z-index: 5;
     position: absolute;
-    margin-left: -170px;
+    margin-left: -75px;
     margin-top: 70px;
     font-size: 18px;
     color: white;

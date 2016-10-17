@@ -9,7 +9,7 @@
 				<asp:Label runat="server" ID="lblGridTitle" Font-Names="Times New Roman" Font-Size="13px" Font-Bold="True"></asp:Label>
 			</div>
 			<div style="text-align: right;">
-				<ce:ImageLinkButton runat="server" DefaultImageUrl="~/App_Themes/Default/Images/excel.png" ID="btnRxport" ToolTip="Excel" />
+				<ce:ImageLinkButton runat="server" DefaultImageUrl="~/App_Themes/Default/Images/excel.png" ID="btnGridExport" ToolTip="Excel" OnClick="btnExport_OnClick" />
 			</div>
 			<div>
 				<dx:ASPxGridView runat="server" ID="mainGrid" Width="100%">
@@ -32,6 +32,7 @@
 				<ce:ImageLinkButton runat="server" DefaultImageUrl="~/App_Themes/Default/Images/filter.png" ID="btnCaptions" ToolTip="Series Filter" />
 				<ce:ImageLinkButton runat="server" DefaultImageUrl="~/App_Themes/Default/Images/filter.png" ID="btnXYSeries" ToolTip="Y Filter" />
 				<ce:ImageLinkButton runat="server" DefaultImageUrl="~/App_Themes/Default/Images/save.png" ID="btnImage" ToolTip="Save Image" />
+				<ce:ImageLinkButton runat="server" DefaultImageUrl="~/App_Themes/Default/Images/excel.png" ID="btnChartExport" ToolTip="Excel" OnClick="btnExport_OnClick" />
 				<a href="#" runat="server" id="lnkChartImage" title="Chart">
 					<asp:Image runat="server" ImageUrl="~/App_Themes/Default/Images/chart.png" />
 				</a>
@@ -43,14 +44,14 @@
 			<div>
 				<div runat="server" id="dvChartImage" style="display: block;">
 					<asp:Chart ID="mainChart" runat="server" Width="710" Height="350" IsMapEnabled="True">
-						<Titles>
+<%--						<Titles>
 							<asp:Title Name="Default" Text="" TextStyle="Shadow" Font="Times New Roman, 15pt" Docking="Top">
 							</asp:Title>
 							<asp:Title Name="Left" Text="1" Font="Times New Roman, 10pt" Docking="Left">
 							</asp:Title>
 							<asp:Title Name="Bottom" Text="2" Font="Times New Roman, 10pt" Docking="Bottom">
 							</asp:Title>
-						</Titles>
+						</Titles>--%>
 
 						<Series>
 						</Series>
@@ -70,6 +71,9 @@
 							<asp:Legend Name="Default" Docking="Bottom" TableStyle="Wide" LegendStyle="Table" TitleAlignment="Near" />
 						</Legends>
 					</asp:Chart>
+					<div>
+						<ce:Label runat="server" ID="lblXYDescription"></ce:Label>
+					</div>
 				</div>
 				<div runat="server" id="dvChartGrid" style="display: none;">
 					<dx:ASPxGridView runat="server" ID="chartGrid" Width="100%">
