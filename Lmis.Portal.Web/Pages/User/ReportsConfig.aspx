@@ -17,6 +17,7 @@
 	<div class="left" style="width: 740px;">
 		<div>
 			<ce:ImageLinkButton runat="server" DefaultImageUrl="~/App_Themes/Default/Images/search.png" ID="btnReports" ToolTip="დამატება" OnClick="btnReports_OnClick" />
+			<ce:ImageLinkButton runat="server" DefaultImageUrl="~/App_Themes/Default/Images/copy.png" ID="btnClone" ToolTip="დამატება" NavigateUrl="~/Pages/User/ReportsClone.aspx" />
 		</div>
 		<div>
 			<lmis:ReportUnitsControl runat="server" ID="reportUnitsControl" />

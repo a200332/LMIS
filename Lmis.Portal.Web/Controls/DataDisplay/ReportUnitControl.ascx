@@ -44,7 +44,7 @@
 			<div>
 				<div runat="server" id="dvChartImage" style="display: block;">
 					<asp:Chart ID="mainChart" runat="server" Width="710" Height="350" IsMapEnabled="True">
-<%--						<Titles>
+					<%--<Titles>
 							<asp:Title Name="Default" Text="" TextStyle="Shadow" Font="Times New Roman, 15pt" Docking="Top">
 							</asp:Title>
 							<asp:Title Name="Left" Text="1" Font="Times New Roman, 10pt" Docking="Left">
