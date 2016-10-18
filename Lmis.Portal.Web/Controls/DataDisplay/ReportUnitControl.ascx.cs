@@ -144,6 +144,7 @@ namespace Lmis.Portal.Web.Controls.DataDisplay
 			BindChartGrid(dataTable);
 
 			lblXYDescription.Text = String.Format("X - {0}, Y - {1}", xMember, yMember);
+
 			//var defaultTitle = mainChart.Titles["Default"];
 			//if (defaultTitle != null)
 			//	defaultTitle.Text = entity.Name;
@@ -412,7 +413,12 @@ namespace Lmis.Portal.Web.Controls.DataDisplay
 			return GetListBoxSelectedValues(lstXYSeries);
 		}
 
-		protected IEnumerable<String> GetListBoxSelectedValues(CheckBoxList listBox)
+		protected IEnumerable<String> GetSelectedChartTypes()
+		{
+			return GetListBoxSelectedValues(lstChartTypes);
+		}
+
+		protected IEnumerable<String> GetListBoxSelectedValues(ListControl listBox)
 		{
 			var values = (from n in Request.Form.AllKeys
 						  where !String.IsNullOrWhiteSpace(n) &&
@@ -425,6 +431,12 @@ namespace Lmis.Portal.Web.Controls.DataDisplay
 
 		protected SeriesChartType GetChartType(String type)
 		{
+			var selChartType = GetSelectedChartTypes().FirstOrDefault();
+
+			var chartTypeVal = DataConverter.ToNullableEnum<SeriesChartType>(selChartType);
+			if (chartTypeVal != null)
+				return chartTypeVal.Value;
+
 			SeriesChartType value;
 			if (Enum.TryParse(type, true, out value))
 				return value;
