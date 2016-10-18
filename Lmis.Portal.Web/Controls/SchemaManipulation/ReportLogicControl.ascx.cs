@@ -253,7 +253,7 @@ namespace Lmis.Portal.Web.Controls.SchemaManipulation
 				var model = converter.Convert(logic);
 
 				var queryGen = new QueryGenerator(DataContext, model);
-				var columns = queryGen.OutputColumns;
+				var columns = queryGen.OutputColumns.ToList();
 
 				cbxChartXValue.DataSource = columns;
 				cbxChartXValue.DataBind();
@@ -261,7 +261,10 @@ namespace Lmis.Portal.Web.Controls.SchemaManipulation
 				cbxChartYValue.DataSource = columns;
 				cbxChartYValue.DataBind();
 
-				cbxChartCaption.DataSource = columns;
+				var groupersList = columns.ToList();
+				groupersList.Insert(0, "");
+
+				cbxChartCaption.DataSource = groupersList;
 				cbxChartCaption.DataBind();
 
 				cbxGridSource.DataSource = columns;

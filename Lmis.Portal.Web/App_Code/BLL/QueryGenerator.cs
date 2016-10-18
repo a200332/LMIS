@@ -379,7 +379,10 @@ namespace Lmis.Portal.Web.BLL
 				if (exp != null && !String.IsNullOrWhiteSpace(exp.Expression))
 				{
 					if (!String.IsNullOrWhiteSpace(exp.Name))
-						yield return String.Format("{0} AS {1}", exp.Expression, exp.Name);
+					{
+						var name = GetCorrectName(exp.Name);
+						yield return String.Format("{0} AS {1}", exp.Expression, name);
+					}
 					else
 						yield return exp.Expression;
 				}

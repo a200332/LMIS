@@ -72,22 +72,14 @@ namespace Lmis.Portal.Web.Pages.Management
 
 		protected void tablesControl_OnEditColumn(object sender, GenericEventArgs<Guid> e)
 		{
-			var model = tableControl.Model;
-
-			var converter = new TableModelEntityConverter(DataContext);
-
-			var entity = DataContext.LP_Tables.FirstOrDefault(n => n.ID == model.ID);
+			var entity = DataContext.LP_Columns.FirstOrDefault(n => n.ID == e.Value);
 			if (entity == null)
-			{
-				entity = converter.Convert(model);
-				DataContext.LP_Tables.InsertOnSubmit(entity);
-			}
-			else
-			{
-				converter.FillObject(entity, model);
-			}
+				return;
 
-			DataContext.SubmitChanges();
+			var converter = new ColumnEntityModelConverter(DataContext);
+			columnControl.Model = converter.Convert(entity);
+
+			mpeAddEditColumn.Show();
 		}
 
 		protected void tablesControl_OnDeleteColumn(object sender, GenericEventArgs<Guid> e)

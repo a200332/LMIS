@@ -77,7 +77,7 @@
 <div class="admin-title-separator"></div>
 <div class="admin-fieldset">
 	<ce:ImageLinkButton runat="server" DefaultImageUrl="~/App_Themes/Default/Images/add.png" ID="btnNewReportLogic" ToolTip="დამატება" OnClick="btnNewReportLogic_OnClick" />
-	<lmis:ReportLogicsControl runat="server" ID="reportLogicsControl" Property="ReportModel.ReportLogics" />
+	<lmis:ReportLogicsControl runat="server" ID="reportLogicsControl" Property="ReportModel.ReportLogics" OnDeleteItem="reportLogicsControl_OnDeleteItem" OnEditItem="reportLogicsControl_OnEditItem" />
 </div>
 
 <div>
@@ -87,21 +87,18 @@
 	<asp:Button runat="server" ID="btnAddEditReportLogicFake" Style="display: none" />
 	<asp:Panel runat="server" ID="pnlAddEditReportLogic">
 		<div class="popup">
-			<div>
-			</div>
-			<div class="popup_fieldset">
-				<h2>
-					<ce:Label runat="server">Report Logic</ce:Label></h2>
-				<div class="title_separator"></div>
-				<div class="box">
+		   <div class="popup_fieldset">
+                <div class="popup-title"><ce:Label runat="server">Report Logic</ce:Label></div>
+                <div class="title_separator"></div>
+                <div class="box">
 					<lmis:ReportLogicControl runat="server" ID="reportLogicControl" OnDataChanged="reportLogicControl_OnDataChanged" />
 				</div>
 			</div>
 			<div class="fieldsetforicons">
-				<div class="left">
+				<div class="left" style="margin-right: 10px;">
 					<ce:ImageLinkButton runat="server" DefaultImageUrl="~/App_Themes/Default/Images/save.png" ID="btnSaveReportLogic" ToolTip="დამატება" OnClick="btnSaveReportLogic_OnClick" />
 				</div>
-				<div class="right">
+				<div class="left">
 					<ce:ImageLinkButton runat="server" DefaultImageUrl="~/App_Themes/Default/Images/close.png" ID="btnCancelReportLogic" ToolTip="დახურვა" />
 				</div>
 			</div>

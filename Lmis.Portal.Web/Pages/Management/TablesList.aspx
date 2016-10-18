@@ -26,12 +26,10 @@
 		<asp:Button runat="server" ID="btnAddEditTableFake" Style="display: none" />
 		<asp:Panel runat="server" ID="pnlAddEditTable">
 			<div class="popup">
-			 <div class="popup_fieldset">
-
-                    <div class="popup-title">Table</div>
-                    <div class="title_separator"></div>
-                    <div class="box">
-                      
+				<div class="popup_fieldset">
+					<div class="popup-title">Table</div>
+					<div class="title_separator"></div>
+					<div class="box">
 						<lmis:TableControl runat="server" ID="tableControl" />
 					</div>
 				</div>
@@ -53,13 +51,10 @@
 		<asp:Button runat="server" ID="btnAddEditColumnFake" Style="display: none" />
 		<asp:Panel runat="server" ID="pnlAddEditColumn">
 			<div class="popup">
-			<div class="popup_fieldset">
-                    <div class="popup-title">Column</div>
-                    <div class="title_separator"></div>
-                    <div class="box">
-				
-				
-				
+				<div class="popup_fieldset">
+					<div class="popup-title">Column</div>
+					<div class="title_separator"></div>
+					<div class="box">
 						<lmis:ColumnControl runat="server" ID="columnControl" />
 					</div>
 				</div>

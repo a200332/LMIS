@@ -9,7 +9,7 @@
 }
 
 .book-title {
-    font-size: 16px;
+    font-size: 14px;
     font-weight: bold;
     text-align: left;
 }
@@ -120,11 +120,18 @@ input[type="radio" i], input[type="checkbox" i] {
     margin-top: 10px;
     height: 25px;
 }
+.title {
+    margin: 5px 0;
+    font-weight: bold;
+    display: block;
+}
 /*--------------dx-----------*/
-
+.dxtlControl {
+    font-family: dejavu;
+}
 .dxtlControl a {
     color: #323232;
-    font-size: 14px;
+    font-size: 13px;
 }
 
 .dxtlSelectedNode td.dxtl, .dxtlFocusedNode td.dxtl span {
@@ -151,7 +158,7 @@ input[type="radio" i], input[type="checkbox" i] {
 }
 
 .box {
-    width: 400px;
+    min-width: 400px;
     text-align: left;
 }
 
@@ -182,4 +189,11 @@ input[type="radio" i], input[type="checkbox" i] {
     background-color: #29abe2;
     width: 800px;
     margin-bottom: 10px;
+}
+
+.config-icons {
+    margin: -6px 5px 5px 0;
+}
+.config-txt {
+  margin:10px 14px 14px 14px;
 }

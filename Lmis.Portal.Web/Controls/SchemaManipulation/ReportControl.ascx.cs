@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using CITI.EVO.Tools.Utils;
 using Lmis.Portal.Web.Bases;
+using Lmis.Portal.Web.Common;
 using Lmis.Portal.Web.Models;
 
 namespace Lmis.Portal.Web.Controls.SchemaManipulation
@@ -22,6 +23,7 @@ namespace Lmis.Portal.Web.Controls.SchemaManipulation
 
 		protected void Page_Load(object sender, EventArgs e)
 		{
+			reportLogicsControl.Model = ReportLogics;
 		}
 
 		protected void Page_PreRender(object sender, EventArgs e)
@@ -34,9 +36,20 @@ namespace Lmis.Portal.Web.Controls.SchemaManipulation
 			var reportLogicModel = reportLogicControl.Model;
 
 			ReportLogics = (ReportLogics ?? new ReportLogicsModel());
-
 			ReportLogics.List = (ReportLogics.List ?? new List<ReportLogicModel>());
-			ReportLogics.List.Add(reportLogicModel);
+
+			var reportLogic = ReportLogics.List.FirstOrDefault(n => n.ID == reportLogicModel.ID);
+			if (reportLogic != null)
+			{
+				reportLogic.Bindings = reportLogicModel.Bindings;
+				reportLogic.Logic = reportLogicModel.Logic;
+				reportLogic.Type = reportLogicModel.Type;
+			}
+			else
+			{
+				reportLogicModel.ID = Guid.NewGuid();
+				ReportLogics.List.Add(reportLogicModel);
+			}
 		}
 
 		protected void btnNewReportLogic_OnClick(object sender, EventArgs e)
@@ -47,6 +60,31 @@ namespace Lmis.Portal.Web.Controls.SchemaManipulation
 
 		protected void reportLogicControl_OnDataChanged(object sender, EventArgs e)
 		{
+			mpeAddEditReportLogic.Show();
+		}
+
+		protected void reportLogicsControl_OnDeleteItem(object sender, GenericEventArgs<Guid> e)
+		{
+			if (ReportLogics == null || ReportLogics.List == null)
+				return;
+
+			var reportLogic = ReportLogics.List.FirstOrDefault(n => n.ID == e.Value);
+			if (reportLogic == null)
+				return;
+
+			ReportLogics.List.Remove(reportLogic);
+		}
+
+		protected void reportLogicsControl_OnEditItem(object sender, GenericEventArgs<Guid> e)
+		{
+			if (ReportLogics == null || ReportLogics.List == null)
+				return;
+
+			var reportLogic = ReportLogics.List.FirstOrDefault(n => n.ID == e.Value);
+			if (reportLogic == null)
+				return;
+
+			reportLogicControl.Model = reportLogic;
 			mpeAddEditReportLogic.Show();
 		}
 
@@ -80,5 +118,7 @@ namespace Lmis.Portal.Web.Controls.SchemaManipulation
 			cbxLanguage.DataSource = languages;
 			cbxLanguage.DataBind();
 		}
+
+
 	}
 }

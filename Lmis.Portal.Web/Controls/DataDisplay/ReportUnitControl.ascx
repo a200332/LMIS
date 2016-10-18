@@ -61,7 +61,7 @@
 								<AxisX Interval="1" LabelAutoFitStyle="WordWrap" IsMarginVisible="False">
 									<MajorGrid LineColor="LightGray"></MajorGrid>
 								</AxisX>
-								<AxisY Interval="200" LabelAutoFitStyle="WordWrap">
+								<AxisY LabelAutoFitStyle="WordWrap">
 									<MajorGrid LineColor="LightGray"></MajorGrid>
 								</AxisY>
 							</asp:ChartArea>

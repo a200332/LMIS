@@ -111,7 +111,9 @@ namespace Lmis.Portal.Web.Controls.DataDisplay
 			var xMembers = byTargetLp["XValue"];
 			var xMember = String.Join(",", xMembers.Select(n => n.Source));
 
-			FillCaptionsList(dataView, modelsGrp.Key);
+			if (!String.IsNullOrWhiteSpace(modelsGrp.Key))
+				FillCaptionsList(dataView, modelsGrp.Key);
+
 			FillXYValuesList(dataView, xMember);
 
 			var selCaptions = GetSelectedCaptions().ToHashSet();
@@ -136,17 +138,10 @@ namespace Lmis.Portal.Web.Controls.DataDisplay
 							  select n);
 			}
 
-			mainChart.DataBindCrossTable(collection, modelsGrp.Key, xMember, yMember, String.Empty);
+			var dataTable = GetChartDataTable(modelsGrp.Key, yMember, xMember, collection);
 
-			foreach (var series in mainChart.Series)
-			{
-				series.Legend = "Default";
-				series.BorderWidth = 2;
-				series.ChartType = chartType;
-				series.IsValueShownAsLabel = true;
-				series.ToolTip = "#SERIESNAME #VALX/#VALY";
-				series.Palette = ChartColorPalette.BrightPastel;
-			}
+			FillChartData(dataTable, chartType);
+			BindChartGrid(dataTable);
 
 			lblXYDescription.Text = String.Format("X - {0}, Y - {1}", xMember, yMember);
 			//var defaultTitle = mainChart.Titles["Default"];
@@ -162,8 +157,52 @@ namespace Lmis.Portal.Web.Controls.DataDisplay
 			//	bottomTitle.Text = yMember;
 
 			mainChart.ApplyPaletteColors();
+		}
 
-			BindChartGrid(collection, modelsGrp.Key, xMember, yMember);
+		protected void FillChartData(DataTable dataTable, SeriesChartType chartType)
+		{
+			var valuesSet = new SortedSet<double>();
+
+			var columns = dataTable.Columns.Cast<DataColumn>().ToList();
+			var yColumn = columns.First();
+
+			foreach (var dataColumn in columns)
+			{
+				if (dataColumn == yColumn)
+					continue;
+
+				var series = new Series
+				{
+					Name = dataColumn.ColumnName,
+					Legend = "Default",
+					BorderWidth = 2,
+					ChartType = chartType,
+					IsValueShownAsLabel = true,
+					ToolTip = "#SERIESNAME #VALX/#VALY{0.00}",
+					Label = "#VALY{0.00}",
+				};
+
+				foreach (DataRow dataRow in dataTable.Rows)
+				{
+					var y = DataConverter.ToNullableDouble(dataRow[dataColumn]).GetValueOrDefault();
+					var x = dataRow[yColumn];
+
+					series.Points.AddXY(x, y);
+					valuesSet.Add(y);
+				}
+
+				var mainChartArea = mainChart.ChartAreas["MainChartArea"];
+				if (mainChartArea != null)
+				{
+					var axisY = mainChartArea.AxisY;
+
+					axisY.LabelStyle.Format = "0.00";
+					axisY.Minimum = valuesSet.Min - 1;
+					axisY.Maximum = valuesSet.Max + 1;
+				}
+
+				mainChart.Series.Add(series);
+			}
 		}
 
 		protected void BindGridData(BindingInfoEntity entiry)
@@ -193,10 +232,8 @@ namespace Lmis.Portal.Web.Controls.DataDisplay
 			mainGrid.DataSource = sqlDs;
 		}
 
-		protected void BindChartGrid(IEnumerable<DataRowView> collection, String groupMember, String yMember, String xMember)
+		protected void BindChartGrid(DataTable dataTable)
 		{
-			var dataTable = GetChartDataTable(groupMember, yMember, xMember, collection);
-
 			chartGrid.DataSource = dataTable;
 			chartGrid.DataBind();
 		}
@@ -228,8 +265,8 @@ namespace Lmis.Portal.Web.Controls.DataDisplay
 
 		protected DataTable GetChartDataTable(String groupMember, String yMember, String xMember, IEnumerable<DataRowView> collection)
 		{
-			var dataRowViewsYQuery = (from DataRowView n in collection
-									  let v = n[yMember]
+			var dataRowViewsXQuery = (from DataRowView n in collection
+									  let v = n[xMember]
 									  orderby v
 									  select new
 									  {
@@ -237,64 +274,70 @@ namespace Lmis.Portal.Web.Controls.DataDisplay
 										  DataRow = n
 									  });
 
-			var dataRowViewsYLp = dataRowViewsYQuery.ToLookup(n => n.Grouper);
+			var dataRowViewsXLp = dataRowViewsXQuery.ToLookup(n => n.Grouper);
+			var verticalColumns = dataRowViewsXLp.Select(n => n.Key).ToList();
 
-			var xColumns = dataRowViewsYLp.Select(n => n.Key).ToList();
+			var horizontalColumnsQuery = (from DataRowView n in collection
+										  let v = GetGrouperValue(n, groupMember, yMember)
+										  orderby v
+										  select v).Distinct();
 
-			var yColumnsQuery = (from DataRowView n in collection
-								 let v = Convert.ToString(n[groupMember])
-								 orderby v
-								 select v).Distinct();
-
-			var yColumns = yColumnsQuery.ToList();
-			yColumns.Insert(0, yMember);
+			var horizontalColumns = horizontalColumnsQuery.ToList();
+			horizontalColumns.Insert(0, xMember);
 
 			var dataTable = new DataTable();
-			foreach (var yColumn in yColumns)
-			{
-				dataTable.Columns.Add(yColumn).AllowDBNull = true;
-			}
+			foreach (var horizontalColumn in horizontalColumns)
+				dataTable.Columns.Add(horizontalColumn).AllowDBNull = true;
 
-			foreach (var xColumn in xColumns)
+			foreach (var verticalColumn in verticalColumns)
 			{
 				var dataRow = dataTable.NewRow();
-				dataRow[yMember] = Convert.ToString(xColumn);
+				dataRow[xMember] = Convert.ToString(verticalColumn);
 
-				var dataRowViewsYGrp = dataRowViewsYLp[xColumn];
-
-				var dataRowViewsGroupQuery = from n in dataRowViewsYGrp
-											 let d = n.DataRow
-											 let v = d[groupMember]
+				var dataRowViewsGroupQuery = from n in dataRowViewsXLp[verticalColumn]
+											 let v = GetGrouperValue(n.DataRow, groupMember, yMember)
 											 orderby v
 											 select new
 											 {
 												 Grouper = v,
-												 DataRow = d
+												 DataRow = n.DataRow
 											 };
 
 				var dataRowViewsGroupLp = dataRowViewsGroupQuery.ToLookup(n => n.Grouper);
 
-				foreach (var yColumn in yColumns)
+				foreach (var horizontalColumn in horizontalColumns)
 				{
-					if (yColumn == yMember)
+					if (horizontalColumn == xMember)
 						continue;
 
-					var dataRowViewsGroupGrp = dataRowViewsGroupLp[yColumn];
+					var dataRowViewsGroupGrp = dataRowViewsGroupLp[horizontalColumn];
 
 					var values = (from n in dataRowViewsGroupGrp
-								  let v = n.DataRow[xMember]
-								  let m = DataConverter.ToNullableDecimal(v)
+								  let v = n.DataRow[yMember]
+								  let m = DataConverter.ToNullableDouble(v)
 								  where m != null
 								  select m);
 
 					var value = values.Sum();
-					dataRow[yColumn] = value;
+					dataRow[horizontalColumn] = value;
 				}
 
 				dataTable.Rows.Add(dataRow);
 			}
 
 			return dataTable;
+		}
+
+		protected String GetGrouperValue(DataRowView dataRowView, String groupMemper, String xMember)
+		{
+			if (String.IsNullOrWhiteSpace(groupMemper))
+				return xMember;
+
+			var dataTable = dataRowView.DataView.Table;
+			if (!dataTable.Columns.Contains(groupMemper))
+				return xMember;
+
+			return Convert.ToString(dataRowView[groupMemper]);
 		}
 
 		protected IEnumerable<BindingInfoEntity> GetQueries(ReportUnitModel unitModel)

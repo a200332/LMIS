@@ -12,6 +12,12 @@ public partial class _Default : BasePage
 {
 	protected void Page_Load(object sender, EventArgs e)
 	{
+		if (!Request.RawUrl.Contains("Default.aspx"))
+		{
+			Response.Redirect("~/Default.aspx");
+			return;
+		}
+
 		FillVideos();
 	}
 

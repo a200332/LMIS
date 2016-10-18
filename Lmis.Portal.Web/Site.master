@@ -175,10 +175,10 @@
 				</div>
 				<div class="header">
 					<div class="header-items">
-						<div class="header-title">
+					<%--	<div class="header-title">
 							Plan The Future
-						</div>
-						<div class="left" style="margin-top: 10px;">
+						</div>--%>
+						<div class="left" style="margin: 10px 10px 15px 10px;">
 							<asp:Image ImageUrl="~/App_Themes/Default/images/logo.png" runat="server" />
 						</div>
 

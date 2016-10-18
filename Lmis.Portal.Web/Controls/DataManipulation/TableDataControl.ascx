@@ -5,13 +5,13 @@
 			<ce:ImageLinkButton runat="server" CssClass="imagelinkbutton" Text="Add" ID="btnAdd" OnClick="btnAdd_OnClick" DefaultImageUrl="~/App_Themes/Default/images/add.png" />
 		</li>
 		<li style="width: 70px;">
-			<ce:ImageLinkButton runat="server" Text="Clear" ID="btnClear" CssClass="imagelinkbutton" OnClick="btnClear_OnClick" DefaultImageUrl="~/App_Themes/Default/images/clear.png" />
+			<ce:ImageLinkButton runat="server" Text="Clear" ID="btnClear" CssClass="imagelinkbutton" OnClick="btnClear_OnClick" OnClientClick="return confirm('Are you sure you want to delete all data?');" DefaultImageUrl="~/App_Themes/Default/images/clear.png" />
 		</li>
-			<li style="width: 100px;">
+		<li style="width: 100px;">
 			<ce:ImageLinkButton runat="server" Text="Template" ID="btnTemplate" CssClass="imagelinkbutton" OnClick="btnTemplate_OnClick" DefaultImageUrl="~/App_Themes/Default/images/template.png" />
 		</li>
-		
-	
+
+
 	</ul>
 	<ul>
 		<li style="width: 100px;">
@@ -20,7 +20,7 @@
 		<li style="width: 250px;">
 			<asp:FileUpload runat="server" ID="fuImport" />
 		</li>
-		
+
 	</ul>
 </div>
 

@@ -1,5 +1,5 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="MainLinksControl.ascx.cs" Inherits="Lmis.Portal.Web.Controls.DataDisplay.MainLinksControl" %>
-<ul>
+<ul >
 	<asp:Repeater runat="server" ID="rptItems">
 		<ItemTemplate>
 			<li class="mainlink">
