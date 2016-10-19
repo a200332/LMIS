@@ -4,13 +4,35 @@
 	<div style="width: 205px; height: 3px; background-color: #29abe2;"></div>
 
 	<div style="margin: 8px;">
+		<div class="left">
+			<asp:Label runat="server" ID="lblReportTitle" Font-Names="Times New Roman" Font-Size="13px" Font-Bold="True"></asp:Label>
+		</div>
+		<div style="text-align: right;">
+			<table align="right">
+				<tr>
+					<td>
+						<asp:Panel runat="server" ID="pnlGridCommands">
+							<ce:ImageLinkButton runat="server" DefaultImageUrl="~/App_Themes/Default/Images/excel.png" ID="btnExportReport" ToolTip="Excel" />
+						</asp:Panel>
+					</td>
+					<td>
+						<asp:Panel runat="server" ID="pnlChartCommands">
+							<ce:ImageLinkButton runat="server" DefaultImageUrl="~/App_Themes/Default/Images/filter.png" ID="btnCaptions" ToolTip="Series Filter" />
+							<ce:ImageLinkButton runat="server" DefaultImageUrl="~/App_Themes/Default/Images/filter.png" ID="btnXYSeries" ToolTip="Y Filter" />
+							<ce:ImageLinkButton runat="server" DefaultImageUrl="~/App_Themes/Default/Images/chart.png" ID="btnChartTypes" ToolTip="Y Filter" />
+							<ce:ImageLinkButton runat="server" DefaultImageUrl="~/App_Themes/Default/Images/save.png" ID="btnSaveImage" ToolTip="Save Image" />
+							<a href="#" runat="server" id="lnkChartImage" title="Chart">
+								<asp:Image runat="server" ImageUrl="~/App_Themes/Default/Images/chart.png" />
+							</a>
+							<a href="#" runat="server" id="lnkChartGrid" title="Grid">
+								<asp:Image runat="server" ImageUrl="~/App_Themes/Default/Images/grid.png" />
+							</a>
+						</asp:Panel>
+					</td>
+				</tr>
+			</table>
+		</div>
 		<asp:Panel runat="server" ID="pnlGrid">
-			<div class="left">
-				<asp:Label runat="server" ID="lblGridTitle" Font-Names="Times New Roman" Font-Size="13px" Font-Bold="True"></asp:Label>
-			</div>
-			<div style="text-align: right;">
-				<ce:ImageLinkButton runat="server" DefaultImageUrl="~/App_Themes/Default/Images/excel.png" ID="btnGridExport" ToolTip="Excel" OnClick="btnExport_OnClick" />
-			</div>
 			<div>
 				<dx:ASPxGridView runat="server" ID="mainGrid" Width="100%">
 					<Settings ShowHeaderFilterButton="True" ShowGroupPanel="False" />
@@ -25,38 +47,12 @@
 			</div>
 		</asp:Panel>
 		<asp:Panel runat="server" ID="pnlChart">
-			<div class="left">
-				<asp:Label runat="server" ID="lblChartTitle" Font-Names="Times New Roman" Font-Size="13px" Font-Bold="True"></asp:Label>
-			</div>
-			<div style="text-align: right;">
-				<ce:ImageLinkButton runat="server" DefaultImageUrl="~/App_Themes/Default/Images/filter.png" ID="btnCaptions" ToolTip="Series Filter" />
-				<ce:ImageLinkButton runat="server" DefaultImageUrl="~/App_Themes/Default/Images/filter.png" ID="btnXYSeries" ToolTip="Y Filter" />
-				<ce:ImageLinkButton runat="server" DefaultImageUrl="~/App_Themes/Default/Images/filter.png" ID="btnChartTypes" ToolTip="Y Filter" />
-				<ce:ImageLinkButton runat="server" DefaultImageUrl="~/App_Themes/Default/Images/save.png" ID="btnSaveImage" ToolTip="Save Image" />
-				<ce:ImageLinkButton runat="server" DefaultImageUrl="~/App_Themes/Default/Images/excel.png" ID="btnChartExport" ToolTip="Excel" OnClick="btnExport_OnClick" />
-				<a href="#" runat="server" id="lnkChartImage" title="Chart">
-					<asp:Image runat="server" ImageUrl="~/App_Themes/Default/Images/chart.png" />
-				</a>
-				<a href="#" runat="server" id="lnkChartGrid" title="Grid">
-					<asp:Image runat="server" ImageUrl="~/App_Themes/Default/Images/grid.png" />
-				</a>
-			</div>
 			<div class="clear"></div>
 			<div>
 				<div runat="server" id="dvChartImage" style="display: block;">
 					<asp:Chart ID="mainChart" runat="server" Width="710" Height="350" IsMapEnabled="True">
-						<%--<Titles>
-							<asp:Title Name="Default" Text="" TextStyle="Shadow" Font="Times New Roman, 15pt" Docking="Top">
-							</asp:Title>
-							<asp:Title Name="Left" Text="1" Font="Times New Roman, 10pt" Docking="Left">
-							</asp:Title>
-							<asp:Title Name="Bottom" Text="2" Font="Times New Roman, 10pt" Docking="Bottom">
-							</asp:Title>
-						</Titles>--%>
-
 						<Series>
 						</Series>
-
 						<ChartAreas>
 							<asp:ChartArea Name="MainChartArea">
 								<AxisX Interval="1" LabelAutoFitStyle="WordWrap" IsMarginVisible="False">
@@ -67,7 +63,6 @@
 								</AxisY>
 							</asp:ChartArea>
 						</ChartAreas>
-
 						<Legends>
 							<asp:Legend Name="Default" Docking="Bottom" TableStyle="Wide" LegendStyle="Table" TitleAlignment="Near" />
 						</Legends>
@@ -88,109 +83,6 @@
 						</Styles>
 					</dx:ASPxGridView>
 				</div>
-			</div>
-			<div>
-				<act:ModalPopupExtender runat="server" ID="mpeCaptions" TargetControlID="btnCaptions"
-					Enabled="true" BackgroundCssClass="modalBackground" PopupControlID="pnlCaptions"
-					CancelControlID="btnCaptionClose" />
-				<asp:Panel runat="server" ID="pnlCaptions">
-					<div class="popup">
-						<div class="popup_fieldset">
-							<div class="popup-title">Filter</div>
-							<div class="title_separator"></div>
-							<div class="box">
-								<asp:CheckBoxList runat="server" ID="lstCaptions" />
-							</div>
-						</div>
-						<div class="fieldsetforicons">
-							<div class="left" style="padding-right: 10px;">
-								<ce:ImageLinkButton runat="server" DefaultImageUrl="~/App_Themes/Default/Images/save.png" ID="btnCaptionOK" ToolTip="დამატება" />
-							</div>
-							<div class="left">
-								<ce:ImageLinkButton runat="server" DefaultImageUrl="~/App_Themes/Default/Images/close.png" ID="btnCaptionClose" ToolTip="დახურვა" />
-							</div>
-						</div>
-					</div>
-				</asp:Panel>
-			</div>
-			<div>
-				<act:ModalPopupExtender runat="server" ID="mpeXYSeries" TargetControlID="btnXYSeries"
-					Enabled="true" BackgroundCssClass="modalBackground" PopupControlID="pnlXYSeries"
-					CancelControlID="btnXYSeriesClose" />
-				<asp:Panel runat="server" ID="pnlXYSeries">
-					<div class="popup">
-						<div class="popup_fieldset">
-							<div class="popup-title">Filter</div>
-							<div class="title_separator"></div>
-							<div class="box">
-								<asp:CheckBoxList runat="server" ID="lstXYSeries" />
-							</div>
-						</div>
-						<div class="fieldsetforicons">
-							<div class="left" style="padding-right: 10px;">
-								<ce:ImageLinkButton runat="server" DefaultImageUrl="~/App_Themes/Default/Images/save.png" ID="btnXYSeriesOK" ToolTip="დამატება" />
-							</div>
-							<div class="left">
-								<ce:ImageLinkButton runat="server" DefaultImageUrl="~/App_Themes/Default/Images/close.png" ID="btnXYSeriesClose" ToolTip="დახურვა" />
-							</div>
-						</div>
-					</div>
-				</asp:Panel>
-			</div>
-			<div>
-				<act:ModalPopupExtender runat="server" ID="mpeChartTypes" TargetControlID="btnChartTypes"
-					Enabled="true" BackgroundCssClass="modalBackground" PopupControlID="pnlChartTypes"
-					CancelControlID="btnChartTypesClose" />
-				<asp:Panel runat="server" ID="pnlChartTypes">
-					<div class="popup">
-						<div class="popup_fieldset">
-							<div class="popup-title">Filter</div>
-							<div class="title_separator"></div>
-							<div class="box">
-								<asp:RadioButtonList runat="server" ID="lstChartTypes" >
-									<Items>
-										<asp:ListItem Text="Line" Value="Line" />
-										<asp:ListItem Text="Point" Value="Point" />
-										<asp:ListItem Text="FastPoint" Value="FastPoint" />
-										<asp:ListItem Text="Spline" Value="Spline" />
-										<asp:ListItem Text="StepLine" Value="StepLine" />
-										<asp:ListItem Text="FastLine" Value="FastLine" />
-										<asp:ListItem Text="Bar" Value="Bar" />
-										<asp:ListItem Text="StackedBar" Value="StackedBar" />
-										<asp:ListItem Text="StackedBar100" Value="StackedBar100" />
-										<asp:ListItem Text="Column" Value="Column" />
-										<asp:ListItem Text="StackedColumn" Value="StackedColumn" />
-										<asp:ListItem Text="StackedColumn100" Value="StackedColumn100" />
-										<asp:ListItem Text="Area" Value="Area" />
-										<asp:ListItem Text="SplineArea" Value="SplineArea" />
-										<asp:ListItem Text="StackedArea" Value="StackedArea" />
-										<asp:ListItem Text="StackedArea100" Value="StackedArea100" />
-										<asp:ListItem Text="Pie" Value="Pie" />
-										<asp:ListItem Text="Doughnut" Value="Doughnut" />
-										<asp:ListItem Text="Stock" Value="Stock" />
-										<asp:ListItem Text="Candlestick" Value="Candlestick" />
-										<asp:ListItem Text="Range" Value="Range" />
-										<asp:ListItem Text="SplineRange" Value="SplineRange" />
-										<asp:ListItem Text="RangeBar" Value="RangeBar" />
-										<asp:ListItem Text="RangeColumn" Value="RangeColumn" />
-										<asp:ListItem Text="Radar" Value="Radar" />
-										<asp:ListItem Text="Polar" Value="Polar" />
-										<asp:ListItem Text="ErrorBar" Value="ErrorBar" />
-										<asp:ListItem Text="BoxPlot" Value="BoxPlot" />
-									</Items>
-								</asp:RadioButtonList>
-							</div>
-						</div>
-						<div class="fieldsetforicons">
-							<div class="left" style="padding-right: 10px;">
-								<ce:ImageLinkButton runat="server" DefaultImageUrl="~/App_Themes/Default/Images/save.png" ID="btnChartTypesOK" ToolTip="დამატება" />
-							</div>
-							<div class="left">
-								<ce:ImageLinkButton runat="server" DefaultImageUrl="~/App_Themes/Default/Images/close.png" ID="btnChartTypesClose" ToolTip="დახურვა" />
-							</div>
-						</div>
-					</div>
-				</asp:Panel>
 			</div>
 		</asp:Panel>
 		<div style="margin-top: 8px;">
@@ -219,6 +111,140 @@
 					</tr>
 				</table>
 			</div>
+		</div>
+		<div>
+			<act:ModalPopupExtender runat="server" ID="mpeXYSeries" TargetControlID="btnXYSeries"
+				Enabled="true" BackgroundCssClass="modalBackground" PopupControlID="pnlXYSeries"
+				CancelControlID="btnXYSeriesClose" />
+			<asp:Panel runat="server" ID="pnlXYSeries">
+				<div class="popup">
+					<div class="popup_fieldset">
+						<div class="popup-title">Filter</div>
+						<div class="title_separator"></div>
+						<div class="box">
+							<asp:CheckBoxList runat="server" ID="lstXYSeries" />
+						</div>
+					</div>
+					<div class="fieldsetforicons">
+						<div class="left" style="padding-right: 10px;">
+							<ce:ImageLinkButton runat="server" DefaultImageUrl="~/App_Themes/Default/Images/save.png" ID="btnXYSeriesOK" ToolTip="დამატება" />
+						</div>
+						<div class="left">
+							<ce:ImageLinkButton runat="server" DefaultImageUrl="~/App_Themes/Default/Images/close.png" ID="btnXYSeriesClose" ToolTip="დახურვა" />
+						</div>
+					</div>
+				</div>
+			</asp:Panel>
+		</div>
+		<div>
+			<act:ModalPopupExtender runat="server" ID="mpeCaptions" TargetControlID="btnCaptions"
+				Enabled="true" BackgroundCssClass="modalBackground" PopupControlID="pnlCaptions"
+				CancelControlID="btnCaptionClose" />
+			<asp:Panel runat="server" ID="pnlCaptions">
+				<div class="popup">
+					<div class="popup_fieldset">
+						<div class="popup-title">Filter</div>
+						<div class="title_separator"></div>
+						<div class="box">
+							<asp:CheckBoxList runat="server" ID="lstCaptions" />
+						</div>
+					</div>
+					<div class="fieldsetforicons">
+						<div class="left" style="padding-right: 10px;">
+							<ce:ImageLinkButton runat="server" DefaultImageUrl="~/App_Themes/Default/Images/save.png" ID="btnCaptionOK" ToolTip="დამატება" />
+						</div>
+						<div class="left">
+							<ce:ImageLinkButton runat="server" DefaultImageUrl="~/App_Themes/Default/Images/close.png" ID="btnCaptionClose" ToolTip="დახურვა" />
+						</div>
+					</div>
+				</div>
+			</asp:Panel>
+		</div>
+		<div>
+			<act:ModalPopupExtender runat="server" ID="mpeExportReport" TargetControlID="btnExportReport"
+				Enabled="true" BackgroundCssClass="modalBackground" PopupControlID="pnlExportReport"
+				CancelControlID="btnExportReportClose" />
+			<asp:Panel runat="server" ID="pnlExportReport">
+				<div class="popup">
+					<div class="popup_fieldset">
+						<div class="popup-title">Filter</div>
+						<div class="title_separator"></div>
+						<div class="box">
+							<asp:RadioButtonList runat="server" ID="lstFileTypes">
+								<Items>
+									<asp:ListItem Text="Excel" Value="Excel" />
+									<asp:ListItem Text="CSV" Value="CSV" />
+									<asp:ListItem Text="PDF" Value="PDF" />
+									<asp:ListItem Text="Image" Value="Image" />
+								</Items>
+							</asp:RadioButtonList>
+						</div>
+					</div>
+					<div class="fieldsetforicons">
+						<div class="left" style="padding-right: 10px;">
+							<ce:ImageLinkButton runat="server" DefaultImageUrl="~/App_Themes/Default/Images/save.png" ID="btnExportReportOK" ToolTip="დამატება" OnClick="btnExportReportOK_OnClick" />
+						</div>
+						<div class="left">
+							<ce:ImageLinkButton runat="server" DefaultImageUrl="~/App_Themes/Default/Images/close.png" ID="btnExportReportClose" ToolTip="დახურვა" />
+						</div>
+					</div>
+				</div>
+			</asp:Panel>
+		</div>
+		<div>
+			<act:ModalPopupExtender runat="server" ID="mpeChartTypes" TargetControlID="btnChartTypes"
+				Enabled="true" BackgroundCssClass="modalBackground" PopupControlID="pnlChartTypes"
+				CancelControlID="btnChartTypesClose" />
+			<asp:Panel runat="server" ID="pnlChartTypes">
+				<div class="popup">
+					<div class="popup_fieldset">
+						<div class="popup-title">Filter</div>
+						<div class="title_separator"></div>
+						<div class="box">
+							<asp:RadioButtonList runat="server" ID="lstChartTypes">
+								<Items>
+									<asp:ListItem Text="Line" Value="Line" />
+									<asp:ListItem Text="Point" Value="Point" />
+									<asp:ListItem Text="FastPoint" Value="FastPoint" />
+									<asp:ListItem Text="Spline" Value="Spline" />
+									<asp:ListItem Text="StepLine" Value="StepLine" />
+									<asp:ListItem Text="FastLine" Value="FastLine" />
+									<asp:ListItem Text="Bar" Value="Bar" />
+									<asp:ListItem Text="StackedBar" Value="StackedBar" />
+									<asp:ListItem Text="StackedBar100" Value="StackedBar100" />
+									<asp:ListItem Text="Column" Value="Column" />
+									<asp:ListItem Text="StackedColumn" Value="StackedColumn" />
+									<asp:ListItem Text="StackedColumn100" Value="StackedColumn100" />
+									<asp:ListItem Text="Area" Value="Area" />
+									<asp:ListItem Text="SplineArea" Value="SplineArea" />
+									<asp:ListItem Text="StackedArea" Value="StackedArea" />
+									<asp:ListItem Text="StackedArea100" Value="StackedArea100" />
+									<asp:ListItem Text="Pie" Value="Pie" />
+									<asp:ListItem Text="Doughnut" Value="Doughnut" />
+									<asp:ListItem Text="Stock" Value="Stock" />
+									<asp:ListItem Text="Candlestick" Value="Candlestick" />
+									<asp:ListItem Text="Range" Value="Range" />
+									<asp:ListItem Text="SplineRange" Value="SplineRange" />
+									<asp:ListItem Text="RangeBar" Value="RangeBar" />
+									<asp:ListItem Text="RangeColumn" Value="RangeColumn" />
+									<asp:ListItem Text="Radar" Value="Radar" />
+									<asp:ListItem Text="Polar" Value="Polar" />
+									<asp:ListItem Text="ErrorBar" Value="ErrorBar" />
+									<asp:ListItem Text="BoxPlot" Value="BoxPlot" />
+								</Items>
+							</asp:RadioButtonList>
+						</div>
+					</div>
+					<div class="fieldsetforicons">
+						<div class="left" style="padding-right: 10px;">
+							<ce:ImageLinkButton runat="server" DefaultImageUrl="~/App_Themes/Default/Images/save.png" ID="btnChartTypesOK" ToolTip="დამატება" />
+						</div>
+						<div class="left">
+							<ce:ImageLinkButton runat="server" DefaultImageUrl="~/App_Themes/Default/Images/close.png" ID="btnChartTypesClose" ToolTip="დახურვა" />
+						</div>
+					</div>
+				</div>
+			</asp:Panel>
 		</div>
 	</div>
 </div>

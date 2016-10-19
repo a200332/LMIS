@@ -5,6 +5,8 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using CITI.EVO.Tools.Extensions;
+using DevExpress.XtraRichEdit.Commands;
 using ICSharpCode.SharpZipLib.Zip;
 using NPOI.SS.UserModel;
 using NPOI.XSSF.UserModel;
@@ -13,6 +15,38 @@ namespace CITI.EVO.Tools.Utils
 {
 	public static class ExcelUtil
 	{
+		public static byte[] ConvertToCSV(DataTable dataTable)
+		{
+			return ConvertToCSV(dataTable, ",");
+		}
+		public static byte[] ConvertToCSV(DataTable dataTable, String delimiter)
+		{
+			using (var stream = new MemoryStream())
+			{
+				using (var writer = new StreamWriter(stream, Encoding.UTF8))
+				{
+					var colQuery = (from DataColumn col in dataTable.Columns
+								 let v = String.Format("\"{0}\"", col.ColumnName)
+								 select v);
+
+					var colLine = String.Join(delimiter, colQuery);
+					writer.WriteLine(colLine);
+
+					foreach (DataRow dataRow in dataTable.Rows)
+					{
+						var query = (from DataColumn col in dataTable.Columns
+									 let v = String.Format("\"{0}\"", dataRow[col])
+									 select v);
+
+						var line = String.Join(delimiter, query);
+						writer.WriteLine(line);
+					}
+				}
+
+				return stream.ToArray();
+			}
+		}
+
 		public static byte[] ConvertToExcel(DataSet dataSet)
 		{
 			ZipConstants.DefaultCodePage = Encoding.UTF8.CodePage;
@@ -27,15 +61,37 @@ namespace CITI.EVO.Tools.Utils
 			}
 		}
 
+		public static byte[] ConvertToExcel(DataTable dataTable)
+		{
+			ZipConstants.DefaultCodePage = Encoding.UTF8.CodePage;
+
+			using (var stream = new MemoryStream())
+			{
+				var workbook = new XSSFWorkbook();
+				FillWorkbook(workbook, dataTable);
+				workbook.Write(stream);
+
+				return stream.ToArray();
+			}
+		}
+
 		public static void FillWorkbook(IWorkbook workbook, DataSet dataSet)
 		{
 			foreach (DataTable dataTable in dataSet.Tables)
 			{
-				var name = String.Format("#{0}", dataTable.TableName);
+				var name = GetCleanText(String.Format("#{0}", dataTable.TableName));
 				var sheet = workbook.CreateSheet(name);
 
 				FillSheet(sheet, dataTable);
 			}
+		}
+
+		public static void FillWorkbook(IWorkbook workbook, DataTable dataTable)
+		{
+			var name = GetCleanText(String.Format("#{0}", dataTable.TableName));
+			var sheet = workbook.CreateSheet(name);
+
+			FillSheet(sheet, dataTable);
 		}
 
 		public static void FillSheet(ISheet sheet, DataTable dataTable)
@@ -47,12 +103,12 @@ namespace CITI.EVO.Tools.Utils
 			foreach (DataColumn dataColumn in dataTable.Columns)
 			{
 				var index = columns.Count;
-				var name = String.Format("#{0}", dataColumn.ColumnName);
+				var name = GetCleanText(String.Format("#{0}", dataColumn.ColumnName));
 
 				var cell = headerRow.CreateCell(index);
 				cell.SetCellValue(name);
 
-				columns.Add(name, index);
+				columns.Add(dataColumn.ColumnName, index);
 			}
 
 			foreach (DataRow dataRow in dataTable.Rows)
@@ -61,7 +117,7 @@ namespace CITI.EVO.Tools.Utils
 
 				foreach (var pair in columns)
 				{
-					var value = Convert.ToString(dataRow[pair.Key]);
+					var value = GetCleanText(dataRow[pair.Key]);
 
 					var cell = excelRow.CreateCell(pair.Value);
 					cell.SetCellValue(value);
@@ -158,6 +214,18 @@ namespace CITI.EVO.Tools.Utils
 				var workbook = new XSSFWorkbook(stream);
 				return workbook;
 			}
+		}
+
+		private static String GetCleanText(Object value)
+		{
+			var strValue = Convert.ToString(value);
+			if (String.IsNullOrEmpty(strValue))
+			{
+				return String.Empty;
+			}
+
+			strValue = strValue.Trim('\0');
+			return strValue.TrimLen(255);
 		}
 
 		public static String GetCellValue(IRow row, int columnIndex)

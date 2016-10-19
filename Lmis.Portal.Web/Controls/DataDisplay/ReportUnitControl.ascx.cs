@@ -12,7 +12,14 @@ using System.Web.UI.WebControls;
 using DevExpress.Web;
 using Lmis.Portal.Web.Entites;
 using System.Data;
+using System.Drawing;
+using System.IO;
+using System.Net.Mime;
 using CITI.EVO.Tools.Utils;
+using iTextSharp.text;
+using iTextSharp.text.pdf;
+using Font = System.Drawing.Font;
+using ListItem = System.Web.UI.WebControls.ListItem;
 
 namespace Lmis.Portal.Web.Controls.DataDisplay
 {
@@ -20,6 +27,11 @@ namespace Lmis.Portal.Web.Controls.DataDisplay
 	{
 		protected void Page_Load(object sender, EventArgs e)
 		{
+			var eventTarget = Request.Form["__EVENTTARGET"];
+			if (eventTarget == btnExportReportOK.ClientID)
+			{
+				btnExportReportOK_OnClick(sender, e);
+			}
 		}
 
 		protected void Page_PreRender(object sender, EventArgs e)
@@ -38,9 +50,218 @@ namespace Lmis.Portal.Web.Controls.DataDisplay
 
 		}
 
-		protected void btnExport_OnClick(object sender, EventArgs e)
+		protected void btnExportReportOK_OnClick(object sender, EventArgs e)
 		{
+			var targetType = GetExportTargetType();
 
+			if (pnlGrid.Visible)
+			{
+				if (targetType == "PDF" || targetType == "Image")
+					return;
+
+				var dataSource = mainGrid.DataSource as DataTable;
+				if (dataSource == null)
+					return;
+
+				var fileName = GetDownloadFileName(targetType);
+				var reportBytes = GetReportGridBytes(targetType, dataSource);
+
+				SendDownloadFile(fileName, reportBytes);
+			}
+			else if (pnlChart.Visible)
+			{
+				if (targetType == "PDF" || targetType == "Image")
+				{
+					var fileName = GetDownloadFileName(targetType);
+					var reportBytes = GetReportChartBytes(targetType);
+
+					SendDownloadFile(fileName, reportBytes);
+				}
+				else
+				{
+					var dataSource = chartGrid.DataSource as DataTable;
+					if (dataSource == null)
+						return;
+
+					var fileName = GetDownloadFileName(targetType);
+					var reportBytes = GetReportGridBytes(targetType, dataSource);
+
+					SendDownloadFile(fileName, reportBytes);
+				}
+			}
+		}
+
+		protected void SendDownloadFile(String fielName, byte[] bytes)
+		{
+			var disposition = new ContentDisposition
+			{
+				Inline = true,
+				FileName = fielName
+			};
+
+			Response.Clear();
+			Response.Buffer = true;
+			Response.ContentType = "application/octet-stream";
+			Response.AddHeader("Content-Disposition", disposition.ToString());
+
+			Response.BinaryWrite(bytes);
+			Response.End();
+		}
+
+		protected String GetDownloadFileName(String targetType)
+		{
+			if (targetType == "Excel")
+				return String.Format("report_{0:dd.MM.yyyy}.xlsx", DateTime.Now);
+
+			if (targetType == "CSV")
+				return String.Format("report_{0:dd.MM.yyyy}.csv", DateTime.Now);
+
+			if (targetType == "PDF")
+				return String.Format("report_{0:dd.MM.yyyy}.pdf", DateTime.Now);
+
+			if (targetType == "Image")
+				return String.Format("report_{0:dd.MM.yyyy}.png", DateTime.Now);
+
+			throw new Exception();
+		}
+
+		protected byte[] GetReportChartBytes(String targetType)
+		{
+			if (targetType == "PDF")
+			{
+				using (var stream = new MemoryStream())
+				{
+
+					var image = GetPdfImage();
+					var table = GetPdfGrid();
+
+					var pdfDoc = new iTextSharp.text.Document();
+					var writer = iTextSharp.text.pdf.PdfWriter.GetInstance(pdfDoc, stream);
+
+					var fitWidth = pdfDoc.PageSize.Width - (pdfDoc.LeftMargin + pdfDoc.RightMargin);
+					var fitHeight = pdfDoc.PageSize.Height - (pdfDoc.TopMargin + pdfDoc.BottomMargin);
+
+					image.ScaleToFit(fitWidth, fitHeight);
+
+					pdfDoc.Open();
+
+					pdfDoc.Add(image);
+					pdfDoc.Add(table);
+
+					pdfDoc.Close();
+
+					return stream.ToArray();
+				}
+			}
+
+			if (targetType == "Image")
+			{
+				using (var stream = new MemoryStream())
+				{
+					mainChart.SaveImage(stream, ChartImageFormat.Png);
+					return stream.ToArray();
+				}
+			}
+
+			return null;
+		}
+
+		protected iTextSharp.text.Image GetPdfImage()
+		{
+			using (var imgStream = new MemoryStream())
+			{
+				mainChart.SaveImage(imgStream, ChartImageFormat.Png);
+				imgStream.Seek(0, SeekOrigin.Begin);
+
+				var image = iTextSharp.text.Image.GetInstance(imgStream);
+				return image;
+			}
+		}
+
+		protected PdfPTable GetPdfGrid()
+		{
+			var pdfFont = FontFactory.GetFont("Segoe UI", BaseFont.IDENTITY_H, BaseFont.EMBEDDED, 11F);
+			var localFont = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
+
+			var dataSource = mainGrid.DataSource as DataTable;
+			if (dataSource == null)
+			{
+				dataSource = chartGrid.DataSource as DataTable;
+				if (dataSource == null)
+					return null;
+			}
+
+			var widths = new List<int>();
+			var table = new PdfPTable(dataSource.Columns.Count);
+
+			foreach (DataColumn dataColumn in dataSource.Columns)
+			{
+				var maxWidth = (from n in dataSource.AsEnumerable()
+								let t = n[dataColumn]
+								let w = GetTextWidth(t, localFont)
+								select w).Max() + 1;
+
+				widths.Add(maxWidth);
+
+				var text = Server.HtmlDecode(dataColumn.ColumnName);
+				var cell = new PdfPCell(new iTextSharp.text.Phrase(12, text, pdfFont))
+				{
+					BackgroundColor = new iTextSharp.text.BaseColor(Color.Gainsboro)
+				};
+
+				table.AddCell(cell);
+			}
+
+			table.SetWidths(widths.ToArray());
+
+			foreach (DataRow dataRow in dataSource.Rows)
+			{
+				foreach (DataColumn dataColumn in dataSource.Columns)
+				{
+					var value = Convert.ToString(dataRow[dataColumn]);
+					var text = Server.HtmlDecode(value);
+					var cell = new PdfPCell(new iTextSharp.text.Phrase(12, text, pdfFont));
+
+					table.AddCell(cell);
+				}
+			}
+
+
+			return table;
+		}
+
+		private int GetTextWidth(Object value, Font font)
+		{
+			var text = Convert.ToString(value);
+			if (String.IsNullOrWhiteSpace(text))
+				return 1;
+
+			using (var bmp = new Bitmap(1, 1))
+			{
+				using (var graphics = Graphics.FromImage(bmp))
+				{
+					var size = graphics.MeasureString(text, font);
+					return (int)size.Width;
+				}
+			}
+		}
+
+		protected byte[] GetReportGridBytes(String targetType, DataTable dataSource)
+		{
+			if (targetType == "Excel")
+			{
+				if (String.IsNullOrWhiteSpace(dataSource.TableName))
+					dataSource.TableName = "Sheet 1";
+
+				return ExcelUtil.ConvertToExcel(dataSource);
+			}
+
+			if (targetType == "CSV")
+			{
+				return ExcelUtil.ConvertToCSV(dataSource);
+			}
+
+			return null;
 		}
 
 		protected override void OnSetModel(object model, Type type)
@@ -65,8 +286,9 @@ namespace Lmis.Portal.Web.Controls.DataDisplay
 
 			if (unitModel.Type == "Grid")
 			{
-				pnlChart.Visible = false;
 				pnlGrid.Visible = true;
+				pnlChart.Visible = false;
+				pnlChartCommands.Visible = false;
 
 				var entiry = entities.FirstOrDefault();
 				if (entiry != null)
@@ -74,8 +296,9 @@ namespace Lmis.Portal.Web.Controls.DataDisplay
 			}
 			else
 			{
-				pnlChart.Visible = true;
 				pnlGrid.Visible = false;
+				pnlChart.Visible = true;
+				pnlChartCommands.Visible = true;
 
 				var entiry = entities.FirstOrDefault();
 				if (entiry != null)
@@ -83,9 +306,10 @@ namespace Lmis.Portal.Web.Controls.DataDisplay
 			}
 		}
 
+
 		protected void BindChartData(BindingInfoEntity entity)
 		{
-			lblChartTitle.Text = entity.Name;
+			lblReportTitle.Text = entity.Name;
 
 			var chartType = GetChartType(entity.Type);
 			var sqlDs = CreateDataSource(entity.SqlQuery);
@@ -206,13 +430,14 @@ namespace Lmis.Portal.Web.Controls.DataDisplay
 			}
 		}
 
+
 		protected void BindGridData(BindingInfoEntity entiry)
 		{
 			var sqlDs = CreateDataSource(entiry.SqlQuery);
 
 			mainGrid.Columns.Clear();
 
-			lblGridTitle.Text = entiry.Name;
+			lblReportTitle.Text = entiry.Name;
 
 			var keyFields = entiry.Bindings.Select(n => n.Source);
 			var keyColumns = String.Join(";", keyFields);
@@ -238,6 +463,7 @@ namespace Lmis.Portal.Web.Controls.DataDisplay
 			chartGrid.DataSource = dataTable;
 			chartGrid.DataBind();
 		}
+
 
 		protected DataTable GetGridDataTable(BindingInfoEntity entity, IEnumerable<DataRowView> collection)
 		{
@@ -329,6 +555,7 @@ namespace Lmis.Portal.Web.Controls.DataDisplay
 			return dataTable;
 		}
 
+
 		protected String GetGrouperValue(DataRowView dataRowView, String groupMemper, String xMember)
 		{
 			if (String.IsNullOrWhiteSpace(groupMemper))
@@ -377,6 +604,7 @@ namespace Lmis.Portal.Web.Controls.DataDisplay
 			}
 		}
 
+
 		protected void FillCaptionsList(DataView dataView, String member)
 		{
 			FillFilterListBox(lstCaptions, dataView, member);
@@ -401,6 +629,11 @@ namespace Lmis.Portal.Web.Controls.DataDisplay
 
 			foreach (ListItem listItem in listBox.Items)
 				listItem.Selected = selValues.Contains(listItem.Value);
+		}
+
+		protected String GetExportTargetType()
+		{
+			return Request.Form[lstFileTypes.UniqueID];
 		}
 
 		protected IEnumerable<String> GetSelectedCaptions()
