@@ -170,6 +170,7 @@
     <Compile Include="Security\UmUtil.cs" />
     <Compile Include="Utils\DcFactory.cs" />
     <Compile Include="Utils\ExcelUtil.cs" />
+    <Compile Include="Utils\MimeTypeUtil.cs" />
     <Compile Include="Utils\TranslationUtil.cs" />
     <Compile Include="Utils\LanguageUtil.cs" />
     <Compile Include="Utils\CollectionUtil.cs" />

@@ -25,16 +25,13 @@ public class GetFile : IHttpHandler
         var response = context.Response;
         var server = context.Server;
 
-        response.ContentType = "application/octet-stream";
-
         var itemID = DataConverter.ToNullableGuid(request["ID"]);
         if (itemID == null)
             return;
 
         var fileBytes = (byte[])null;
         var fileName = (String)null;
-
-
+        var mimeType = (String)null;
 
         var itemType = request["Type"];
 
@@ -53,6 +50,7 @@ public class GetFile : IHttpHandler
                                 fileName = item.FileName;
 
                             fileBytes = item.FileData.ToArray();
+                            mimeType = MimeTypeUtil.GetMimeType(item.FileName);
                         }
                     }
                     break;
@@ -67,6 +65,7 @@ public class GetFile : IHttpHandler
                                 fileName = item.FileName;
 
                             fileBytes = item.FileData.ToArray();
+                            mimeType = MimeTypeUtil.GetMimeType(item.FileName);
                         }
                     }
                     break;
@@ -81,6 +80,7 @@ public class GetFile : IHttpHandler
                                 fileName = item.FileName;
 
                             fileBytes = item.FileData.ToArray();
+                            mimeType = MimeTypeUtil.GetMimeType(item.FileName);
                         }
                     }
                     break;
@@ -95,6 +95,7 @@ public class GetFile : IHttpHandler
                 FileName = HttpUtility.UrlEncode(fileName, Encoding.UTF8)
             };
 
+            response.ContentType = mimeType;
             response.Headers["Content-Disposition"] = disposition.ToString();
             response.BinaryWrite(fileBytes);
         }
