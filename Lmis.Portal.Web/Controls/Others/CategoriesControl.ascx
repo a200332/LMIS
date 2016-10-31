@@ -15,6 +15,8 @@
 					</div>
 				</DataCellTemplate>
 			</dx:TreeListDataColumn>
+			<dx:TreeListDataColumn FieldName="Number" Name="Number" Caption="Number">
+			</dx:TreeListDataColumn>
 			<dx:TreeListDataColumn FieldName="Name" Name="Name" Caption="Name">
 			</dx:TreeListDataColumn>
 		</Columns>

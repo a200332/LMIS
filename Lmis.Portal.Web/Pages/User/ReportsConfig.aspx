@@ -8,18 +8,14 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
 
     <div style="border-left: 1px solid #e5e5e5; display: table;">
-        <div style="width: 3px; height: 35px; background-color: #29abe2; float: left;"></div>
+
         <div class="left" style="width: 256px;">
-            <div class="align-left config-txt" >
-                <div class="left config-icons" >
+            <div class="align-left config-txt">
+                <div class="left config-icons">
+                    <ce:ImageLinkButton runat="server" ID="btnConfiguration" DefaultImageUrl="../../App_Themes/Default/images/data-config.png" NavigateUrl="~/Pages/User/ReportsConfig.aspx" />
                     <ce:ImageLinkButton runat="server" DefaultImageUrl="~/App_Themes/Default/Images/add.png" ID="btnReports" ToolTip="დამატება" OnClick="btnReports_OnClick" />
                     <ce:ImageLinkButton runat="server" DefaultImageUrl="~/App_Themes/Default/Images/copy.png" ID="btnClone" ToolTip="კოპირება" NavigateUrl="~/Pages/User/ReportsClone.aspx" />
                 </div>
-                <div class="left" >
-                    <ce:ImageLinkButton runat="server" ID="btnConfiguration" Text="Configuration" NavigateUrl="~/Pages/User/ReportsConfig.aspx" />
-                </div>
-
-
             </div>
             <div class="clear"></div>
             <div>
@@ -27,7 +23,6 @@
             </div>
         </div>
         <div class="left" style="width: 740px;">
-
             <div>
                 <lmis:ReportUnitsControl runat="server" ID="reportUnitsControl" />
             </div>
@@ -41,7 +36,7 @@
         <asp:Panel runat="server" ID="pnlReports">
             <div class="popup">
                 <div class="popup_fieldset">
-                    <div class="popup-title">Video</div>
+                    <div class="popup-title"><ce:Label runat="server">Choose</ce:Label></div>
                     <div class="title_separator"></div>
                     <div class="box">
                         <asp:TreeView runat="server" ID="tvReports">

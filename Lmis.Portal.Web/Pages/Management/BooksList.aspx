@@ -22,7 +22,7 @@
   
                 <div class="popup_fieldset">
 
-                    <div class="popup-title">EBook</div>
+                    <div class="popup-title"><ce:Label runat="server">Choose</ce:Label></div>
                     <div class="title_separator"></div>
                     <div class="box">
                         <lmis:EBookControl runat="server" ID="eBookControl" />

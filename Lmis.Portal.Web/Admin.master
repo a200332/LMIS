@@ -156,6 +156,15 @@
                         <li>
                             <asp:HyperLink runat="server" CssClass="mcolor" NavigateUrl="~/Pages/Management/BooksList.aspx"><ce:Label runat="server">eBooks</ce:Label></asp:HyperLink>
                         </li>
+                        <li>
+                            <asp:HyperLink runat="server" CssClass="mcolor" NavigateUrl="~/Pages/Management/LegislationsList.aspx"><ce:Label runat="server">Legislations</ce:Label></asp:HyperLink>
+                        </li>
+                        <li>
+                            <asp:HyperLink runat="server" CssClass="mcolor" NavigateUrl="~/Pages/Management/ProjectsList.aspx"><ce:Label runat="server">Projects</ce:Label></asp:HyperLink>
+                        </li>
+                        <li>
+                            <asp:HyperLink runat="server" CssClass="mcolor" NavigateUrl="~/Pages/Management/SurveysList.aspx"><ce:Label runat="server">Surveys</ce:Label></asp:HyperLink>
+                        </li>
                     </ul>
                 </div>
 

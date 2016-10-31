@@ -21,7 +21,7 @@
 		<asp:Panel runat="server" ID="pnlAddEdit">
 			<div class="popup">
 				<div class="popup_fieldset">
-					<div class="popup-title">Video</div>
+					<div class="popup-title"><ce:Label runat="server">Link</ce:Label></div>
 					<div class="title_separator"></div>
 					<div class="box">
 						<lmis:MainLinkControl runat="server" ID="mainLinkControl" Visible="False" />

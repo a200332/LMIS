@@ -22,7 +22,7 @@
   
                 <div class="popup_fieldset">
 
-                    <div class="popup-title">Video</div>
+                    <div class="popup-title"><ce:Label runat="server">Video</ce:Label></div>
                     <div class="title_separator"></div>
                     <div class="box">
                         <lmis:VideoControl runat="server" ID="videoControl" />

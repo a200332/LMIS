@@ -5,26 +5,35 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
-	<link href="App_Themes/Default/slide.css" rel="stylesheet" />
+    <link href="App_Themes/Default/slide.css" rel="stylesheet" />
 
-	<lmis:VideosControl ID="videosControl" runat="server" />
+    <lmis:VideosControl ID="videosControl" runat="server" />
 
-	<a href="Pages/User/eBooks.aspx" target="_blank">
-		<div class="left e-book">
-		</div>
-	</a>
-	<div class="right-menu">
-		<ul>
-			<li class="vertical-center right-menu-padding rm-search"><a href="#">
-				<ce:Label runat="server">Job Finder</ce:Label></a></li>
-			<li class="vertical-center right-menu-padding rm-profile"><a href="#">
-				<ce:Label runat="server">Create  Profile</ce:Label></a></li>
-			<li class="vertical-center right-menu-padding rm-postjob"><a href="#">
-				<ce:Label runat="server">Post the job</ce:Label></a></li>
-			<li class="last vertical-center right-menu-padding rm-rate"><a href="#">
-				<ce:Label runat="server">Rate the website</ce:Label></a></li>
-		</ul>
-		<%--<img src="App_Themes/Default/images/left-article.png" />--%>
-	</div>
+    <a href="Pages/User/eBooks.aspx" target="_blank">
+        <div class="left e-book">
+            <ce:Label CssClass="e-book-l" runat="server" >E-BOOK</ce:Label>
+        </div>
+    </a>
+    <div class="right-menu">
+        <ul>
+            <a href="http://worknet.gov.ge" target="_blank">
+                <li class="vertical-center right-menu-padding rm-search">
+                    <ce:Label runat="server">Job Finder</ce:Label></li>
+            </a>
+            <a href="#">
+                <li class="vertical-center right-menu-padding rm-profile">
+                    <ce:Label runat="server">Create  Profile</ce:Label></li>
+            </a>
+            <a href="#">
+                <li class="vertical-center right-menu-padding rm-postjob">
+                    <ce:Label runat="server">Post the job</ce:Label></li>
+            </a>
+            <a href="#">
+                <li class="last vertical-center right-menu-padding rm-rate">
+                    <ce:Label runat="server">Rate the website</ce:Label></li>
+            </a>
+        </ul>
+        <%--<img src="App_Themes/Default/images/left-article.png" />--%>
+    </div>
 </asp:Content>
 

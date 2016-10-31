@@ -31,7 +31,7 @@
     <asp:Panel runat="server" ID="pnlExpression">
         <div class="popup">
             <div class="popup_fieldset">
-                <div class="popup-title"><ce:Label runat="server">Report Logic</ce:Label></div>
+                <div class="popup-title"><ce:Label runat="server">Expression</ce:Label></div>
                 <div class="title_separator"></div>
                 <div class="box">
                     <local:NamedExpressionControl runat="server" ID="namedExpressionControl" />

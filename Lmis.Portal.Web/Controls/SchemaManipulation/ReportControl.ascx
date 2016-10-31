@@ -5,7 +5,6 @@
 <%@ Register Src="~/Controls/SchemaManipulation/ReportLogicsControl.ascx" TagPrefix="lmis" TagName="ReportLogicsControl" %>
 
 <lmis:HiddenFieldValueControl runat="server" ID="hdID" Property="ReportModel.ID" />
-<lmis:HiddenFieldValueControl runat="server" ID="hdCategoryID" Property="ReportModel.CategoryID" />
 <div class="box">
 	<ul>
 		<li>
@@ -14,7 +13,7 @@
 			<asp:CheckBox runat="server" ID="chkPublic" Width="180" Property="ReportModel.Public" />
 		</li>
 	</ul>
-	<ul>
+	<ul style="display: none;">
 		<li>
 			<ce:Label runat="server">Language</ce:Label></li>
 		<li>
@@ -32,7 +31,7 @@
 		<li>
 			<ce:Label runat="server">Category</ce:Label></li>
 		<li>
-			<dx:ASPxComboBox runat="server" ID="cbxCategory" Enabled="False" Width="180" Property="ReportModel.CategoryID" ValueType="System.Guid" ValueField="ID" TextField="Name" />
+			<dx:ASPxComboBox runat="server" ID="cbxCategory" Width="180" Property="ReportModel.CategoryID" ValueType="System.Guid" ValueField="ID" TextField="Name" />
 		</li>
 	</ul>
 	<ul style="min-height: 25px; display: table; margin-bottom: 8px; height: auto;">
@@ -88,7 +87,7 @@
 	<asp:Panel runat="server" ID="pnlAddEditReportLogic">
 		<div class="popup">
 		   <div class="popup_fieldset">
-                <div class="popup-title"><ce:Label runat="server">Report Logic</ce:Label></div>
+                <div class="popup-title"><ce:Label runat="server">Choose</ce:Label></div>
                 <div class="title_separator"></div>
                 <div class="box">
 					<lmis:ReportLogicControl runat="server" ID="reportLogicControl" OnDataChanged="reportLogicControl_OnDataChanged" />

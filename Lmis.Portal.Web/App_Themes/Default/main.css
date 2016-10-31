@@ -3,7 +3,7 @@
     font-family: 'Header-geo';
 }
 
-:lang(geo) {
+:lang(eng) {
     font-family: MuseoSans, serif;
 }
 
@@ -12,7 +12,9 @@
     src: url('Fonts/dejavu.otf') format('opentype');
     font-weight: normal;
     font-style: normal;
-}@font-face {
+}
+
+@font-face {
     font-family: 'Arial';
     src: url('Fonts/Arial.ttf') format('truetype');
     font-weight: normal;
@@ -422,7 +424,7 @@ ul.menu li span {
     display: block;
     text-transform: uppercase;
     font-family: Header-geo, MuseoSans, serif;
-    padding: 0 4px;
+    padding: 0 6px;
     /*color: #919191;*/
     -webkit-transition: background .25s ease-out, color .25s ease-out;
     transition: background .25s ease-out, color .25s ease-out;
@@ -603,21 +605,21 @@ ul.menu > li.open span {
         height: 87px;
         border-top: 1px solid #eeeeee;
         color: #8a8a8a;
-        font-size: 18px;
+        font-size: 13px;
         font-style: italic;
     }
 
-        .right-menu ul li a {
-            color: #8a8a8a;
-            font-size: 14px;
+    .right-menu a li {
+        color: #8a8a8a;
+        font-size: 13px;
+        font-style: italic;
+    }
+
+        .right-menu a li:hover {
+            color: white;
+            font-size: 13px;
             font-style: italic;
         }
-
-            .right-menu ul li a:hover {
-                color: white;
-                font-size: 14px;
-                font-style: italic;
-            }
 
 .right-menu-padding {
     padding-left: 80px;
@@ -718,6 +720,42 @@ li.rm-search {
         transition: all .25s ease-out;
     }
 
+.e-book-l {
+    text-align: center;
+    padding-top: 290px;
+    color: white;
+    display: block;
+    font-size: 36px;
+    font-weight: 800;
+    text-transform: uppercase;
+    text-shadow: 2px 2px 8px black;
+}
+
+.bn-geot1 {
+    z-index: 5;
+    position: absolute;
+    font-family: Header-geo, MuseoSans, serif;
+    margin-top: -65px;
+    text-align: center;
+    margin-left: 12px;
+    color: white;
+    display: block;
+    font-size: 29px;
+    text-shadow: 2px 2px 8px black;
+}
+
+.bn-geot2 {
+    z-index: 5;
+    position: absolute;
+    font-family: Header-geo, MuseoSans, serif;
+    margin-top: -32px;
+    margin-left: 81px;
+    color: white;
+    display: block;
+    font-size: 22px;
+    text-shadow: 2px 2px 8px black;
+}
+
 .tooltip {
     visibility: hidden;
     display: inline-block;
@@ -756,13 +794,13 @@ li.rm-search {
 
 
 #footer {
-    z-index: 6;
+    /*z-index: 6;
     position: fixed;
-    clear: both;
+    clear: both;*/
     margin-top: 1px;
     color: #444;
     overflow: hidden;
-    height: 68px;
+    /*height: 68px;*/
     background-color: #dddddd;
     right: 0;
     bottom: 0;
@@ -776,9 +814,9 @@ li.rm-search {
 
 
 .copyright {
-    padding-top: 23px;
-    font-size: 12.8px;
-    text-transform: uppercase;
+    padding-top: 20px;
+    font-size: 11.5px;
+    /*text-transform: uppercase;*/
 }
 
 .content {
@@ -823,12 +861,26 @@ li.rm-search {
     z-index: 5;
     position: absolute;
     margin-left: -75px;
-    margin-top: 70px;
-    font-size: 18px;
+    margin-top: 82px;
+    font-size: 14px;
     color: white;
     font-weight: bold;
     text-align: left;
-    width: 160px;
+    width: 150px;
     text-transform: uppercase;
     text-shadow: 2px 2px 8px black;
+}
+
+.data-config {
+   font-style: italic;
+    padding: 0 0 12px 14px;
+   
+}
+.data-config span {
+    padding-left: 10px;
+    vertical-align: top;
+    display: -webkit-inline-box;
+    padding-top: 5px;
+    font-size: 12px;
+   
 }

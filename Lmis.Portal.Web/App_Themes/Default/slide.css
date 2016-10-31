@@ -79,8 +79,15 @@ ul.bxslider {
         }
 
     .bx-wrapper .bx-next {
+        right: 20px;
+        background: url('images/slidecontrols.png') no-repeat -43px -32px;
+        text-shadow: 2px 2px 8px black;
+    }
+
+   .mainlink .bx-wrapper .bx-next {
         left: 50px;
         background: url('images/slidecontrols.png') no-repeat -43px -32px;
+       text-shadow: 2px 2px 8px black;
     }
 
         .bx-wrapper .bx-next:hover,

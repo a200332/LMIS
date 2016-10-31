@@ -14,6 +14,13 @@
 	</tr>
 	<tr>
 		<td>
+			<ce:Label runat="server">Url</ce:Label></td>
+		<td>
+			<asp:TextBox runat="server" ID="tbxUrl" Property="LinkModel.Url"></asp:TextBox>
+		</td>
+	</tr>
+	<tr>
+		<td>
 			<ce:Label runat="server">Image</ce:Label></td>
 		<td>
 			<asp:FileUpload runat="server" ID="fuImage" Property="LinkModel.Image"></asp:FileUpload>

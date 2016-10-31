@@ -9,6 +9,8 @@ namespace Lmis.Portal.Web.Models
 
 		public Guid? ParentID { get; set; }
 
+		public String Number { get; set; }
+
 		public String Name { get; set; }
 
 		public byte[] Image { get; set; }

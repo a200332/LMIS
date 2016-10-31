@@ -8,268 +8,284 @@
 
 <html>
 <head runat="server">
-	<title>Plan The Future</title>
-	<asp:ContentPlaceHolder ID="head" runat="server">
-	</asp:ContentPlaceHolder>
+    <title>Plan The Future</title>
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
 </head>
 <body class="horizontal-center">
-	<div style="min-height: 100%; position: relative;">
-		<form id="form1" runat="server">
-			<asp:ScriptManager ID="ScriptManager1" runat="server">
-				<Scripts>
-
-					<asp:ScriptReference Path="~/Scripts/jquery-1.9.1.min.js" />
-					<asp:ScriptReference Path="~/Scripts/jquery.cookie.js" />
-					<asp:ScriptReference Path="~/Scripts/jquery.bxslider.js" />
-					<asp:ScriptReference Path="~/Scripts/jquery.signalR-2.2.1.min.js" />
-
-					<asp:ScriptReference Path="~/signalr/hubs" />
-
-				</Scripts>
-			</asp:ScriptManager>
-			<script type="text/javascript">
-				$('.bxslider').bxSlider({
-					video: true,
-					useCSS: false
-				});
-
-				$(document).ready(function () {
-
-					$('.hide').hide();
-					$(".chat-b").click(function () {
-						$("#chat-body").toggle();
-					});
-
-					$("#small").click(function (event) {
-						event.preventDefault();
-
-						//კლასით პოვნა
-						$("#content").find(".coming-soon").animate({ "font-size": "12px" });
-						$("#content").find(".dxtlControl a").animate({ "font-size": "12px" });
-						$("#content").find(".book-title").animate({ "font-size": "12px" });
+    <form id="form1" runat="server">
+        <asp:ScriptManager ID="ScriptManager1" runat="server">
+            <Scripts>
+                <asp:ScriptReference Path="~/Scripts/jquery-1.9.1.min.js" />
+                <asp:ScriptReference Path="~/Scripts/jquery.cookie.js" />
+                <asp:ScriptReference Path="~/Scripts/jquery.bxslider.js" />
+                <asp:ScriptReference Path="~/Scripts/jquery.signalR-2.2.1.min.js" />
+                <asp:ScriptReference Path="~/signalr/hubs" />
+            </Scripts>
+        </asp:ScriptManager>
+        <script type="text/javascript">
+            $('.bxslider').bxSlider({
+                video: true,
+                useCSS: false
+            });
 
 
-						$("#content").find("h1").animate({ "font-size": "12px" });
-						$("#content").find("h2").animate({ "font-size": "14px" });
-						$("#content").find("p").animate({ "font-size": "12px", "line-height": "16px" });
 
-					});
+            $(document).ready(function () {
+                $('.mainlink').bxSlider({
+                    slideWidth: 754,
+                    minSlides: 4,
+                    maxSlides: 4,
+                    moveSlides: 1,
+                    slideMargin: 10
+                });
 
-					$("#medium").click(function (event) {
-						event.preventDefault();
 
-						//კლასით პოვნა
-						$("#content").find(".coming-soon").animate({ "font-size": "14px" });
-						$("#content").find(".dxtlControl a").animate({ "font-size": "14px" });
-						$("#content").find(".book-title").animate({ "font-size": "14px" });
+                $('.hide').hide();
+                $(".chat-b").click(function () {
+                    $("#chat-body").toggle();
+                });
 
-						$("#content").find("h1").animate({ "font-size": "14px" });
-						$("#content").find("h2").animate({ "font-size": "16px" });
-						$("#content").find("p").animate({ "font-size": "14px", "line-height": "20px" });
+                $("#small").click(function (event) {
+                    event.preventDefault();
 
-					});
+                    //კლასით პოვნა
+                    $("#content").find(".coming-soon").animate({ "font-size": "12px" });
+                    $("#content").find(".dxtlControl a").animate({ "font-size": "12px" });
+                    $("#content").find(".book-title").animate({ "font-size": "12px" });
 
-					$("#large").click(function (event) {
-						event.preventDefault();
-						//კლასით პოვნა
-						$("#content").find(".coming-soon").animate({ "font-size": "16px" });
-						$("#content").find(".dxtlControl a").animate({ "font-size": "16px" });
-						$("#content").find(".book-title").animate({ "font-size": "16px" });
 
-						$("#content").find("h1").animate({ "font-size": "16px" });
-						$("#content").find("h2").animate({ "font-size": "18px" });
-						$("#content").find("p").animate({ "font-size": "16px", "line-height": "20px" });
+                    $("#content").find("h1").animate({ "font-size": "12px" });
+                    $("#content").find("h2").animate({ "font-size": "14px" });
+                    $("#content").find("p").animate({ "font-size": "12px", "line-height": "16px" });
 
-					});
+                });
 
-					$("#larger").click(function (event) {
-						event.preventDefault();
+                $("#medium").click(function (event) {
+                    event.preventDefault();
 
-						//კლასით პოვნა
-						$("#content").find(".coming-soon").animate({ "font-size": "18px" });
-						$("#content").find(".dxtlControl a").animate({ "font-size": "18px" });
-						$("#content").find(".book-title").animate({ "font-size": "18px" });
+                    //კლასით პოვნა
+                    $("#content").find(".coming-soon").animate({ "font-size": "14px" });
+                    $("#content").find(".dxtlControl a").animate({ "font-size": "14px" });
+                    $("#content").find(".book-title").animate({ "font-size": "14px" });
 
-						$("#content").find("h1").animate({ "font-size": "18px" });
-						$("#content").find("h2").animate({ "font-size": "20px" });
-						$("#content").find("p").animate({ "font-size": "18px", "line-height": "20px" });
+                    $("#content").find("h1").animate({ "font-size": "14px" });
+                    $("#content").find("h2").animate({ "font-size": "16px" });
+                    $("#content").find("p").animate({ "font-size": "14px", "line-height": "20px" });
 
-					});
-				});
+                });
 
-				function listenSelected() {
-					var text = getSelectionText();
-					if (text == "" || text == null) {
-						return false;
-					}
+                $("#large").click(function (event) {
+                    event.preventDefault();
+                    //კლასით პოვნა
+                    $("#content").find(".coming-soon").animate({ "font-size": "16px" });
+                    $("#content").find(".dxtlControl a").animate({ "font-size": "16px" });
+                    $("#content").find(".book-title").animate({ "font-size": "16px" });
 
-					var audio = document.getElementById("listenAudio");
-					if (audio != null) {
-						var url = "http://api.naturalreaders.com/v2/tts/?r=0&s=0&t=" + encodeURIComponent(text);
-						audio.src = url;
-						audio.play();
-					}
-				}
+                    $("#content").find("h1").animate({ "font-size": "16px" });
+                    $("#content").find("h2").animate({ "font-size": "18px" });
+                    $("#content").find("p").animate({ "font-size": "16px", "line-height": "20px" });
 
-				function getSelectionText() {
-					var text = "";
+                });
 
-					if (window.getSelection) {
-						text = window.getSelection().toString();
-					} else if (document.selection && document.selection.type != "Control") {
-						text = document.selection.createRange().text;
-					}
+                $("#larger").click(function (event) {
+                    event.preventDefault();
 
-					return text;
-				}
+                    //კლასით პოვნა
+                    $("#content").find(".coming-soon").animate({ "font-size": "18px" });
+                    $("#content").find(".dxtlControl a").animate({ "font-size": "18px" });
+                    $("#content").find(".book-title").animate({ "font-size": "18px" });
 
-				function showHide(showElement, hideElement) {
-					var showElementId = '#' + showElement;
-					var hideElementId = '#' + hideElement;
+                    $("#content").find("h1").animate({ "font-size": "18px" });
+                    $("#content").find("h2").animate({ "font-size": "20px" });
+                    $("#content").find("p").animate({ "font-size": "18px", "line-height": "20px" });
 
-					$(hideElementId).hide();
-					$(showElementId).show();
-				}
-			</script>
-			<audio id="listenAudio" src="" style="display: none;"></audio>
-			<header id="header">
-				<div class="top-bg">
-					<nav class="top ">
-						<div class="box-social">
-							<ul>
-								<li>
-									<a href="#" class="sb small no-border linkedin">LinkedIn</a>
-									<a href="#" class="sb small no-border facebook">Facebook</a>
-									<a href="#" class="sb small no-border twitter">Twitter</a>
-									<a href="javascript:listenSelected();" class="sb small no-border voice">Twitter</a>
-								</li>
-							</ul>
+                });
+            });
 
-						</div>
-						<div class="top-right">
-							<ul>
-								<li>
-									<ce:ImageLinkButton runat="server" ID="btEngLang" OnClick="btEngLang_Click">English</ce:ImageLinkButton></li>
-								<li>|</li>
-								<li>
-									<ce:ImageLinkButton runat="server" ID="btGeoLang" OnClick="btGeoLang_Click">Georgian</ce:ImageLinkButton></li>
-								<li class="language"></li>
-								<li>
-									<asp:Image ImageUrl="~/App_Themes/Default/images/top-right.png" runat="server" /></li>
-								<li><a href="http://evolution.ge/Citi/Forum" target="blanck">
-									<ce:Label runat="server">Forum</ce:Label></a></li>
-								<li>
-									<asp:Image ImageUrl="~/App_Themes/Default/images/top-right.png" runat="server" /></li>
-								<li><a>
-									<ce:Label runat="server">FAQ</ce:Label></a></li>
-								<li>
-									<asp:Image ImageUrl="~/App_Themes/Default/images/top-right.png" runat="server" /></li>
-								<li>
-									<ce:ImageLinkButton runat="server" ID="btLogin" OnClick="btLogin_Click">Sign In</ce:ImageLinkButton>
-									<ce:ImageLinkButton runat="server" ID="btLogout" OnClick="btLogout_Click">Logout</ce:ImageLinkButton>
-									<ce:ImageLinkButton runat="server" ID="btTranslationMode" OnClick="btTranslationMode_Click">Translation Mode</ce:ImageLinkButton>
-								</li>
-							</ul>
-						</div>
-					</nav>
-				</div>
-				<div class="header">
-					<div class="header-items">
-					<%--	<div class="header-title">
+            function listenSelected() {
+                var text = getSelectionText();
+                if (text == "" || text == null) {
+                    return false;
+                }
+
+                var audio = document.getElementById("listenAudio");
+                if (audio != null) {
+                    var url = "http://api.naturalreaders.com/v2/tts/?r=0&s=0&t=" + encodeURIComponent(text);
+                    audio.src = url;
+                    audio.play();
+                }
+            }
+
+            function getSelectionText() {
+                var text = "";
+
+                if (window.getSelection) {
+                    text = window.getSelection().toString();
+                } else if (document.selection && document.selection.type != "Control") {
+                    text = document.selection.createRange().text;
+                }
+
+                return text;
+            }
+
+            function showHide(showElement, hideElement) {
+                var showElementId = '#' + showElement;
+                var hideElementId = '#' + hideElement;
+
+                $(hideElementId).hide();
+                $(showElementId).show();
+            }
+        </script>
+        <audio id="listenAudio" src="" style="display: none;"></audio>
+        <div style="height: 100%; ">
+
+            <header id="header">
+                <div class="top-bg">
+                    <nav class="top ">
+                        <div class="box-social">
+                            <ul>
+                                <li>
+                                    <a href="#" class="sb small no-border linkedin">LinkedIn</a>
+                                    <a href="#" class="sb small no-border facebook">Facebook</a>
+                                    <a href="#" class="sb small no-border twitter">Twitter</a>
+                                    <a href="javascript:listenSelected();" class="sb small no-border voice">Twitter</a>
+                                </li>
+                            </ul>
+
+                        </div>
+                        <div style="float: left; margin-left: 15px;">
+                            <div id="textsizer-classnames">
+                                <ul class="textresizer" id="text-resizer-controls">
+                                    <li><a href="#nogo" id="small" class="small-text" title="Small">
+                                        <ce:Label runat="server">A</ce:Label></a></li>
+                                    <li><a href="#nogo" id="medium" class="medium-text" title="Medium">
+                                        <ce:Label runat="server">A</ce:Label></a></li>
+                                    <li><a href="#nogo" id="large" class="large-text" title="Large">
+                                        <ce:Label runat="server">A</ce:Label></a></li>
+                                    <li><a href="#nogo" id="larger" class="larger-text" title="Larger">
+                                        <ce:Label runat="server">A</ce:Label></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="top-right">
+                            <ul>
+                                <li>
+                                    <ce:ImageLinkButton runat="server" ID="btEngLang" OnClick="btEngLang_Click">English</ce:ImageLinkButton></li>
+                                <li>|</li>
+                                <li>
+                                    <ce:ImageLinkButton runat="server" ID="btGeoLang" OnClick="btGeoLang_Click">Georgian</ce:ImageLinkButton></li>
+                                <li class="language"></li>
+                                <li>
+                                    <asp:Image ImageUrl="~/App_Themes/Default/images/top-right.png" runat="server" /></li>
+                                <li><a href="http://evolution.ge/Citi/Forum" target="blanck">
+                                    <ce:Label runat="server">Forum</ce:Label></a></li>
+                                <li>
+                                    <asp:Image ImageUrl="~/App_Themes/Default/images/top-right.png" runat="server" /></li>
+                                <li><a>
+                                    <ce:Label runat="server">FAQ</ce:Label></a></li>
+                                <li>
+                                    <asp:Image ImageUrl="~/App_Themes/Default/images/top-right.png" runat="server" /></li>
+                                <li>
+                                    <ce:ImageLinkButton runat="server" ID="btLogin" OnClick="btLogin_Click">Sign In</ce:ImageLinkButton>
+                                    <ce:ImageLinkButton runat="server" ID="btLogout" OnClick="btLogout_Click">Logout</ce:ImageLinkButton>
+                                </li>
+                                <li>
+                                    <asp:Image ImageUrl="~/App_Themes/Default/images/top-right.png" runat="server" /></li>
+                                <li>
+                                    <ce:ImageLinkButton runat="server" ID="btTranslationMode" OnClick="btTranslationMode_Click">Translation Mode</ce:ImageLinkButton>
+                                </li>
+                            </ul>
+                        </div>
+                    </nav>
+                </div>
+                <div class="header">
+                    <div class="header-items">
+                        <%--	<div class="header-title">
 							Plan The Future
 						</div>--%>
-						<div class="left" style="margin: 10px 10px 15px 10px;">
-							<asp:Image ImageUrl="~/App_Themes/Default/images/logo.png" runat="server" />
-						</div>
+                        <div class="left" style="margin: 10px 10px 15px 10px;">
+                            <asp:Image ImageUrl="~/App_Themes/Default/images/logo.png" runat="server" ID="imgLogo" />
+                        </div>
 
-						<div class="search-box">
-							<input type="text" name="search" placeholder="Search..">
-						</div>
-					</div>
-				</div>
-				<div class="menu-line">
-					<ul class="menu">
-						<li class="">
-							<asp:HyperLink runat="server" CssClass="mcolor" NavigateUrl="~/Default.aspx"><ce:Label runat="server">HOME</ce:Label></asp:HyperLink>
-						</li>
-						<li runat="server" id="liAdmin">
-							<asp:HyperLink runat="server" CssClass="mcolor" NavigateUrl="~/Pages/Management/CategoriesList.aspx"><ce:Label runat="server">ADMIN</ce:Label></asp:HyperLink>
-						</li>
-						<li>
-							<asp:HyperLink runat="server" CssClass="mcolor" NavigateUrl="~/Pages/User/AboutUs.aspx"><ce:Label runat="server">About us</ce:Label></asp:HyperLink>
-						</li>
-						<li>
-							<asp:HyperLink runat="server" CssClass="mcolor" NavigateUrl="~/Pages/User/Dashboard.aspx"><ce:Label runat="server">Data</ce:Label></asp:HyperLink>
-						</li>
-						<li>
-							<asp:HyperLink runat="server" CssClass="mcolor" NavigateUrl="~/Pages/User/Career.aspx"><ce:Label runat="server">career</ce:Label></asp:HyperLink>
-						</li>
-						<li>
-							<asp:HyperLink runat="server" CssClass="mcolor" NavigateUrl="~/Pages/User/Surveys.aspx"><ce:Label runat="server">reports</ce:Label></asp:HyperLink>
-						</li>
-						<li>
-							<asp:HyperLink runat="server" CssClass="mcolor" NavigateUrl="~/Pages/User/Projects.aspx"><ce:Label runat="server">projects/Programs</ce:Label></asp:HyperLink>
-						</li>						
-						<li>
-							<asp:HyperLink runat="server" CssClass="mcolor" NavigateUrl="~/Pages/User/Legislation.aspx"><ce:Label runat="server">Legislation</ce:Label></asp:HyperLink>
-						</li>
-						<li>
-							<asp:HyperLink runat="server" CssClass="mcolor" NavigateUrl="~/Pages/User/News.aspx"><ce:Label runat="server">News</ce:Label></asp:HyperLink>
-						</li>
-						<li>
-							<asp:HyperLink runat="server" CssClass="mcolor" NavigateUrl="~/Pages/User/ContactUs.aspx"><ce:Label runat="server">Contact Us</ce:Label></asp:HyperLink>
-						</li>
+                        <div class="search-box">
+                            <input type="text" name="search" placeholder="Search..">
+                        </div>
+                    </div>
+                </div>
+                <div class="menu-line">
+                    <ul class="menu">
+                        <li class="">
+                            <asp:HyperLink runat="server" CssClass="mcolor" NavigateUrl="~/Default.aspx"><ce:Label runat="server">HOME</ce:Label></asp:HyperLink>
+                        </li>
+                        <li runat="server" id="liAdmin">
+                            <asp:HyperLink runat="server" CssClass="mcolor" NavigateUrl="~/Pages/Management/CategoriesList.aspx"><ce:Label runat="server">ADMIN</ce:Label></asp:HyperLink>
+                        </li>
+                        <li>
+                            <asp:HyperLink runat="server" CssClass="mcolor" NavigateUrl="~/Pages/User/AboutUs.aspx"><ce:Label runat="server">About us</ce:Label></asp:HyperLink>
+                        </li>
+                        <li>
+                            <asp:HyperLink runat="server" CssClass="mcolor" NavigateUrl="~/Pages/User/Dashboard.aspx"><ce:Label runat="server">Data</ce:Label></asp:HyperLink>
+                        </li>
+                        <li>
+                            <asp:HyperLink runat="server" CssClass="mcolor" NavigateUrl="http://myprofession.gov.ge/content/%E1%83%A2%E1%83%94%E1%83%A1%E1%83%A2%E1%83%94%E1%83%91%E1%83%98" Target="_blank"><ce:Label runat="server">career</ce:Label></asp:HyperLink>
+                        </li>
+                        <li>
+                            <asp:HyperLink runat="server" CssClass="mcolor" NavigateUrl="~/Pages/User/Surveys.aspx"><ce:Label runat="server">reports</ce:Label></asp:HyperLink>
+                        </li>
+                        <li>
+                            <asp:HyperLink runat="server" CssClass="mcolor" NavigateUrl="~/Pages/User/Projects.aspx"><ce:Label runat="server">projects/Programs</ce:Label></asp:HyperLink>
+                        </li>
+                        <li>
+                            <asp:HyperLink runat="server" CssClass="mcolor" NavigateUrl="~/Pages/User/Legislation.aspx"><ce:Label runat="server">Legislation</ce:Label></asp:HyperLink>
+                        </li>
+                        <li>
+                            <asp:HyperLink runat="server" CssClass="mcolor" NavigateUrl="~/Pages/User/News.aspx"><ce:Label runat="server">News</ce:Label></asp:HyperLink>
+                        </li>
+                        <li>
+                            <asp:HyperLink runat="server" CssClass="mcolor" NavigateUrl="~/Pages/User/ContactUs.aspx"><ce:Label runat="server">Contact Us</ce:Label></asp:HyperLink>
+                        </li>
 
-					</ul>
-					<div style="float: right">
-						<div id="textsizer-classnames">
-							<ul class="textresizer" id="text-resizer-controls">
-								<li><a href="#nogo" id="small" class="small-text" title="Small">
-									<ce:Label runat="server">A</ce:Label></a></li>
-								<li><a href="#nogo" id="medium" class="medium-text" title="Medium">
-									<ce:Label runat="server">A</ce:Label></a></li>
-								<li><a href="#nogo" id="large" class="large-text" title="Large">
-									<ce:Label runat="server">A</ce:Label></a></li>
-								<li><a href="#nogo" id="larger" class="larger-text" title="Larger">
-									<ce:Label runat="server">A</ce:Label></a></li>
-							</ul>
-						</div>
-					</div>
-				</div>
-			</header>
-			<section id="content">
-				<div class="content">
-					<asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
-					</asp:ContentPlaceHolder>
-				</div>
-				<div class="clear"></div>
-				<div class="bottom">
-					<div class="bottom-links" style="padding-top: 45px;">
-						<lmis:MainLinksControl runat="server" ID="mainLinksControl" />
-					</div>
-					<div class="bottom-geo">
-						<ce:ImageLinkButton runat="server" NavigateUrl="~/Pages/User/GeorgiaInNumbers.aspx" DefaultImageUrl="~/App_Themes/Default/images/bn-geo.png" />
-					</div>
-				</div>
-			</section>
+                    </ul>
 
-			<lmis:PublicChatControl runat="server" ID="publicChatControl" />
+                </div>
+            </header>
+            <section id="content">
+                <div class="content">
+                    <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+                    </asp:ContentPlaceHolder>
+                </div>
+                <div class="clear"></div>
+                <div class="bottom">
+                    <div class="bottom-links" style="padding-top: 54px;">
+                        <lmis:MainLinksControl runat="server" ID="mainLinksControl" />
+                    </div>
+                    <div class="bottom-geo">
+                        <ce:ImageLinkButton runat="server" NavigateUrl="~/Pages/User/GeorgiaInNumbers.aspx" DefaultImageUrl="~/App_Themes/Default/images/bn-geo.png" Target="_blank" />
+                        <ce:Label CssClass="bn-geot1" runat="server">Georgia</ce:Label>
+                        <ce:Label CssClass="bn-geot2" runat="server"> in Numbers</ce:Label>
+                    </div>
+                </div>
+            </section>
+            
 
-			<div class="chat-b">
-				<asp:Image ImageUrl="~/App_Themes/Default/images/chat.png" runat="server" />
-			</div>
+            <lmis:PublicChatControl runat="server" ID="publicChatControl" />
 
-			<footer id="footer">
-				<div class="footer">
-					<ul>
-						<li class="left">
-							<asp:Image runat="server" ImageUrl="~/App_Themes/Default/images/f-logo.png" /></li>
-						<li class="right copyright">
-							<ce:Label runat="server">© 2016  All rights reserved</ce:Label></li>
-					</ul>
-				</div>
-			</footer>
-		</form>
-	</div>
+            <div class="chat-b">
+                <asp:Image ImageUrl="~/App_Themes/Default/images/chat.png" runat="server" />
+            </div>     <div id="footer">
+            <div class="footer">
+                <ul>
+                    <li class="left">
+                        <asp:Image runat="server" ImageUrl="~/App_Themes/Default/images/f-logo.png" ID="imgFLogo" /></li>
+                    <li class="right copyright">
+                        <ce:Label runat="server">© 2016  All rights reserved</ce:Label></li>
+                </ul>
+            </div>
+        </div>
+        </div>
+   
+    </form>
+
 </body>
 </html>

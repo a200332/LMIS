@@ -29,7 +29,7 @@ namespace Lmis.Portal.Web.Bases
 			}
 		}
 
-		protected Control PagePostBackControl
+		protected Control PostBackControl
 		{
 			get
 			{

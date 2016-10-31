@@ -58,7 +58,9 @@ namespace Lmis.Portal.Web.Pages.Management
 			mainLinkControl.Visible = (model.ParentID == null);
 
 			mainLinkControl.Model = model;
-			mpeAddEdit.Show();
+		    subLinkControl.Model = model;
+
+            mpeAddEdit.Show();
 		}
 
 		protected void linksControl_OnDeleteItem(object sender, GenericEventArgs<Guid> e)

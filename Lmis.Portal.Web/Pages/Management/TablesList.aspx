@@ -27,7 +27,7 @@
 		<asp:Panel runat="server" ID="pnlAddEditTable">
 			<div class="popup">
 				<div class="popup_fieldset">
-					<div class="popup-title">Table</div>
+					<div class="popup-title"><ce:Label runat="server">Table</ce:Label></div>
 					<div class="title_separator"></div>
 					<div class="box">
 						<lmis:TableControl runat="server" ID="tableControl" />
@@ -52,7 +52,7 @@
 		<asp:Panel runat="server" ID="pnlAddEditColumn">
 			<div class="popup">
 				<div class="popup_fieldset">
-					<div class="popup-title">Column</div>
+					<div class="popup-title"><ce:Label runat="server">Column</ce:Label></div>
 					<div class="title_separator"></div>
 					<div class="box">
 						<lmis:ColumnControl runat="server" ID="columnControl" />

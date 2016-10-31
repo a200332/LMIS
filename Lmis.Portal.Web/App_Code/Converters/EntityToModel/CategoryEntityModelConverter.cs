@@ -21,6 +21,7 @@ namespace Lmis.Portal.Web.Converters.EntityToModel
 		public override void FillObject(CategoryModel target, LP_Category source)
 		{
 			target.ID = source.ID;
+			target.Number = source.Number;
 			target.Name = source.Name;
 			target.ParentID = source.ParentID;
 			target.Image = (source.Image != null ? source.Image.ToArray() : null);

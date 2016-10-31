@@ -54,7 +54,9 @@ namespace CITI.EVO.Tools.Helpers
 
 		public String Text { get; set; }
 
-		#endregion
-	}
+        public String Link { get; set; }
+
+        #endregion
+    }
 
 }

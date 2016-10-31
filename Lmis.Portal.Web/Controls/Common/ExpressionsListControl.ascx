@@ -30,7 +30,7 @@
         <div class="popup">
             <div class="popup_fieldset">
 
-                <div class="popup-title"><ce:Label runat="server">Report Logic</ce:Label></div>
+                <div class="popup-title"><ce:Label runat="server">Expression</ce:Label></div>
                 <div class="title_separator"></div>
                 <div class="box">
 

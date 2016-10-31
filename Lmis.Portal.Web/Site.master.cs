@@ -12,106 +12,124 @@ using Lmis.Portal.Web.Models;
 
 namespace Lmis.Portal.Web
 {
-	public partial class Site : MasterPageBase
-	{
-		protected void Page_Load(object sender, EventArgs e)
-		{
-			btLogin.Visible = !UmUtil.Instance.IsLogged;
-			btLogout.Visible = UmUtil.Instance.IsLogged;
-			liAdmin.Visible = (UmUtil.Instance.IsLogged && UmUtil.Instance.CurrentUser.IsSuperAdmin);
-			btTranslationMode.Visible = (UmUtil.Instance.IsLogged && UmUtil.Instance.CurrentUser.IsSuperAdmin);
+    public partial class Site : MasterPageBase
+    {
+        protected void Page_Init(object sender, EventArgs e)
+        {
+            if (Page.PostBackControl == btEngLang)
+                LanguageUtil.SetLanguage("en-US");
 
-			foreach (var childLink in GetCurrentUrlLinks(this))
-			{
-				if (childLink.CssClass == "mcolor")
-					childLink.CssClass = "mcolor_active ";
-			}
+            if (Page.PostBackControl == btGeoLang)
+                LanguageUtil.SetLanguage("ka-GE");
 
-			FillMainLinks();
-		}
+            if (Page.PostBackControl == btTranslationMode)
+                TranslationUtil.TranslationMode = !TranslationUtil.TranslationMode;
 
-		protected void btEngLang_Click(object sender, EventArgs e)
-		{
-			LanguageUtil.SetLanguage("en-US");
-		}
+            if (!UmUtil.Instance.IsLogged || !UmUtil.Instance.CurrentUser.IsSuperAdmin)
+            {
+                if (TranslationUtil.TranslationMode)
+                    TranslationUtil.TranslationMode = false;
+            }
+        }
 
-		protected void btGeoLang_Click(object sender, EventArgs e)
-		{
-			LanguageUtil.SetLanguage("ka-GE");
-		}
+        protected void Page_Load(object sender, EventArgs e)
+        {
+            btLogin.Visible = !UmUtil.Instance.IsLogged;
+            btLogout.Visible = UmUtil.Instance.IsLogged;
+            liAdmin.Visible = (UmUtil.Instance.IsLogged && UmUtil.Instance.CurrentUser.IsSuperAdmin);
+            btTranslationMode.Visible = (UmUtil.Instance.IsLogged && UmUtil.Instance.CurrentUser.IsSuperAdmin);
 
-		protected void btLogin_Click(object sender, EventArgs e)
-		{
-			UmUtil.Instance.GoToLogin();
-		}
+            foreach (var childLink in GetCurrentUrlLinks(this))
+            {
+                if (childLink.CssClass == "mcolor")
+                    childLink.CssClass = "mcolor_active ";
+            }
 
-		protected void btLogout_Click(object sender, EventArgs e)
-		{
-			UmUtil.Instance.GoToLogout();
-		}
+            FillMainLinks();
 
-		protected void btTranslationMode_Click(object sender, EventArgs e)
-		{
-			TranslationUtil.TranslationMode = !TranslationUtil.TranslationMode;
-		}
+            imgLogo.ImageUrl = String.Format("~/App_Themes/Default/images/logo_{0}.png", LanguageUtil.GetLanguage());
+            imgFLogo.ImageUrl = String.Format("~/App_Themes/Default/images/f-logo_{0}.png", LanguageUtil.GetLanguage());
+        }
 
-		private void FillMainLinks()
-		{
-			var page = Page as BasePage;
-			if (page == null)
-				return;
+        protected void btEngLang_Click(object sender, EventArgs e)
+        {
+        }
 
-			var dbContext = page.DataContext;
+        protected void btGeoLang_Click(object sender, EventArgs e)
+        {
+        }
 
-			var entities = (from n in dbContext.LP_Links
-							where n.DateDeleted == null && n.ParentID == null
-							orderby n.DateCreated
-							select n).ToList();
+        protected void btLogin_Click(object sender, EventArgs e)
+        {
+            UmUtil.Instance.GoToLogin();
+        }
 
-			var converter = new LinkEntityModelConverter(dbContext);
+        protected void btLogout_Click(object sender, EventArgs e)
+        {
+            UmUtil.Instance.GoToLogout();
+        }
 
-			var models = (from n in entities
-						  let m = converter.Convert(n)
-						  select m).ToList();
+        protected void btTranslationMode_Click(object sender, EventArgs e)
+        {
+        }
 
-			var model = new LinksModel();
-			model.List = models;
+        private void FillMainLinks()
+        {
+            var page = Page as BasePage;
+            if (page == null)
+                return;
 
-			mainLinksControl.Model = model;
-		}
+            var dbContext = page.DataContext;
 
-		protected IEnumerable<HyperLink> GetCurrentUrlLinks(Control control)
-		{
-			var links = (from n in UserInterfaceUtil.TraverseChildren(this)
-						 let l = n as HyperLink
-						 where l != null
-						 select l);
+            var entities = (from n in dbContext.LP_Links
+                            where n.DateDeleted == null && n.ParentID == null
+                            orderby n.DateCreated
+                            select n).ToList();
 
-			foreach (var link in links)
-			{
-				var linkUrl = GetLinkAbsUrl(link);
-				if (IsRequestLink(linkUrl))
-				{
-					yield return link;
-				}
-			}
-		}
+            var converter = new LinkEntityModelConverter(dbContext);
 
-		protected bool IsRequestLink(String linkUrl)
-		{
-			if (linkUrl != null && linkUrl.Split('?').FirstOrDefault() == Request.Path)
-			{
-				return true;
-			}
+            var models = (from n in entities
+                          let m = converter.Convert(n)
+                          select m).ToList();
 
-			return false;
-		}
+            var model = new LinksModel();
+            model.List = models;
 
-		protected String GetLinkAbsUrl(HyperLink hyperLink)
-		{
-			return ResolveUrl(hyperLink.NavigateUrl);
-		}
+            mainLinksControl.Model = model;
+        }
+
+        protected IEnumerable<HyperLink> GetCurrentUrlLinks(Control control)
+        {
+            var links = (from n in UserInterfaceUtil.TraverseChildren(this)
+                         let l = n as HyperLink
+                         where l != null
+                         select l);
+
+            foreach (var link in links)
+            {
+                var linkUrl = GetLinkAbsUrl(link);
+                if (IsRequestLink(linkUrl))
+                {
+                    yield return link;
+                }
+            }
+        }
+
+        protected bool IsRequestLink(String linkUrl)
+        {
+            if (linkUrl != null && linkUrl.Split('?').FirstOrDefault() == Request.Path)
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+        protected String GetLinkAbsUrl(HyperLink hyperLink)
+        {
+            return ResolveUrl(hyperLink.NavigateUrl);
+        }
 
 
-	}
+    }
 }
