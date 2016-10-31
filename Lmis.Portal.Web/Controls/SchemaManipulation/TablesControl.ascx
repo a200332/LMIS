@@ -19,7 +19,7 @@
 						CommandArgument='<%# Eval("Key") %>' 
 						DefaultImageUrl="~/App_Themes/Default/images/delete.png" 
 						ID="btnDelete" 
-						OnCommand="btnDelete_OnCommand" />
+						OnCommand="btnDelete_OnCommand" OnClientClick="return confirm('Are you sure you want to delete?');" />
 					<ce:ImageLinkButton runat="server" ToolTip="Add" 
 						Visible='<%# GetAddVisible(Container.DataItem) %>' 
 						CommandArgument='<%# Eval("Key") %>' 

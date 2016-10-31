@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using CITI.EVO.Tools.Security;
@@ -73,6 +74,12 @@ namespace Lmis.Portal.Web
         {
         }
 
+        protected void tbxSearch_OnTextChanged(object sender, EventArgs e)
+        {
+            var url = String.Format("~/Pages/User/SearchResult.aspx?keyword={0}", HttpUtility.UrlEncode(tbxSearch.Text));
+            Response.Redirect(url);
+        }
+
         private void FillMainLinks()
         {
             var page = Page as BasePage;
@@ -129,7 +136,5 @@ namespace Lmis.Portal.Web
         {
             return ResolveUrl(hyperLink.NavigateUrl);
         }
-
-
     }
 }

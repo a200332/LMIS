@@ -184,7 +184,7 @@
                 <div class="footer">
                     <ul>
                         <li class="left">
-                            <asp:Image runat="server" ImageUrl="~/App_Themes/Default/images/f-logo.png" /></li>
+                            <asp:Image runat="server" ImageUrl="~/App_Themes/Default/images/f-logo.png" ID="imgFLogo" /></li>
                         <li class="right copyright">© 2016  All rights reserved</li>
                     </ul>
                 </div>

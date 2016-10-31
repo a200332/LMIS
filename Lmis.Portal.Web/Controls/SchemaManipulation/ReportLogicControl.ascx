@@ -122,7 +122,7 @@
             <dx:GridViewDataTextColumn Caption=" " FieldName="" VisibleIndex="0">
                 <DataItemTemplate>
                     <ce:ImageLinkButton runat="server" ToolTip="Edit" Target="_blank" CommandArgument='<%# Eval("Key") %>' DefaultImageUrl="~/App_Themes/Default/images/edit.png" ID="btnEditChartBinding" OnCommand="btnEditChartBinding_OnCommand" Visible="False" />
-                    <ce:ImageLinkButton runat="server" ToolTip="Delete" Target="_blank" CommandArgument='<%# Eval("Key") %>' DefaultImageUrl="~/App_Themes/Default/images/delete.png" ID="btnDeleteChartBinding" OnCommand="btnDeleteChartBinding_OnCommand" />
+                    <ce:ImageLinkButton runat="server" ToolTip="Delete" Target="_blank" CommandArgument='<%# Eval("Key") %>' DefaultImageUrl="~/App_Themes/Default/images/delete.png" ID="btnDeleteChartBinding" OnCommand="btnDeleteChartBinding_OnCommand" OnClientClick="return confirm('Are you sure you want to delete?');" />
                 </DataItemTemplate>
             </dx:GridViewDataTextColumn>
             <dx:GridViewDataTextColumn Caption="Caption" FieldName="Caption" />
@@ -145,7 +145,7 @@
             <dx:GridViewDataTextColumn Caption=" " FieldName="" VisibleIndex="0">
                 <DataItemTemplate>
                     <ce:ImageLinkButton runat="server" ToolTip="Edit" Target="_blank" CommandArgument='<%# Eval("Key") %>' DefaultImageUrl="~/App_Themes/Default/images/edit.png" ID="btnEditGridBinding" OnCommand="btnEditGridBinding_OnCommand" Visible="False" />
-                    <ce:ImageLinkButton runat="server" ToolTip="Delete" Target="_blank" CommandArgument='<%# Eval("Key") %>' DefaultImageUrl="~/App_Themes/Default/images/delete.png" ID="btnDeleteGridBinding" OnCommand="btnDeleteGridBinding_OnCommand" />
+                    <ce:ImageLinkButton runat="server" ToolTip="Delete" Target="_blank" CommandArgument='<%# Eval("Key") %>' DefaultImageUrl="~/App_Themes/Default/images/delete.png" ID="btnDeleteGridBinding" OnCommand="btnDeleteGridBinding_OnCommand" OnClientClick="return confirm('Are you sure you want to delete?');" />
                 </DataItemTemplate>
             </dx:GridViewDataTextColumn>
             <dx:GridViewDataTextColumn Caption="Caption" FieldName="Caption" />

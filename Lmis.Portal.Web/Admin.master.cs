@@ -9,79 +9,82 @@ using CITI.EVO.Tools.Web.Bases;
 
 namespace Lmis.Portal.Web
 {
-	public partial class Admin : MasterPageBase
-	{
-		protected void Page_Load(object sender, EventArgs e)
-		{
-			btLogin.Visible = !UmUtil.Instance.IsLogged;
-			btLogout.Visible = UmUtil.Instance.IsLogged;
-			//liAdmin.Visible = (UmUtil.Instance.IsLogged && UmUtil.Instance.CurrentUser.IsSuperAdmin);
-			btTranslationMode.Visible = (UmUtil.Instance.IsLogged && UmUtil.Instance.CurrentUser.IsSuperAdmin);
+    public partial class Admin : MasterPageBase
+    {
+        protected void Page_Load(object sender, EventArgs e)
+        {
+            btLogin.Visible = !UmUtil.Instance.IsLogged;
+            btLogout.Visible = UmUtil.Instance.IsLogged;
+            //liAdmin.Visible = (UmUtil.Instance.IsLogged && UmUtil.Instance.CurrentUser.IsSuperAdmin);
+            btTranslationMode.Visible = (UmUtil.Instance.IsLogged && UmUtil.Instance.CurrentUser.IsSuperAdmin);
 
-			foreach (var childLink in GetCurrentUrlLinks(this))
-			{
-				if (childLink.CssClass == "mcolor")
-					childLink.CssClass = "mcolor_active ";
-			}
-		}
+            foreach (var childLink in GetCurrentUrlLinks(this))
+            {
+                if (childLink.CssClass == "mcolor")
+                    childLink.CssClass = "mcolor_active ";
+            }
 
-		protected void btEngLang_Click(object sender, EventArgs e)
-		{
-			LanguageUtil.SetLanguage("en-US");
-		}
+           // imgLogo.ImageUrl = String.Format("~/App_Themes/Default/images/logo_{0}.png", LanguageUtil.GetLanguage());
+            imgFLogo.ImageUrl = String.Format("~/App_Themes/Default/images/f-logo_{0}.png", LanguageUtil.GetLanguage());
+        }
 
-		protected void btGeoLang_Click(object sender, EventArgs e)
-		{
-			LanguageUtil.SetLanguage("ka-GE");
-		}
+        protected void btEngLang_Click(object sender, EventArgs e)
+        {
+            LanguageUtil.SetLanguage("en-US");
+        }
 
-		protected void btLogin_Click(object sender, EventArgs e)
-		{
-			UmUtil.Instance.GoToLogin();
-		}
+        protected void btGeoLang_Click(object sender, EventArgs e)
+        {
+            LanguageUtil.SetLanguage("ka-GE");
+        }
 
-		protected void btLogout_Click(object sender, EventArgs e)
-		{
-			UmUtil.Instance.GoToLogout();
-		}
+        protected void btLogin_Click(object sender, EventArgs e)
+        {
+            UmUtil.Instance.GoToLogin();
+        }
 
-		protected void btTranslationMode_Click(object sender, EventArgs e)
-		{
-			TranslationUtil.TranslationMode = !TranslationUtil.TranslationMode;
-		}
+        protected void btLogout_Click(object sender, EventArgs e)
+        {
+            UmUtil.Instance.GoToLogout();
+        }
 
-		protected IEnumerable<HyperLink> GetCurrentUrlLinks(Control control)
-		{
-			var links = (from n in UserInterfaceUtil.TraverseChildren(this)
-				let l = n as HyperLink
-				where l != null
-				select l);
+        protected void btTranslationMode_Click(object sender, EventArgs e)
+        {
+            TranslationUtil.TranslationMode = !TranslationUtil.TranslationMode;
+        }
 
-			foreach (var link in links)
-			{
-				var linkUrl = GetLinkAbsUrl(link);
-				if (IsRequestLink(linkUrl))
-				{
-					yield return link;
-				}
-			}
-		}
+        protected IEnumerable<HyperLink> GetCurrentUrlLinks(Control control)
+        {
+            var links = (from n in UserInterfaceUtil.TraverseChildren(this)
+                         let l = n as HyperLink
+                         where l != null
+                         select l);
 
-		protected bool IsRequestLink(String linkUrl)
-		{
-			if (linkUrl != null && linkUrl.Split('?').FirstOrDefault() == Request.Path)
-			{
-				return true;
-			}
+            foreach (var link in links)
+            {
+                var linkUrl = GetLinkAbsUrl(link);
+                if (IsRequestLink(linkUrl))
+                {
+                    yield return link;
+                }
+            }
+        }
 
-			return false;
-		}
+        protected bool IsRequestLink(String linkUrl)
+        {
+            if (linkUrl != null && linkUrl.Split('?').FirstOrDefault() == Request.Path)
+            {
+                return true;
+            }
 
-		protected String GetLinkAbsUrl(HyperLink hyperLink)
-		{
-			return ResolveUrl(hyperLink.NavigateUrl);
-		}
+            return false;
+        }
+
+        protected String GetLinkAbsUrl(HyperLink hyperLink)
+        {
+            return ResolveUrl(hyperLink.NavigateUrl);
+        }
 
 
-	}
+    }
 }

@@ -50,7 +50,7 @@ public class GetFile : IHttpHandler
                                 fileName = item.FileName;
 
                             fileBytes = item.FileData.ToArray();
-                            mimeType = MimeTypeUtil.GetMimeType(item.FileName);
+                            mimeType = MimeTypeUtil.GetMimeType(fileName);
                         }
                     }
                     break;
@@ -65,7 +65,7 @@ public class GetFile : IHttpHandler
                                 fileName = item.FileName;
 
                             fileBytes = item.FileData.ToArray();
-                            mimeType = MimeTypeUtil.GetMimeType(item.FileName);
+                            mimeType = MimeTypeUtil.GetMimeType(fileName);
                         }
                     }
                     break;
@@ -80,7 +80,7 @@ public class GetFile : IHttpHandler
                                 fileName = item.FileName;
 
                             fileBytes = item.FileData.ToArray();
-                            mimeType = MimeTypeUtil.GetMimeType(item.FileName);
+                            mimeType = MimeTypeUtil.GetMimeType(fileName);
                         }
                     }
                     break;

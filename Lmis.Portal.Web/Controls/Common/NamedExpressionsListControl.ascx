@@ -13,7 +13,7 @@
                 <asp:TemplateField>
                     <ItemTemplate>
                         <ce:ImageLinkButton runat="server" ToolTip="Edit" CommandArgument='<%# Eval("Key") %>' DefaultImageUrl="~/App_Themes/Default/images/edit.png" ID="btnEdit" OnCommand="btnEdit_OnCommand" />
-                        <ce:ImageLinkButton runat="server" ToolTip="Delete" CommandArgument='<%# Eval("Key") %>' DefaultImageUrl="~/App_Themes/Default/images/delete.png" ID="btnDelete" OnCommand="btnDelete_OnCommand" />
+                        <ce:ImageLinkButton runat="server" ToolTip="Delete" CommandArgument='<%# Eval("Key") %>' DefaultImageUrl="~/App_Themes/Default/images/delete.png" ID="btnDelete" OnCommand="btnDelete_OnCommand" OnClientClick="return confirm('Are you sure you want to delete?');" />
                     </ItemTemplate>
                 </asp:TemplateField>
                 <asp:BoundField HeaderText="Name" DataField="Name" />

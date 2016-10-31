@@ -209,7 +209,7 @@
                         </div>
 
                         <div class="search-box">
-                            <input type="text" name="search" placeholder="Search..">
+                            <asp:TextBox runat="server" ID="tbxSearch" placeholder="Search.." AutoPostBack="True" OnTextChanged="tbxSearch_OnTextChanged" />
                         </div>
                     </div>
                 </div>
