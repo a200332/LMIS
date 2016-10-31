@@ -83,7 +83,7 @@ namespace Lmis.Portal.Web
 
             var entities = (from n in dbContext.LP_Links
                             where n.DateDeleted == null && n.ParentID == null
-                            orderby n.DateCreated
+                            orderby n.OrderIndex, n.DateCreated
                             select n).ToList();
 
             var converter = new LinkEntityModelConverter(dbContext);

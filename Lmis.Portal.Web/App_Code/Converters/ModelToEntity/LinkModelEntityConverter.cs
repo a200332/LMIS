@@ -14,9 +14,11 @@ namespace Lmis.Portal.Web.Converters.ModelToEntity
 
         public override LP_Link Convert(LinkModel source)
         {
-            var entity = new LP_Link();
-            entity.ID = Guid.NewGuid();
-            entity.DateCreated = DateTime.Now;
+            var entity = new LP_Link
+            {
+                ID = Guid.NewGuid(),
+                DateCreated = DateTime.Now
+            };
 
             FillObject(entity, source);
 
@@ -30,6 +32,7 @@ namespace Lmis.Portal.Web.Converters.ModelToEntity
             target.Title = source.Title;
             target.ParentID = source.ParentID;
             target.Description = source.Description;
+            target.OrderIndex = source.OrderIndex;
 
             if (!source.Image.IsNullOrEmpty())
                 target.Image = source.Image;

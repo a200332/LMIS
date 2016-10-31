@@ -22,7 +22,7 @@ namespace Lmis.Portal.Web.Pages.User
 
 			var entities = (from n in DataContext.LP_Links
 							where n.DateDeleted == null && n.ParentID == parentID
-							orderby n.DateCreated
+							orderby n.OrderIndex, n.DateCreated
 							select n).ToList();
 
 			var converter = new LinkEntityModelConverter(DataContext);

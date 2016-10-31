@@ -17,7 +17,21 @@ namespace Lmis.Portal.Web.Controls.Others
 				AddChild(this, new GenericEventArgs<Guid>(value));
 		}
 
-		protected void Page_Load(object sender, EventArgs e)
+        public event EventHandler<GenericEventArgs<Guid>> UpItem;
+        protected virtual void OnUpItem(Guid value)
+        {
+            if (UpItem != null)
+                UpItem(this, new GenericEventArgs<Guid>(value));
+        }
+
+        public event EventHandler<GenericEventArgs<Guid>> DownItem;
+        protected virtual void OnDownItem(Guid value)
+        {
+            if (DownItem != null)
+                DownItem(this, new GenericEventArgs<Guid>(value));
+        }
+
+        protected void Page_Load(object sender, EventArgs e)
 		{
 
 		}
@@ -31,7 +45,25 @@ namespace Lmis.Portal.Web.Controls.Others
 			OnAddChild(entityID.Value);
 		}
 
-		protected override void OnSetModel(object model, Type type)
+        protected void btnUp_OnCommand(object sender, CommandEventArgs e)
+        {
+            var entityId = DataConverter.ToNullableGuid(e.CommandArgument);
+            if (entityId == null)
+                return;
+
+            OnUpItem(entityId.Value);
+        }
+
+        protected void btnDown_OnCommand(object sender, CommandEventArgs e)
+        {
+            var entityId = DataConverter.ToNullableGuid(e.CommandArgument);
+            if (entityId == null)
+                return;
+
+            OnDownItem(entityId.Value);
+        }
+
+        protected override void OnSetModel(object model, Type type)
 		{
 			var linksModel = model as LinksModel;
 			if (linksModel == null)

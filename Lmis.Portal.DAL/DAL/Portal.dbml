@@ -109,6 +109,7 @@
       <Column Name="DateCreated" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
       <Column Name="DateChanged" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
       <Column Name="DateDeleted" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="OrderIndex" Type="System.Int32" DbType="INT" CanBeNull="true" UpdateCheck="Never" />
       <Association Name="LP_Link_LP_Link" Member="Children" ThisKey="ID" OtherKey="ParentID" Type="LP_Link" />
       <Association Name="LP_Link_LP_Link" Member="Parent" ThisKey="ParentID" OtherKey="ID" Type="LP_Link" IsForeignKey="true" />
     </Type>

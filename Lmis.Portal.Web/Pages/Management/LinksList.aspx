@@ -11,7 +11,7 @@
 		<ce:ImageLinkButton runat="server" ToolTip="Add New" DefaultImageUrl="~/App_Themes/Default/images/add.png" ID="btnAddNew" OnClick="btnAddNew_OnClick" />
 	</div>
 	<div>
-		<lmis:LinksControl runat="server" ID="linksControl" OnAddChild="linksControl_OnAddChild" OnEditItem="linksControl_OnEditItem" OnDeleteItem="linksControl_OnDeleteItem" />
+		<lmis:LinksControl runat="server" ID="linksControl" OnAddChild="linksControl_OnAddChild" OnEditItem="linksControl_OnEditItem" OnDeleteItem="linksControl_OnDeleteItem" OnUpItem="linksControl_OnUpItem" OnDownItem="linksControl_OnDownItem" />
 	</div>
 	<div>
 		<act:ModalPopupExtender runat="server" ID="mpeAddEdit" TargetControlID="btnAddEditFake"

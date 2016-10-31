@@ -75,7 +75,65 @@ namespace Lmis.Portal.Web.Pages.Management
 			FillDataGrid();
 		}
 
-		protected void btnSave_OnClick(object sender, EventArgs e)
+        protected void linksControl_OnUpItem(object sender, GenericEventArgs<Guid> e)
+        {
+            var links = (from n in DataContext.LP_Links
+                            where n.DateDeleted == null
+                            orderby n.OrderIndex, n.DateCreated
+                            select n).ToList();
+
+            for (int i = 0; i < links.Count; i++)
+                links[i].OrderIndex = i;
+
+            var currentItem = links.FirstOrDefault(n => n.ID == e.Value);
+            if (currentItem == null)
+                return;
+
+            var index = links.IndexOf(currentItem);
+            if (index < 0 || index == 0)
+                return;
+
+            links[index] = links[index - 1];
+            links[index - 1] = currentItem;
+
+            for (int i = 0; i < links.Count; i++)
+                links[i].OrderIndex = i;
+
+            DataContext.SubmitChanges();
+
+            FillDataGrid();
+        }
+
+        protected void linksControl_OnDownItem(object sender, GenericEventArgs<Guid> e)
+        {
+            var links = (from n in DataContext.LP_Links
+                         where n.DateDeleted == null
+                            orderby n.OrderIndex, n.DateCreated
+                            select n).ToList();
+
+            for (int i = 0; i < links.Count; i++)
+                links[i].OrderIndex = i;
+
+            var currentItem = links.FirstOrDefault(n => n.ID == e.Value);
+            if (currentItem == null)
+                return;
+
+            var index = links.IndexOf(currentItem);
+            if (index < 0 || index == (links.Count - 1))
+                return;
+
+            links[index] = links[index + 1];
+            links[index + 1] = currentItem;
+
+            for (int i = 0; i < links.Count; i++)
+                links[i].OrderIndex = i;
+
+            DataContext.SubmitChanges();
+
+            FillDataGrid();
+        }
+
+        protected void btnSave_OnClick(object sender, EventArgs e)
 		{
 			var converter = new LinkModelEntityConverter(DataContext);
 
@@ -110,8 +168,8 @@ namespace Lmis.Portal.Web.Pages.Management
 		{
 			var entities = (from n in DataContext.LP_Links
 							where n.DateDeleted == null
-							orderby n.DateCreated descending
-							select n).ToList();
+							orderby n.OrderIndex, n.DateCreated
+                            select n).ToList();
 
 			var converter = new LinkEntityModelConverter(DataContext);
 
