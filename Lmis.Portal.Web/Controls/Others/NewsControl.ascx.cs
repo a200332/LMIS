@@ -4,11 +4,20 @@ using Lmis.Portal.Web.Models;
 
 namespace Lmis.Portal.Web.Controls.Others
 {
-	public partial class NewsControl : BaseExtendedControl<NewsModel>
-	{
-		protected void Page_Load(object sender, EventArgs e)
-		{
+    public partial class NewsControl : BaseExtendedControl<NewsModel>
+    {
+        protected void Page_Load(object sender, EventArgs e)
+        {
 
-		}
-	}
+        }
+
+        protected override void OnGetModel(object model, Type type)
+        {
+            var newsModel = model as NewsModel;
+            if (newsModel == null)
+                return;
+
+            newsModel.AttachmentName = fuAttachment.FileName;
+        }
+    }
 }

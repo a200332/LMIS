@@ -2,6 +2,7 @@
 using Lmis.Portal.DAL.DAL;
 using Lmis.Portal.Web.Converters.Common;
 using Lmis.Portal.Web.Models;
+using CITI.EVO.Tools.Extensions;
 
 namespace Lmis.Portal.Web.Converters.ModelToEntity
 {
@@ -28,7 +29,9 @@ namespace Lmis.Portal.Web.Converters.ModelToEntity
             target.Number = source.Number;
             target.Name = source.Name;
             target.ParentID = source.ParentID;
-            target.Image = source.Image;
+
+            if (!source.Image.IsNullOrEmpty())
+                target.Image = source.Image;
         }
     }
 }

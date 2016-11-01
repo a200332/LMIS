@@ -84,6 +84,21 @@ public class GetFile : IHttpHandler
                         }
                     }
                     break;
+                case "News":
+                    {
+                        var item = db.LP_News.FirstOrDefault(n => n.ID == itemID);
+                        if (item != null && item.Attachment != null && item.Attachment.Length > 0)
+                        {
+                            if (String.IsNullOrWhiteSpace(item.AttachmentName))
+                                fileName = String.Format("{0}.pdf", item.Title);
+                            else
+                                fileName = item.AttachmentName;
+
+                            fileBytes = item.Attachment.ToArray();
+                            mimeType = MimeTypeUtil.GetMimeType(fileName);
+                        }
+                    }
+                    break;
             }
         }
 

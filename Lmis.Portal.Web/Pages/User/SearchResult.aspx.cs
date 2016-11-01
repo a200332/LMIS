@@ -33,10 +33,36 @@ namespace Lmis.Portal.Web.Pages.User
             }
         }
 
-        protected IEnumerable<Object> Search(String keyword)
+        protected IEnumerable<SearchEntry> Search(String keyword)
         {
+            var newsQuery = (from n in DataContext.LP_News
+                             where n.DateDeleted == null &&
+                                   (
+                                       n.Title.Contains(keyword) ||
+                                       n.Description.Contains(keyword)
+                                   )
+                             select n);
+
+            foreach (var entity in newsQuery)
+            {
+                var entry = new SearchEntry
+                {
+                    ID = entity.ID,
+                    Url = GetTargetUrl(entity),
+                    Type = "News",
+                    Title = entity.Title,
+                    Description = entity.Description,
+                };
+
+                yield return entry;
+            }
+
             var legislationsQuery = (from n in DataContext.LP_Legislations
-                                     where n.DateDeleted == null && (n.Title.Contains(keyword) || n.Description.Contains(keyword))
+                                     where n.DateDeleted == null &&
+                                           (
+                                               n.Title.Contains(keyword) ||
+                                               n.Description.Contains(keyword)
+                                           )
                                      select n);
 
             foreach (var entity in legislationsQuery)
@@ -54,7 +80,11 @@ namespace Lmis.Portal.Web.Pages.User
             }
 
             var eBooksQuery = (from n in DataContext.LP_EBooks
-                               where n.DateDeleted == null && (n.Title.Contains(keyword) || n.Description.Contains(keyword))
+                               where n.DateDeleted == null &&
+                                     (
+                                         n.Title.Contains(keyword) ||
+                                         n.Description.Contains(keyword)
+                                     )
                                select n);
 
             foreach (var entity in eBooksQuery)
@@ -72,7 +102,11 @@ namespace Lmis.Portal.Web.Pages.User
             }
 
             var linksQuery = (from n in DataContext.LP_Links
-                              where n.DateDeleted == null && (n.Title.Contains(keyword) || n.Description.Contains(keyword))
+                              where n.DateDeleted == null &&
+                                    (
+                                        n.Title.Contains(keyword) ||
+                                        n.Description.Contains(keyword)
+                                    )
                               select n);
 
             foreach (var entity in linksQuery)
@@ -90,7 +124,11 @@ namespace Lmis.Portal.Web.Pages.User
             }
 
             var projectsQuery = (from n in DataContext.LP_Projects
-                                 where n.DateDeleted == null && (n.Title.Contains(keyword) || n.Description.Contains(keyword))
+                                 where n.DateDeleted == null &&
+                                       (
+                                            n.Title.Contains(keyword) ||
+                                            n.Description.Contains(keyword)
+                                       )
                                  select n);
 
             foreach (var entity in projectsQuery)
@@ -108,7 +146,13 @@ namespace Lmis.Portal.Web.Pages.User
             }
 
             var reportsQuery = (from n in DataContext.LP_Reports
-                                where n.DateDeleted == null && (n.Name.Contains(keyword) || n.Description.Contains(keyword) || n.Interpretation.Contains(keyword) || n.InformationSource.Contains(keyword))
+                                where n.DateDeleted == null &&
+                                      (
+                                        n.Name.Contains(keyword) ||
+                                        n.Description.Contains(keyword) ||
+                                        n.Interpretation.Contains(keyword) ||
+                                        n.InformationSource.Contains(keyword)
+                                      )
                                 select n);
 
             foreach (var entity in reportsQuery)
@@ -126,7 +170,11 @@ namespace Lmis.Portal.Web.Pages.User
             }
 
             var surveysQuery = (from n in DataContext.LP_Surveys
-                                where n.DateDeleted == null && (n.Title.Contains(keyword) || n.Description.Contains(keyword))
+                                where n.DateDeleted == null &&
+                                      (
+                                        n.Title.Contains(keyword) ||
+                                        n.Description.Contains(keyword)
+                                      )
                                 select n);
 
             foreach (var entity in surveysQuery)
@@ -162,6 +210,14 @@ namespace Lmis.Portal.Web.Pages.User
             }
         }
 
+        protected String GetTargetUrl(LP_News entity)
+        {
+            if (entity == null)
+                return "#";
+
+            var url = String.Format("~/Pages/User/News.aspx?ID={0}", entity.ID);
+            return url;
+        }
 
         protected String GetTargetUrl(LP_Report entity)
         {

@@ -19,7 +19,15 @@ public partial class _Default : BasePage
 			return;
 		}
 
-		FillVideos();
+        var entities = (from n in DataContext.LP_Videos
+                        where n.DateDeleted == null
+                        orderby n.DateCreated descending
+                        select n).ToList();
+
+        gvData.DataSource = entities;
+        gvData.DataBind();
+
+        FillVideos();
 	}
 
 	private void FillVideos()

@@ -43,6 +43,15 @@ public class GetImage : IHttpHandler
 						}
 					}
 					break;
+				case "News":
+					{
+						var item = db.LP_News.FirstOrDefault(n => n.ID == itemID);
+						if (item != null && item.Image != null && item.Image.Length > 0)
+						{
+							fileBytes = item.Image.ToArray();
+						}
+					}
+					break;
 				case "Category":
 					{
 						var item = db.LP_Categories.FirstOrDefault(n => n.ID == itemID);

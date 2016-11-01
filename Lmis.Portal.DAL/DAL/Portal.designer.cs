@@ -2866,6 +2866,20 @@ namespace Lmis.Portal.DAL.DAL
 		
 		private System.Nullable<System.DateTime> _DateDeleted;
 		
+		private string _Title;
+		
+		private string _Description;
+		
+		private string _FullText;
+		
+		private System.Nullable<System.DateTime> _NewsDate;
+		
+		private System.Data.Linq.Binary _Attachment;
+		
+		private System.Data.Linq.Binary _Image;
+		
+		private string _AttachmentName;
+		
     #region Extensibility Method Definitions
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
@@ -2878,6 +2892,20 @@ namespace Lmis.Portal.DAL.DAL
     partial void OnDateChangedChanged();
     partial void OnDateDeletedChanging(System.Nullable<System.DateTime> value);
     partial void OnDateDeletedChanged();
+    partial void OnTitleChanging(string value);
+    partial void OnTitleChanged();
+    partial void OnDescriptionChanging(string value);
+    partial void OnDescriptionChanged();
+    partial void OnFullTextChanging(string value);
+    partial void OnFullTextChanged();
+    partial void OnNewsDateChanging(System.Nullable<System.DateTime> value);
+    partial void OnNewsDateChanged();
+    partial void OnAttachmentChanging(System.Data.Linq.Binary value);
+    partial void OnAttachmentChanged();
+    partial void OnImageChanging(System.Data.Linq.Binary value);
+    partial void OnImageChanged();
+    partial void OnAttachmentNameChanging(string value);
+    partial void OnAttachmentNameChanged();
     #endregion
 		
 		public LP_News()
@@ -2905,7 +2933,7 @@ namespace Lmis.Portal.DAL.DAL
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DateCreated", DbType="DateTime", UpdateCheck=UpdateCheck.Never)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DateCreated", DbType="DateTime")]
 		public System.DateTime DateCreated
 		{
 			get
@@ -2961,6 +2989,146 @@ namespace Lmis.Portal.DAL.DAL
 					this._DateDeleted = value;
 					this.SendPropertyChanged("DateDeleted");
 					this.OnDateDeletedChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Title", DbType="NVarChar(400)", UpdateCheck=UpdateCheck.Never)]
+		public string Title
+		{
+			get
+			{
+				return this._Title;
+			}
+			set
+			{
+				if ((this._Title != value))
+				{
+					this.OnTitleChanging(value);
+					this.SendPropertyChanging();
+					this._Title = value;
+					this.SendPropertyChanged("Title");
+					this.OnTitleChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Description", DbType="NVarChar(400)", UpdateCheck=UpdateCheck.Never)]
+		public string Description
+		{
+			get
+			{
+				return this._Description;
+			}
+			set
+			{
+				if ((this._Description != value))
+				{
+					this.OnDescriptionChanging(value);
+					this.SendPropertyChanging();
+					this._Description = value;
+					this.SendPropertyChanged("Description");
+					this.OnDescriptionChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FullText", DbType="NVarChar(MAX)", UpdateCheck=UpdateCheck.Never)]
+		public string FullText
+		{
+			get
+			{
+				return this._FullText;
+			}
+			set
+			{
+				if ((this._FullText != value))
+				{
+					this.OnFullTextChanging(value);
+					this.SendPropertyChanging();
+					this._FullText = value;
+					this.SendPropertyChanged("FullText");
+					this.OnFullTextChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_NewsDate", DbType="DateTime", UpdateCheck=UpdateCheck.Never)]
+		public System.Nullable<System.DateTime> NewsDate
+		{
+			get
+			{
+				return this._NewsDate;
+			}
+			set
+			{
+				if ((this._NewsDate != value))
+				{
+					this.OnNewsDateChanging(value);
+					this.SendPropertyChanging();
+					this._NewsDate = value;
+					this.SendPropertyChanged("NewsDate");
+					this.OnNewsDateChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Attachment", DbType="VarBinary(MAX)", UpdateCheck=UpdateCheck.Never)]
+		public System.Data.Linq.Binary Attachment
+		{
+			get
+			{
+				return this._Attachment;
+			}
+			set
+			{
+				if ((this._Attachment != value))
+				{
+					this.OnAttachmentChanging(value);
+					this.SendPropertyChanging();
+					this._Attachment = value;
+					this.SendPropertyChanged("Attachment");
+					this.OnAttachmentChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Image", DbType="VarBinary(MAX)", UpdateCheck=UpdateCheck.Never)]
+		public System.Data.Linq.Binary Image
+		{
+			get
+			{
+				return this._Image;
+			}
+			set
+			{
+				if ((this._Image != value))
+				{
+					this.OnImageChanging(value);
+					this.SendPropertyChanging();
+					this._Image = value;
+					this.SendPropertyChanged("Image");
+					this.OnImageChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AttachmentName", DbType="NVarChar(250)", UpdateCheck=UpdateCheck.Never)]
+		public string AttachmentName
+		{
+			get
+			{
+				return this._AttachmentName;
+			}
+			set
+			{
+				if ((this._AttachmentName != value))
+				{
+					this.OnAttachmentNameChanging(value);
+					this.SendPropertyChanging();
+					this._AttachmentName = value;
+					this.SendPropertyChanged("AttachmentName");
+					this.OnAttachmentNameChanged();
 				}
 			}
 		}

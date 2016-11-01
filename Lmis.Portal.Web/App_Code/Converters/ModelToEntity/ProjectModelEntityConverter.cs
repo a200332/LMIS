@@ -2,6 +2,7 @@
 using Lmis.Portal.DAL.DAL;
 using Lmis.Portal.Web.Converters.Common;
 using Lmis.Portal.Web.Models;
+using CITI.EVO.Tools.Extensions;
 
 namespace Lmis.Portal.Web.Converters.ModelToEntity
 {
@@ -29,8 +30,12 @@ namespace Lmis.Portal.Web.Converters.ModelToEntity
             target.Description = source.Description;
             target.Language = source.Language;
             target.OrderIndex = source.OrderIndex;
-            target.FileData = source.FileData;
-            target.FileName = source.FileName;
+
+            if (!source.FileData.IsNullOrEmpty())
+            {
+                target.FileData = source.FileData;
+                target.FileName = source.FileName;
+            }
         }
     }
 }

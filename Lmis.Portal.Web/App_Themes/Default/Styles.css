@@ -120,6 +120,7 @@ input[type="radio" i], input[type="checkbox" i] {
     margin-top: 10px;
     height: 25px;
 }
+
 .title {
     margin: 5px 0;
     font-weight: bold;
@@ -129,10 +130,11 @@ input[type="radio" i], input[type="checkbox" i] {
 .dxtlControl {
     font-family: dejavu;
 }
-.dxtlControl a {
-    color: #323232;
-    font-size: 13px;
-}
+
+    .dxtlControl a {
+        color: #323232;
+        font-size: 13px;
+    }
 
 .dxtlSelectedNode td.dxtl, .dxtlFocusedNode td.dxtl span {
     color: #29abe2;
@@ -194,6 +196,78 @@ input[type="radio" i], input[type="checkbox" i] {
 .config-icons {
     margin: -6px 5px 5px 0;
 }
+
 .config-txt {
-  margin:10px 14px 14px 14px;
+    margin: 10px 14px 14px 14px;
+}
+/**************************About********************/
+.about {
+    width: 730px;
+    float: left;
+    margin-right: 22px;
+    text-align: left;
+}
+
+.about-img {
+    float: right;
+    width: 225px;
+    border: 1px solid gray;
+    height: 200px;
+}
+
+.about-title {
+    font-size: 14px;
+    padding-bottom: 10px;
+    font-weight: bold;
+}
+
+.about-txt {
+    text-align: justify;
+    line-height: 24px;
+}
+
+.news {
+    width: 730px;
+    float: left;
+    margin-right: 22px;
+    text-align: left;
+}
+
+
+.news-title {
+    font-size: 14px;
+    padding-bottom: 10px;
+    font-weight: bold;
+}
+
+.news-txt {
+    text-align: justify;
+    line-height: 24px;
+}
+
+.news-link {
+    float: right;
+    width: 225px;
+    text-align: left;
+    height: 100%;
+}
+
+
+.news-link-date {
+    font-size: 11px;
+    padding: 5px 0 5px 0;
+}
+
+.news-link-txt {
+    font-size: 12px;
+    margin-bottom: 5px;
+    padding-bottom: 10px;
+     border-bottom: 1px solid #d7d7d7;
+
+}
+a>ul>li.news-link-title {
+    color: #2f4f4f;
+}
+a:hover>ul>li.news-link-title {
+    color: #1e7fa9;
 }

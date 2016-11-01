@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using CITI.EVO.Tools.Extensions;
 
 namespace CITI.EVO.Tools.Utils
@@ -574,6 +575,11 @@ namespace CITI.EVO.Tools.Utils
                 {".z", "application/x-compress"},
                 {".zip", "application/x-zip-compressed"},
             };
+
+            var cache = _mimeTypes.ToList(); // need ToList() to avoid modifying while still enumerating
+
+            foreach (var mapping in cache)
+                _mimeTypes[mapping.Value] = mapping.Key;
         }
 
         public static String GetMimeType(String name)
@@ -587,6 +593,14 @@ namespace CITI.EVO.Tools.Utils
             mimeType = _mimeTypes.GetValueOrDefault(extension, mimeType);
 
             return mimeType;
+        }
+
+        public static String GetExtension(String mimeType)
+        {
+            mimeType = (mimeType ?? String.Empty);
+
+            var extension = _mimeTypes.GetValueOrDefault(mimeType);
+            return extension;
         }
     }
 }

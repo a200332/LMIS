@@ -43,11 +43,14 @@ namespace Lmis.Portal.Web.Pages.Management
 			FillDataGrid();
 		}
 
-		protected void btnAddNew_OnClick(object sender, EventArgs e)
-		{
-		}
+        protected void btnAddNew_OnClick(object sender, EventArgs e)
+        {
+            newsControl.Model = new NewsModel();
 
-		protected void btnSave_OnClick(object sender, EventArgs e)
+            mpeAddEdit.Show();
+        }
+
+        protected void btnSave_OnClick(object sender, EventArgs e)
 		{
 			var converter = new NewsModelEntityConverter(DataContext);
 
