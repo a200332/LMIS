@@ -11,41 +11,40 @@ using Lmis.Portal.Web.Models;
 
 public partial class _Default : BasePage
 {
-	protected void Page_Load(object sender, EventArgs e)
-	{
-		if (!Request.RawUrl.Contains("Default.aspx"))
-		{
-			Response.Redirect("~/Default.aspx");
-			return;
-		}
+    protected void Page_Load(object sender, EventArgs e)
+    {
+        if (!Request.RawUrl.Contains("Default.aspx"))
+        {
+            Response.Redirect("~/Default.aspx");
+            return;
+        }
 
+        clDefault.TodaysDate = DateTime.Now;
+
+        FillVideos();
+    }
+
+    private void FillVideos()
+    {
         var entities = (from n in DataContext.LP_Videos
                         where n.DateDeleted == null
                         orderby n.DateCreated descending
                         select n).ToList();
 
-        gvData.DataSource = entities;
-        gvData.DataBind();
+        var converter = new VideoEntityModelConverter(DataContext);
 
-        FillVideos();
-	}
+        var models = (from n in entities
+                      let m = converter.Convert(n)
+                      select m).ToList();
 
-	private void FillVideos()
-	{
-		var entities = (from n in DataContext.LP_Videos
-						where n.DateDeleted == null
-						orderby n.DateCreated descending
-						select n).ToList();
+        var model = new VideosModel();
+        model.List = models;
 
-		var converter = new VideoEntityModelConverter(DataContext);
+        videosControl.Model = model;
+    }
 
-		var models = (from n in entities
-					  let m = converter.Convert(n)
-					  select m).ToList();
+    protected void chkFlag_OnCheckedChanged(object sender, EventArgs e)
+    {
 
-		var model = new VideosModel();
-		model.List = models;
-
-		videosControl.Model = model;
-	}
+    }
 }

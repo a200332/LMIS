@@ -15,12 +15,11 @@
 
 #login_page {
     font-family: Arial, sans-serif;
-    background: #dedede;
+    background: #3f3744;
     margin: 0;
     padding: 0;
     border: 0;
     position: absolute;
-    background: url(../default/images/doctors.jpg) no-repeat center center fixed;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
@@ -39,16 +38,18 @@
 
 #login_page .main_content {
     text-align: center;
-    width: 320px;
+    width: 310px;
     margin-left: auto;
     margin-right: auto;
+    background-color: #e6e5e6;
+    padding: 25px;
+    -webkit-border-radius: 5px;
+-moz-border-radius: 5px;
+border-radius: 5px;
+    margin-top: 10%;
+
 }
 
-@media screen and (max-width: 1450px) {
-    #login_page .main_content {
-        width: 250px;
-    }
-}
 
 #login_page .box {
     width: 320px;
@@ -148,7 +149,6 @@
     font-size: 18px;
     color: white;
     font-family: 'Bpg Nino Mtavruli Normal';
-    background-color: #363636;
     width: 320px;
     height: 55px;
     display: block;
@@ -161,7 +161,7 @@
     -ms-transition: background-color 0.25s, width 0.25s;
     -o-transition: background-color 0.25s, width 0.25s;
     transition: background-color 0.25s, width 0.25s;
-    background-color: #191b1f;
+    background-color: #95b810;
     text-decoration: none;
 }
 
@@ -176,7 +176,7 @@
 
 
 #login_page .login_button:hover {
-    background-color: #0073b7;
+    background-color: #653686;
 }
 
 

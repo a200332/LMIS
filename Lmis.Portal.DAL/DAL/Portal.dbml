@@ -152,6 +152,9 @@
       <Column Name="Language" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" UpdateCheck="Never" />
       <Column Name="OrderIndex" Type="System.Int32" DbType="INT" CanBeNull="true" UpdateCheck="Never" />
       <Column Name="FileName" Type="System.String" DbType="NVarChar(400)" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="ParentID" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" UpdateCheck="Never" />
+      <Association Name="LP_Legislation_LP_Legislation" Member="Children" ThisKey="ID" OtherKey="ParentID" Type="LP_Legislation" />
+      <Association Name="LP_Legislation_LP_Legislation" Member="Parent" ThisKey="ParentID" OtherKey="ID" Type="LP_Legislation" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.LP_Projects" Member="LP_Projects">

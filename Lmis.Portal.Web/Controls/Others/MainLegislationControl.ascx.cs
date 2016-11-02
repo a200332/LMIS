@@ -5,13 +5,8 @@ using Lmis.Portal.Web.Models;
 
 namespace Lmis.Portal.Web.Controls.Others
 {
-    public partial class LegislationControl : BaseExtendedControl<LegislationModel>
+    public partial class MainLegislationControl : BaseExtendedControl<LegislationModel>
     {
-        protected void Page_Init(object sender, EventArgs e)
-        {
-            
-        }
-
         protected void Page_Load(object sender, EventArgs e)
         {
             FillComboBoxes();
@@ -20,16 +15,6 @@ namespace Lmis.Portal.Web.Controls.Others
         protected override void OnSetModel(object model, Type type)
         {
             FillComboBoxes();
-        }
-
-        protected override void OnGetModel(object model, Type type)
-        {
-            var castedModel = model as LegislationModel;
-            if(castedModel==null)
-                return;
-
-            castedModel.FileData = fuFileData.FileBytes;
-            castedModel.FileName = fuFileData.FileName;
         }
 
         protected void FillComboBoxes()

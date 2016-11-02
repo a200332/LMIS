@@ -16,12 +16,32 @@ namespace Lmis.Portal.Web.Pages.User
 
         private void FillLegislations()
         {
+            var parentID = DataConverter.ToNullableGuid(Request["ID"]);
+
             var currentLanguage = LanguageUtil.GetLanguage();
 
-            var entities = (from n in DataContext.LP_Legislations
-                            where n.DateDeleted == null && (n.Language == currentLanguage || n.Language == null || n.Language == "")
-                            orderby n.OrderIndex, n.DateCreated
-                            select n).ToList();
+            var query = from n in DataContext.LP_Legislations
+                        where n.DateDeleted == null && (n.Language == currentLanguage || n.Language == null || n.Language == "")
+                        select n;
+
+            if (parentID == null)
+            {
+                query = from n in query
+                        where n.ParentID == null
+                        select n;
+            }
+            else
+            {
+                query = from n in query
+                        where n.ParentID == parentID
+                        select n;
+            }
+
+            query = from n in query
+                    orderby n.OrderIndex, n.DateCreated
+                    select n;
+
+            var entities = query.ToList();
 
             var converter = new LegislationEntityModelConverter(DataContext);
 

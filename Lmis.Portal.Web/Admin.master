@@ -98,10 +98,10 @@
                                 <li>
                                     <ce:ImageLinkButton runat="server" ID="btGeoLang" OnClick="btGeoLang_Click">Georgian</ce:ImageLinkButton></li>
                                 <li class="language"></li>
-                                <li>
+                                <%--<li>
                                     <asp:Image ImageUrl="~/App_Themes/Default/images/top-right.png" runat="server" /></li>
                                 <li><a href="http://evolution.ge/Citi/Forum" target="blanck">
-                                    <ce:Label runat="server">Forum</ce:Label></a></li>
+                                    <ce:Label runat="server">Forum</ce:Label></a></li>--%>
                                 <li>
                                     <asp:Image ImageUrl="~/App_Themes/Default/images/top-right.png" runat="server" /></li>
                                 <li><a>
@@ -176,10 +176,10 @@
                 </div>
             </section>
 
-            <hmis:AdministratorChatControl runat="server" ID="ceAdministratorChatControl" />
+            <%--<hmis:AdministratorChatControl runat="server" ID="ceAdministratorChatControl" />
             <div class="chat-b">
                 <asp:Image ImageUrl="~/App_Themes/Default/images/chat.png" runat="server" />
-            </div>
+            </div>--%>
             <footer id="footer">
                 <div class="footer">
                     <ul>

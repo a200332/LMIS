@@ -20,7 +20,78 @@ namespace Lmis.Portal.Web.Pages.Management
 
         protected void btnAddNew_OnClick(object sender, EventArgs e)
         {
-            legislationControl.Model = new LegislationModel();
+            mainLegislationControl.Visible = true;
+            subLegislationControl.Visible = false;
+
+            mainLegislationControl.Model = new LegislationModel();
+            mpeAddEdit.Show();
+        }
+
+        protected void btnSave_OnClick(object sender, EventArgs e)
+        {
+            var converter = new LegislationModelEntityConverter(DataContext);
+
+            var model = (LegislationModel)null;
+
+            if (mainLegislationControl.Visible)
+                model = mainLegislationControl.Model;
+            else
+                model = subLegislationControl.Model;
+
+            if (model.ID != null)
+            {
+                var entity = DataContext.LP_Legislations.FirstOrDefault(n => n.ID == model.ID);
+                if (entity == null)
+                    return;
+
+                converter.FillObject(entity, model);
+            }
+            else
+            {
+                var entity = converter.Convert(model);
+
+                var query = (from n in DataContext.LP_Legislations
+                             where n.DateDeleted == null
+                             select n);
+
+                if (model.ParentID == null)
+                {
+                    query = (from n in query
+                             where n.ParentID == null
+                             select n);
+                }
+                else
+                {
+                    query = (from n in query
+                             where n.ParentID == model.ParentID
+                             select n);
+                }
+
+                var maxOrder = query.Max(n => n.OrderIndex);
+                entity.OrderIndex = maxOrder.GetValueOrDefault() + 1;
+
+                DataContext.LP_Legislations.InsertOnSubmit(entity);
+            }
+
+            DataContext.SubmitChanges();
+
+            mpeAddEdit.Hide();
+
+            FillDataGrid();
+        }
+
+        protected void legislationsControl_OnAddChild(object sender, GenericEventArgs<Guid> e)
+        {
+            mainLegislationControl.Visible = false;
+            subLegislationControl.Visible = true;
+
+            var model = new LegislationModel
+            {
+                ParentID = e.Value
+            };
+
+            subLegislationControl.Model = model;
+
             mpeAddEdit.Show();
         }
 
@@ -33,7 +104,20 @@ namespace Lmis.Portal.Web.Pages.Management
             var converter = new LegislationEntityModelConverter(DataContext);
             var model = converter.Convert(entity);
 
-            legislationControl.Model = model;
+            if (model.ParentID == null)
+            {
+                mainLegislationControl.Visible = true;
+                subLegislationControl.Visible = false;
+            }
+            else
+            {
+                mainLegislationControl.Visible = false;
+                subLegislationControl.Visible = true;
+            }
+
+            mainLegislationControl.Model = model;
+            subLegislationControl.Model = model;
+
             mpeAddEdit.Show();
         }
 
@@ -49,61 +133,34 @@ namespace Lmis.Portal.Web.Pages.Management
             FillDataGrid();
         }
 
-        protected void btnSave_OnClick(object sender, EventArgs e)
+        protected void legislationsControl_OnUpItem(object sender, GenericEventArgs<Guid> e)
         {
-            var converter = new LegislationModelEntityConverter(DataContext);
+            var entity = DataContext.LP_Legislations.FirstOrDefault(n => n.ID == e.Value);
+            if (entity == null)
+                return;
 
-            var model = legislationControl.Model;
-            if (model.ID != null)
+            var query = from n in DataContext.LP_Legislations
+                        where n.DateDeleted == null
+                        select n;
+
+            if (entity.ParentID == null)
             {
-                var entity = DataContext.LP_Legislations.FirstOrDefault(n => n.ID == model.ID);
-                if (entity == null)
-                    return;
-
-                converter.FillObject(entity, model);
+                query = from n in query
+                        where n.ParentID == null
+                        select n;
             }
             else
             {
-                var entity = converter.Convert(model);
-
-                var maxOrder = DataContext.LP_Legislations.Max(n => n.OrderIndex);
-                entity.OrderIndex = maxOrder.GetValueOrDefault() + 1;
-
-                DataContext.LP_Legislations.InsertOnSubmit(entity);
+                query = from n in query
+                        where n.ParentID == entity.ParentID
+                        select n;
             }
 
-            DataContext.SubmitChanges();
+            query = from n in query
+                    orderby n.OrderIndex, n.DateCreated
+                    select n;
 
-            mpeAddEdit.Hide();
-
-            FillDataGrid();
-        }
-
-        private void FillDataGrid()
-        {
-            var entities = (from n in DataContext.LP_Legislations
-                            where n.DateDeleted == null
-                            orderby n.OrderIndex, n.DateCreated
-                            select n).ToList();
-
-            var converter = new LegislationEntityModelConverter(DataContext);
-
-            var models = (from n in entities
-                          let m = converter.Convert(n)
-                          select m).ToList();
-
-            var model = new LegislationsModel();
-            model.List = models;
-
-            legislationsControl.Model = model;
-        }
-
-        protected void legislationsControl_OnUpItem(object sender, GenericEventArgs<Guid> e)
-        {
-            var legislations = (from n in DataContext.LP_Legislations
-                                where n.DateDeleted == null
-                                orderby n.OrderIndex, n.DateCreated
-                                select n).ToList();
+            var legislations = query.ToList();
 
             for (int i = 0; i < legislations.Count; i++)
                 legislations[i].OrderIndex = i;
@@ -129,10 +186,32 @@ namespace Lmis.Portal.Web.Pages.Management
 
         protected void legislationsControl_OnDownItem(object sender, GenericEventArgs<Guid> e)
         {
-            var legislations = (from n in DataContext.LP_Legislations
-                                where n.DateDeleted == null
-                                orderby n.OrderIndex, n.DateCreated
-                                select n).ToList();
+            var entity = DataContext.LP_Legislations.FirstOrDefault(n => n.ID == e.Value);
+            if (entity == null)
+                return;
+
+            var query = from n in DataContext.LP_Legislations
+                        where n.DateDeleted == null
+                        select n;
+
+            if (entity.ParentID == null)
+            {
+                query = from n in query
+                        where n.ParentID == null
+                        select n;
+            }
+            else
+            {
+                query = from n in query
+                        where n.ParentID == entity.ParentID
+                        select n;
+            }
+
+            query = from n in query
+                    orderby n.OrderIndex, n.DateCreated
+                    select n;
+
+            var legislations = query.ToList();
 
             for (int i = 0; i < legislations.Count; i++)
                 legislations[i].OrderIndex = i;
@@ -154,6 +233,25 @@ namespace Lmis.Portal.Web.Pages.Management
             DataContext.SubmitChanges();
 
             FillDataGrid();
+        }
+
+        private void FillDataGrid()
+        {
+            var entities = (from n in DataContext.LP_Legislations
+                            where n.DateDeleted == null
+                            orderby n.OrderIndex, n.DateCreated
+                            select n).ToList();
+
+            var converter = new LegislationEntityModelConverter(DataContext);
+
+            var models = (from n in entities
+                          let m = converter.Convert(n)
+                          select m).ToList();
+
+            var model = new LegislationsModel();
+            model.List = models;
+
+            legislationsControl.Model = model;
         }
     }
 }

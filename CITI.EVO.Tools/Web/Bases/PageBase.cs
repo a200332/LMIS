@@ -156,7 +156,7 @@ namespace CITI.EVO.Tools.Web.Bases
 			Control control = null;
 			var request = Page.Request;
 
-			var ctrlName = request.Params.Get("__EVENTTARGET");
+			var ctrlName = request.Params["__EVENTTARGET"];
 			if (!String.IsNullOrEmpty(ctrlName))
 			{
 				control = Page.FindControl(ctrlName);

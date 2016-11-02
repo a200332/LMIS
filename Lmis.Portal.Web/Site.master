@@ -138,7 +138,7 @@
             }
         </script>
         <audio id="listenAudio" src="" style="display: none;"></audio>
-        <div style="height: 100%; ">
+        <div style="height: 100%;">
 
             <header id="header">
                 <div class="top-bg">
@@ -176,10 +176,10 @@
                                 <li>
                                     <ce:ImageLinkButton runat="server" ID="btGeoLang" OnClick="btGeoLang_Click">Georgian</ce:ImageLinkButton></li>
                                 <li class="language"></li>
-                                <li>
+                                <%--<li>
                                     <asp:Image ImageUrl="~/App_Themes/Default/images/top-right.png" runat="server" /></li>
                                 <li><a href="http://evolution.ge/Citi/Forum" target="blanck">
-                                    <ce:Label runat="server">Forum</ce:Label></a></li>
+                                    <ce:Label runat="server">Forum</ce:Label></a></li>--%>
                                 <li>
                                     <asp:Image ImageUrl="~/App_Themes/Default/images/top-right.png" runat="server" /></li>
                                 <li><a>
@@ -267,24 +267,25 @@
                     </div>
                 </div>
             </section>
-            
 
-            <lmis:PublicChatControl runat="server" ID="publicChatControl" />
+
+            <%--<lmis:PublicChatControl runat="server" ID="publicChatControl" />
 
             <div class="chat-b">
                 <asp:Image ImageUrl="~/App_Themes/Default/images/chat.png" runat="server" />
-            </div>     <div id="footer">
-            <div class="footer">
-                <ul>
-                    <li class="left">
-                        <asp:Image runat="server" ImageUrl="~/App_Themes/Default/images/f-logo.png" ID="imgFLogo" /></li>
-                    <li class="right copyright">
-                        <ce:Label runat="server">© 2016  All rights reserved</ce:Label></li>
-                </ul>
+            </div>--%>
+            <div id="footer">
+                <div class="footer">
+                    <ul>
+                        <li class="left">
+                            <asp:Image runat="server" ImageUrl="~/App_Themes/Default/images/f-logo.png" ID="imgFLogo" /></li>
+                        <li class="right copyright">
+                            <ce:Label runat="server">© 2016  All rights reserved</ce:Label></li>
+                    </ul>
+                </div>
             </div>
         </div>
-        </div>
-   
+
     </form>
 
 </body>

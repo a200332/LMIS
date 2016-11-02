@@ -14,9 +14,11 @@ namespace Lmis.Portal.Web.Converters.ModelToEntity
 
         public override LP_Legislation Convert(LegislationModel source)
         {
-            var entity = new LP_Legislation();
-            entity.ID = Guid.NewGuid();
-            entity.DateCreated = DateTime.Now;
+            var entity = new LP_Legislation
+            {
+                ID = Guid.NewGuid(),
+                DateCreated = DateTime.Now
+            };
 
             FillObject(entity, source);
 
@@ -29,6 +31,7 @@ namespace Lmis.Portal.Web.Converters.ModelToEntity
             target.Title = source.Title;
             target.Description = source.Description;
             target.Language = source.Language;
+            target.ParentID = source.ParentID;
             target.OrderIndex = source.OrderIndex;
 
             if (!source.FileData.IsNullOrEmpty())

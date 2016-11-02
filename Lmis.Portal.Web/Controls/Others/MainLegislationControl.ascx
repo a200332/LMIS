@@ -1,7 +1,8 @@
-﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="LegislationControl.ascx.cs" Inherits="Lmis.Portal.Web.Controls.Others.LegislationControl" %>
+﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="MainLegislationControl.ascx.cs" Inherits="Lmis.Portal.Web.Controls.Others.MainLegislationControl" %>
 <%@ Register Src="~/Controls/Common/HiddenFieldValueControl.ascx" TagPrefix="lmis" TagName="HiddenFieldValueControl" %>
 
 <lmis:HiddenFieldValueControl runat="server" ID="hdID" Property="LegislationModel.ID" />
+<lmis:HiddenFieldValueControl runat="server" ID="hdParentID" Property="LegislationModel.ParentID" />
 
 <table>
     <tr>
@@ -22,11 +23,5 @@
             <ce:Label runat="server">Description</ce:Label></td>
         <td>
             <asp:TextBox runat="server" ID="tbxDescription" Property="LegislationModel.Description" /></td>
-    </tr>
-    <tr>
-        <td>
-            <ce:Label runat="server">File</ce:Label></td>
-        <td>
-            <asp:FileUpload runat="server" ID="fuFileData" Property="LegislationModel.FileData" /></td>
     </tr>
 </table>

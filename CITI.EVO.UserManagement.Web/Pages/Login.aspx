@@ -11,17 +11,11 @@
     <form id="form1" runat="server">
         <asp:Panel runat="server" DefaultButton="btOK">
             <section id="login_page">
-                <div class="logo">
+                <%--<div class="logo">
                     <asp:Image runat="server" ImageUrl="~/App_Themes/default/images/l2.png" />
-                </div>
+                </div>--%>
                 <div class="main_content">
-                    <asp:Panel runat="server" ID="pnlWarning" Visible="False">
-                        <mis:Label ID="lstWarningMessages" runat="server" ForeColor="Red" Style="font-weight: bold;" />
-                        <asp:LinkButton runat="server" ID="btnGoToLicPage" OnClick="btnGoToLicPage_OnClick" Text="ლიცენზიის ატვირთვა"></asp:LinkButton>
-
-
-                    </asp:Panel>
-                    <mis:Label ID="lstErrorMessages" runat="server" />
+                   
 
                     <div class="box">
                         <h1>მომხმარებელი</h1>
@@ -48,6 +42,15 @@
                         <mis:ImageLinkButton ID="btOK" CssClass="login_button"
                             Text="შესვლა" runat="server" OnClick="btOK_Click" />
                     </div>
+                    
+                                        <mis:Label ID="lstErrorMessages" runat="server" />
+
+                     <asp:Panel runat="server" ID="pnlWarning" Visible="False">
+                        <mis:Label ID="lstWarningMessages" runat="server" ForeColor="Red" Style="font-weight: bold;" />
+                        <asp:LinkButton runat="server" ID="btnGoToLicPage" OnClick="btnGoToLicPage_OnClick" Text="ლიცენზიის ატვირთვა"></asp:LinkButton>
+
+
+                    </asp:Panel>
                 </div>
             </section>
         </asp:Panel>
