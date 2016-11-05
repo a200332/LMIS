@@ -20,5 +20,11 @@ namespace Lmis.Portal.Web.Controls.DataDisplay
 			rptItems.DataSource = videosModel.List;
 			rptItems.DataBind();
 		}
-	}
+
+        protected String GetImageUrl(object eval)
+        {
+            var url = String.Format("~/Handlers/GetImage.ashx?Type=Link&ID={0}", eval);
+            return url;
+        }
+    }
 }

@@ -1,8 +1,8 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" MasterPageFile="~/Admin.master" CodeFile="LegislationsList.aspx.cs" Inherits="Lmis.Portal.Web.Pages.Management.LegislationsList" %>
 
-<%@ Register Src="~/Controls/Others/LegislationsControl.ascx" TagPrefix="lmis" TagName="LegislationsControl" %>
-<%@ Register Src="~/Controls/Others/MainLegislationControl.ascx" TagPrefix="lmis" TagName="MainLegislationControl" %>
-<%@ Register Src="~/Controls/Others/SubLegislationControl.ascx" TagPrefix="lmis" TagName="SubLegislationControl" %>
+<%@ Register Src="~/Controls/Management/LegislationsControl.ascx" TagPrefix="lmis" TagName="LegislationsControl" %>
+<%@ Register Src="~/Controls/Management/MainLegislationControl.ascx" TagPrefix="lmis" TagName="MainLegislationControl" %>
+<%@ Register Src="~/Controls/Management/SubLegislationControl.ascx" TagPrefix="lmis" TagName="SubLegislationControl" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
 </asp:Content>

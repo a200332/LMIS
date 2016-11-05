@@ -1,6 +1,6 @@
 $(document).ready(function () {
     $('.bxslider').bxSlider({
-        auto: true,
+        auto: false,
         autoControls: true
     });
 });

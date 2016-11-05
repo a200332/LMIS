@@ -6,14 +6,13 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using CITI.EVO.Tools.Security;
 using CITI.EVO.Tools.Utils;
-using CITI.EVO.Tools.Web.Bases;
 using Lmis.Portal.Web.Bases;
 using Lmis.Portal.Web.Converters.EntityToModel;
 using Lmis.Portal.Web.Models;
 
 namespace Lmis.Portal.Web
 {
-    public partial class Site : MasterPageBase
+    public partial class Site : BaseMasterPage
     {
         protected void Page_Init(object sender, EventArgs e)
         {
@@ -38,7 +37,14 @@ namespace Lmis.Portal.Web
             btLogin.Visible = !UmUtil.Instance.IsLogged;
             btLogout.Visible = UmUtil.Instance.IsLogged;
             liAdmin.Visible = (UmUtil.Instance.IsLogged && UmUtil.Instance.CurrentUser.IsSuperAdmin);
+
             btTranslationMode.Visible = (UmUtil.Instance.IsLogged && UmUtil.Instance.CurrentUser.IsSuperAdmin);
+
+            var georgiaInNumbersID = GetGeorgiaInNumbersID();
+            if (georgiaInNumbersID != null)
+                lnkGeorgiaInNumbers.NavigateUrl = String.Format("~/Handlers/GetFile.ashx?Type=Content&ID={0}", GetGeorgiaInNumbersID());
+            else
+                lnkGeorgiaInNumbers.NavigateUrl = "#";
 
             foreach (var childLink in GetCurrentUrlLinks(this))
             {
@@ -50,6 +56,17 @@ namespace Lmis.Portal.Web
 
             imgLogo.ImageUrl = String.Format("~/App_Themes/Default/images/logo_{0}.png", LanguageUtil.GetLanguage());
             imgFLogo.ImageUrl = String.Format("~/App_Themes/Default/images/f-logo_{0}.png", LanguageUtil.GetLanguage());
+        }
+
+        private Guid? GetGeorgiaInNumbersID()
+        {
+            var entity = DataContext.LP_Contents.FirstOrDefault(n => n.DateDeleted == null && n.Type == "GeorgiaInNumbers");
+            if (entity != null)
+            {
+                return entity.ID;
+            }
+
+            return null;
         }
 
         protected void btEngLang_Click(object sender, EventArgs e)

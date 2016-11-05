@@ -9,11 +9,11 @@
     <Columns>
         <dx:TreeListDataColumn FieldName="Name" Name="Name" Caption="Name">
             <DataCellTemplate>
-                <asp:Panel Style="width: 80px;" runat="server" Visible='<%# GetLabelVisible(Eval("ID")) %>'>
+                <asp:Panel Style="width: 80px;" runat="server" Visible='<%# GetLabelVisible(Eval("ParentID")) %>'>
                     <asp:Image runat="server" ImageUrl='<%# GetImageLink(Eval("ID")) %>' />
                     <asp:Label runat="server" Text='<%# GetShortName(Container.DataItem) %>' ToolTip='<%# GetFullName(Container.DataItem) %>' />
                 </asp:Panel>
-                <asp:Panel Style="width: 80px;" runat="server" Visible='<%# GetLinkVisible(Eval("ID")) %>'>
+                <asp:Panel Style="width: 80px;" runat="server" Visible='<%# GetLinkVisible(Eval("ParentID")) %>'>
                     <asp:HyperLink runat="server" NavigateUrl='<%# GetReportsLink(Eval("ID")) %>'>
 					        <asp:Image runat="server" ImageUrl='<%# GetImageLink(Eval("ID")) %>'/>
                             <asp:Label runat="server" Text='<%# GetShortName(Container.DataItem) %>' ToolTip='<%# GetFullName(Container.DataItem) %>'/>

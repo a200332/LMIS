@@ -1,7 +1,7 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Admin.master" AutoEventWireup="true" CodeFile="NewsList.aspx.cs" Inherits="Lmis.Portal.Web.Pages.Management.NewsList" %>
 
-<%@ Register Src="~/Controls/Others/NewsListControl.ascx" TagPrefix="lmis" TagName="NewsListControl" %>
-<%@ Register Src="~/Controls/Others/NewsControl.ascx" TagPrefix="lmis" TagName="NewsControl" %>
+<%@ Register Src="~/Controls/Management/NewsListControl.ascx" TagPrefix="lmis" TagName="NewsListControl" %>
+<%@ Register Src="~/Controls/Management/NewsControl.ascx" TagPrefix="lmis" TagName="NewsControl" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
 </asp:Content>

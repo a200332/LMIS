@@ -1,8 +1,8 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Admin.master" AutoEventWireup="true" CodeFile="TablesList.aspx.cs" Inherits="Lmis.Portal.Web.Pages.Management.TablesList" %>
 
-<%@ Register Src="~/Controls/SchemaManipulation/TablesControl.ascx" TagPrefix="lmis" TagName="TablesControl" %>
-<%@ Register Src="~/Controls/SchemaManipulation/TableControl.ascx" TagPrefix="lmis" TagName="TableControl" %>
-<%@ Register Src="~/Controls/SchemaManipulation/ColumnControl.ascx" TagPrefix="lmis" TagName="ColumnControl" %>
+<%@ Register Src="~/Controls/Management/TablesControl.ascx" TagPrefix="lmis" TagName="TablesControl" %>
+<%@ Register Src="~/Controls/Management/TableControl.ascx" TagPrefix="lmis" TagName="TableControl" %>
+<%@ Register Src="~/Controls/Management/ColumnControl.ascx" TagPrefix="lmis" TagName="ColumnControl" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
 </asp:Content>

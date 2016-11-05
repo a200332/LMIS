@@ -21,12 +21,19 @@
                 <li class="vertical-center right-menu-padding rm-search">
                     <ce:Label runat="server">Job Finder</ce:Label></li>
             </a>
-            <a href="#">
+            <a href="http://worknet.gov.ge" title="თქვენ შეგიძლიათ დარეგისტრირდეთ როგორც სამუშაოს მაძიებლად ან განათავსოთ ვაკანსია" target="_blank">
                 <li class="vertical-center right-menu-padding rm-profile">
                     <ce:Label runat="server">Create  Profile</ce:Label></li>
             </a>
-            <asp:Calendar runat="server" FirstDayOfWeek="Monday" ID="clDefault" SelectedDate="<%# DateTime.Now %>">
-                <SelectedDayStyle BackColor="Yellow" ForeColor="Red" />
+            <asp:Calendar runat="server" FirstDayOfWeek="Monday"  CssClass="myCalendar" ID="clDefault" SelectedDate="<%# DateTime.Now %>">
+                <OtherMonthDayStyle ForeColor="#b0b0b0" />
+                <DayStyle CssClass="myCalendarDay" ForeColor="#2d3338" />
+                <DayHeaderStyle CssClass="myCalendarDayHeader" ForeColor="#2d3338" />
+                <SelectedDayStyle Font-Bold="True" Font-Size="12px" CssClass="myCalendarSelector" />
+                <TodayDayStyle CssClass="myCalendarToday" />
+                <SelectorStyle CssClass="myCalendarSelector" />
+                <NextPrevStyle CssClass="myCalendarNextPrev" />
+                <TitleStyle CssClass="myCalendarTitle" />
             </asp:Calendar>
         </ul>
         <%--<img src="App_Themes/Default/images/left-article.png" />--%>

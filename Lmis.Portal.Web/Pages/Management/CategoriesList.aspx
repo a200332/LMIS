@@ -1,7 +1,7 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Admin.master" AutoEventWireup="true" CodeFile="CategoriesList.aspx.cs" Inherits="Lmis.Portal.Web.Pages.Management.CategoriesList" %>
 
-<%@ Register Src="~/Controls/Others/CategoriesControl.ascx" TagPrefix="lmis" TagName="CategoriesControl" %>
-<%@ Register Src="~/Controls/Others/CategoryControl.ascx" TagPrefix="lmis" TagName="CategoryControl" %>
+<%@ Register Src="~/Controls/Management/CategoriesControl.ascx" TagPrefix="lmis" TagName="CategoriesControl" %>
+<%@ Register Src="~/Controls/Management/CategoryControl.ascx" TagPrefix="lmis" TagName="CategoryControl" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
 </asp:Content>
@@ -10,7 +10,7 @@
         <ce:ImageLinkButton runat="server" ToolTip="Add Category" DefaultImageUrl="~/App_Themes/Default/images/add.png" ID="btnAddNew" OnClick="btnAddCategory_OnClick" />
     </div>
     <div>
-        <lmis:CategoriesControl runat="server" ID="categoriesControl" OnAddChild="categoriesControl_OnAddChild" OnEditItem="categoriesControl_OnEditItem" OnDeleteItem="categoriesControl_OnDeleteItem" />
+        <lmis:CategoriesControl runat="server" ID="categoriesControl" OnAddChild="categoriesControl_OnAddChild" OnEditItem="categoriesControl_OnEditItem" OnDeleteItem="categoriesControl_OnDeleteItem" OnUpItem="categoriesControl_OnUpItem" OnDownItem="categoriesControl_OnDownItem" />
     </div>
     <div>
         <act:ModalPopupExtender runat="server" ID="mpeAddEditCategory" TargetControlID="btnAddEditCategoryFake"

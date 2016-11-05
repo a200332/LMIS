@@ -23,6 +23,15 @@ namespace Lmis.Portal.Web.Pages.User
                     newsControl.Model = model;
                 }
             }
+            else
+            {
+                var entity = DataContext.LP_News.OrderByDescending(n => n.NewsDate).FirstOrDefault();
+                if (entity != null)
+                {
+                    var url = String.Format("~/Pages/User/News.aspx?ID={0}", entity.ID);
+                    Response.Redirect(url);
+                }
+            }
 
             FillNews();
         }

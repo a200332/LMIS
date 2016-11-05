@@ -30,6 +30,10 @@
             });
 
 
+            $('.bxslider').bxSlider({
+                auto: false,
+                autoControls: false
+            });
 
             $(document).ready(function () {
                 $('.mainlink').bxSlider({
@@ -138,7 +142,7 @@
             }
         </script>
         <audio id="listenAudio" src="" style="display: none;"></audio>
-        <div style="height: 100%;">
+        <div id="wrapper">
 
             <header id="header">
                 <div class="top-bg">
@@ -231,10 +235,10 @@
                             <asp:HyperLink runat="server" CssClass="mcolor" NavigateUrl="http://myprofession.gov.ge/content/%E1%83%A2%E1%83%94%E1%83%A1%E1%83%A2%E1%83%94%E1%83%91%E1%83%98" Target="_blank"><ce:Label runat="server">career</ce:Label></asp:HyperLink>
                         </li>
                         <li>
-                            <asp:HyperLink runat="server" CssClass="mcolor" NavigateUrl="~/Pages/User/Surveys.aspx"><ce:Label runat="server">reports</ce:Label></asp:HyperLink>
+                            <asp:HyperLink runat="server" CssClass="mcolor" NavigateUrl="~/Pages/User/Surveys.aspx"><ce:Label runat="server">Reports</ce:Label></asp:HyperLink>
                         </li>
                         <li>
-                            <asp:HyperLink runat="server" CssClass="mcolor" NavigateUrl="~/Pages/User/Projects.aspx"><ce:Label runat="server">projects/Programs</ce:Label></asp:HyperLink>
+                            <asp:HyperLink runat="server" CssClass="mcolor" NavigateUrl="~/Pages/User/Projects.aspx"><ce:Label runat="server">Programs</ce:Label></asp:HyperLink>
                         </li>
                         <li>
                             <asp:HyperLink runat="server" CssClass="mcolor" NavigateUrl="~/Pages/User/Legislation.aspx"><ce:Label runat="server">Legislation</ce:Label></asp:HyperLink>
@@ -245,12 +249,10 @@
                         <li>
                             <asp:HyperLink runat="server" CssClass="mcolor" NavigateUrl="~/Pages/User/ContactUs.aspx"><ce:Label runat="server">Contact Us</ce:Label></asp:HyperLink>
                         </li>
-
                     </ul>
-
                 </div>
             </header>
-            <section id="content">
+            <div id="content">
                 <div class="content">
                     <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
                     </asp:ContentPlaceHolder>
@@ -261,19 +263,15 @@
                         <lmis:MainLinksControl runat="server" ID="mainLinksControl" />
                     </div>
                     <div class="bottom-geo">
-                        <ce:ImageLinkButton runat="server" NavigateUrl="~/Pages/User/GeorgiaInNumbers.aspx" DefaultImageUrl="~/App_Themes/Default/images/bn-geo.png" Target="_blank" />
-                        <ce:Label CssClass="bn-geot1" runat="server">Georgia</ce:Label>
-                        <ce:Label CssClass="bn-geot2" runat="server"> in Numbers</ce:Label>
+                        <asp:HyperLink runat="server" ID="lnkGeorgiaInNumbers" Target="_blank" NavigateUrl="#">
+                            <asp:Image runat="server" ImageUrl="~/App_Themes/Default/images/bn-geo.png"/>
+                            <ce:Label CssClass="bn-geot1" runat="server">Georgia</ce:Label>
+                            <ce:Label CssClass="bn-geot2" runat="server"> in Numbers</ce:Label>
+                        </asp:HyperLink>
                     </div>
                 </div>
-            </section>
+            </div>
 
-
-            <%--<lmis:PublicChatControl runat="server" ID="publicChatControl" />
-
-            <div class="chat-b">
-                <asp:Image ImageUrl="~/App_Themes/Default/images/chat.png" runat="server" />
-            </div>--%>
             <div id="footer">
                 <div class="footer">
                     <ul>
@@ -285,7 +283,6 @@
                 </div>
             </div>
         </div>
-
     </form>
 
 </body>

@@ -9,6 +9,7 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
     <div class="news">
         <lmis:NewsControl runat="server" ID="newsControl" />
+    
     </div>
     <div class="news-link">
         <lmis:NewsListControl runat="server" ID="newsListControl" />

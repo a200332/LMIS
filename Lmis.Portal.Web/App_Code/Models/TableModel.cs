@@ -10,6 +10,8 @@ namespace Lmis.Portal.Web.Models
 
 		public String Name { get; set; }
 
-		public List<ColumnModel> Columns { get; set; }
+        public String Status { get; set; }
+
+        public List<ColumnModel> Columns { get; set; }
 	}
 }

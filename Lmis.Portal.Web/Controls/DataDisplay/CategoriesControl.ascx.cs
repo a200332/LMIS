@@ -13,16 +13,6 @@ namespace Lmis.Portal.Web.Controls.DataDisplay
 {
     public partial class CategoriesControl : BaseExtendedControl<CategoriesModel>
     {
-        private IDictionary<Guid, int> _categoryReports;
-        protected IDictionary<Guid, int> CategoryReports
-        {
-            get
-            {
-                _categoryReports = (_categoryReports ?? new Dictionary<Guid, int>());
-                return _categoryReports;
-            }
-        }
-
         public String TargetUrl
         {
             get { return Convert.ToString(ViewState["TargetUrl"]); }
@@ -36,17 +26,6 @@ namespace Lmis.Portal.Web.Controls.DataDisplay
 
         protected override void OnSetModel(object model, Type type)
         {
-            var reportsQuery = (from n in DataContext.LP_Categories
-                                where n.DateDeleted == null
-                                let c = n.Reports.Count(m => m.DateDeleted == null)
-                                select new
-                                {
-                                    n.ID,
-                                    Count = c
-                                });
-
-            _categoryReports = reportsQuery.ToDictionary(n => n.ID, n => n.Count);
-
             var categoriesModel = (CategoriesModel)model;
 
             tlData.DataSource = categoriesModel.List;
@@ -164,18 +143,16 @@ namespace Lmis.Portal.Web.Controls.DataDisplay
             if (id == null)
                 return false;
 
-            var count = CategoryReports.GetValueOrDefault(id.Value);
-            return count > 0;
+            return true;
         }
 
         protected bool GetLabelVisible(object eval)
         {
             var id = DataConverter.ToNullableGuid(eval);
             if (id == null)
-                return false;
+                return true;
 
-            var count = CategoryReports.GetValueOrDefault(id.Value);
-            return count == 0;
+            return false;
         }
     }
 }

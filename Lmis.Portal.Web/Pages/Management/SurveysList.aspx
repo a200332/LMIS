@@ -1,8 +1,8 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Admin.master" AutoEventWireup="true" CodeFile="SurveysList.aspx.cs" Inherits="Lmis.Portal.Web.Pages.Management.SurveysList" %>
 
 
-<%@ Register Src="~/Controls/Others/SurveysControl.ascx" TagPrefix="lmis" TagName="SurveysControl" %>
-<%@ Register Src="~/Controls/Others/SurveyControl.ascx" TagPrefix="lmis" TagName="SurveyControl" %>
+<%@ Register Src="~/Controls/Management/SurveysControl.ascx" TagPrefix="lmis" TagName="SurveysControl" %>
+<%@ Register Src="~/Controls/Management/SurveyControl.ascx" TagPrefix="lmis" TagName="SurveyControl" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
 </asp:Content>

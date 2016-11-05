@@ -24,7 +24,8 @@ namespace Lmis.Portal.Web.Converters.EntityToModel
 		{
 			target.ID = source.ID;
 			target.Name = source.Name;
-			target.Columns = new List<ColumnModel>();
+            target.Status = source.Status;
+            target.Columns = new List<ColumnModel>();
 
 			FillColumns(target.Columns, source.Columns);
 		}

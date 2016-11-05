@@ -1,6 +1,6 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="LogicData.aspx.cs" Inherits="Lmis.Portal.Web.Pages.Management.LogicData" MasterPageFile="~/Admin.master" %>
 
-<%@ Register Src="~/Controls/DataManipulation/TableDataControl.ascx" TagPrefix="lmis" TagName="TableDataControl" %>
+<%@ Register Src="~/Controls/Management/TableDataControl.ascx" TagPrefix="lmis" TagName="TableDataControl" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
 </asp:Content>

@@ -24,11 +24,11 @@
             <div class="clear"></div>
             <div>
                 <asp:Panel runat="server" ID="pnlChartImage">
-                    <asp:Chart ID="mainChart" runat="server" Width="710" Height="350" IsMapEnabled="True">
+                    <asp:Chart ID="mainChart" runat="server" Width="800" Height="500" IsMapEnabled="True" AntiAliasing="All" OnDataBound="mainChart_OnDataBound">
                         <Series>
                         </Series>
                         <ChartAreas>
-                            <asp:ChartArea Name="MainChartArea">
+                            <asp:ChartArea Name="Default">
                                 <AxisX Interval="1" LabelAutoFitStyle="WordWrap" IsMarginVisible="False">
                                     <MajorGrid LineColor="LightGray"></MajorGrid>
                                 </AxisX>
@@ -203,9 +203,6 @@
                                     <asp:ListItem Text="RangeBar" Value="RangeBar" />
                                     <asp:ListItem Text="RangeColumn" Value="RangeColumn" />
                                     <asp:ListItem Text="Radar" Value="Radar" />
-                                    <asp:ListItem Text="Polar" Value="Polar" />
-                                    <asp:ListItem Text="ErrorBar" Value="ErrorBar" />
-                                    <asp:ListItem Text="BoxPlot" Value="BoxPlot" />
                                 </Items>
                             </asp:RadioButtonList>
                         </div>

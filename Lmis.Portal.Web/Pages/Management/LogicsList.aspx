@@ -1,7 +1,6 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Admin.master" AutoEventWireup="true" CodeFile="LogicsList.aspx.cs" Inherits="Lmis.Portal.Web.Pages.Management.LogicsList" %>
 
-
-<%@ Register Src="~/Controls/DataManipulation/LogicsControl.ascx" TagPrefix="lmis" TagName="LogicsControl" %>
+<%@ Register Src="~/Controls/Management/LogicsControl.ascx" TagPrefix="lmis" TagName="LogicsControl" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
 </asp:Content>

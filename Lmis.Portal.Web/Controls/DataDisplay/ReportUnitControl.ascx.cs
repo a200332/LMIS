@@ -30,6 +30,11 @@ namespace Lmis.Portal.Web.Controls.DataDisplay
         {
         }
 
+        protected void mainChart_OnDataBound(object sender, EventArgs e)
+        {
+
+        }
+
         protected void btnCaptionsOK_OnClick(object sender, EventArgs e)
         {
 
@@ -143,6 +148,32 @@ namespace Lmis.Portal.Web.Controls.DataDisplay
             Response.End();
         }
 
+        protected void BindGridData(BindingInfoEntity entiry)
+        {
+            var sqlDs = ReportUnitHelper.CreateDataSource(entiry.SqlQuery);
+
+            var dataView = (DataView)sqlDs.Select(new DataSourceSelectArguments());
+            if (dataView == null)
+                return;
+
+            lblReportTitle.Text = entiry.Name;
+
+            var dataTable = ReportUnitHelper.GetGridDataTable(entiry, dataView.Cast<DataRowView>());
+
+            BindGridData(dataTable);
+        }
+
+        protected void BindGridData(DataTable dataTable)
+        {
+            var keyFields = dataTable.Columns.Cast<DataColumn>().Select(n => n.ColumnName);
+            var keyColumns = String.Join(";", keyFields);
+
+            mainGrid.AutoGenerateColumns = (mainGrid.Columns.Count == 0);
+            mainGrid.KeyFieldName = keyColumns;
+            mainGrid.DataSource = dataTable;
+            mainGrid.DataBind();
+        }
+
         protected void BindChartData(BindingInfoEntity entity)
         {
             lblReportTitle.Text = entity.Name;
@@ -200,7 +231,12 @@ namespace Lmis.Portal.Web.Controls.DataDisplay
                               select n);
             }
 
-            var dataTable = ReportUnitHelper.GetChartDataTable(modelsGrp.Key, yMember, xMember, collection);
+            var sortData = false;
+
+            if (entity.QueryType == "Logic")
+                sortData = !entity.Ordered;
+
+            var dataTable = ReportUnitHelper.GetChartDataTable(modelsGrp.Key, yMember, xMember, collection, sortData);
 
             var chartType = reportType.GetValueOrDefault(SeriesChartType.Line);
 
@@ -240,70 +276,72 @@ namespace Lmis.Portal.Web.Controls.DataDisplay
             var valuesSet = new SortedSet<double>();
 
             var columns = dataTable.Columns.Cast<DataColumn>().ToList();
-            var yColumn = columns.First();
+            var xColumn = columns.First();
 
             foreach (var dataColumn in columns)
             {
-                if (dataColumn == yColumn)
+                if (dataColumn == xColumn)
                     continue;
+
+                var xLegend = (chartType == SeriesChartType.Pie || chartType == SeriesChartType.Doughnut);
 
                 var series = new Series
                 {
                     Name = dataColumn.ColumnName,
+                    Label = "#VALY{0,0.00}",
+                    ToolTip = "#SERIESNAME #VALX/#VALY{0,0.00}",
                     Legend = "Default",
-                    BorderWidth = 2,
+                    LegendText = (xLegend ? "#SERIESNAME/#VALX" : "#SERIESNAME"),
+                    BorderWidth = 3,
                     ChartType = chartType,
                     IsValueShownAsLabel = true,
-                    ToolTip = "#SERIESNAME #VALX/#VALY{0.00}",
-                    Label = "#VALY{0.00}",
                 };
 
                 foreach (DataRow dataRow in dataTable.Rows)
                 {
-                    var y = DataConverter.ToNullableDouble(dataRow[dataColumn]).GetValueOrDefault();
-                    var x = dataRow[yColumn];
+                    var cell = dataRow[dataColumn];
+                    var val = DataConverter.ToNullableDouble(cell);
+
+                    var y = val.GetValueOrDefault();
+                    var x = dataRow[xColumn];
+
+                    var xNum = DataConverter.ToNullableDouble(x);
+                    if (xNum == null)
+                    {
+                        var text = Convert.ToString(x);
+                        text = (text ?? String.Empty);
+
+                        if (text.Length > 25)
+                            text = String.Format("{0}...", text.Substring(0, 22));
+
+                        x = text;
+                    }
 
                     series.Points.AddXY(x, y);
                     valuesSet.Add(y);
                 }
 
-                var mainChartArea = mainChart.ChartAreas["MainChartArea"];
-                if (mainChartArea != null)
-                {
-                    var axisY = mainChartArea.AxisY;
-
-                    axisY.LabelStyle.Format = "0.00";
-                    axisY.Minimum = valuesSet.Min - 10;
-                    axisY.Maximum = valuesSet.Max + 10;
-                }
-
                 mainChart.Series.Add(series);
             }
-        }
 
-        protected void BindGridData(BindingInfoEntity entiry)
-        {
-            var sqlDs = ReportUnitHelper.CreateDataSource(entiry.SqlQuery);
+            var defaultChartArea = mainChart.ChartAreas["Default"];
 
-            var dataView = (DataView)sqlDs.Select(new DataSourceSelectArguments());
-            if (dataView == null)
-                return;
+            var axisX = defaultChartArea.AxisX;
+            axisX.IsLabelAutoFit = true;
 
-            lblReportTitle.Text = entiry.Name;
+            var labelX = axisX.LabelStyle;
+            labelX.Format = "0,0.00";
+            labelX.TruncatedLabels = true;
+            labelX.Angle = 90;
 
-            var dataTable = ReportUnitHelper.GetGridDataTable(entiry, dataView.Cast<DataRowView>());
+            var axisY = defaultChartArea.AxisY;
+            axisY.IsLabelAutoFit = true;
+            axisY.Minimum = valuesSet.Min - 10;
+            axisY.Maximum = valuesSet.Max + 10;
 
-            BindGridData(dataTable);
-        }
-        protected void BindGridData(DataTable dataTable)
-        {
-            var keyFields = dataTable.Columns.Cast<DataColumn>().Select(n => n.ColumnName);
-            var keyColumns = String.Join(";", keyFields);
-
-            mainGrid.AutoGenerateColumns = (mainGrid.Columns.Count == 0);
-            mainGrid.KeyFieldName = keyColumns;
-            mainGrid.DataSource = dataTable;
-            mainGrid.DataBind();
+            var labelY = axisY.LabelStyle;
+            labelY.Format = "0,0.00";
+            labelY.TruncatedLabels = true;
         }
 
         protected void FillCaptionsList(DataView dataView, String member)

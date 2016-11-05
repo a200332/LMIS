@@ -9,8 +9,8 @@
 }
 
 .book-title {
-    font-size: 14px;
-    font-weight: bold;
+    font-size: 13px;
+ 
     text-align: left;
 }
 
@@ -142,6 +142,7 @@ input[type="radio" i], input[type="checkbox" i] {
 
 .dxtlNode td.dxtl, .dxtlAltNode td.dxtl, .dxtlSelectedNode td.dxtl, .dxtlFocusedNode td.dxtl, .dxtlEditFormDisplayNode td.dxtl, .dxtlCommandCell {
     padding: 0 0 8px 0;
+    /*white-space: normal;*/
 }
 
 .dxtlIndent {
@@ -206,6 +207,7 @@ input[type="radio" i], input[type="checkbox" i] {
     float: left;
     margin-right: 22px;
     text-align: left;
+    font-size: 13px;
 }
 
 .about-img {
@@ -224,7 +226,10 @@ input[type="radio" i], input[type="checkbox" i] {
 .about-txt {
     text-align: justify;
     line-height: 24px;
+    font-size: 13px;
 }
+
+
 
 .news {
     width: 730px;

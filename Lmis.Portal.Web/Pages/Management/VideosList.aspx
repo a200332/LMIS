@@ -1,7 +1,7 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Admin.master" AutoEventWireup="true" CodeFile="VideosList.aspx.cs" Inherits="Lmis.Portal.Web.Pages.Management.VideosList" %>
 
-<%@ Register Src="~/Controls/Others/VideosControl.ascx" TagPrefix="lmis" TagName="VideosControl" %>
-<%@ Register Src="~/Controls/Others/VideoControl.ascx" TagPrefix="lmis" TagName="VideoControl" %>
+<%@ Register Src="~/Controls/Management/VideosControl.ascx" TagPrefix="lmis" TagName="VideosControl" %>
+<%@ Register Src="~/Controls/Management/VideoControl.ascx" TagPrefix="lmis" TagName="VideoControl" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
 </asp:Content>

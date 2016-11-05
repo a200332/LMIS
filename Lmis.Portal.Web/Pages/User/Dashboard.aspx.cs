@@ -2,97 +2,71 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.UI.WebControls;
+using CITI.EVO.Tools.Comparers;
 using CITI.EVO.Tools.Extensions;
 using CITI.EVO.Tools.Utils;
 using Lmis.Portal.DAL.DAL;
 using Lmis.Portal.Web.Bases;
 using Lmis.Portal.Web.Converters.EntityToModel;
 using Lmis.Portal.Web.Models;
+using Lmis.Portal.Web.Utils;
 
 namespace Lmis.Portal.Web.Pages.User
 {
-	public partial class Dashboard : BasePage
-	{
-		protected void Page_Load(object sender, EventArgs e)
-		{
-			FillCategories();
+    public partial class Dashboard : BasePage
+    {
+        protected void Page_Load(object sender, EventArgs e)
+        {
+            FillCategories();
 
-			FillReports();
-		}
+            FillReports();
+        }
 
-		protected void btnReportsOK_OnClick(object sender, EventArgs e)
-		{
-		}
+        protected void btnReportsOK_OnClick(object sender, EventArgs e)
+        {
+        }
 
-		private void FillReports()
-		{
-			var categoryID = DataConverter.ToNullableGuid(Request["CategoryID"]);
-			if (categoryID == null)
-				return;
+        private void FillReports()
+        {
+            var categoryID = DataConverter.ToNullableGuid(Request["CategoryID"]);
+            if (categoryID == null)
+                return;
 
-			var reports = (from n in DataContext.LP_Reports
-						   where n.CategoryID == categoryID &&
-								 n.DateDeleted == null &&
-								 n.Public == true
-						   select n).ToList();
+            var currentLanguage = LanguageUtil.GetLanguage();
 
-			//if (reports.Count > 0)
-			//	btnReports.Style["display"] = "";
-			//else
-			//	btnReports.Style["display"] = "none";
+            var reports = (from n in DataContext.LP_Reports
+                           where n.Public == true &&
+                                 n.DateDeleted == null &&
+                                 n.CategoryID == categoryID &&
+                                 (n.Language == currentLanguage || n.Language == null || n.Language == "")
+                           select n).ToList();
 
-			//FillReportsList(reports);
+            var converter = new ReportEntityUnitModelConverter(DataContext);
+            var reportModels = reports.Select(n => converter.Convert(n));
 
-			//var selReports = GetSelectedReports().ToHashSet();
+            var reportUnits = new ReportUnitsModel
+            {
+                List = reportModels.ToList()
+            };
 
-			var converter = new ReportEntityUnitModelConverter(DataContext);
+            reportUnitsControl.Model = reportUnits;
+        }
 
-			//var reportModels = (from n in reports
-			//					where selReports.Count == 0 || selReports.Contains(n.ID)
-			//					select converter.Convert(n));
+        protected void FillCategories()
+        {
+            var converter = new CategoryEntityModelConverter(DataContext);
 
-			var reportModels = (from n in reports
-								select converter.Convert(n));
+            var entities = (from n in DataContext.LP_Categories
+                            where n.DateDeleted == null
+                            orderby n.OrderIndex, n.Number, n.DateCreated
+                            select n).ToList();
 
-			var reportUnits = new ReportUnitsModel
-			{
-				List = reportModels.ToList()
-			};
+            CategoryUtil.Sort(entities);
 
-			reportUnitsControl.Model = reportUnits;
-		}
+            var models = entities.Select(n => converter.Convert(n)).ToList();
 
-		protected void FillCategories()
-		{
-			var converter = new CategoryEntityModelConverter(DataContext);
-
-			var entities = DataContext.LP_Categories.Where(n => n.DateDeleted == null).ToList();
-
-			var models = entities.Select(n => converter.Convert(n)).ToList();
-
-			var categoriesModel = new CategoriesModel { List = models };
-			categoriesControl.Model = categoriesModel;
-		}
-
-		//protected void FillReportsList(IEnumerable<LP_Report> reports)
-		//{
-		//	var selReports = GetSelectedReports().ToHashSet();
-
-		//	lstReports.DataSource = reports;
-		//	lstReports.DataBind();
-
-		//	foreach (ListItem listItem in lstReports.Items)
-		//		listItem.Selected = selReports.Contains(DataConverter.ToNullableGuid(listItem.Value));
-		//}
-
-		//protected IEnumerable<Guid?> GetSelectedReports()
-		//{
-		//	var selReports = from ListItem n in lstReports.Items
-		//					 let m = DataConverter.ToNullableGuid(n.Value)
-		//					 where m != null && n.Selected
-		//					 select m;
-
-		//	return selReports;
-		//}
-	}
+            var categoriesModel = new CategoriesModel { List = models };
+            categoriesControl.Model = categoriesModel;
+        }
+    }
 }

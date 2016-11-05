@@ -14,5 +14,7 @@ namespace Lmis.Portal.Web.Models
 		public String Name { get; set; }
 
 		public byte[] Image { get; set; }
-	}
+
+        public int? OrderIndex { get; set; }
+    }
 }

@@ -15,7 +15,7 @@
 
 #login_page {
     font-family: Arial, sans-serif;
-    background: #3f3744;
+    background: #333033;
     margin: 0;
     padding: 0;
     border: 0;
@@ -47,6 +47,7 @@
 -moz-border-radius: 5px;
 border-radius: 5px;
     margin-top: 10%;
+    border: 1px solid #ffffff;
 
 }
 
@@ -77,9 +78,9 @@ border-radius: 5px;
 #login_page .box_body input[type="text"] {
     width: 320px;
     height: 24px;
-    border: 1px solid #363636;
+    border: 1px solid #ffffff;
     height: 55px;
-    background-color: #e2f9f8;
+    background-color: #ffffff;
     font-size: 14px;
     font-family: arial;
         padding-left: 8px;
@@ -96,9 +97,9 @@ border-radius: 5px;
 
 #login_page .box_body input[type="password"] {
     width: 320px;
-    border: 1px solid #363636;
+    border: 1px solid #ffffff;
     height: 55px;
-    background-color: #e2f9f8;
+    background-color: #ffffff;
     padding-left: 8px;
 }
 
@@ -161,7 +162,7 @@ border-radius: 5px;
     -ms-transition: background-color 0.25s, width 0.25s;
     -o-transition: background-color 0.25s, width 0.25s;
     transition: background-color 0.25s, width 0.25s;
-    background-color: #95b810;
+    background-color: #c3d924;
     text-decoration: none;
 }
 
@@ -176,7 +177,7 @@ border-radius: 5px;
 
 
 #login_page .login_button:hover {
-    background-color: #653686;
+    background-color: #333033;
 }
 
 

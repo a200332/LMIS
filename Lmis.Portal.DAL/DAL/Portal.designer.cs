@@ -69,6 +69,9 @@ namespace Lmis.Portal.DAL.DAL
     partial void InsertLP_Survey(LP_Survey instance);
     partial void UpdateLP_Survey(LP_Survey instance);
     partial void DeleteLP_Survey(LP_Survey instance);
+    partial void InsertLP_Content(LP_Content instance);
+    partial void UpdateLP_Content(LP_Content instance);
+    partial void DeleteLP_Content(LP_Content instance);
     #endregion
 		
 		public PortalDataContext() : 
@@ -204,6 +207,14 @@ namespace Lmis.Portal.DAL.DAL
 				return this.GetTable<LP_Survey>();
 			}
 		}
+		
+		public System.Data.Linq.Table<LP_Content> LP_Contents
+		{
+			get
+			{
+				return this.GetTable<LP_Content>();
+			}
+		}
 	}
 	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.LP_Tables")]
@@ -221,6 +232,8 @@ namespace Lmis.Portal.DAL.DAL
 		private System.Nullable<System.DateTime> _DateChanged;
 		
 		private System.Nullable<System.DateTime> _DateDeleted;
+		
+		private string _Status;
 		
 		private EntitySet<LP_Column> _Columns;
 		
@@ -240,6 +253,8 @@ namespace Lmis.Portal.DAL.DAL
     partial void OnDateChangedChanged();
     partial void OnDateDeletedChanging(System.Nullable<System.DateTime> value);
     partial void OnDateDeletedChanged();
+    partial void OnStatusChanging(string value);
+    partial void OnStatusChanged();
     #endregion
 		
 		public LP_Table()
@@ -269,7 +284,7 @@ namespace Lmis.Portal.DAL.DAL
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Name", DbType="NVarChar(250)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Name", DbType="NVarChar(250)", UpdateCheck=UpdateCheck.Never)]
 		public string Name
 		{
 			get
@@ -309,7 +324,7 @@ namespace Lmis.Portal.DAL.DAL
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DateChanged", DbType="DateTime")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DateChanged", DbType="DateTime", UpdateCheck=UpdateCheck.Never)]
 		public System.Nullable<System.DateTime> DateChanged
 		{
 			get
@@ -329,7 +344,7 @@ namespace Lmis.Portal.DAL.DAL
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DateDeleted", DbType="DateTime")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DateDeleted", DbType="DateTime", UpdateCheck=UpdateCheck.Never)]
 		public System.Nullable<System.DateTime> DateDeleted
 		{
 			get
@@ -345,6 +360,26 @@ namespace Lmis.Portal.DAL.DAL
 					this._DateDeleted = value;
 					this.SendPropertyChanged("DateDeleted");
 					this.OnDateDeletedChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Status", DbType="NVarChar(250)", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+		public string Status
+		{
+			get
+			{
+				return this._Status;
+			}
+			set
+			{
+				if ((this._Status != value))
+				{
+					this.OnStatusChanging(value);
+					this.SendPropertyChanging();
+					this._Status = value;
+					this.SendPropertyChanged("Status");
+					this.OnStatusChanged();
 				}
 			}
 		}
@@ -442,6 +477,8 @@ namespace Lmis.Portal.DAL.DAL
 		
 		private string _Number;
 		
+		private System.Nullable<int> _OrderIndex;
+		
 		private EntitySet<LP_Category> _Children;
 		
 		private EntitySet<LP_Report> _Reports;
@@ -468,6 +505,8 @@ namespace Lmis.Portal.DAL.DAL
     partial void OnImageChanged();
     partial void OnNumberChanging(string value);
     partial void OnNumberChanged();
+    partial void OnOrderIndexChanging(System.Nullable<int> value);
+    partial void OnOrderIndexChanged();
     #endregion
 		
 		public LP_Category()
@@ -498,7 +537,7 @@ namespace Lmis.Portal.DAL.DAL
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Name", DbType="NVarChar(250)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Name", DbType="NVarChar(250)", UpdateCheck=UpdateCheck.Never)]
 		public string Name
 		{
 			get
@@ -518,7 +557,7 @@ namespace Lmis.Portal.DAL.DAL
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ParentID", DbType="UniqueIdentifier")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ParentID", DbType="UniqueIdentifier", UpdateCheck=UpdateCheck.Never)]
 		public System.Nullable<System.Guid> ParentID
 		{
 			get
@@ -562,7 +601,7 @@ namespace Lmis.Portal.DAL.DAL
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DateChanged", DbType="DateTime")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DateChanged", DbType="DateTime", UpdateCheck=UpdateCheck.Never)]
 		public System.Nullable<System.DateTime> DateChanged
 		{
 			get
@@ -582,7 +621,7 @@ namespace Lmis.Portal.DAL.DAL
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DateDeleted", DbType="DateTime")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DateDeleted", DbType="DateTime", UpdateCheck=UpdateCheck.Never)]
 		public System.Nullable<System.DateTime> DateDeleted
 		{
 			get
@@ -638,6 +677,26 @@ namespace Lmis.Portal.DAL.DAL
 					this._Number = value;
 					this.SendPropertyChanged("Number");
 					this.OnNumberChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_OrderIndex", DbType="INT", UpdateCheck=UpdateCheck.Never)]
+		public System.Nullable<int> OrderIndex
+		{
+			get
+			{
+				return this._OrderIndex;
+			}
+			set
+			{
+				if ((this._OrderIndex != value))
+				{
+					this.OnOrderIndexChanging(value);
+					this.SendPropertyChanging();
+					this._OrderIndex = value;
+					this.SendPropertyChanged("OrderIndex");
+					this.OnOrderIndexChanged();
 				}
 			}
 		}
@@ -815,7 +874,7 @@ namespace Lmis.Portal.DAL.DAL
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TableID", DbType="UniqueIdentifier")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TableID", DbType="UniqueIdentifier", UpdateCheck=UpdateCheck.Never)]
 		public System.Nullable<System.Guid> TableID
 		{
 			get
@@ -839,7 +898,7 @@ namespace Lmis.Portal.DAL.DAL
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Name", DbType="NVarChar(250)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Name", DbType="NVarChar(250)", UpdateCheck=UpdateCheck.Never)]
 		public string Name
 		{
 			get
@@ -859,7 +918,7 @@ namespace Lmis.Portal.DAL.DAL
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Type", DbType="NVarChar(250)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Type", DbType="NVarChar(250)", UpdateCheck=UpdateCheck.Never)]
 		public string Type
 		{
 			get
@@ -899,7 +958,7 @@ namespace Lmis.Portal.DAL.DAL
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DateChanged", DbType="DateTime")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DateChanged", DbType="DateTime", UpdateCheck=UpdateCheck.Never)]
 		public System.Nullable<System.DateTime> DateChanged
 		{
 			get
@@ -919,7 +978,7 @@ namespace Lmis.Portal.DAL.DAL
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DateDeleted", DbType="DateTime")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DateDeleted", DbType="DateTime", UpdateCheck=UpdateCheck.Never)]
 		public System.Nullable<System.DateTime> DateDeleted
 		{
 			get
@@ -1083,7 +1142,7 @@ namespace Lmis.Portal.DAL.DAL
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TableID", DbType="UniqueIdentifier")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TableID", DbType="UniqueIdentifier", UpdateCheck=UpdateCheck.Never)]
 		public System.Nullable<System.Guid> TableID
 		{
 			get
@@ -1107,7 +1166,7 @@ namespace Lmis.Portal.DAL.DAL
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Name", DbType="NVarChar(250)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Name", DbType="NVarChar(250)", UpdateCheck=UpdateCheck.Never)]
 		public string Name
 		{
 			get
@@ -1127,7 +1186,7 @@ namespace Lmis.Portal.DAL.DAL
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Type", DbType="NVarChar(250)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Type", DbType="NVarChar(250)", UpdateCheck=UpdateCheck.Never)]
 		public string Type
 		{
 			get
@@ -1187,7 +1246,7 @@ namespace Lmis.Portal.DAL.DAL
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DateChanged", DbType="DateTime")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DateChanged", DbType="DateTime", UpdateCheck=UpdateCheck.Never)]
 		public System.Nullable<System.DateTime> DateChanged
 		{
 			get
@@ -1207,7 +1266,7 @@ namespace Lmis.Portal.DAL.DAL
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DateDeleted", DbType="DateTime")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DateDeleted", DbType="DateTime", UpdateCheck=UpdateCheck.Never)]
 		public System.Nullable<System.DateTime> DateDeleted
 		{
 			get
@@ -1227,7 +1286,7 @@ namespace Lmis.Portal.DAL.DAL
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_LogicID", DbType="UniqueIdentifier")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_LogicID", DbType="UniqueIdentifier", UpdateCheck=UpdateCheck.Never)]
 		public System.Nullable<System.Guid> LogicID
 		{
 			get
@@ -1251,7 +1310,7 @@ namespace Lmis.Portal.DAL.DAL
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SourceType", DbType="NVarChar(250)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SourceType", DbType="NVarChar(250)", UpdateCheck=UpdateCheck.Never)]
 		public string SourceType
 		{
 			get
@@ -1485,7 +1544,7 @@ namespace Lmis.Portal.DAL.DAL
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ReportID", DbType="UniqueIdentifier")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ReportID", DbType="UniqueIdentifier", UpdateCheck=UpdateCheck.Never)]
 		public System.Nullable<System.Guid> ReportID
 		{
 			get
@@ -1509,7 +1568,7 @@ namespace Lmis.Portal.DAL.DAL
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_LogicID", DbType="UniqueIdentifier")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_LogicID", DbType="UniqueIdentifier", UpdateCheck=UpdateCheck.Never)]
 		public System.Nullable<System.Guid> LogicID
 		{
 			get
@@ -1553,7 +1612,7 @@ namespace Lmis.Portal.DAL.DAL
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DateChanged", DbType="DateTime")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DateChanged", DbType="DateTime", UpdateCheck=UpdateCheck.Never)]
 		public System.Nullable<System.DateTime> DateChanged
 		{
 			get
@@ -1573,7 +1632,7 @@ namespace Lmis.Portal.DAL.DAL
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DateDeleted", DbType="DateTime")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DateDeleted", DbType="DateTime", UpdateCheck=UpdateCheck.Never)]
 		public System.Nullable<System.DateTime> DateDeleted
 		{
 			get
@@ -1750,6 +1809,8 @@ namespace Lmis.Portal.DAL.DAL
 		
 		private string _InformationSource;
 		
+		private string _Language;
+		
 		private EntitySet<LP_ReportLogic> _ReportLogics;
 		
 		private EntityRef<LP_Category> _Category;
@@ -1780,6 +1841,8 @@ namespace Lmis.Portal.DAL.DAL
     partial void OnInterpretationChanged();
     partial void OnInformationSourceChanging(string value);
     partial void OnInformationSourceChanged();
+    partial void OnLanguageChanging(string value);
+    partial void OnLanguageChanged();
     #endregion
 		
 		public LP_Report()
@@ -1809,7 +1872,7 @@ namespace Lmis.Portal.DAL.DAL
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CategoryID", DbType="UniqueIdentifier NOT NULL")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CategoryID", DbType="UniqueIdentifier NOT NULL", UpdateCheck=UpdateCheck.Never)]
 		public System.Guid CategoryID
 		{
 			get
@@ -1833,7 +1896,7 @@ namespace Lmis.Portal.DAL.DAL
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Type", DbType="NVarChar(250) NOT NULL", CanBeNull=false)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Type", DbType="NVarChar(250) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
 		public string Type
 		{
 			get
@@ -1853,7 +1916,7 @@ namespace Lmis.Portal.DAL.DAL
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Name", DbType="NVarChar(250)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Name", DbType="NVarChar(250)", UpdateCheck=UpdateCheck.Never)]
 		public string Name
 		{
 			get
@@ -1893,7 +1956,7 @@ namespace Lmis.Portal.DAL.DAL
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DateChanged", DbType="DateTime")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DateChanged", DbType="DateTime", UpdateCheck=UpdateCheck.Never)]
 		public System.Nullable<System.DateTime> DateChanged
 		{
 			get
@@ -1913,7 +1976,7 @@ namespace Lmis.Portal.DAL.DAL
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DateDeleted", DbType="DateTime")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DateDeleted", DbType="DateTime", UpdateCheck=UpdateCheck.Never)]
 		public System.Nullable<System.DateTime> DateDeleted
 		{
 			get
@@ -2009,6 +2072,26 @@ namespace Lmis.Portal.DAL.DAL
 					this._InformationSource = value;
 					this.SendPropertyChanged("InformationSource");
 					this.OnInformationSourceChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Language", DbType="NVarChar(250)", UpdateCheck=UpdateCheck.Never)]
+		public string Language
+		{
+			get
+			{
+				return this._Language;
+			}
+			set
+			{
+				if ((this._Language != value))
+				{
+					this.OnLanguageChanging(value);
+					this.SendPropertyChanging();
+					this._Language = value;
+					this.SendPropertyChanged("Language");
+					this.OnLanguageChanged();
 				}
 			}
 		}
@@ -2158,7 +2241,7 @@ namespace Lmis.Portal.DAL.DAL
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Title", DbType="NVarChar(400)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Title", DbType="NVarChar(400)", UpdateCheck=UpdateCheck.Never)]
 		public string Title
 		{
 			get
@@ -2178,7 +2261,7 @@ namespace Lmis.Portal.DAL.DAL
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Url", DbType="NVarChar(400)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Url", DbType="NVarChar(400)", UpdateCheck=UpdateCheck.Never)]
 		public string Url
 		{
 			get
@@ -2198,7 +2281,7 @@ namespace Lmis.Portal.DAL.DAL
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Description", DbType="NVarChar(MAX)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Description", DbType="NVarChar(MAX)", UpdateCheck=UpdateCheck.Never)]
 		public string Description
 		{
 			get
@@ -2238,7 +2321,7 @@ namespace Lmis.Portal.DAL.DAL
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DateChanged", DbType="DateTime")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DateChanged", DbType="DateTime", UpdateCheck=UpdateCheck.Never)]
 		public System.Nullable<System.DateTime> DateChanged
 		{
 			get
@@ -2258,7 +2341,7 @@ namespace Lmis.Portal.DAL.DAL
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DateDeleted", DbType="DateTime")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DateDeleted", DbType="DateTime", UpdateCheck=UpdateCheck.Never)]
 		public System.Nullable<System.DateTime> DateDeleted
 		{
 			get
@@ -2382,7 +2465,7 @@ namespace Lmis.Portal.DAL.DAL
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ParentID", DbType="UniqueIdentifier")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ParentID", DbType="UniqueIdentifier", UpdateCheck=UpdateCheck.Never)]
 		public System.Nullable<System.Guid> ParentID
 		{
 			get
@@ -2506,7 +2589,7 @@ namespace Lmis.Portal.DAL.DAL
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DateChanged", DbType="DateTime")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DateChanged", DbType="DateTime", UpdateCheck=UpdateCheck.Never)]
 		public System.Nullable<System.DateTime> DateChanged
 		{
 			get
@@ -2526,7 +2609,7 @@ namespace Lmis.Portal.DAL.DAL
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DateDeleted", DbType="DateTime")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DateDeleted", DbType="DateTime", UpdateCheck=UpdateCheck.Never)]
 		public System.Nullable<System.DateTime> DateDeleted
 		{
 			get
@@ -2711,7 +2794,7 @@ namespace Lmis.Portal.DAL.DAL
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Title", DbType="NVarChar(400)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Title", DbType="NVarChar(400)", UpdateCheck=UpdateCheck.Never)]
 		public string Title
 		{
 			get
@@ -2731,7 +2814,7 @@ namespace Lmis.Portal.DAL.DAL
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Url", DbType="NVarChar(400)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Url", DbType="NVarChar(400)", UpdateCheck=UpdateCheck.Never)]
 		public string Url
 		{
 			get
@@ -2751,7 +2834,7 @@ namespace Lmis.Portal.DAL.DAL
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Description", DbType="NVarChar(MAX)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Description", DbType="NVarChar(MAX)", UpdateCheck=UpdateCheck.Never)]
 		public string Description
 		{
 			get
@@ -2791,7 +2874,7 @@ namespace Lmis.Portal.DAL.DAL
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DateChanged", DbType="DateTime")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DateChanged", DbType="DateTime", UpdateCheck=UpdateCheck.Never)]
 		public System.Nullable<System.DateTime> DateChanged
 		{
 			get
@@ -2811,7 +2894,7 @@ namespace Lmis.Portal.DAL.DAL
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DateDeleted", DbType="DateTime")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DateDeleted", DbType="DateTime", UpdateCheck=UpdateCheck.Never)]
 		public System.Nullable<System.DateTime> DateDeleted
 		{
 			get
@@ -3682,7 +3765,7 @@ namespace Lmis.Portal.DAL.DAL
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Language", DbType="NVarChar(50)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Language", DbType="NVarChar(50)", UpdateCheck=UpdateCheck.Never)]
 		public string Language
 		{
 			get
@@ -3722,7 +3805,7 @@ namespace Lmis.Portal.DAL.DAL
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DateChanged", DbType="DateTime")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DateChanged", DbType="DateTime", UpdateCheck=UpdateCheck.Never)]
 		public System.Nullable<System.DateTime> DateChanged
 		{
 			get
@@ -3742,7 +3825,7 @@ namespace Lmis.Portal.DAL.DAL
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DateDeleted", DbType="DateTime")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DateDeleted", DbType="DateTime", UpdateCheck=UpdateCheck.Never)]
 		public System.Nullable<System.DateTime> DateDeleted
 		{
 			get
@@ -4056,6 +4139,308 @@ namespace Lmis.Portal.DAL.DAL
 					this._FileName = value;
 					this.SendPropertyChanged("FileName");
 					this.OnFileNameChanged();
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.LP_Contents")]
+	public partial class LP_Content : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private System.Guid _ID;
+		
+		private string _Type;
+		
+		private string _Title;
+		
+		private string _Description;
+		
+		private string _FullText;
+		
+		private System.Data.Linq.Binary _Image;
+		
+		private System.Data.Linq.Binary _Attachment;
+		
+		private string _AttachmentName;
+		
+		private System.DateTime _DateCreated;
+		
+		private System.Nullable<System.DateTime> _DateChanged;
+		
+		private System.Nullable<System.DateTime> _DateDeleted;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnIDChanging(System.Guid value);
+    partial void OnIDChanged();
+    partial void OnTypeChanging(string value);
+    partial void OnTypeChanged();
+    partial void OnTitleChanging(string value);
+    partial void OnTitleChanged();
+    partial void OnDescriptionChanging(string value);
+    partial void OnDescriptionChanged();
+    partial void OnFullTextChanging(string value);
+    partial void OnFullTextChanged();
+    partial void OnImageChanging(System.Data.Linq.Binary value);
+    partial void OnImageChanged();
+    partial void OnAttachmentChanging(System.Data.Linq.Binary value);
+    partial void OnAttachmentChanged();
+    partial void OnAttachmentNameChanging(string value);
+    partial void OnAttachmentNameChanged();
+    partial void OnDateCreatedChanging(System.DateTime value);
+    partial void OnDateCreatedChanged();
+    partial void OnDateChangedChanging(System.Nullable<System.DateTime> value);
+    partial void OnDateChangedChanged();
+    partial void OnDateDeletedChanging(System.Nullable<System.DateTime> value);
+    partial void OnDateDeletedChanged();
+    #endregion
+		
+		public LP_Content()
+		{
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ID", DbType="UniqueIdentifier NOT NULL", IsPrimaryKey=true)]
+		public System.Guid ID
+		{
+			get
+			{
+				return this._ID;
+			}
+			set
+			{
+				if ((this._ID != value))
+				{
+					this.OnIDChanging(value);
+					this.SendPropertyChanging();
+					this._ID = value;
+					this.SendPropertyChanged("ID");
+					this.OnIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Type", DbType="NVarChar(50)", UpdateCheck=UpdateCheck.Never)]
+		public string Type
+		{
+			get
+			{
+				return this._Type;
+			}
+			set
+			{
+				if ((this._Type != value))
+				{
+					this.OnTypeChanging(value);
+					this.SendPropertyChanging();
+					this._Type = value;
+					this.SendPropertyChanged("Type");
+					this.OnTypeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Title", DbType="NVarChar(250)", UpdateCheck=UpdateCheck.Never)]
+		public string Title
+		{
+			get
+			{
+				return this._Title;
+			}
+			set
+			{
+				if ((this._Title != value))
+				{
+					this.OnTitleChanging(value);
+					this.SendPropertyChanging();
+					this._Title = value;
+					this.SendPropertyChanged("Title");
+					this.OnTitleChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Description", DbType="NVarChar(400)", UpdateCheck=UpdateCheck.Never)]
+		public string Description
+		{
+			get
+			{
+				return this._Description;
+			}
+			set
+			{
+				if ((this._Description != value))
+				{
+					this.OnDescriptionChanging(value);
+					this.SendPropertyChanging();
+					this._Description = value;
+					this.SendPropertyChanged("Description");
+					this.OnDescriptionChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FullText", DbType="NVarChar(MAX)", UpdateCheck=UpdateCheck.Never)]
+		public string FullText
+		{
+			get
+			{
+				return this._FullText;
+			}
+			set
+			{
+				if ((this._FullText != value))
+				{
+					this.OnFullTextChanging(value);
+					this.SendPropertyChanging();
+					this._FullText = value;
+					this.SendPropertyChanged("FullText");
+					this.OnFullTextChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Image", DbType="varbinary(MAX)", UpdateCheck=UpdateCheck.Never)]
+		public System.Data.Linq.Binary Image
+		{
+			get
+			{
+				return this._Image;
+			}
+			set
+			{
+				if ((this._Image != value))
+				{
+					this.OnImageChanging(value);
+					this.SendPropertyChanging();
+					this._Image = value;
+					this.SendPropertyChanged("Image");
+					this.OnImageChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Attachment", DbType="varbinary(MAX)", UpdateCheck=UpdateCheck.Never)]
+		public System.Data.Linq.Binary Attachment
+		{
+			get
+			{
+				return this._Attachment;
+			}
+			set
+			{
+				if ((this._Attachment != value))
+				{
+					this.OnAttachmentChanging(value);
+					this.SendPropertyChanging();
+					this._Attachment = value;
+					this.SendPropertyChanged("Attachment");
+					this.OnAttachmentChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AttachmentName", DbType="NVarChar(400)", UpdateCheck=UpdateCheck.Never)]
+		public string AttachmentName
+		{
+			get
+			{
+				return this._AttachmentName;
+			}
+			set
+			{
+				if ((this._AttachmentName != value))
+				{
+					this.OnAttachmentNameChanging(value);
+					this.SendPropertyChanging();
+					this._AttachmentName = value;
+					this.SendPropertyChanged("AttachmentName");
+					this.OnAttachmentNameChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DateCreated", DbType="DateTime NOT NULL")]
+		public System.DateTime DateCreated
+		{
+			get
+			{
+				return this._DateCreated;
+			}
+			set
+			{
+				if ((this._DateCreated != value))
+				{
+					this.OnDateCreatedChanging(value);
+					this.SendPropertyChanging();
+					this._DateCreated = value;
+					this.SendPropertyChanged("DateCreated");
+					this.OnDateCreatedChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DateChanged", DbType="DateTime", UpdateCheck=UpdateCheck.Never)]
+		public System.Nullable<System.DateTime> DateChanged
+		{
+			get
+			{
+				return this._DateChanged;
+			}
+			set
+			{
+				if ((this._DateChanged != value))
+				{
+					this.OnDateChangedChanging(value);
+					this.SendPropertyChanging();
+					this._DateChanged = value;
+					this.SendPropertyChanged("DateChanged");
+					this.OnDateChangedChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DateDeleted", DbType="DateTime", UpdateCheck=UpdateCheck.Never)]
+		public System.Nullable<System.DateTime> DateDeleted
+		{
+			get
+			{
+				return this._DateDeleted;
+			}
+			set
+			{
+				if ((this._DateDeleted != value))
+				{
+					this.OnDateDeletedChanging(value);
+					this.SendPropertyChanging();
+					this._DateDeleted = value;
+					this.SendPropertyChanged("DateDeleted");
+					this.OnDateDeletedChanged();
 				}
 			}
 		}

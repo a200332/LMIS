@@ -17,6 +17,8 @@ namespace Lmis.Portal.Web.Controls.DataDisplay
             if (newsModel == null)
                 return;
 
+            dvFullText.InnerHtml = newsModel.FullText;
+
             pnlImage.Visible = (newsModel.Image != null);
             pnlAttachment.Visible = (newsModel.Attachment != null);
 

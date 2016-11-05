@@ -179,7 +179,7 @@ namespace CITI.EVO.Tools.Utils
 				mapping.Add(i, value);
 			}
 
-			for (int i = sheet.FirstRowNum + 1; i < sheet.LastRowNum; i++)
+			for (int i = sheet.FirstRowNum + 1; i <= sheet.LastRowNum; i++)
 			{
 				var excelRow = sheet.GetRow(i);
 				if (excelRow == null)

@@ -8,7 +8,11 @@ namespace Lmis.Portal.Web.Pages.User
 	{
 		protected void Page_Load(object sender, EventArgs e)
 		{
-
+            var entity = DataContext.LP_Contents.FirstOrDefault(n => n.DateDeleted == null && n.Type == "ContactUs");
+            if (entity != null)
+            {
+                dvFullText.InnerHtml = entity.FullText;
+            }
         }
     }
 }

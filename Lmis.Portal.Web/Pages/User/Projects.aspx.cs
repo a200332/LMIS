@@ -11,10 +11,10 @@ namespace Lmis.Portal.Web.Pages.User
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            FillLegislations();
+            FillProjects();
         }
 
-        private void FillLegislations()
+        private void FillProjects()
         {
             var currentLanguage = LanguageUtil.GetLanguage();
 

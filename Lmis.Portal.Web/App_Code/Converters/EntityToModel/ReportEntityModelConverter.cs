@@ -24,6 +24,7 @@ namespace Lmis.Portal.Web.Converters.EntityToModel
 			target.ID = source.ID;
 			target.Name = source.Name;
 			target.Type = source.Type;
+		    target.Language = source.Language;
 			target.CategoryID = source.CategoryID;
 			target.Public = source.Public;
 			target.Description = source.Description;

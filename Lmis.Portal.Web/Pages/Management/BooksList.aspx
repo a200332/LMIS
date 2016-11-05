@@ -1,7 +1,7 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Admin.master" AutoEventWireup="true" CodeFile="BooksList.aspx.cs" Inherits="Lmis.Portal.Web.Pages.Management.BooksList" %>
 
-<%@ Register Src="~/Controls/Others/EBooksControl.ascx" TagPrefix="lmis" TagName="EBooksControl" %>
-<%@ Register Src="~/Controls/Others/EBookControl.ascx" TagPrefix="lmis" TagName="EBookControl" %>
+<%@ Register Src="~/Controls/Management/EBooksControl.ascx" TagPrefix="lmis" TagName="EBooksControl" %>
+<%@ Register Src="~/Controls/Management/EBookControl.ascx" TagPrefix="lmis" TagName="EBookControl" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
 </asp:Content>

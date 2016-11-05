@@ -1,4 +1,10 @@
-﻿
+﻿html,
+body {
+	margin:0;
+	padding:0;
+	height:100%;
+}
+
 :lang(geo) {
     font-family: 'Header-geo';
 }
@@ -249,23 +255,25 @@ input, textarea, select {
 
 body {
     font-family: Arial, dejavu,Calibri;
-    font-size: 14px;
+    font-size: 13px;
     color: #313131;
     background: #ffffff;
     /*overflow-x: hidden;*/
     min-width: 1024px;
-    min-height: 100%;
     position: relative;
+    min-height: 100%;
 }
 
-
+#wrapper {
+	min-height:100%;
+	position:relative;
+}
 /* HEADER */
 
 #header {
-    position: relative;
-    z-index: 11;
-    width: 100%;
-    text-align: center;
+  
+
+	padding:0;
 }
 
 .top-bg {
@@ -373,10 +381,10 @@ body {
 
 
 #content {
-    clear: both;
-    position: relative;
     -webkit-transition: padding .25s ease-out;
     transition: padding .25s ease-out;
+    min-height: 100%;
+    padding-bottom:58px;
 }
 
 
@@ -795,17 +803,15 @@ li.rm-search {
 
 
 #footer {
-    /*z-index: 6;
-    position: fixed;
-    clear: both;*/
     margin-top: 1px;
     color: #444;
-    overflow: hidden;
-    /*height: 68px;*/
+
     background-color: #dddddd;
-    right: 0;
-    bottom: 0;
-    left: 0;
+width:100%;
+	height:58px;
+	position:absolute;
+	bottom:0;
+	left:0;
 }
 
 .footer {
@@ -826,6 +832,7 @@ li.rm-search {
     display: inline-block;
     width: 1000px;
     min-height: 200px;
+    padding-left: 20px;
 }
 
 .bottom {
@@ -873,15 +880,14 @@ li.rm-search {
 }
 
 .data-config {
-   font-style: italic;
+    font-style: italic;
     padding: 0 0 12px 14px;
-   
 }
-.data-config span {
-    padding-left: 10px;
-    vertical-align: top;
-    display: -webkit-inline-box;
-    padding-top: 5px;
-    font-size: 12px;
-   
-}
+
+    .data-config span {
+        padding-left: 10px;
+        vertical-align: top;
+        display: -webkit-inline-box;
+        padding-top: 5px;
+        font-size: 12px;
+    }

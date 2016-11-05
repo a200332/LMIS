@@ -165,9 +165,20 @@
                         <li>
                             <asp:HyperLink runat="server" CssClass="mcolor" NavigateUrl="~/Pages/Management/SurveysList.aspx"><ce:Label runat="server">Surveys</ce:Label></asp:HyperLink>
                         </li>
+                        <li>
+                            <asp:HyperLink runat="server" CssClass="mcolor" NavigateUrl="~/Pages/Management/NewsList.aspx"><ce:Label runat="server">News</ce:Label></asp:HyperLink>
+                        </li>
+                        <li>
+                            <asp:HyperLink runat="server" CssClass="mcolor" NavigateUrl="~/Pages/Management/AboutUs.aspx"><ce:Label runat="server">About Us</ce:Label></asp:HyperLink>
+                        </li>
+                        <li>
+                            <asp:HyperLink runat="server" CssClass="mcolor" NavigateUrl="~/Pages/Management/ContactUs.aspx"><ce:Label runat="server">Contact Us</ce:Label></asp:HyperLink>
+                        </li>
+                        <li>
+                            <asp:HyperLink runat="server" CssClass="mcolor" NavigateUrl="~/Pages/Management/GeorgiaInNumbers.aspx"><ce:Label runat="server">Georgia In Numbers</ce:Label></asp:HyperLink>
+                        </li>
                     </ul>
                 </div>
-
             </header>
             <section id="content">
                 <div class="content">

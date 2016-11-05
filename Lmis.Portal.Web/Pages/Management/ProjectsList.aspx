@@ -1,8 +1,8 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Admin.master" AutoEventWireup="true" CodeFile="ProjectsList.aspx.cs" Inherits="Lmis.Portal.Web.Pages.Management.ProjectsList" %>
 
 
-<%@ Register Src="~/Controls/Others/ProjectsControl.ascx" TagPrefix="lmis" TagName="ProjectsControl" %>
-<%@ Register Src="~/Controls/Others/ProjectControl.ascx" TagPrefix="lmis" TagName="ProjectControl" %>
+<%@ Register Src="~/Controls/Management/ProjectsControl.ascx" TagPrefix="lmis" TagName="ProjectsControl" %>
+<%@ Register Src="~/Controls/Management/ProjectControl.ascx" TagPrefix="lmis" TagName="ProjectControl" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
 </asp:Content>

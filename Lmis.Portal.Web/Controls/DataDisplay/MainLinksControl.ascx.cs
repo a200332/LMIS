@@ -31,11 +31,24 @@ namespace Lmis.Portal.Web.Controls.DataDisplay
             if (Uri.TryCreate(model.Url, UriKind.RelativeOrAbsolute, out targetUrl))
                 return targetUrl.ToString();
 
-            var url = String.Format("~/Pages/User/Links.aspx?ID={0}", eval);
+            var url = String.Format("~/Pages/User/Links.aspx?ID={0}", model.ID);
             return url;
         }
 
-        protected String GetImageLink(object eval)
+        protected String GetUrlTarget(object dataItem)
+        {
+            var model = dataItem as LinkModel;
+            if (model == null)
+                return null;
+
+            Uri targetUrl;
+            if (Uri.TryCreate(model.Url, UriKind.RelativeOrAbsolute, out targetUrl))
+                return "_target";
+
+            return String.Empty;
+        }
+
+        protected String GetImageUrl(object eval)
         {
             var url = String.Format("~/Handlers/GetImage.ashx?Type=Link&ID={0}", eval);
             return url;
@@ -48,7 +61,7 @@ namespace Lmis.Portal.Web.Controls.DataDisplay
                 return null;
 
             var format = "width:182px;height:128px;background-image: url({0});";
-            var imageUrl = GetImageLink(model.ID);
+            var imageUrl = GetImageUrl(model.ID);
             var absUrl = ConvertToAbsoluteUrl(imageUrl);
 
             var style = String.Format(format, absUrl);

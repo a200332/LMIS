@@ -10,173 +10,180 @@ using Lmis.Portal.Web.Utils;
 
 namespace Lmis.Portal.Web.Pages.Management
 {
-	public partial class TablesList : BasePage
-	{
-		protected void Page_Load(object sender, EventArgs e)
-		{
-			UserUtil.GotoLoginIfNoSuperadmin();
+    public partial class TablesList : BasePage
+    {
+        protected void Page_Load(object sender, EventArgs e)
+        {
+            UserUtil.GotoLoginIfNoSuperadmin();
 
-			FillTablesTree();
-		}
+            FillTablesTree();
+        }
 
-		protected void tablesControl_OnAddNewTable(object sender, EventArgs e)
-		{
-			var model = new TableModel();
-			tableControl.Model = model;
+        protected void tablesControl_OnAddNewTable(object sender, EventArgs e)
+        {
+            var model = new TableModel();
+            tableControl.Model = model;
 
-			mpeAddEditTable.Show();
-		}
+            mpeAddEditTable.Show();
+        }
 
-		protected void tablesControl_OnEditItem(object sender, GenericEventArgs<Guid> e)
-		{
-			var entity = DataContext.LP_Tables.FirstOrDefault(n => n.ID == e.Value);
-			if (entity == null)
-				return;
+        protected void tablesControl_OnEditItem(object sender, GenericEventArgs<Guid> e)
+        {
+            var entity = DataContext.LP_Tables.FirstOrDefault(n => n.ID == e.Value);
+            if (entity == null)
+                return;
 
-			var converter = new TableEntityModelConverter(DataContext);
-			var model = converter.Convert(entity);
+            var converter = new TableEntityModelConverter(DataContext);
+            var model = converter.Convert(entity);
 
-			tableControl.Model = model;
+            tableControl.Model = model;
 
-			mpeAddEditTable.Show();
-		}
+            mpeAddEditTable.Show();
+        }
 
-		protected void tablesControl_OnDeleteItem(object sender, GenericEventArgs<Guid> e)
-		{
-			var entity = DataContext.LP_Tables.FirstOrDefault(n => n.ID == e.Value);
-			if (entity == null)
-				return;
+        protected void tablesControl_OnDeleteItem(object sender, GenericEventArgs<Guid> e)
+        {
+            var entity = DataContext.LP_Tables.FirstOrDefault(n => n.ID == e.Value);
+            if (entity == null)
+                return;
 
-			entity.DateDeleted = DateTime.Now;
+            entity.DateDeleted = DateTime.Now;
 
-			DataContext.SubmitChanges();
+            DataContext.SubmitChanges();
 
-			FillTablesTree();
-		}
+            FillTablesTree();
+        }
 
-		protected void tablesControl_OnAddNewColumn(object sender, GenericEventArgs<Guid> e)
-		{
-			var entity = DataContext.LP_Tables.FirstOrDefault(n => n.ID == e.Value);
-			if (entity == null)
-				return;
+        protected void tablesControl_OnAddNewColumn(object sender, GenericEventArgs<Guid> e)
+        {
+            var entity = DataContext.LP_Tables.FirstOrDefault(n => n.ID == e.Value);
+            if (entity == null)
+                return;
 
-			var model = new ColumnModel
-			{
-				TableID = e.Value
-			};
+            var model = new ColumnModel
+            {
+                TableID = e.Value
+            };
 
-			columnControl.Model = model;
+            columnControl.Model = model;
 
-			mpeAddEditColumn.Show();
-		}
+            mpeAddEditColumn.Show();
+        }
 
-		protected void tablesControl_OnEditColumn(object sender, GenericEventArgs<Guid> e)
-		{
-			var entity = DataContext.LP_Columns.FirstOrDefault(n => n.ID == e.Value);
-			if (entity == null)
-				return;
+        protected void tablesControl_OnEditColumn(object sender, GenericEventArgs<Guid> e)
+        {
+            var entity = DataContext.LP_Columns.FirstOrDefault(n => n.ID == e.Value);
+            if (entity == null)
+                return;
 
-			var converter = new ColumnEntityModelConverter(DataContext);
-			columnControl.Model = converter.Convert(entity);
+            var converter = new ColumnEntityModelConverter(DataContext);
+            columnControl.Model = converter.Convert(entity);
 
-			mpeAddEditColumn.Show();
-		}
+            mpeAddEditColumn.Show();
+        }
 
-		protected void tablesControl_OnDeleteColumn(object sender, GenericEventArgs<Guid> e)
-		{
-			var entity = DataContext.LP_Tables.FirstOrDefault(n => n.ID == e.Value);
-			if (entity == null)
-				return;
+        protected void tablesControl_OnDeleteColumn(object sender, GenericEventArgs<Guid> e)
+        {
+            var entity = DataContext.LP_Tables.FirstOrDefault(n => n.ID == e.Value);
+            if (entity == null)
+                return;
 
-			entity.DateDeleted = DateTime.Now;
+            entity.DateDeleted = DateTime.Now;
 
-			DataContext.SubmitChanges();
+            DataContext.SubmitChanges();
 
-			FillTablesTree();
-		}
+            FillTablesTree();
+        }
 
-		protected void tablesControl_OnSyncTable(object sender, GenericEventArgs<Guid> e)
-		{
-			var entity = DataContext.LP_Tables.FirstOrDefault(n => n.ID == e.Value);
-			if (entity == null)
-				return;
+        protected void tablesControl_OnSyncTable(object sender, GenericEventArgs<Guid> e)
+        {
+            var entity = DataContext.LP_Tables.FirstOrDefault(n => n.ID == e.Value);
+            if (entity == null)
+                return;
 
-			var converter = new TableEntityModelConverter(DataContext);
-			var model = converter.Convert(entity);
+            var converter = new TableEntityModelConverter(DataContext);
+            var model = converter.Convert(entity);
 
 
-			var synchronizer = new SchemaSynchronizer(model);
-			synchronizer.Update();
-		}
+            var synchronizer = new SchemaSynchronizer(model);
+            synchronizer.Update();
 
-		protected void btnAddTable_OnClick(object sender, EventArgs e)
-		{
-			var model = new TableModel();
-			tableControl.Model = model;
+            entity.Status = "Synchronized";
 
-			mpeAddEditTable.Show();
-		}
+            DataContext.SubmitChanges();
 
-		protected void btnSaveTable_OnClick(object sender, EventArgs e)
-		{
-			var model = tableControl.Model;
+            FillTablesTree();
+        }
 
-			var converter = new TableModelEntityConverter(DataContext);
+        protected void btnAddTable_OnClick(object sender, EventArgs e)
+        {
+            var model = new TableModel();
+            tableControl.Model = model;
 
-			var entity = DataContext.LP_Tables.FirstOrDefault(n => n.ID == model.ID);
-			if (entity == null)
-			{
-				entity = converter.Convert(model);
-				DataContext.LP_Tables.InsertOnSubmit(entity);
-			}
-			else
-			{
-				converter.FillObject(entity, model);
-			}
+            mpeAddEditTable.Show();
+        }
 
-			DataContext.SubmitChanges();
+        protected void btnSaveTable_OnClick(object sender, EventArgs e)
+        {
+            var model = tableControl.Model;
 
-			FillTablesTree();
-		}
+            var converter = new TableModelEntityConverter(DataContext);
 
-		protected void btnSaveColumn_OnClick(object sender, EventArgs e)
-		{
-			var model = columnControl.Model;
+            var entity = DataContext.LP_Tables.FirstOrDefault(n => n.ID == model.ID);
+            if (entity == null)
+            {
+                entity = converter.Convert(model);
+                DataContext.LP_Tables.InsertOnSubmit(entity);
+            }
+            else
+            {
+                converter.FillObject(entity, model);
+            }
 
-			var converter = new ColumnModelEntityConverter(DataContext);
+            DataContext.SubmitChanges();
 
-			var entity = DataContext.LP_Columns.FirstOrDefault(n => n.ID == model.ID);
-			if (entity == null)
-			{
-				entity = converter.Convert(model);
-				DataContext.LP_Columns.InsertOnSubmit(entity);
-			}
-			else
-			{
-				converter.FillObject(entity, model);
-			}
+            FillTablesTree();
+        }
 
-			DataContext.SubmitChanges();
+        protected void btnSaveColumn_OnClick(object sender, EventArgs e)
+        {
+            var model = columnControl.Model;
 
-			FillTablesTree();
-		}
+            var converter = new ColumnModelEntityConverter(DataContext);
 
-		protected void FillTablesTree()
-		{
-			var entities = (from n in DataContext.LP_Tables
-							where n.DateDeleted == null
-							select n).ToList();
+            var entity = DataContext.LP_Columns.FirstOrDefault(n => n.ID == model.ID);
+            if (entity == null)
+            {
+                entity = converter.Convert(model);
+                DataContext.LP_Columns.InsertOnSubmit(entity);
+            }
+            else
+            {
+                converter.FillObject(entity, model);
+            }
 
-			var converter = new TableEntityModelConverter(DataContext);
+            DataContext.SubmitChanges();
 
-			var models = (from n in entities
-						  let m = converter.Convert(n)
-						  select m);
+            FillTablesTree();
+        }
 
-			var model = new TablesModel();
-			model.List = models.ToList();
+        protected void FillTablesTree()
+        {
+            var entities = (from n in DataContext.LP_Tables
+                            where n.DateDeleted == null
+                            orderby n.DateCreated descending
+                            select n).ToList();
 
-			tablesControl.Model = model;
-		}
-	}
+            var converter = new TableEntityModelConverter(DataContext);
+
+            var models = (from n in entities
+                          let m = converter.Convert(n)
+                          select m);
+
+            var model = new TablesModel();
+            model.List = models.ToList();
+
+            tablesControl.Model = model;
+        }
+    }
 }

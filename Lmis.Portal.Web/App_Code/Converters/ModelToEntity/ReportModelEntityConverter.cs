@@ -8,101 +8,102 @@ using Lmis.Portal.Web.Models;
 
 namespace Lmis.Portal.Web.Converters.ModelToEntity
 {
-	public class ReportModelEntityConverter : SingleModelConverterBase<ReportModel, LP_Report>
-	{
-		public ReportModelEntityConverter(PortalDataContext dbContext) : base(dbContext)
-		{
-		}
+    public class ReportModelEntityConverter : SingleModelConverterBase<ReportModel, LP_Report>
+    {
+        public ReportModelEntityConverter(PortalDataContext dbContext) : base(dbContext)
+        {
+        }
 
-		public override LP_Report Convert(ReportModel source)
-		{
-			var entity = new LP_Report
-			{
-				ID = Guid.NewGuid(),
-				DateCreated = DateTime.Now,
-			};
+        public override LP_Report Convert(ReportModel source)
+        {
+            var entity = new LP_Report
+            {
+                ID = Guid.NewGuid(),
+                DateCreated = DateTime.Now,
+            };
 
-			FillObject(entity, source);
+            FillObject(entity, source);
 
-			return entity;
-		}
+            return entity;
+        }
 
-		public override void FillObject(LP_Report target, ReportModel source)
-		{
-			target.Name = source.Name;
-			target.CategoryID = source.CategoryID.Value;
-			target.Type = source.Type;
-			target.Public = source.Public;
-			target.Description = source.Description;
-			target.Interpretation = source.Interpretation;
-			target.InformationSource = source.InformationSource;
+        public override void FillObject(LP_Report target, ReportModel source)
+        {
+            target.Name = source.Name;
+            target.Type = source.Type;
+            target.Public = source.Public;
+            target.Language = source.Language;
+            target.CategoryID = source.CategoryID.Value;
+            target.Description = source.Description;
+            target.Interpretation = source.Interpretation;
+            target.InformationSource = source.InformationSource;
 
-			foreach (var entity in target.ReportLogics)
-				entity.DateDeleted = DateTime.Now;
+            foreach (var entity in target.ReportLogics)
+                entity.DateDeleted = DateTime.Now;
 
-			var converter = new ReportLogicModelEntityConverter(DbContext);
+            var converter = new ReportLogicModelEntityConverter(DbContext);
 
-			if (source.ReportLogics != null && source.ReportLogics.List != null)
-			{
-				var query = source.ReportLogics.List.Select(n => converter.Convert(n));
-				target.ReportLogics.AddRange(query);
-			}
-		}
-	}
+            if (source.ReportLogics != null && source.ReportLogics.List != null)
+            {
+                var query = source.ReportLogics.List.Select(n => converter.Convert(n));
+                target.ReportLogics.AddRange(query);
+            }
+        }
+    }
 
-	public class ReportLogicModelEntityConverter : SingleModelConverterBase<ReportLogicModel, LP_ReportLogic>
-	{
-		public ReportLogicModelEntityConverter(PortalDataContext dbContext) : base(dbContext)
-		{
-		}
+    public class ReportLogicModelEntityConverter : SingleModelConverterBase<ReportLogicModel, LP_ReportLogic>
+    {
+        public ReportLogicModelEntityConverter(PortalDataContext dbContext) : base(dbContext)
+        {
+        }
 
-		public override LP_ReportLogic Convert(ReportLogicModel source)
-		{
-			var entity = new LP_ReportLogic
-			{
-				ID = Guid.NewGuid(),
-				DateCreated = DateTime.Now,
-			};
+        public override LP_ReportLogic Convert(ReportLogicModel source)
+        {
+            var entity = new LP_ReportLogic
+            {
+                ID = Guid.NewGuid(),
+                DateCreated = DateTime.Now,
+            };
 
-			FillObject(entity, source);
+            FillObject(entity, source);
 
-			return entity;
-		}
+            return entity;
+        }
 
-		public override void FillObject(LP_ReportLogic target, ReportLogicModel source)
-		{
-			target.Type = source.Type;
-			target.LogicID = source.Logic.ID;
-			target.ConfigXml = ConvertBindings(source.Bindings);
-		}
+        public override void FillObject(LP_ReportLogic target, ReportLogicModel source)
+        {
+            target.Type = source.Type;
+            target.LogicID = source.Logic.ID;
+            target.ConfigXml = ConvertBindings(source.Bindings);
+        }
 
-		private XElement ConvertBindings(BindingInfosModel model)
-		{
-			if (model == null || model.List == null)
-				return null;
+        private XElement ConvertBindings(BindingInfosModel model)
+        {
+            if (model == null || model.List == null)
+                return null;
 
-			return ConvertBindings(model.List);
-		}
+            return ConvertBindings(model.List);
+        }
 
-		private XElement ConvertBindings(IEnumerable<BindingInfoModel> collection)
-		{
-			var rootXElem = new XElement("Bindings");
+        private XElement ConvertBindings(IEnumerable<BindingInfoModel> collection)
+        {
+            var rootXElem = new XElement("Bindings");
 
-			foreach (var bindingModel in collection)
-			{
-				var bindingXElem = new XElement
-					(
-						"Binding",
-						new XElement("ID", bindingModel.ID),
-						new XElement("Target", bindingModel.Target),
-						new XElement("Source", bindingModel.Source),
-						new XElement("Caption", bindingModel.Caption)
-					);
+            foreach (var bindingModel in collection)
+            {
+                var bindingXElem = new XElement
+                    (
+                        "Binding",
+                        new XElement("ID", bindingModel.ID),
+                        new XElement("Target", bindingModel.Target),
+                        new XElement("Source", bindingModel.Source),
+                        new XElement("Caption", bindingModel.Caption)
+                    );
 
-				rootXElem.Add(bindingXElem);
-			}
+                rootXElem.Add(bindingXElem);
+            }
 
-			return rootXElem;
-		}
-	}
+            return rootXElem;
+        }
+    }
 }

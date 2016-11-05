@@ -9,5 +9,6 @@
     <asp:HyperLink runat="server" ID="lnkAttachment" Target="_blank" />
 </asp:Panel>
 <div class="news-txt">
-    <asp:Label runat="server" ID="lblFullText" Property="NewsModel.FullText"/>
+    <div id="dvFullText" runat="server">
+    </div>
 </div>
