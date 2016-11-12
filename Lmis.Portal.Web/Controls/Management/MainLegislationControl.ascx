@@ -24,4 +24,11 @@
         <td>
             <asp:TextBox runat="server" ID="tbxDescription" Property="LegislationModel.Description" /></td>
     </tr>
+    <tr>
+        <td>
+            <ce:Label runat="server">Order Index</ce:Label></td>
+        <td>
+            <dx:ASPxSpinEdit runat="server" ID="seOrderIndex" Property="LegislationModel.OrderIndex"></dx:ASPxSpinEdit>
+        </td>
+    </tr>
 </table>

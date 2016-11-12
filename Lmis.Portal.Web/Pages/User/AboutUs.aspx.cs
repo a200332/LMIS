@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using CITI.EVO.Tools.Utils;
 using Lmis.Portal.Web.Bases;
 
 namespace Lmis.Portal.Web.Pages.User
@@ -8,7 +9,12 @@ namespace Lmis.Portal.Web.Pages.User
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            var entity = DataContext.LP_Contents.FirstOrDefault(n => n.DateDeleted == null && n.Type == "AboutUs");
+            var currentLanguage = LanguageUtil.GetLanguage();
+
+            var entity = (from n in DataContext.LP_Contents
+                          where n.DateDeleted == null && n.Type == "AboutUs" && (n.Language == currentLanguage || n.Language == null || n.Language == "")
+                          select n).FirstOrDefault();
+
             if (entity != null)
             {
                 dvFullText.InnerHtml = entity.FullText;

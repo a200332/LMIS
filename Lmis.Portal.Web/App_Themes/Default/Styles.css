@@ -10,7 +10,7 @@
 
 .book-title {
     font-size: 13px;
- 
+    display: table;
     text-align: left;
 }
 
@@ -276,3 +276,37 @@ a>ul>li.news-link-title {
 a:hover>ul>li.news-link-title {
     color: #1e7fa9;
 }
+.link-title
+{ padding-left: 0px;
+    padding-top: 20px;
+    display: inline-block;
+}
+
+
+
+.reports {
+    min-width: 800px;
+    text-align: left;
+    padding-top: 20px;
+}
+
+    .reports ul {
+        padding-bottom: 10px;
+        height: 40px;
+    }
+
+        .reports ul li {
+            float: left;
+        }  .reports ul li ul li {
+               display: block;
+        }
+
+
+           .link-img {
+               width: 40px;
+               height: 40px;
+               display: block;
+               margin-right: 6px;
+               border: 1px solid #eeeeee;
+
+           }

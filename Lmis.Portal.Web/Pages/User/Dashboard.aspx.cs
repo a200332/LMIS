@@ -1,11 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Web.UI.WebControls;
-using CITI.EVO.Tools.Comparers;
-using CITI.EVO.Tools.Extensions;
 using CITI.EVO.Tools.Utils;
-using Lmis.Portal.DAL.DAL;
 using Lmis.Portal.Web.Bases;
 using Lmis.Portal.Web.Converters.EntityToModel;
 using Lmis.Portal.Web.Models;
@@ -58,7 +53,6 @@ namespace Lmis.Portal.Web.Pages.User
 
             var entities = (from n in DataContext.LP_Categories
                             where n.DateDeleted == null
-                            orderby n.OrderIndex, n.Number, n.DateCreated
                             select n).ToList();
 
             CategoryUtil.Sort(entities);

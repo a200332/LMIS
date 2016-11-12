@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 20.75, 8.5" name="Portal">
+<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 20.75, 12.375" name="Portal">
   <DataContextMoniker Name="/PortalDataContext" />
   <nestedChildShapes>
     <classShape Id="f4f76f45-6c47-4c87-a1f1-592f7ddfcf6c" absoluteBounds="11.125, 0.75, 2, 1.9631982421875">
@@ -59,95 +59,108 @@
         <classShapeMoniker Id="6f1dcd29-b258-4c33-8da0-a5dfa61a8d4a" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(8.625 : 1.92390055338542); (8 : 1.92390055338542)]" manuallyRouted="true" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(8.625 : 1.91202510137929); (8 : 1.92390055338542)]" manuallyRouted="true" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/PortalDataContext/LP_Logic/LP_Logic_LP_ReportLogic" />
       <nodes>
         <classShapeMoniker Id="6f1dcd29-b258-4c33-8da0-a5dfa61a8d4a" />
         <classShapeMoniker Id="70e10130-0040-4609-8316-f276657a679e" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(5.375 : 1.92390055338542); (6 : 1.92390055338542)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(5.375 : 1.92390055338542); (6 : 1.92390055338542)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/PortalDataContext/LP_Report/LP_Report_LP_ReportLogic" />
       <nodes>
         <classShapeMoniker Id="204ccc42-eb8e-454e-b765-f801c2d636d3" />
         <classShapeMoniker Id="70e10130-0040-4609-8316-f276657a679e" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(2.75 : 2.02005126953125); (3.375 : 2.02005126953125)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(2.75 : 2.02005126953125); (3.375 : 2.02005126953125)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/PortalDataContext/LP_Category/LP_Category_LP_Report" />
       <nodes>
         <classShapeMoniker Id="d2aba145-add2-4841-a06e-d09de26e904e" />
         <classShapeMoniker Id="204ccc42-eb8e-454e-b765-f801c2d636d3" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(9.33423076923077 : 0.75); (9.33423076923077 : 0.5); (9.92961538461539 : 0.5); (9.92961538461539 : 0.75)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(9.33423076923077 : 3.48240397135417); (9.33423076923077 : 3.73240397135417); (9.92961538461539 : 3.73240397135417); (9.92961538461539 : 3.48240397135417)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/PortalDataContext/LP_Logic/LP_Logic_LP_Logic" />
       <nodes>
         <classShapeMoniker Id="6f1dcd29-b258-4c33-8da0-a5dfa61a8d4a" />
         <classShapeMoniker Id="6f1dcd29-b258-4c33-8da0-a5dfa61a8d4a" />
       </nodes>
     </associationConnector>
-    <classShape Id="6d5578fe-9da5-49c2-a4e4-a86373ce2355" absoluteBounds="13.625, 4.5, 2, 2.1554996744791666">
+    <classShape Id="6d5578fe-9da5-49c2-a4e4-a86373ce2355" absoluteBounds="13.625, 5.125, 2, 2.1554996744791666">
       <DataClassMoniker Name="/PortalDataContext/LP_Video" />
       <nestedChildShapes>
-        <elementListCompartment Id="4cdc301f-d845-4408-9e26-be5d453f07c7" absoluteBounds="13.64, 4.9600000000000009, 1.9700000000000002, 1.5954996744791665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="4cdc301f-d845-4408-9e26-be5d453f07c7" absoluteBounds="13.64, 5.5850000000000009, 1.9700000000000002, 1.5954996744791665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="5694cc5f-18a5-4af0-9203-7268ee0c34e0" absoluteBounds="0.75, 4.5, 2, 2.7324039713541666">
+    <classShape Id="5694cc5f-18a5-4af0-9203-7268ee0c34e0" absoluteBounds="0.75, 5.125, 2, 2.7324039713541666">
       <DataClassMoniker Name="/PortalDataContext/LP_Link" />
       <nestedChildShapes>
-        <elementListCompartment Id="0425ddcd-859a-433f-9bb8-5b720f3b59c2" absoluteBounds="0.76499999999999968, 4.9600000000000009, 1.9700000000000002, 2.1724039713541665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="0425ddcd-859a-433f-9bb8-5b720f3b59c2" absoluteBounds="0.76499999999999968, 5.5850000000000009, 1.9700000000000002, 2.1724039713541665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="a113b4ef-b7b1-466f-9658-041b065acdf8" absoluteBounds="16.125, 4.5, 2, 2.1554996744791666">
+    <classShape Id="a113b4ef-b7b1-466f-9658-041b065acdf8" absoluteBounds="16.125, 5.125, 2, 2.1554996744791666">
       <DataClassMoniker Name="/PortalDataContext/LP_EBook" />
       <nestedChildShapes>
-        <elementListCompartment Id="11fd4965-69b0-4f93-83dc-ccdb2c32047c" absoluteBounds="16.14, 4.9600000000000009, 1.9700000000000002, 1.5954996744791665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="11fd4965-69b0-4f93-83dc-ccdb2c32047c" absoluteBounds="16.14, 5.5850000000000009, 1.9700000000000002, 1.5954996744791665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <associationConnector edgePoints="[(1.45923076923077 : 7.23240397135417); (1.45923076923077 : 7.48240397135417); (2.05461538461538 : 7.48240397135417); (2.05461538461538 : 7.23240397135417)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(1.45923076923077 : 7.85740397135417); (1.45923076923077 : 8.10740397135417); (2.05461538461538 : 8.10740397135417); (2.05461538461538 : 7.85740397135417)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/PortalDataContext/LP_Link/LP_Link_LP_Link" />
       <nodes>
         <classShapeMoniker Id="5694cc5f-18a5-4af0-9203-7268ee0c34e0" />
         <classShapeMoniker Id="5694cc5f-18a5-4af0-9203-7268ee0c34e0" />
       </nodes>
     </associationConnector>
-    <classShape Id="add5cec7-fda7-4d6c-b88d-86e77f70e15c" absoluteBounds="11.125, 4.5, 2, 2.9247054036458326">
+    <classShape Id="add5cec7-fda7-4d6c-b88d-86e77f70e15c" absoluteBounds="11.125, 5.125, 2, 3.1170068359375005">
       <DataClassMoniker Name="/PortalDataContext/LP_News" />
       <nestedChildShapes>
-        <elementListCompartment Id="19114afd-173e-4f49-9168-fcb54d263201" absoluteBounds="11.14, 4.9600000000000009, 1.9700000000000002, 2.364705403645833" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="19114afd-173e-4f49-9168-fcb54d263201" absoluteBounds="11.14, 5.5850000000000009, 1.9700000000000002, 2.5570068359375" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="98858c2f-7431-4e24-8d95-11648601341b" absoluteBounds="8.625, 4.5, 2, 2.9247054036458326">
+    <classShape Id="98858c2f-7431-4e24-8d95-11648601341b" absoluteBounds="8.625, 5.125, 2, 2.9247054036458326">
       <DataClassMoniker Name="/PortalDataContext/LP_Legislation" />
       <nestedChildShapes>
-        <elementListCompartment Id="4ae12b54-9b74-4387-a655-ce930a041bdf" absoluteBounds="8.64, 4.9600000000000009, 1.9700000000000002, 2.364705403645833" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="4ae12b54-9b74-4387-a655-ce930a041bdf" absoluteBounds="8.64, 5.5850000000000009, 1.9700000000000002, 2.364705403645833" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="3a2ddf9d-b9a5-462a-af64-6c8cf49b7138" absoluteBounds="3.375, 4.5, 2, 2.7324039713541666">
+    <classShape Id="3a2ddf9d-b9a5-462a-af64-6c8cf49b7138" absoluteBounds="3.375, 5.125, 2, 2.7324039713541666">
       <DataClassMoniker Name="/PortalDataContext/LP_Project" />
       <nestedChildShapes>
-        <elementListCompartment Id="206f3fe0-e190-41c4-b7b1-23ad1d5cab94" absoluteBounds="3.39, 4.9600000000000009, 1.9700000000000002, 2.1724039713541665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="206f3fe0-e190-41c4-b7b1-23ad1d5cab94" absoluteBounds="3.39, 5.5850000000000009, 1.9700000000000002, 2.1724039713541665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="dff2512a-f3a6-48dd-93d6-66407fd8b7da" absoluteBounds="6.125, 4.5, 2, 2.7324039713541666">
+    <classShape Id="dff2512a-f3a6-48dd-93d6-66407fd8b7da" absoluteBounds="6.125, 5.125, 2, 2.7324039713541666">
       <DataClassMoniker Name="/PortalDataContext/LP_Survey" />
       <nestedChildShapes>
-        <elementListCompartment Id="bb3e5423-2c3a-4ca7-abba-a021ce0eaf80" absoluteBounds="6.14, 4.9600000000000009, 1.9700000000000002, 2.1724039713541665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="bb3e5423-2c3a-4ca7-abba-a021ce0eaf80" absoluteBounds="6.14, 5.5850000000000009, 1.9700000000000002, 2.1724039713541665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <associationConnector edgePoints="[(9.33423076923077 : 7.42470540364583); (9.33423076923077 : 7.67470540364583); (9.92961538461539 : 7.67470540364583); (9.92961538461539 : 7.42470540364583)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(9.33423076923077 : 8.04970540364583); (9.33423076923077 : 8.29970540364583); (9.92961538461539 : 8.29970540364583); (9.92961538461539 : 8.04970540364583)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/PortalDataContext/LP_Legislation/LP_Legislation_LP_Legislation" />
       <nodes>
         <classShapeMoniker Id="98858c2f-7431-4e24-8d95-11648601341b" />
         <classShapeMoniker Id="98858c2f-7431-4e24-8d95-11648601341b" />
       </nodes>
     </associationConnector>
-    <classShape Id="adffe799-85db-4b68-bbee-fbf1bdaa449a" absoluteBounds="18.5, 4.5, 2, 2.9247054036458326">
+    <classShape Id="adffe799-85db-4b68-bbee-fbf1bdaa449a" absoluteBounds="18.5, 5.125, 2, 3.1170068359375005">
       <DataClassMoniker Name="/PortalDataContext/LP_Content" />
       <nestedChildShapes>
-        <elementListCompartment Id="f8bbdeb6-4cb5-4673-993f-59f30b31174f" absoluteBounds="18.515, 4.9600000000000009, 1.9700000000000002, 2.364705403645833" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="f8bbdeb6-4cb5-4673-993f-59f30b31174f" absoluteBounds="18.515, 5.5850000000000009, 1.9700000000000002, 2.5570068359375" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
+    <classShape Id="424d30e0-6c57-4961-bb08-86943132994c" absoluteBounds="0.75, 8.875, 2, 2.7324039713541666">
+      <DataClassMoniker Name="/PortalDataContext/LP_Spec" />
+      <nestedChildShapes>
+        <elementListCompartment Id="12eb55f4-5ad9-4c3e-9563-bc185c50a8e3" absoluteBounds="0.7649999999999999, 9.335, 1.9700000000000002, 2.1724039713541665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(1.45923076923077 : 11.6074039713542); (1.45923076923077 : 11.8574039713542); (2.05461538461538 : 11.8574039713542); (2.05461538461538 : 11.6074039713542)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/PortalDataContext/LP_Spec/LP_Spec_LP_Spec" />
+      <nodes>
+        <classShapeMoniker Id="424d30e0-6c57-4961-bb08-86943132994c" />
+        <classShapeMoniker Id="424d30e0-6c57-4961-bb08-86943132994c" />
+      </nodes>
+    </associationConnector>
   </nestedChildShapes>
 </ordesignerObjectsDiagram>

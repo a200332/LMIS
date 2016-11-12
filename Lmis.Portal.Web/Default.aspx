@@ -25,7 +25,8 @@
                 <li class="vertical-center right-menu-padding rm-profile">
                     <ce:Label runat="server">Create  Profile</ce:Label></li>
             </a>
-            <asp:Calendar runat="server" FirstDayOfWeek="Monday"  CssClass="myCalendar" ID="clDefault" SelectedDate="<%# DateTime.Now %>">
+            <div style="padding-top: 10px;">
+            <asp:Calendar runat="server" FirstDayOfWeek="Monday" CssClass="myCalendar" ID="clDefault" DayNameFormat="FirstTwoLetters" SelectedDate="<%# DateTime.Now %>">
                 <OtherMonthDayStyle ForeColor="#b0b0b0" />
                 <DayStyle CssClass="myCalendarDay" ForeColor="#2d3338" />
                 <DayHeaderStyle CssClass="myCalendarDayHeader" ForeColor="#2d3338" />
@@ -35,6 +36,7 @@
                 <NextPrevStyle CssClass="myCalendarNextPrev" />
                 <TitleStyle CssClass="myCalendarTitle" />
             </asp:Calendar>
+                </div>
         </ul>
         <%--<img src="App_Themes/Default/images/left-article.png" />--%>
     </div>

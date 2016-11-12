@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using CITI.EVO.Tools.Utils;
 using Lmis.Portal.DAL.DAL;
 using Lmis.Portal.Web.Bases;
 
@@ -13,6 +14,8 @@ namespace Lmis.Portal.Web.Pages.Management
 
         protected void btnSave_OnClick(object sender, EventArgs e)
         {
+            var currentLanguage = LanguageUtil.GetLanguage();
+
             var entity = DataContext.LP_Contents.FirstOrDefault(n => n.DateDeleted == null && n.Type == "GeorgiaInNumbers");
             if (entity == null)
             {
@@ -20,7 +23,8 @@ namespace Lmis.Portal.Web.Pages.Management
                 {
                     ID = Guid.NewGuid(),
                     DateCreated = DateTime.Now,
-                    Type = "GeorgiaInNumbers"
+                    Type = "GeorgiaInNumbers",
+                    Language = currentLanguage,
                 };
 
                 DataContext.LP_Contents.InsertOnSubmit(entity);

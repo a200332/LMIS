@@ -13,11 +13,13 @@ namespace Lmis.Portal.Web.Converters.ModelToEntity
 
 		public override LP_Column Convert(ColumnModel source)
 		{
-			var entity = new LP_Column();
-			entity.ID = Guid.NewGuid();
-			entity.DateCreated = DateTime.Now;
+		    var entity = new LP_Column
+		    {
+		        ID = Guid.NewGuid(),
+		        DateCreated = DateTime.Now
+		    };
 
-			FillObject(entity, source);
+		    FillObject(entity, source);
 
 			return entity;
 		}

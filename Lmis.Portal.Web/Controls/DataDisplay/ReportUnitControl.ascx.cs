@@ -288,14 +288,16 @@ namespace Lmis.Portal.Web.Controls.DataDisplay
                 var series = new Series
                 {
                     Name = dataColumn.ColumnName,
-                    Label = "#VALY{0,0.00}",
-                    ToolTip = "#SERIESNAME #VALX/#VALY{0,0.00}",
+                    Label = "#VALY{0,0.##}",
+                    ToolTip = "#SERIESNAME #VALX/#VALY{0,0.##}",
                     Legend = "Default",
                     LegendText = (xLegend ? "#SERIESNAME/#VALX" : "#SERIESNAME"),
                     BorderWidth = 3,
                     ChartType = chartType,
                     IsValueShownAsLabel = true,
                 };
+
+                series.SmartLabelStyle.Enabled = true;
 
                 foreach (DataRow dataRow in dataTable.Rows)
                 {
@@ -332,7 +334,7 @@ namespace Lmis.Portal.Web.Controls.DataDisplay
             var labelX = axisX.LabelStyle;
             labelX.Format = "0,0.00";
             labelX.TruncatedLabels = true;
-            labelX.Angle = 90;
+            //labelX.Angle = 90;
 
             var axisY = defaultChartArea.AxisY;
             axisY.IsLabelAutoFit = true;
@@ -379,7 +381,7 @@ namespace Lmis.Portal.Web.Controls.DataDisplay
         {
             using (var stream = new MemoryStream())
             {
-                mainChart.SaveImage(stream, ChartImageFormat.Bmp);
+                mainChart.SaveImage(stream, ChartImageFormat.Png);
                 stream.Seek(0, SeekOrigin.Begin);
 
                 var image = System.Drawing.Image.FromStream(stream);

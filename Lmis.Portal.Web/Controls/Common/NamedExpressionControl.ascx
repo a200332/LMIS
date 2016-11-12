@@ -1,4 +1,8 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="NamedExpressionControl.ascx.cs" Inherits="Lmis.Portal.Web.Controls.Common.NamedExpressionControl" %>
+
+<%@ Register Src="~/Controls/Common/HiddenFieldValueControl.ascx" TagPrefix="lmis" TagName="HiddenFieldValueControl" %>
+
+<lmis:HiddenFieldValueControl runat="server" ID="hdKey" Property="NamedExpressionModel.Key" />
 <ul>
 	<li>
 		<ce:Label runat="server">Name:</ce:Label></li>

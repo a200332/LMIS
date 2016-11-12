@@ -17,9 +17,14 @@ namespace Lmis.Portal.Web.Utils
 
         public static int CategoryComparer(IComparer<String> comparer, LP_Category x, LP_Category y)
         {
-            var order = comparer.Compare(x.Number, y.Number);
+
+            var order = x.OrderIndex.GetValueOrDefault().CompareTo(y.OrderIndex.GetValueOrDefault());
             if (order == 0)
-                order = x.DateCreated.CompareTo(y.DateCreated);
+            {
+                order = comparer.Compare(x.Number, y.Number);
+                if (order == 0)
+                    order = x.DateCreated.CompareTo(y.DateCreated);
+            }
 
             return order;
         }

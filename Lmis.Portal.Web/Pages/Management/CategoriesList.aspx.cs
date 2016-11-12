@@ -95,7 +95,7 @@ namespace Lmis.Portal.Web.Pages.Management
 
         protected void categoriesControl_OnUpItem(object sender, GenericEventArgs<Guid> e)
         {
-            var entity = DataContext.LP_Legislations.FirstOrDefault(n => n.ID == e.Value);
+            var entity = DataContext.LP_Categories.FirstOrDefault(n => n.ID == e.Value);
             if (entity == null)
                 return;
 

@@ -18,16 +18,6 @@ namespace Lmis.Portal.Web.Controls.Management
                 return;
 
             newsModel.AttachmentName = fuAttachment.FileName;
-            newsModel.FullText = htmlEditor.Html;
-        }
-
-        protected override void OnSetModel(object model, Type type)
-        {
-            var newsModel = model as NewsModel;
-            if (newsModel == null)
-                return;
-
-            htmlEditor.Html = newsModel.FullText;
         }
     }
 }

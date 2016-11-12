@@ -9,6 +9,8 @@ namespace Lmis.Portal.Web.Models
 
 	    public String Title { get; set; }
 
+	    public String Language { get; set; }
+
 	    public String Description { get; set; }
 
 	    public String FullText { get; set; }
@@ -20,5 +22,5 @@ namespace Lmis.Portal.Web.Models
 	    public byte[] Image { get; set; }
 
         public DateTime? NewsDate { get; set; }
-    }
+	}
 }

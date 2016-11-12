@@ -18,6 +18,13 @@
 		<td>
 			<asp:TextBox runat="server" ID="tbxUrl" Property="LinkModel.Url" /></td>
 	</tr>
+    <tr>
+        <td>
+            <ce:Label runat="server">Order Index</ce:Label></td>
+        <td>
+            <dx:ASPxSpinEdit runat="server" ID="seOrderIndex" Property="LinkModel.OrderIndex"></dx:ASPxSpinEdit>
+        </td>
+    </tr>
 	<tr>
 		<td>
 			<ce:Label runat="server">Description</ce:Label></td>

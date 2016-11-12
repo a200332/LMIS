@@ -153,12 +153,13 @@
                                     <a href="#" class="sb small no-border linkedin">LinkedIn</a>
                                     <a href="#" class="sb small no-border facebook">Facebook</a>
                                     <a href="#" class="sb small no-border twitter">Twitter</a>
-                                    <a href="javascript:listenSelected();" class="sb small no-border voice">Twitter</a>
+                                    <%--                                    <a href="javascript:listenSelected();" class="sb small no-border voice">Twitter</a>--%>
+                                    <asp:HyperLink NavigateUrl="~/Pages/Spec/MainSpec.aspx" CssClass="sb small no-border spec" runat="server">Special</asp:HyperLink>
                                 </li>
                             </ul>
 
                         </div>
-                        <div style="float: left; margin-left: 15px;">
+                        <div style="float: left; margin-left: 15px; width: 150px;">
                             <div id="textsizer-classnames">
                                 <ul class="textresizer" id="text-resizer-controls">
                                     <li><a href="#nogo" id="small" class="small-text" title="Small">

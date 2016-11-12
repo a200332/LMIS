@@ -30,6 +30,7 @@ namespace Lmis.Portal.Web.Converters.ModelToEntity
             target.FullText = source.FullText;
             target.NewsDate = source.NewsDate;
             target.Description = source.Description;
+            target.Language = source.Language;
 
             if (!source.Image.IsNullOrEmpty())
             {

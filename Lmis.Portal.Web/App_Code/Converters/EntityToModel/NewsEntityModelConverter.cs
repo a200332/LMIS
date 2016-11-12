@@ -28,6 +28,7 @@ namespace Lmis.Portal.Web.Converters.EntityToModel
             target.FullText = source.FullText;
             target.NewsDate = source.NewsDate;
             target.Description = source.Description;
+            target.Language = source.Language;
             target.Image = (source.Image != null ? source.Image.ToArray() : null);
         }
     }

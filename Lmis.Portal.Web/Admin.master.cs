@@ -11,6 +11,24 @@ namespace Lmis.Portal.Web
 {
     public partial class Admin : MasterPageBase
     {
+        protected void Page_Init(object sender, EventArgs e)
+        {
+            if (Page.PostBackControl == btEngLang)
+                LanguageUtil.SetLanguage("en-US");
+
+            if (Page.PostBackControl == btGeoLang)
+                LanguageUtil.SetLanguage("ka-GE");
+
+            if (Page.PostBackControl == btTranslationMode)
+                TranslationUtil.TranslationMode = !TranslationUtil.TranslationMode;
+
+            if (!UmUtil.Instance.IsLogged || !UmUtil.Instance.CurrentUser.IsSuperAdmin)
+            {
+                if (TranslationUtil.TranslationMode)
+                    TranslationUtil.TranslationMode = false;
+            }
+        }
+
         protected void Page_Load(object sender, EventArgs e)
         {
             btLogin.Visible = !UmUtil.Instance.IsLogged;
@@ -24,18 +42,16 @@ namespace Lmis.Portal.Web
                     childLink.CssClass = "mcolor_active ";
             }
 
-           // imgLogo.ImageUrl = String.Format("~/App_Themes/Default/images/logo_{0}.png", LanguageUtil.GetLanguage());
+            imgLogo.ImageUrl = String.Format("~/App_Themes/Default/images/logo_{0}.png", LanguageUtil.GetLanguage());
             imgFLogo.ImageUrl = String.Format("~/App_Themes/Default/images/f-logo_{0}.png", LanguageUtil.GetLanguage());
         }
 
         protected void btEngLang_Click(object sender, EventArgs e)
         {
-            LanguageUtil.SetLanguage("en-US");
         }
 
         protected void btGeoLang_Click(object sender, EventArgs e)
         {
-            LanguageUtil.SetLanguage("ka-GE");
         }
 
         protected void btLogin_Click(object sender, EventArgs e)
@@ -50,7 +66,6 @@ namespace Lmis.Portal.Web
 
         protected void btTranslationMode_Click(object sender, EventArgs e)
         {
-            TranslationUtil.TranslationMode = !TranslationUtil.TranslationMode;
         }
 
         protected IEnumerable<HyperLink> GetCurrentUrlLinks(Control control)
@@ -84,7 +99,5 @@ namespace Lmis.Portal.Web
         {
             return ResolveUrl(hyperLink.NavigateUrl);
         }
-
-
     }
 }

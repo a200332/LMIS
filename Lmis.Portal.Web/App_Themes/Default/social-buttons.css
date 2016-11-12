@@ -298,6 +298,20 @@ a.sb,
                 transition: all .25s ease-out;
             }
 
+                a.sb.spec,
+        .sb a.spec {
+            background-image: url('images/spec_orig.png');
+            -webkit-transition: all .25s ease-out;
+            transition: all .25s ease-out;
+        }
+
+            a.sb.spec:hover,
+            .sb a.spec:hover {
+                background-image: url(images/white_spec_orig.png);
+                -webkit-transition: all .25s ease-out;
+                transition: all .25s ease-out;
+            }
+
         a.sb.facebook,
         .sb a.facebook {
             background-image: url(images/facebook_orig.png);
@@ -328,6 +342,8 @@ a.sb,
                 -webkit-transition: all .25s ease-out;
                 transition: all .25s ease-out;
             }
+
+    
 
         /* white icons */
         a.sb.blue.twitter,

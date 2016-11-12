@@ -1,4 +1,7 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="ReportLogicControl.ascx.cs" Inherits="Lmis.Portal.Web.Controls.Management.ReportLogicControl" %>
+<%@ Register Src="~/Controls/Common/HiddenFieldValueControl.ascx" TagPrefix="lmis" TagName="HiddenFieldValueControl" %>
+
+<lmis:HiddenFieldValueControl runat="server" ID="hdID" Property="ReportLogicModel.ID" />
 
 <ul runat="server" id="trChartType">
 

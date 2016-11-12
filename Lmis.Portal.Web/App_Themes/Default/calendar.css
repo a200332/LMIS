@@ -1,7 +1,7 @@
 ﻿.myCalendar {  
     background-color: #f2f2f2;  
-    width: 226px;  
-    border:10px solid #c9d623  !important;
+    width: 220px;  
+    border:2px solid #c9d623  !important;
     border-top:0px !important;}  
     .myCalendar a {  
     text-decoration: none;  }  

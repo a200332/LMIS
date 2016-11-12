@@ -9,6 +9,7 @@ using System.Web.UI.WebControls;
 using CITI.EVO.Tools.Utils;
 using CITI.EVO.Tools.Web.UI.Model.Interfaces;
 using DevExpress.Web;
+using DevExpress.Web.ASPxHtmlEditor;
 
 namespace CITI.EVO.Tools.Web.UI.Model.Common
 {
@@ -294,7 +295,15 @@ namespace CITI.EVO.Tools.Web.UI.Model.Common
 				return;
 			}
 
-			if (control is ASPxComboBox)
+            if (control is ASPxHtmlEditor)
+            {
+                var container = (ASPxHtmlEditor)control;
+                container.Html = Convert.ToString(propertyValue);
+
+                return;
+            }
+
+            if (control is ASPxComboBox)
 			{
 				var container = (ASPxComboBox)control;
 
@@ -460,7 +469,13 @@ namespace CITI.EVO.Tools.Web.UI.Model.Common
 				return container.Value;
 			}
 
-			if (control is ListControl)
+            if (control is ASPxHtmlEditor)
+            {
+                var container = (ASPxHtmlEditor)control;
+                return container.Html;
+            }
+
+            if (control is ListControl)
 			{
 				var container = (ListControl)control;
 				var @set = new HashSet<String>();

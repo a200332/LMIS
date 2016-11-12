@@ -8,7 +8,7 @@
     <Columns>
         <dx:TreeListDataColumn>
             <DataCellTemplate>
-                <div>
+                <div style="width: 200px;">
                     <ce:ImageLinkButton runat="server" ToolTip="Up" CommandArgument='<%# Eval("ID") %>' DefaultImageUrl="~/App_Themes/Default/images/up.png" ID="btnUp" OnCommand="btnUp_OnCommand" />
                     <ce:ImageLinkButton runat="server" ToolTip="Down" CommandArgument='<%# Eval("ID") %>' DefaultImageUrl="~/App_Themes/Default/images/down.png" ID="btnDown" OnCommand="btnDown_OnCommand" />
 

@@ -68,10 +68,9 @@ namespace Lmis.Portal.Web.Controls.DataDisplay
             return style;
         }
 
-        public String ConvertToAbsoluteUrl(string relativeUrl)
+        public String ConvertToAbsoluteUrl(String relativeUrl)
         {
             var protocol = (Request.IsSecureConnection ? "https" : "http");
-
             return String.Format("{0}://{1}{2}", protocol, Request.Url.Host, Page.ResolveUrl(relativeUrl));
         }
     }

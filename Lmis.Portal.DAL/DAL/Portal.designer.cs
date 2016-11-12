@@ -72,6 +72,9 @@ namespace Lmis.Portal.DAL.DAL
     partial void InsertLP_Content(LP_Content instance);
     partial void UpdateLP_Content(LP_Content instance);
     partial void DeleteLP_Content(LP_Content instance);
+    partial void InsertLP_Spec(LP_Spec instance);
+    partial void UpdateLP_Spec(LP_Spec instance);
+    partial void DeleteLP_Spec(LP_Spec instance);
     #endregion
 		
 		public PortalDataContext() : 
@@ -213,6 +216,14 @@ namespace Lmis.Portal.DAL.DAL
 			get
 			{
 				return this.GetTable<LP_Content>();
+			}
+		}
+		
+		public System.Data.Linq.Table<LP_Spec> LP_Specs
+		{
+			get
+			{
+				return this.GetTable<LP_Spec>();
 			}
 		}
 	}
@@ -2963,6 +2974,8 @@ namespace Lmis.Portal.DAL.DAL
 		
 		private string _AttachmentName;
 		
+		private string _Language;
+		
     #region Extensibility Method Definitions
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
@@ -2989,6 +3002,8 @@ namespace Lmis.Portal.DAL.DAL
     partial void OnImageChanged();
     partial void OnAttachmentNameChanging(string value);
     partial void OnAttachmentNameChanged();
+    partial void OnLanguageChanging(string value);
+    partial void OnLanguageChanged();
     #endregion
 		
 		public LP_News()
@@ -3212,6 +3227,26 @@ namespace Lmis.Portal.DAL.DAL
 					this._AttachmentName = value;
 					this.SendPropertyChanged("AttachmentName");
 					this.OnAttachmentNameChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Language", DbType="NVarChar(250)", UpdateCheck=UpdateCheck.Never)]
+		public string Language
+		{
+			get
+			{
+				return this._Language;
+			}
+			set
+			{
+				if ((this._Language != value))
+				{
+					this.OnLanguageChanging(value);
+					this.SendPropertyChanging();
+					this._Language = value;
+					this.SendPropertyChanged("Language");
+					this.OnLanguageChanged();
 				}
 			}
 		}
@@ -4192,6 +4227,8 @@ namespace Lmis.Portal.DAL.DAL
 		
 		private System.Nullable<System.DateTime> _DateDeleted;
 		
+		private string _Language;
+		
     #region Extensibility Method Definitions
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
@@ -4218,6 +4255,8 @@ namespace Lmis.Portal.DAL.DAL
     partial void OnDateChangedChanged();
     partial void OnDateDeletedChanging(System.Nullable<System.DateTime> value);
     partial void OnDateDeletedChanged();
+    partial void OnLanguageChanging(string value);
+    partial void OnLanguageChanged();
     #endregion
 		
 		public LP_Content()
@@ -4445,6 +4484,26 @@ namespace Lmis.Portal.DAL.DAL
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Language", DbType="NVarChar(250)", UpdateCheck=UpdateCheck.Never)]
+		public string Language
+		{
+			get
+			{
+				return this._Language;
+			}
+			set
+			{
+				if ((this._Language != value))
+				{
+					this.OnLanguageChanging(value);
+					this.SendPropertyChanging();
+					this._Language = value;
+					this.SendPropertyChanged("Language");
+					this.OnLanguageChanged();
+				}
+			}
+		}
+		
 		public event PropertyChangingEventHandler PropertyChanging;
 		
 		public event PropertyChangedEventHandler PropertyChanged;
@@ -4463,6 +4522,353 @@ namespace Lmis.Portal.DAL.DAL
 			{
 				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.LP_Specs")]
+	public partial class LP_Spec : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private System.Guid _ID;
+		
+		private System.Nullable<System.Guid> _ParentID;
+		
+		private System.Nullable<bool> _IsCategory;
+		
+		private string _Title;
+		
+		private string _FullText;
+		
+		private System.DateTime _DateCreated;
+		
+		private System.Nullable<System.DateTime> _DateChanged;
+		
+		private System.Nullable<System.DateTime> _DateDeleted;
+		
+		private string _Language;
+		
+		private System.Nullable<int> _OrderIndex;
+		
+		private EntitySet<LP_Spec> _Children;
+		
+		private EntityRef<LP_Spec> _Parent;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnIDChanging(System.Guid value);
+    partial void OnIDChanged();
+    partial void OnParentIDChanging(System.Nullable<System.Guid> value);
+    partial void OnParentIDChanged();
+    partial void OnIsCategoryChanging(System.Nullable<bool> value);
+    partial void OnIsCategoryChanged();
+    partial void OnTitleChanging(string value);
+    partial void OnTitleChanged();
+    partial void OnFullTextChanging(string value);
+    partial void OnFullTextChanged();
+    partial void OnDateCreatedChanging(System.DateTime value);
+    partial void OnDateCreatedChanged();
+    partial void OnDateChangedChanging(System.Nullable<System.DateTime> value);
+    partial void OnDateChangedChanged();
+    partial void OnDateDeletedChanging(System.Nullable<System.DateTime> value);
+    partial void OnDateDeletedChanged();
+    partial void OnLanguageChanging(string value);
+    partial void OnLanguageChanged();
+    partial void OnOrderIndexChanging(System.Nullable<int> value);
+    partial void OnOrderIndexChanged();
+    #endregion
+		
+		public LP_Spec()
+		{
+			this._Children = new EntitySet<LP_Spec>(new Action<LP_Spec>(this.attach_Children), new Action<LP_Spec>(this.detach_Children));
+			this._Parent = default(EntityRef<LP_Spec>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ID", DbType="uniqueidentifier NOT NULL", IsPrimaryKey=true)]
+		public System.Guid ID
+		{
+			get
+			{
+				return this._ID;
+			}
+			set
+			{
+				if ((this._ID != value))
+				{
+					this.OnIDChanging(value);
+					this.SendPropertyChanging();
+					this._ID = value;
+					this.SendPropertyChanged("ID");
+					this.OnIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ParentID", DbType="uniqueidentifier")]
+		public System.Nullable<System.Guid> ParentID
+		{
+			get
+			{
+				return this._ParentID;
+			}
+			set
+			{
+				if ((this._ParentID != value))
+				{
+					if (this._Parent.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnParentIDChanging(value);
+					this.SendPropertyChanging();
+					this._ParentID = value;
+					this.SendPropertyChanged("ParentID");
+					this.OnParentIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IsCategory", DbType="bit", UpdateCheck=UpdateCheck.Never)]
+		public System.Nullable<bool> IsCategory
+		{
+			get
+			{
+				return this._IsCategory;
+			}
+			set
+			{
+				if ((this._IsCategory != value))
+				{
+					this.OnIsCategoryChanging(value);
+					this.SendPropertyChanging();
+					this._IsCategory = value;
+					this.SendPropertyChanged("IsCategory");
+					this.OnIsCategoryChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Title", DbType="nvarchar(400)", UpdateCheck=UpdateCheck.Never)]
+		public string Title
+		{
+			get
+			{
+				return this._Title;
+			}
+			set
+			{
+				if ((this._Title != value))
+				{
+					this.OnTitleChanging(value);
+					this.SendPropertyChanging();
+					this._Title = value;
+					this.SendPropertyChanged("Title");
+					this.OnTitleChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FullText", DbType="nvarchar(MAX)", UpdateCheck=UpdateCheck.Never)]
+		public string FullText
+		{
+			get
+			{
+				return this._FullText;
+			}
+			set
+			{
+				if ((this._FullText != value))
+				{
+					this.OnFullTextChanging(value);
+					this.SendPropertyChanging();
+					this._FullText = value;
+					this.SendPropertyChanged("FullText");
+					this.OnFullTextChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DateCreated", DbType="datetime", UpdateCheck=UpdateCheck.Never)]
+		public System.DateTime DateCreated
+		{
+			get
+			{
+				return this._DateCreated;
+			}
+			set
+			{
+				if ((this._DateCreated != value))
+				{
+					this.OnDateCreatedChanging(value);
+					this.SendPropertyChanging();
+					this._DateCreated = value;
+					this.SendPropertyChanged("DateCreated");
+					this.OnDateCreatedChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DateChanged", DbType="datetime", UpdateCheck=UpdateCheck.Never)]
+		public System.Nullable<System.DateTime> DateChanged
+		{
+			get
+			{
+				return this._DateChanged;
+			}
+			set
+			{
+				if ((this._DateChanged != value))
+				{
+					this.OnDateChangedChanging(value);
+					this.SendPropertyChanging();
+					this._DateChanged = value;
+					this.SendPropertyChanged("DateChanged");
+					this.OnDateChangedChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DateDeleted", DbType="datetime", UpdateCheck=UpdateCheck.Never)]
+		public System.Nullable<System.DateTime> DateDeleted
+		{
+			get
+			{
+				return this._DateDeleted;
+			}
+			set
+			{
+				if ((this._DateDeleted != value))
+				{
+					this.OnDateDeletedChanging(value);
+					this.SendPropertyChanging();
+					this._DateDeleted = value;
+					this.SendPropertyChanged("DateDeleted");
+					this.OnDateDeletedChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Language", DbType="nvarchar(50)", UpdateCheck=UpdateCheck.Never)]
+		public string Language
+		{
+			get
+			{
+				return this._Language;
+			}
+			set
+			{
+				if ((this._Language != value))
+				{
+					this.OnLanguageChanging(value);
+					this.SendPropertyChanging();
+					this._Language = value;
+					this.SendPropertyChanged("Language");
+					this.OnLanguageChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_OrderIndex", DbType="int", UpdateCheck=UpdateCheck.Never)]
+		public System.Nullable<int> OrderIndex
+		{
+			get
+			{
+				return this._OrderIndex;
+			}
+			set
+			{
+				if ((this._OrderIndex != value))
+				{
+					this.OnOrderIndexChanging(value);
+					this.SendPropertyChanging();
+					this._OrderIndex = value;
+					this.SendPropertyChanged("OrderIndex");
+					this.OnOrderIndexChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="LP_Spec_LP_Spec", Storage="_Children", ThisKey="ID", OtherKey="ParentID")]
+		public EntitySet<LP_Spec> Children
+		{
+			get
+			{
+				return this._Children;
+			}
+			set
+			{
+				this._Children.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="LP_Spec_LP_Spec", Storage="_Parent", ThisKey="ParentID", OtherKey="ID", IsForeignKey=true)]
+		public LP_Spec Parent
+		{
+			get
+			{
+				return this._Parent.Entity;
+			}
+			set
+			{
+				LP_Spec previousValue = this._Parent.Entity;
+				if (((previousValue != value) 
+							|| (this._Parent.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Parent.Entity = null;
+						previousValue.Children.Remove(this);
+					}
+					this._Parent.Entity = value;
+					if ((value != null))
+					{
+						value.Children.Add(this);
+						this._ParentID = value.ID;
+					}
+					else
+					{
+						this._ParentID = default(Nullable<System.Guid>);
+					}
+					this.SendPropertyChanged("Parent");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_Children(LP_Spec entity)
+		{
+			this.SendPropertyChanging();
+			entity.Parent = this;
+		}
+		
+		private void detach_Children(LP_Spec entity)
+		{
+			this.SendPropertyChanging();
+			entity.Parent = null;
 		}
 	}
 }

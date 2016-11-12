@@ -29,7 +29,7 @@
                         </Series>
                         <ChartAreas>
                             <asp:ChartArea Name="Default">
-                                <AxisX Interval="1" LabelAutoFitStyle="WordWrap" IsMarginVisible="False">
+                                <AxisX Interval="1" LabelAutoFitStyle="WordWrap">
                                     <MajorGrid LineColor="LightGray"></MajorGrid>
                                 </AxisX>
                                 <AxisY LabelAutoFitStyle="WordWrap">

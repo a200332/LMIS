@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using CITI.EVO.Tools.Utils;
 using Lmis.Portal.Web.Bases;
 using Lmis.Portal.Web.Common;
 using Lmis.Portal.Web.Converters.EntityToModel;
@@ -78,9 +79,12 @@ namespace Lmis.Portal.Web.Pages.Management
 
 		private void FillDataGrid()
 		{
-			var entities = (from n in DataContext.LP_News
-							where n.DateDeleted == null
-							orderby n.DateCreated descending
+            var currentLanguage = LanguageUtil.GetLanguage();
+
+            var entities = (from n in DataContext.LP_News
+							where n.DateDeleted == null && (n.Language == currentLanguage || n.Language == null || n.Language == "")
+                            orderby n.NewsDate descending, 
+                                    n.DateCreated descending 
 							select n).ToList();
 
 			var converter = new NewsEntityModelConverter(DataContext);

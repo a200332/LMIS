@@ -79,25 +79,6 @@ namespace Lmis.Portal.Web.Pages.Management
             FillDataGrid();
         }
 
-        private void FillDataGrid()
-        {
-            var entities = (from n in DataContext.LP_Surveys
-                where n.DateDeleted == null
-                orderby n.OrderIndex, n.DateCreated
-                select n).ToList();
-
-            var converter = new SurveyEntityModelConverter(DataContext);
-
-            var models = (from n in entities
-                let m = converter.Convert(n)
-                select m).ToList();
-
-            var model = new SurveysModel();
-            model.List = models;
-
-            surveysControl.Model = model;
-        }
-
         protected void surveysControl_OnUpItem(object sender, GenericEventArgs<Guid> e)
         {
             var surveys = (from n in DataContext.LP_Surveys
@@ -154,6 +135,25 @@ namespace Lmis.Portal.Web.Pages.Management
             DataContext.SubmitChanges();
 
             FillDataGrid();
+        }
+
+        protected void FillDataGrid()
+        {
+            var entities = (from n in DataContext.LP_Surveys
+                where n.DateDeleted == null
+                orderby n.OrderIndex, n.DateCreated
+                select n).ToList();
+
+            var converter = new SurveyEntityModelConverter(DataContext);
+
+            var models = (from n in entities
+                let m = converter.Convert(n)
+                select m).ToList();
+
+            var model = new SurveysModel();
+            model.List = models;
+
+            surveysControl.Model = model;
         }
     }
 }

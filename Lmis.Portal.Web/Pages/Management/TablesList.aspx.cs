@@ -84,7 +84,7 @@ namespace Lmis.Portal.Web.Pages.Management
 
         protected void tablesControl_OnDeleteColumn(object sender, GenericEventArgs<Guid> e)
         {
-            var entity = DataContext.LP_Tables.FirstOrDefault(n => n.ID == e.Value);
+            var entity = DataContext.LP_Columns.FirstOrDefault(n => n.ID == e.Value);
             if (entity == null)
                 return;
 

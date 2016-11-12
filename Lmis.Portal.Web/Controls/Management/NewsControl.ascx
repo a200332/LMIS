@@ -40,17 +40,8 @@
         <td>
             <ce:Label runat="server">FullText</ce:Label></td>
         <td>
-            <dx:ASPxHtmlEditor ID="htmlEditor" runat="server" ActiveView="Design" Width="800px" Height="500px">
-                <SettingsHtmlEditing AllowScripts="True" 
-                                     AllowIFrames="True"
-                                     AllowFormElements="True" 
-                                     AllowIdAttributes="True" 
-                                     AllowedDocumentType="Both" 
-                                     AllowStyleAttributes="True" 
-                                     AllowEditFullDocument="True" 
-                                     AllowHTML5MediaElements="True" 
-                                     AllowYouTubeVideoIFrames="True" 
-                                     AllowObjectAndEmbedElements="True" />
+            <dx:ASPxHtmlEditor ID="heFullText" runat="server" ActiveView="Design" Width="800px" Height="500px" Property="NewsModel.FullText">
+                <SettingsHtmlEditing AllowScripts="True" AllowIFrames="True" AllowFormElements="True" AllowIdAttributes="True" AllowedDocumentType="Both" AllowStyleAttributes="True" AllowEditFullDocument="True" AllowHTML5MediaElements="True" AllowYouTubeVideoIFrames="True" AllowObjectAndEmbedElements="True" />
                 <Settings AllowHtmlView="True" AllowInsertDirectImageUrls="True" AllowContextMenu="True" AllowScriptExecutionInPreview="True" />
                 <SettingsResize AllowResize="True" />
             </dx:ASPxHtmlEditor>

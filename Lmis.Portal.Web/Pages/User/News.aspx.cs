@@ -25,7 +25,14 @@ namespace Lmis.Portal.Web.Pages.User
             }
             else
             {
-                var entity = DataContext.LP_News.OrderByDescending(n => n.NewsDate).FirstOrDefault();
+                var currentLanguage = LanguageUtil.GetLanguage();
+
+                var entity = (from n in DataContext.LP_News
+                              where n.DateDeleted == null && (n.Language == currentLanguage || n.Language == null || n.Language == "")
+                              orderby n.NewsDate descending,
+                                      n.DateCreated descending 
+                              select n).FirstOrDefault();
+
                 if (entity != null)
                 {
                     var url = String.Format("~/Pages/User/News.aspx?ID={0}", entity.ID);
@@ -41,7 +48,7 @@ namespace Lmis.Portal.Web.Pages.User
             var currentLanguage = LanguageUtil.GetLanguage();
 
             var entities = (from n in DataContext.LP_News
-                            where n.DateDeleted == null //&& (n.Language == currentLanguage || n.Language == null || n.Language == "")
+                            where n.DateDeleted == null && (n.Language == currentLanguage || n.Language == null || n.Language == "")
                             orderby n.NewsDate descending
                             select n).ToList();
 

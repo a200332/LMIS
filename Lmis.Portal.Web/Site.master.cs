@@ -60,7 +60,12 @@ namespace Lmis.Portal.Web
 
         private Guid? GetGeorgiaInNumbersID()
         {
-            var entity = DataContext.LP_Contents.FirstOrDefault(n => n.DateDeleted == null && n.Type == "GeorgiaInNumbers");
+            var currentLanguage = LanguageUtil.GetLanguage();
+
+            var entity = (from n in DataContext.LP_Contents
+                          where n.DateDeleted == null && n.Type == "GeorgiaInNumbers" && (n.Language == currentLanguage || n.Language == null || n.Language == "")
+                          select n).FirstOrDefault();
+
             if (entity != null)
             {
                 return entity.ID;

@@ -225,6 +225,7 @@ namespace Lmis.Portal.Web.Controls.Management
             {
                 pnlChartBinding.Visible = false;
                 pnlChartBindings.Visible = false;
+
                 trChartType.Visible = false;
 
                 pnlGridBinding.Visible = true;
@@ -234,6 +235,7 @@ namespace Lmis.Portal.Web.Controls.Management
             {
                 pnlChartBinding.Visible = true;
                 pnlChartBindings.Visible = true;
+
                 trChartType.Visible = true;
 
                 pnlGridBinding.Visible = false;
@@ -243,7 +245,10 @@ namespace Lmis.Portal.Web.Controls.Management
 
         protected void FillComboBoxes()
         {
-            var tables = DataContext.LP_Tables.Where(n => n.DateDeleted == null);
+            var tables = (from n in DataContext.LP_Tables
+                          where n.DateDeleted == null
+                          orderby n.Name
+                          select n);
 
             cbxTable.DataSource = tables;
             cbxTable.DataBind();
@@ -251,7 +256,10 @@ namespace Lmis.Portal.Web.Controls.Management
             var selTableID = cbxTable.TryGetGuidValue();
             if (selTableID != null)
             {
-                var logics = DataContext.LP_Logics.Where(n => n.DateDeleted == null && n.TableID == selTableID);
+                var logics = (from n in DataContext.LP_Logics
+                              where n.DateDeleted == null && n.TableID == selTableID
+                              orderby n.Name
+                              select n);
 
                 cbxLogic.DataSource = logics;
                 cbxLogic.DataBind();

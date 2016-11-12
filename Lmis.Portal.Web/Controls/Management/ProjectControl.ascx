@@ -19,6 +19,13 @@
     </tr>
     <tr>
         <td>
+            <ce:Label runat="server">Order Index</ce:Label></td>
+        <td>
+            <dx:ASPxSpinEdit runat="server" ID="seOrderIndex" Property="ProjectModel.OrderIndex"></dx:ASPxSpinEdit>
+        </td>
+    </tr>
+    <tr>
+        <td>
             <ce:Label runat="server">Description</ce:Label></td>
         <td>
             <asp:TextBox runat="server" ID="tbxDescription" Property="ProjectModel.Description" /></td>

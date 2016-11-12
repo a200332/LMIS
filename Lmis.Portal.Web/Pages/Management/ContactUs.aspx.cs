@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using CITI.EVO.Tools.Utils;
 using Lmis.Portal.DAL.DAL;
 using Lmis.Portal.Web.Bases;
 
@@ -15,14 +16,20 @@ namespace Lmis.Portal.Web.Pages.Management
 
         protected void btnSave_OnClick(object sender, EventArgs e)
         {
-            var entity = DataContext.LP_Contents.FirstOrDefault(n => n.DateDeleted == null && n.Type == "ContactUs");
+            var currentLanguage = LanguageUtil.GetLanguage();
+
+            var entity = (from n in DataContext.LP_Contents
+                          where n.DateDeleted == null && n.Type == "ContactUs" && (n.Language == currentLanguage || n.Language == null || n.Language == "")
+                          select n).FirstOrDefault();
+
             if (entity == null)
             {
                 entity = new LP_Content
                 {
                     ID = Guid.NewGuid(),
                     DateCreated = DateTime.Now,
-                    Type = "AboutUs"
+                    Type = "ContactUs",
+                    Language = currentLanguage,
                 };
 
                 DataContext.LP_Contents.InsertOnSubmit(entity);
@@ -35,7 +42,12 @@ namespace Lmis.Portal.Web.Pages.Management
 
         protected void FillHtmlEditor()
         {
-            var entity = DataContext.LP_Contents.FirstOrDefault(n => n.DateDeleted == null && n.Type == "ContactUs");
+            var currentLanguage = LanguageUtil.GetLanguage();
+
+            var entity = (from n in DataContext.LP_Contents
+                          where n.DateDeleted == null && n.Type == "ContactUs" && (n.Language == currentLanguage || n.Language == null || n.Language == "")
+                          select n).FirstOrDefault();
+
             if (entity != null)
             {
                 htmlEditor.Html = entity.FullText;

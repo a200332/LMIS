@@ -101,7 +101,7 @@ a {
 }
 
 h1, h2, h3, h4, h5, h6 {
-    margin-bottom: 23px;
+    margin-bottom: 2px;
     font-weight: normal;
     line-height: 170%;
 }
@@ -389,7 +389,6 @@ body {
 
 
 #header .menu-line {
-    height: 23px;
     border-bottom: 1px solid #d7d7d7;
     width: 1000px;
     display: inline-block;
@@ -606,7 +605,7 @@ ul.menu > li.open span {
 
 .right-menu {
     float: right;
-    width: 226px;
+    width: 220px;
     padding-left: 15px;
 }
 
@@ -832,7 +831,7 @@ width:100%;
     display: inline-block;
     width: 1000px;
     min-height: 200px;
-    padding-left: 20px;
+
 }
 
 .bottom {

@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
-using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
@@ -14,12 +13,9 @@ using CITI.EVO.Tools.Utils;
 using Lmis.Portal.Web.Entites;
 using Lmis.Portal.Web.Models;
 using CITI.EVO.Tools.Extensions;
-using CITI.EVO.Tools.Helpers;
 using iTextSharp.text;
 using iTextSharp.text.pdf;
 using Lmis.Portal.DAL.DAL;
-using Font = System.Drawing.Font;
-using Image = System.Drawing.Image;
 
 namespace Lmis.Portal.Web.BLL
 {
@@ -60,7 +56,7 @@ namespace Lmis.Portal.Web.BLL
             return null;
         }
 
-        public static byte[] GetReportChartBytes(String targetType, DataTable dataSource, Image chartImage)
+        public static byte[] GetReportChartBytes(String targetType, DataTable dataSource, System.Drawing.Image chartImage)
         {
             if (targetType == "PDF")
             {
@@ -293,8 +289,14 @@ namespace Lmis.Portal.Web.BLL
 
         private static PdfPTable GetPdfGrid(DataTable dataSource)
         {
-            var pdfFont = FontFactory.GetFont("Segoe UI", BaseFont.IDENTITY_H, BaseFont.EMBEDDED, 11F);
-            var localFont = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
+            var sylfaenPath = String.Format("{0}\\fonts\\sylfaen.ttf", Environment.GetEnvironmentVariable("SystemRoot"));
+            var sylfaen = BaseFont.CreateFont(sylfaenPath, BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
+
+            var pdfFont = new Font(sylfaen, 11f, Font.NORMAL, BaseColor.BLACK);
+            
+
+            //var pdfFont = FontFactory.GetFont("Sylfaen", BaseFont.IDENTITY_H, BaseFont.EMBEDDED, 11F);
+            var localFont = new System.Drawing.Font("Sylfaen", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
 
             var widths = new List<int>();
             var table = new PdfPTable(dataSource.Columns.Count);
@@ -311,7 +313,7 @@ namespace Lmis.Portal.Web.BLL
                 var text = HttpUtility.HtmlDecode(dataColumn.ColumnName);
                 var cell = new PdfPCell(new Phrase(12, text, pdfFont))
                 {
-                    BackgroundColor = new BaseColor(Color.Gainsboro)
+                    BackgroundColor = new BaseColor(System.Drawing.Color.Gainsboro)
                 };
 
                 table.AddCell(cell);
@@ -325,7 +327,7 @@ namespace Lmis.Portal.Web.BLL
                 {
                     var value = Convert.ToString(dataRow[dataColumn]);
                     var text = HttpUtility.HtmlDecode(value);
-                    var cell = new PdfPCell(new iTextSharp.text.Phrase(12, text, pdfFont));
+                    var cell = new PdfPCell(new Phrase(12, text, pdfFont));
 
                     table.AddCell(cell);
                 }
@@ -335,7 +337,7 @@ namespace Lmis.Portal.Web.BLL
             return table;
         }
 
-        private static iTextSharp.text.Image GetPdfImage(Image image)
+        private static iTextSharp.text.Image GetPdfImage(System.Drawing.Image image)
         {
             using (var stream = new MemoryStream())
             {
@@ -345,18 +347,6 @@ namespace Lmis.Portal.Web.BLL
 
                 var prfImage = iTextSharp.text.Image.GetInstance(image, ImageFormat.Png);
                 return prfImage;
-            }
-        }
-
-        private static void TranslateDataTable(DataTable dataTable)
-        {
-            if (dataTable == null)
-                return;
-
-            foreach (DataColumn dataColumn in dataTable.Columns)
-            {
-                var defTrn = new DefaultTranslatable(dataColumn.ColumnName);
-                dataColumn.ColumnName = defTrn.Text;
             }
         }
 
@@ -380,15 +370,15 @@ namespace Lmis.Portal.Web.BLL
             return true;
         }
 
-        private static int GetTextWidth(Object value, Font font)
+        private static int GetTextWidth(Object value, System.Drawing.Font font)
         {
             var text = Convert.ToString(value);
             if (String.IsNullOrWhiteSpace(text))
                 return 1;
 
-            using (var bmp = new Bitmap(1, 1))
+            using (var bmp = new System.Drawing.Bitmap(1, 1))
             {
-                using (var graphics = Graphics.FromImage(bmp))
+                using (var graphics = System.Drawing.Graphics.FromImage(bmp))
                 {
                     var size = graphics.MeasureString(text, font);
                     return (int)size.Width;

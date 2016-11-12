@@ -123,7 +123,7 @@
 							Plan The Future
 						</div>--%>
                         <div class="left" style="margin: 10px 10px 15px 10px;">
-                            <asp:Image ImageUrl="~/App_Themes/Default/images/logo.png" runat="server" />
+                            <asp:Image ImageUrl="~/App_Themes/Default/images/logo.png" runat="server" ID="imgLogo" />
                         </div>
                         <div class="search-box">
                             <input type="text" name="search" placeholder="Search..">
@@ -145,7 +145,7 @@
                             <asp:HyperLink runat="server" CssClass="mcolor" NavigateUrl="~/Pages/Management/LogicsList.aspx"><ce:Label runat="server">Logics</ce:Label></asp:HyperLink>
                         </li>
                         <li>
-                            <asp:HyperLink runat="server" CssClass="mcolor" NavigateUrl="~/Pages/Management/ReportsList.aspx"><ce:Label runat="server">Reports</ce:Label></asp:HyperLink>
+                            <asp:HyperLink runat="server" CssClass="mcolor" NavigateUrl="~/Pages/Management/ReportsList.aspx"><ce:Label runat="server">Data</ce:Label></asp:HyperLink>
                         </li>
                         <li>
                             <asp:HyperLink runat="server" CssClass="mcolor" NavigateUrl="~/Pages/Management/VideosList.aspx"><ce:Label runat="server">Videos</ce:Label></asp:HyperLink>
@@ -160,10 +160,10 @@
                             <asp:HyperLink runat="server" CssClass="mcolor" NavigateUrl="~/Pages/Management/LegislationsList.aspx"><ce:Label runat="server">Legislations</ce:Label></asp:HyperLink>
                         </li>
                         <li>
-                            <asp:HyperLink runat="server" CssClass="mcolor" NavigateUrl="~/Pages/Management/ProjectsList.aspx"><ce:Label runat="server">Projects</ce:Label></asp:HyperLink>
+                            <asp:HyperLink runat="server" CssClass="mcolor" NavigateUrl="~/Pages/Management/ProjectsList.aspx"><ce:Label runat="server">Programs</ce:Label></asp:HyperLink>
                         </li>
                         <li>
-                            <asp:HyperLink runat="server" CssClass="mcolor" NavigateUrl="~/Pages/Management/SurveysList.aspx"><ce:Label runat="server">Surveys</ce:Label></asp:HyperLink>
+                            <asp:HyperLink runat="server" CssClass="mcolor" NavigateUrl="~/Pages/Management/SurveysList.aspx"><ce:Label runat="server">Reports</ce:Label></asp:HyperLink>
                         </li>
                         <li>
                             <asp:HyperLink runat="server" CssClass="mcolor" NavigateUrl="~/Pages/Management/NewsList.aspx"><ce:Label runat="server">News</ce:Label></asp:HyperLink>
@@ -176,6 +176,12 @@
                         </li>
                         <li>
                             <asp:HyperLink runat="server" CssClass="mcolor" NavigateUrl="~/Pages/Management/GeorgiaInNumbers.aspx"><ce:Label runat="server">Georgia In Numbers</ce:Label></asp:HyperLink>
+                        </li>
+                        <li>
+                            <asp:HyperLink runat="server" CssClass="mcolor" NavigateUrl="~/Pages/Management/SpecsList.aspx"><ce:Label runat="server">Specials</ce:Label></asp:HyperLink>
+                        </li>
+                        <li>
+                            <asp:HyperLink runat="server" CssClass="mcolor" NavigateUrl="~/Pages/Management/FilesList.aspx"><ce:Label runat="server">Files</ce:Label></asp:HyperLink>
                         </li>
                     </ul>
                 </div>
