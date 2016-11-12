@@ -17,7 +17,8 @@
 			OnAddNewColumn="tablesControl_OnAddNewColumn"
 			OnEditColumn="tablesControl_OnEditColumn"
 			OnDeleteColumn="tablesControl_OnDeleteColumn"
-			OnSyncTable="tablesControl_OnSyncTable" />
+			OnSyncTable="tablesControl_OnSyncTable"
+            OnCopyTable="tablesControl_OnCopyTable" />
 	</div>
 	<div>
 		<act:ModalPopupExtender runat="server" ID="mpeAddEditTable" TargetControlID="btnAddEditTableFake"

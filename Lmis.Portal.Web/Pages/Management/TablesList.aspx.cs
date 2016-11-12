@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using CITI.EVO.Tools.Utils;
 using Lmis.Portal.Web.Bases;
 using Lmis.Portal.Web.BLL;
 using Lmis.Portal.Web.Common;
@@ -12,6 +13,12 @@ namespace Lmis.Portal.Web.Pages.Management
 {
     public partial class TablesList : BasePage
     {
+        public bool CopyMode
+        {
+            get { return DataConverter.ToNullableBool(ViewState["CopyMode"]).GetValueOrDefault(); }
+            set { ViewState["CopyMode"] = value; }
+        }
+
         protected void Page_Load(object sender, EventArgs e)
         {
             UserUtil.GotoLoginIfNoSuperadmin();
@@ -23,6 +30,7 @@ namespace Lmis.Portal.Web.Pages.Management
         {
             var model = new TableModel();
             tableControl.Model = model;
+            CopyMode = false;
 
             mpeAddEditTable.Show();
         }
@@ -37,6 +45,7 @@ namespace Lmis.Portal.Web.Pages.Management
             var model = converter.Convert(entity);
 
             tableControl.Model = model;
+            CopyMode = false;
 
             mpeAddEditTable.Show();
         }
@@ -104,7 +113,6 @@ namespace Lmis.Portal.Web.Pages.Management
             var converter = new TableEntityModelConverter(DataContext);
             var model = converter.Convert(entity);
 
-
             var synchronizer = new SchemaSynchronizer(model);
             synchronizer.Update();
 
@@ -115,10 +123,26 @@ namespace Lmis.Portal.Web.Pages.Management
             FillTablesTree();
         }
 
+        protected void tablesControl_OnCopyTable(object sender, GenericEventArgs<Guid> e)
+        {
+            var entity = DataContext.LP_Tables.FirstOrDefault(n => n.ID == e.Value);
+            if (entity == null)
+                return;
+
+            var converter = new TableEntityModelConverter(DataContext);
+            var model = converter.Convert(entity);
+
+            tableControl.Model = model;
+            CopyMode = true;
+
+            mpeAddEditTable.Show();
+        }
+
         protected void btnAddTable_OnClick(object sender, EventArgs e)
         {
             var model = new TableModel();
             tableControl.Model = model;
+            CopyMode = false;
 
             mpeAddEditTable.Show();
         }
@@ -127,17 +151,42 @@ namespace Lmis.Portal.Web.Pages.Management
         {
             var model = tableControl.Model;
 
-            var converter = new TableModelEntityConverter(DataContext);
+            var modelConverter = new TableModelEntityConverter(DataContext);
+            var entityConverter = new TableEntityModelConverter(DataContext);
+            var columnConverter = new ColumnModelEntityConverter(DataContext);
 
             var entity = DataContext.LP_Tables.FirstOrDefault(n => n.ID == model.ID);
-            if (entity == null)
+
+            if (CopyMode)
             {
-                entity = converter.Convert(model);
-                DataContext.LP_Tables.InsertOnSubmit(entity);
+                if (entity == null)
+                    return;
+                
+                var oldModel = entityConverter.Convert(entity);
+                oldModel.Status = String.Empty;
+                oldModel.Name = model.Name;
+
+                var newEntity = modelConverter.Convert(oldModel);
+
+                foreach (var columnModel in oldModel.Columns)
+                {
+                    var columnEntity = columnConverter.Convert(columnModel);
+                    newEntity.Columns.Add(columnEntity);
+                }
+
+                DataContext.LP_Tables.InsertOnSubmit(newEntity);
             }
             else
             {
-                converter.FillObject(entity, model);
+                if (entity == null)
+                {
+                    entity = modelConverter.Convert(model);
+                    DataContext.LP_Tables.InsertOnSubmit(entity);
+                }
+                else
+                {
+                    modelConverter.FillObject(entity, model);
+                }
             }
 
             DataContext.SubmitChanges();

@@ -32,6 +32,12 @@
                         DefaultImageUrl="~/App_Themes/Default/images/sync.png"
                         ID="btnSync"
                         OnCommand="btnSynch_OnCommand" />
+                    <ce:ImageLinkButton runat="server" ToolTip="Clone"
+                        Visible='<%# GetCopyVisible(Container.DataItem) %>'
+                        CommandArgument='<%# Eval("Key") %>'
+                        DefaultImageUrl="~/App_Themes/Default/images/copy.png"
+                        ID="btnCopy"
+                        OnCommand="btnCopy_OnCommand" />
                     <ce:ImageLinkButton runat="server" ToolTip="Table Data"
                         Visible='<%# GetTableDataVisible(Container.DataItem) %>'
                         CommandArgument='<%# Eval("Key") %>'

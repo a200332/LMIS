@@ -42,7 +42,15 @@ namespace Lmis.Portal.Web.Controls.Management
 				SyncTable(this, new GenericEventArgs<Guid>(value));
 		}
 
-		protected void Page_Load(object sender, EventArgs e)
+        public event EventHandler<GenericEventArgs<Guid>> CopyTable;
+        protected virtual void OnCopyTable(Guid value)
+        {
+            if (CopyTable != null)
+                CopyTable(this, new GenericEventArgs<Guid>(value));
+        }
+
+
+        protected void Page_Load(object sender, EventArgs e)
 		{
 
 		}
@@ -127,7 +135,23 @@ namespace Lmis.Portal.Web.Controls.Management
 				OnSyncTable(entityId.Value);
 		}
 
-		protected IEnumerable<ParentChildEntity> GetEntities(IEnumerable<TableModel> tables)
+        protected void btnCopy_OnCommand(object sender, CommandEventArgs e)
+        {
+            var command = Convert.ToString(e.CommandArgument);
+
+            var match = Regex.Match(command, @"^(?<Id>.+?)/(?<Type>.+?)$");
+
+            var entityId = DataConverter.ToNullableGuid(match.Groups["Id"].Value);
+            var typeName = Convert.ToString(match.Groups["Type"].Value).ToLower();
+
+            if (entityId == null)
+                return;
+
+            if (typeName == "table")
+                OnCopyTable(entityId.Value);
+        }
+
+        protected IEnumerable<ParentChildEntity> GetEntities(IEnumerable<TableModel> tables)
 		{
 			foreach (var tableModel in tables)
 			{
@@ -202,6 +226,17 @@ namespace Lmis.Portal.Web.Controls.Management
 
 			return true;
 		}
+
+	    protected bool GetCopyVisible(object dataItem)
+	    {
+            var entity = (TreeListTemplateDataItem)dataItem;
+            var value = Convert.ToString(entity.Row.GetValue("Key"));
+
+            if (value.EndsWith("Table"))
+                return true;
+
+            return false;
+        }
 
 		protected String GetTableDataUrl(object dataItem)
 		{
