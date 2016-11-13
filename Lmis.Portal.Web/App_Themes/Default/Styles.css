@@ -310,3 +310,7 @@ a:hover>ul>li.news-link-title {
                border: 1px solid #eeeeee;
 
            }
+
+           .search-box input[type="text"] {
+               padding: 2px;
+           }

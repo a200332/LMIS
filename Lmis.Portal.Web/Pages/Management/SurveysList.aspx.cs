@@ -20,7 +20,78 @@ namespace Lmis.Portal.Web.Pages.Management
 
         protected void btnAddNew_OnClick(object sender, EventArgs e)
         {
-            surveyControl.Model = new SurveyModel();
+            mainSurveyControl.Visible = true;
+            subSurveyControl.Visible = false;
+
+            mainSurveyControl.Model = new SurveyModel();
+            mpeAddEdit.Show();
+        }
+
+        protected void btnSave_OnClick(object sender, EventArgs e)
+        {
+            var converter = new SurveyModelEntityConverter(DataContext);
+
+            var model = (SurveyModel)null;
+
+            if (mainSurveyControl.Visible)
+                model = mainSurveyControl.Model;
+            else
+                model = subSurveyControl.Model;
+
+            if (model.ID != null)
+            {
+                var entity = DataContext.LP_Surveys.FirstOrDefault(n => n.ID == model.ID);
+                if (entity == null)
+                    return;
+
+                converter.FillObject(entity, model);
+            }
+            else
+            {
+                var entity = converter.Convert(model);
+
+                var query = (from n in DataContext.LP_Surveys
+                             where n.DateDeleted == null
+                             select n);
+
+                if (model.ParentID == null)
+                {
+                    query = (from n in query
+                             where n.ParentID == null
+                             select n);
+                }
+                else
+                {
+                    query = (from n in query
+                             where n.ParentID == model.ParentID
+                             select n);
+                }
+
+                var maxOrder = query.Max(n => n.OrderIndex);
+                entity.OrderIndex = maxOrder.GetValueOrDefault() + 1;
+
+                DataContext.LP_Surveys.InsertOnSubmit(entity);
+            }
+
+            DataContext.SubmitChanges();
+
+            mpeAddEdit.Hide();
+
+            FillDataGrid();
+        }
+
+        protected void surveysControl_OnAddChild(object sender, GenericEventArgs<Guid> e)
+        {
+            mainSurveyControl.Visible = false;
+            subSurveyControl.Visible = true;
+
+            var model = new SurveyModel
+            {
+                ParentID = e.Value
+            };
+
+            subSurveyControl.Model = model;
+
             mpeAddEdit.Show();
         }
 
@@ -33,7 +104,20 @@ namespace Lmis.Portal.Web.Pages.Management
             var converter = new SurveyEntityModelConverter(DataContext);
             var model = converter.Convert(entity);
 
-            surveyControl.Model = model;
+            if (model.ParentID == null)
+            {
+                mainSurveyControl.Visible = true;
+                subSurveyControl.Visible = false;
+            }
+            else
+            {
+                mainSurveyControl.Visible = false;
+                subSurveyControl.Visible = true;
+            }
+
+            mainSurveyControl.Model = model;
+            subSurveyControl.Model = model;
+
             mpeAddEdit.Show();
         }
 
@@ -49,59 +133,51 @@ namespace Lmis.Portal.Web.Pages.Management
             FillDataGrid();
         }
 
-        protected void btnSave_OnClick(object sender, EventArgs e)
+        protected void surveysControl_OnUpItem(object sender, GenericEventArgs<Guid> e)
         {
-            var converter = new SurveyModelEntityConverter(DataContext);
+            var entity = DataContext.LP_Surveys.FirstOrDefault(n => n.ID == e.Value);
+            if (entity == null)
+                return;
 
-            var model = surveyControl.Model;
-            if (model.ID != null)
+            var query = from n in DataContext.LP_Surveys
+                        where n.DateDeleted == null
+                        select n;
+
+            if (entity.ParentID == null)
             {
-                var entity = DataContext.LP_Surveys.FirstOrDefault(n => n.ID == model.ID);
-                if (entity == null)
-                    return;
-
-                converter.FillObject(entity, model);
+                query = from n in query
+                        where n.ParentID == null
+                        select n;
             }
             else
             {
-                var entity = converter.Convert(model);
-
-                var maxOrder = DataContext.LP_Surveys.Max(n => n.OrderIndex);
-                entity.OrderIndex = maxOrder.GetValueOrDefault() + 1;
-
-                DataContext.LP_Surveys.InsertOnSubmit(entity);
+                query = from n in query
+                        where n.ParentID == entity.ParentID
+                        select n;
             }
 
-            DataContext.SubmitChanges();
+            query = from n in query
+                    orderby n.OrderIndex, n.DateCreated
+                    select n;
 
-            mpeAddEdit.Hide();
+            var items = query.ToList();
 
-            FillDataGrid();
-        }
+            for (int i = 0; i < items.Count; i++)
+                items[i].OrderIndex = i;
 
-        protected void surveysControl_OnUpItem(object sender, GenericEventArgs<Guid> e)
-        {
-            var surveys = (from n in DataContext.LP_Surveys
-                where n.DateDeleted == null
-                orderby n.OrderIndex, n.DateCreated
-                select n).ToList();
-
-            for (int i = 0; i < surveys.Count; i++)
-                surveys[i].OrderIndex = i;
-
-            var currentItem = surveys.FirstOrDefault(n => n.ID == e.Value);
+            var currentItem = items.FirstOrDefault(n => n.ID == e.Value);
             if (currentItem == null)
                 return;
 
-            var index = surveys.IndexOf(currentItem);
+            var index = items.IndexOf(currentItem);
             if (index < 0 || index == 0)
                 return;
 
-            surveys[index] = surveys[index - 1];
-            surveys[index - 1] = currentItem;
+            items[index] = items[index - 1];
+            items[index - 1] = currentItem;
 
-            for (int i = 0; i < surveys.Count; i++)
-                surveys[i].OrderIndex = i;
+            for (int i = 0; i < items.Count; i++)
+                items[i].OrderIndex = i;
 
             DataContext.SubmitChanges();
 
@@ -110,45 +186,67 @@ namespace Lmis.Portal.Web.Pages.Management
 
         protected void surveysControl_OnDownItem(object sender, GenericEventArgs<Guid> e)
         {
-            var surveys = (from n in DataContext.LP_Surveys
-                where n.DateDeleted == null
-                orderby n.OrderIndex, n.DateCreated
-                select n).ToList();
+            var entity = DataContext.LP_Surveys.FirstOrDefault(n => n.ID == e.Value);
+            if (entity == null)
+                return;
 
-            for (int i = 0; i < surveys.Count; i++)
-                surveys[i].OrderIndex = i;
+            var query = from n in DataContext.LP_Surveys
+                        where n.DateDeleted == null
+                        select n;
 
-            var currentItem = surveys.FirstOrDefault(n => n.ID == e.Value);
+            if (entity.ParentID == null)
+            {
+                query = from n in query
+                        where n.ParentID == null
+                        select n;
+            }
+            else
+            {
+                query = from n in query
+                        where n.ParentID == entity.ParentID
+                        select n;
+            }
+
+            query = from n in query
+                    orderby n.OrderIndex, n.DateCreated
+                    select n;
+
+            var items = query.ToList();
+
+            for (int i = 0; i < items.Count; i++)
+                items[i].OrderIndex = i;
+
+            var currentItem = items.FirstOrDefault(n => n.ID == e.Value);
             if (currentItem == null)
                 return;
 
-            var index = surveys.IndexOf(currentItem);
-            if (index < 0 || index == (surveys.Count - 1))
+            var index = items.IndexOf(currentItem);
+            if (index < 0 || index == (items.Count - 1))
                 return;
 
-            surveys[index] = surveys[index + 1];
-            surveys[index + 1] = currentItem;
+            items[index] = items[index + 1];
+            items[index + 1] = currentItem;
 
-            for (int i = 0; i < surveys.Count; i++)
-                surveys[i].OrderIndex = i;
+            for (int i = 0; i < items.Count; i++)
+                items[i].OrderIndex = i;
 
             DataContext.SubmitChanges();
 
             FillDataGrid();
         }
 
-        protected void FillDataGrid()
+        private void FillDataGrid()
         {
             var entities = (from n in DataContext.LP_Surveys
-                where n.DateDeleted == null
-                orderby n.OrderIndex, n.DateCreated
-                select n).ToList();
+                            where n.DateDeleted == null
+                            orderby n.OrderIndex, n.DateCreated
+                            select n).ToList();
 
             var converter = new SurveyEntityModelConverter(DataContext);
 
             var models = (from n in entities
-                let m = converter.Convert(n)
-                select m).ToList();
+                          let m = converter.Convert(n)
+                          select m).ToList();
 
             var model = new SurveysModel();
             model.List = models;

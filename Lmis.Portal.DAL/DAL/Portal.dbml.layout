@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 15.875, 12.375" name="Portal">
+<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 15.875, 12.625" name="Portal">
   <DataContextMoniker Name="/PortalDataContext" />
   <nestedChildShapes>
     <classShape Id="f4f76f45-6c47-4c87-a1f1-592f7ddfcf6c" absoluteBounds="11.125, 0.75, 2, 1.9631982421875">
@@ -130,10 +130,10 @@
         <elementListCompartment Id="206f3fe0-e190-41c4-b7b1-23ad1d5cab94" absoluteBounds="3.39, 5.5850000000000009, 1.9700000000000002, 2.364705403645833" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="dff2512a-f3a6-48dd-93d6-66407fd8b7da" absoluteBounds="0.75, 9, 2, 2.7324039713541666">
+    <classShape Id="dff2512a-f3a6-48dd-93d6-66407fd8b7da" absoluteBounds="0.75, 9, 2, 2.9247054036458326">
       <DataClassMoniker Name="/PortalDataContext/LP_Survey" />
       <nestedChildShapes>
-        <elementListCompartment Id="bb3e5423-2c3a-4ca7-abba-a021ce0eaf80" absoluteBounds="0.76500000000000057, 9.46, 1.9700000000000002, 2.1724039713541665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="bb3e5423-2c3a-4ca7-abba-a021ce0eaf80" absoluteBounds="0.76500000000000057, 9.46, 1.9700000000000002, 2.364705403645833" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
     <associationConnector edgePoints="[(6.70923076923077 : 8.04970540364583); (6.70923076923077 : 8.29970540364583); (7.30461538461539 : 8.29970540364583); (7.30461538461539 : 8.04970540364583)]" fixedFrom="NotFixed" fixedTo="NotFixed">
@@ -180,6 +180,13 @@
       <nodes>
         <classShapeMoniker Id="6c1d8aa4-44e5-4f42-9741-ca45df84bbdd" />
         <classShapeMoniker Id="6c1d8aa4-44e5-4f42-9741-ca45df84bbdd" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(1.45923076923077 : 11.9247054036458); (1.45923076923077 : 12.1747054036458); (2.05461538461538 : 12.1747054036458); (2.05461538461538 : 11.9247054036458)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/PortalDataContext/LP_Survey/LP_Survey_LP_Survey" />
+      <nodes>
+        <classShapeMoniker Id="dff2512a-f3a6-48dd-93d6-66407fd8b7da" />
+        <classShapeMoniker Id="dff2512a-f3a6-48dd-93d6-66407fd8b7da" />
       </nodes>
     </associationConnector>
   </nestedChildShapes>

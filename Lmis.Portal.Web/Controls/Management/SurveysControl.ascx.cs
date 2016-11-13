@@ -23,6 +23,13 @@ namespace Lmis.Portal.Web.Controls.Management
                 DownItem(this, new GenericEventArgs<Guid>(value));
         }
 
+        public event EventHandler<GenericEventArgs<Guid>> AddChild;
+        protected virtual void OnAddChild(Guid value)
+        {
+            if (AddChild != null)
+                AddChild(this, new GenericEventArgs<Guid>(value));
+        }
+
         protected void Page_Load(object sender, EventArgs e)
         {
 
@@ -34,8 +41,8 @@ namespace Lmis.Portal.Web.Controls.Management
             if (surveysModel == null)
                 return;
 
-            gvData.DataSource = surveysModel.List;
-            gvData.DataBind();
+            tlData.DataSource = surveysModel.List;
+            tlData.DataBind();
         }
 
         protected void btnUp_OnCommand(object sender, CommandEventArgs e)
@@ -54,6 +61,20 @@ namespace Lmis.Portal.Web.Controls.Management
                 return;
 
             OnDownItem(entityId.Value);
+        }
+
+        protected void btnAddChild_OnCommand(object sender, CommandEventArgs e)
+        {
+            var entityID = DataConverter.ToNullableGuid(e.CommandArgument);
+            if (entityID == null)
+                return;
+
+            OnAddChild(entityID.Value);
+        }
+
+        protected bool GetAddChildVisible(object parentID)
+        {
+            return parentID == null;
         }
     }
 }

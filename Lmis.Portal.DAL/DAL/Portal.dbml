@@ -190,6 +190,9 @@
       <Column Name="DateChanged" Type="System.DateTime" DbType="DateTime" CanBeNull="true" UpdateCheck="Never" />
       <Column Name="DateDeleted" Type="System.DateTime" DbType="DateTime" CanBeNull="true" UpdateCheck="Never" />
       <Column Name="FileName" Type="System.String" DbType="NVarChar(400)" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="ParentID" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" UpdateCheck="Never" />
+      <Association Name="LP_Survey_LP_Survey" Member="Children" ThisKey="ID" OtherKey="ParentID" Type="LP_Survey" />
+      <Association Name="LP_Survey_LP_Survey" Member="Parent" ThisKey="ParentID" OtherKey="ID" Type="LP_Survey" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.LP_Contents" Member="LP_Contents">

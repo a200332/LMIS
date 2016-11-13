@@ -56,6 +56,10 @@ namespace Lmis.Portal.Web
 
             imgLogo.ImageUrl = String.Format("~/App_Themes/Default/images/logo_{0}.png", LanguageUtil.GetLanguage());
             imgFLogo.ImageUrl = String.Format("~/App_Themes/Default/images/f-logo_{0}.png", LanguageUtil.GetLanguage());
+
+            var keyword = Request["Keyword"];
+            if (!String.IsNullOrWhiteSpace(keyword))
+                tbxSearch.Text = keyword;
         }
 
         private Guid? GetGeorgiaInNumbersID()

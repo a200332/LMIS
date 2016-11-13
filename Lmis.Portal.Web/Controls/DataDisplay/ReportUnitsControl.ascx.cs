@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Web.UI.WebControls;
+using CITI.EVO.Tools.Utils;
 using Lmis.Portal.Web.Bases;
 using Lmis.Portal.Web.Models;
 
@@ -6,7 +8,19 @@ namespace Lmis.Portal.Web.Controls.DataDisplay
 {
 	public partial class ReportUnitsControl : BaseExtendedControl<ReportUnitsModel>
 	{
-		protected void Page_Load(object sender, EventArgs e)
+	    public Unit ChartWidth
+	    {
+            get { return DataConverter.ToNullableInt(ViewState["ChartWidth"]).GetValueOrDefault(800); }
+            set { ViewState["ChartWidth"] = value; }
+        }
+
+        public Unit ChartHeight
+        {
+            get { return DataConverter.ToNullableInt(ViewState["ChartHeight"]).GetValueOrDefault(500); }
+            set { ViewState["ChartHeight"] = value; }
+        }
+
+        protected void Page_Load(object sender, EventArgs e)
 		{
 		}
 

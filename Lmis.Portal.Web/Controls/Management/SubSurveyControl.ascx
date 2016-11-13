@@ -1,7 +1,8 @@
-﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="SurveyControl.ascx.cs" Inherits="Lmis.Portal.Web.Controls.Management.SurveyControl" %>
+﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="SubSurveyControl.ascx.cs" Inherits="Lmis.Portal.Web.Controls.Management.SubSurveyControl" %>
 <%@ Register Src="~/Controls/Common/HiddenFieldValueControl.ascx" TagPrefix="lmis" TagName="HiddenFieldValueControl" %>
 
 <lmis:HiddenFieldValueControl runat="server" ID="hdID" Property="SurveyModel.ID" />
+<lmis:HiddenFieldValueControl runat="server" ID="hdParentID" Property="SurveyModel.ParentID" />
 
 <table>
     <tr>

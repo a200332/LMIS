@@ -5,7 +5,7 @@ using Lmis.Portal.Web.Models;
 
 namespace Lmis.Portal.Web.Controls.Management
 {
-    public partial class SurveyControl : BaseExtendedControl<SurveyModel>
+    public partial class MainSurveyControl : BaseExtendedControl<SurveyModel>
     {
         protected void Page_Init(object sender, EventArgs e)
         {
@@ -24,12 +24,6 @@ namespace Lmis.Portal.Web.Controls.Management
 
         protected override void OnGetModel(object model, Type type)
         {
-            var castedModel = model as SurveyModel;
-            if (castedModel == null)
-                return;
-
-            castedModel.FileData = fuFileData.FileBytes;
-            castedModel.FileName = fuFileData.FileName;
         }
 
         protected void FillComboBoxes()

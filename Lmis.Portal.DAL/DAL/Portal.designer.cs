@@ -4051,6 +4051,12 @@ namespace Lmis.Portal.DAL.DAL
 		
 		private string _FileName;
 		
+		private System.Nullable<System.Guid> _ParentID;
+		
+		private EntitySet<LP_Survey> _Children;
+		
+		private EntityRef<LP_Survey> _Parent;
+		
     #region Extensibility Method Definitions
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
@@ -4075,10 +4081,14 @@ namespace Lmis.Portal.DAL.DAL
     partial void OnDateDeletedChanged();
     partial void OnFileNameChanging(string value);
     partial void OnFileNameChanged();
+    partial void OnParentIDChanging(System.Nullable<System.Guid> value);
+    partial void OnParentIDChanged();
     #endregion
 		
 		public LP_Survey()
 		{
+			this._Children = new EntitySet<LP_Survey>(new Action<LP_Survey>(this.attach_Children), new Action<LP_Survey>(this.detach_Children));
+			this._Parent = default(EntityRef<LP_Survey>);
 			OnCreated();
 		}
 		
@@ -4282,6 +4292,77 @@ namespace Lmis.Portal.DAL.DAL
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ParentID", DbType="UniqueIdentifier", UpdateCheck=UpdateCheck.Never)]
+		public System.Nullable<System.Guid> ParentID
+		{
+			get
+			{
+				return this._ParentID;
+			}
+			set
+			{
+				if ((this._ParentID != value))
+				{
+					if (this._Parent.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnParentIDChanging(value);
+					this.SendPropertyChanging();
+					this._ParentID = value;
+					this.SendPropertyChanged("ParentID");
+					this.OnParentIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="LP_Survey_LP_Survey", Storage="_Children", ThisKey="ID", OtherKey="ParentID")]
+		public EntitySet<LP_Survey> Children
+		{
+			get
+			{
+				return this._Children;
+			}
+			set
+			{
+				this._Children.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="LP_Survey_LP_Survey", Storage="_Parent", ThisKey="ParentID", OtherKey="ID", IsForeignKey=true)]
+		public LP_Survey Parent
+		{
+			get
+			{
+				return this._Parent.Entity;
+			}
+			set
+			{
+				LP_Survey previousValue = this._Parent.Entity;
+				if (((previousValue != value) 
+							|| (this._Parent.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Parent.Entity = null;
+						previousValue.Children.Remove(this);
+					}
+					this._Parent.Entity = value;
+					if ((value != null))
+					{
+						value.Children.Add(this);
+						this._ParentID = value.ID;
+					}
+					else
+					{
+						this._ParentID = default(Nullable<System.Guid>);
+					}
+					this.SendPropertyChanged("Parent");
+				}
+			}
+		}
+		
 		public event PropertyChangingEventHandler PropertyChanging;
 		
 		public event PropertyChangedEventHandler PropertyChanged;
@@ -4300,6 +4381,18 @@ namespace Lmis.Portal.DAL.DAL
 			{
 				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
+		}
+		
+		private void attach_Children(LP_Survey entity)
+		{
+			this.SendPropertyChanging();
+			entity.Parent = this;
+		}
+		
+		private void detach_Children(LP_Survey entity)
+		{
+			this.SendPropertyChanging();
+			entity.Parent = null;
 		}
 	}
 	

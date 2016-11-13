@@ -18,6 +18,18 @@ namespace Lmis.Portal.Web.Controls.DataDisplay
 {
     public partial class ReportUnitControl : BaseExtendedControl<ReportUnitModel>
     {
+        public Unit ChartWidth
+        {
+            get { return mainChart.Width; }
+            set { mainChart.Width = value; }
+        }
+
+        public Unit ChartHeight
+        {
+            get { return mainChart.Height; }
+            set { mainChart.Height = value; }
+        }
+
         protected void Page_Load(object sender, EventArgs e)
         {
             if (PostBackControl == btnExportReportOK)

@@ -6,7 +6,7 @@
 <asp:Repeater runat="server" ID="rpReports">
 	<ItemTemplate>
 		<div>
-			<lmis:ReportUnitControl runat="server" ID="reportUnitControl" Model='<%# GetReportUnitModel(Container.DataItem) %>' />
+			<lmis:ReportUnitControl runat="server" ID="reportUnitControl" Model='<%# GetReportUnitModel(Container.DataItem) %>' ChartWidth='<%# ChartWidth %>' ChartHeight='<%# ChartHeight %>' />
 		</div>
 	</ItemTemplate>
 </asp:Repeater>

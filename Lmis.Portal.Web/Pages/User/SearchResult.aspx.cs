@@ -92,7 +92,7 @@ namespace Lmis.Portal.Web.Pages.User
                 var entry = new SearchEntry
                 {
                     ID = entity.ID,
-                    Url = entity.Url,
+                    Url = GetTargetUrl(entity),
                     Type = "EBook",
                     Title = entity.Title,
                     Description = entity.Description,
@@ -114,7 +114,7 @@ namespace Lmis.Portal.Web.Pages.User
                 var entry = new SearchEntry
                 {
                     ID = entity.ID,
-                    Url = entity.Url,
+                    Url = GetTargetUrl(entity),
                     Type = "Link",
                     Title = entity.Title,
                     Description = entity.Description,
@@ -191,6 +191,24 @@ namespace Lmis.Portal.Web.Pages.User
                 yield return entry;
             }
 
+            var careersQuery = (from n in DataContext.LP_Careers
+                                where n.DateDeleted == null && (n.Title.Contains(keyword) || n.Description.Contains(keyword))
+                                select n);
+
+            foreach (var entity in careersQuery)
+            {
+                var entry = new SearchEntry
+                {
+                    ID = entity.ID,
+                    Url = GetTargetUrl(entity),
+                    Type = "Career",
+                    Title = entity.Title,
+                    Description = entity.Description,
+                };
+
+                yield return entry;
+            }
+
             var videosQuery = (from n in DataContext.LP_Videos
                                where n.DateDeleted == null && (n.Title.Contains(keyword) || n.Description.Contains(keyword))
                                select n);
@@ -208,6 +226,44 @@ namespace Lmis.Portal.Web.Pages.User
 
                 yield return entry;
             }
+        }
+
+        private String GetTargetUrl(LP_Career entity)
+        {
+            if (entity == null)
+                return "#";
+
+            if (String.IsNullOrWhiteSpace(entity.Url) && entity.ParentID == null)
+            {
+                var url = String.Format("~/Pages/User/Careers.aspx?ID={0}", entity.ID);
+                return url;
+            }
+            else
+            {
+                var url = String.Format("~/Handlers/GetFile.ashx?Type=Project&ID={0}", entity.ID);
+                return url;
+            }
+        }
+
+        private String GetTargetUrl(LP_Link entity)
+        {
+            if (entity == null)
+                return "#";
+
+            if (String.IsNullOrWhiteSpace(entity.Url) && entity.ParentID == null)
+            {
+                var url = String.Format("~/Pages/User/Links.aspx?ID={0}", entity.ID);
+                return url;
+            }
+            else
+            {
+                return entity.Url;
+            }
+        }
+
+        private String GetTargetUrl(LP_EBook entity)
+        {
+            return entity.Url;
         }
 
         protected String GetTargetUrl(LP_News entity)
@@ -233,8 +289,16 @@ namespace Lmis.Portal.Web.Pages.User
             if (entity == null)
                 return "#";
 
-            var url = String.Format("~/Handlers/GetFile.ashx?Type=Legislation&ID={0}", entity.ID);
-            return url;
+            if (entity.FileData == null && entity.ParentID == null)
+            {
+                var url = String.Format("~/Pages/User/Legislation.aspx?ID={0}", entity.ID);
+                return url;
+            }
+            else
+            {
+                var url = String.Format("~/Handlers/GetFile.ashx?Type=Legislation&ID={0}", entity.ID);
+                return url;
+            }
         }
 
         protected String GetTargetUrl(LP_Survey entity)
@@ -251,8 +315,16 @@ namespace Lmis.Portal.Web.Pages.User
             if (entity == null)
                 return "#";
 
-            var url = String.Format("~/Handlers/GetFile.ashx?Type=Project&ID={0}", entity.ID);
-            return url;
+            if (entity.FileData == null && entity.ParentID == null)
+            {
+                var url = String.Format("~/Pages/User/Projects.aspx?ID={0}", entity.ID);
+                return url;
+            }
+            else
+            {
+                var url = String.Format("~/Handlers/GetFile.ashx?Type=Project&ID={0}", entity.ID);
+                return url;
+            }
         }
     }
 }

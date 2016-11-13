@@ -2,7 +2,8 @@
 
 
 <%@ Register Src="~/Controls/Management/SurveysControl.ascx" TagPrefix="lmis" TagName="SurveysControl" %>
-<%@ Register Src="~/Controls/Management/SurveyControl.ascx" TagPrefix="lmis" TagName="SurveyControl" %>
+<%@ Register Src="~/Controls/Management/MainSurveyControl.ascx" TagPrefix="lmis" TagName="MainSurveyControl" %>
+<%@ Register Src="~/Controls/Management/SubSurveyControl.ascx" TagPrefix="lmis" TagName="SubSurveyControl" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
 </asp:Content>
@@ -11,7 +12,7 @@
         <ce:ImageLinkButton runat="server" ToolTip="Add New" DefaultImageUrl="~/App_Themes/Default/images/add.png" ID="btnAddNew" OnClick="btnAddNew_OnClick" />
     </div>
     <div>
-        <lmis:SurveysControl runat="server" ID="surveysControl" OnEditItem="surveysControl_OnEditItem" OnDeleteItem="surveysControl_OnDeleteItem" OnUpItem="surveysControl_OnUpItem" OnDownItem="surveysControl_OnDownItem" />
+        <lmis:SurveysControl runat="server" ID="surveysControl" OnEditItem="surveysControl_OnEditItem" OnDeleteItem="surveysControl_OnDeleteItem" OnUpItem="surveysControl_OnUpItem" OnDownItem="surveysControl_OnDownItem" OnAddChild="surveysControl_OnAddChild" />
     </div>
     <div>
         <act:ModalPopupExtender runat="server" ID="mpeAddEdit" TargetControlID="btnAddEditFake"
@@ -26,7 +27,8 @@
                     <div class="popup-title"><ce:Label runat="server">Survey</ce:Label></div>
                     <div class="title_separator"></div>
                     <div class="box">
-                        <lmis:SurveyControl runat="server" ID="surveyControl" />
+                        <lmis:MainSurveyControl runat="server" ID="mainSurveyControl" />
+                        <lmis:SubSurveyControl runat="server" ID="subSurveyControl" />
                     </div>
             </div>
             <div class="fieldsetforicons">

@@ -6,6 +6,8 @@ namespace Lmis.Portal.Web.Models
     {
         public Guid? ID { get; set; }
 
+        public Guid? ParentID { get; set; }
+
         public String Title { get; set; }
 
         public String Description { get; set; }

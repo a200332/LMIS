@@ -28,7 +28,7 @@
                 <td>
                     <div class="left" style="width: 740px;">
                         <div>
-                            <lmis:ReportUnitsControl runat="server" ID="reportUnitsControl" />
+                            <lmis:ReportUnitsControl runat="server" ID="reportUnitsControl" ChartWidth="800" ChartHeight="500" />
                         </div>
                     </div>
                 </td>
