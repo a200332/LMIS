@@ -24,7 +24,7 @@
             <div class="clear"></div>
             <div>
                 <asp:Panel runat="server" ID="pnlChartImage">
-                    <asp:Chart ID="mainChart" runat="server" Width="800" Height="500" IsMapEnabled="True" AntiAliasing="All" OnDataBound="mainChart_OnDataBound">
+                    <asp:Chart ID="mainChart" runat="server" IsMapEnabled="True" AntiAliasing="All" OnDataBound="mainChart_OnDataBound">
                         <Series>
                         </Series>
                         <ChartAreas>

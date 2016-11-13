@@ -29,10 +29,10 @@
                             <table>
                                 <tr>
                                     <td>
-                                        <lmis:ReportUnitsControl runat="server" ID="reportUnitsControl1" ChartWidth="700" ChartHeight="600" />
+                                        <lmis:ReportUnitsControl runat="server" ID="reportUnitsControl1" ChartWidth="350" ChartHeight="300" />
                                     </td>
                                     <td>
-                                        <lmis:ReportUnitsControl runat="server" ID="reportUnitsControl2" ChartWidth="700" ChartHeight="600" />
+                                        <lmis:ReportUnitsControl runat="server" ID="reportUnitsControl2" ChartWidth="350" ChartHeight="300" />
                                     </td>
                                 </tr>
                             </table>
