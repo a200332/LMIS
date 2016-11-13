@@ -59,40 +59,6 @@ namespace Lmis.Portal.Web.Pages.Management
             FillDataGrid();
         }
 
-        protected void btnSaveCatevory_OnClick(object sender, EventArgs e)
-        {
-            var converter = new CategoryModelEntityConverter(DataContext);
-
-            var model = categoryControl.Model;
-            if (model.ID != null)
-            {
-                var entity = DataContext.LP_Categories.FirstOrDefault(n => n.ID == model.ID);
-                if (entity == null)
-                    return;
-
-                converter.FillObject(entity, model);
-            }
-            else
-            {
-                var entity = converter.Convert(model);
-                DataContext.LP_Categories.InsertOnSubmit(entity);
-            }
-
-            DataContext.SubmitChanges();
-
-            mpeAddEditCategory.Hide();
-
-            FillDataGrid();
-        }
-
-        protected void btnAddCategory_OnClick(object sender, EventArgs e)
-        {
-            var model = new CategoryModel();
-
-            categoryControl.Model = model;
-            mpeAddEditCategory.Show();
-        }
-
         protected void categoriesControl_OnUpItem(object sender, GenericEventArgs<Guid> e)
         {
             var entity = DataContext.LP_Categories.FirstOrDefault(n => n.ID == e.Value);
@@ -193,6 +159,40 @@ namespace Lmis.Portal.Web.Pages.Management
             DataContext.SubmitChanges();
 
             FillDataGrid();
+        }
+
+        protected void btnSaveCatevory_OnClick(object sender, EventArgs e)
+        {
+            var converter = new CategoryModelEntityConverter(DataContext);
+
+            var model = categoryControl.Model;
+            if (model.ID != null)
+            {
+                var entity = DataContext.LP_Categories.FirstOrDefault(n => n.ID == model.ID);
+                if (entity == null)
+                    return;
+
+                converter.FillObject(entity, model);
+            }
+            else
+            {
+                var entity = converter.Convert(model);
+                DataContext.LP_Categories.InsertOnSubmit(entity);
+            }
+
+            DataContext.SubmitChanges();
+
+            mpeAddEditCategory.Hide();
+
+            FillDataGrid();
+        }
+
+        protected void btnAddCategory_OnClick(object sender, EventArgs e)
+        {
+            var model = new CategoryModel();
+
+            categoryControl.Model = model;
+            mpeAddEditCategory.Show();
         }
 
         protected void FillDataGrid()

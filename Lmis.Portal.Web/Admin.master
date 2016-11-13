@@ -183,6 +183,9 @@
                         <li>
                             <asp:HyperLink runat="server" CssClass="mcolor" NavigateUrl="~/Pages/Management/FilesList.aspx"><ce:Label runat="server">Files</ce:Label></asp:HyperLink>
                         </li>
+                        <li>
+                            <asp:HyperLink runat="server" CssClass="mcolor" NavigateUrl="~/Pages/Management/CareersList.aspx"><ce:Label runat="server">Careers</ce:Label></asp:HyperLink>
+                        </li>
                     </ul>
                 </div>
             </header>

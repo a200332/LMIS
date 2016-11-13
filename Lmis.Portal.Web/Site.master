@@ -233,7 +233,7 @@
                             <asp:HyperLink runat="server" CssClass="mcolor" NavigateUrl="~/Pages/User/Dashboard.aspx"><ce:Label runat="server">Data</ce:Label></asp:HyperLink>
                         </li>
                         <li>
-                            <asp:HyperLink runat="server" CssClass="mcolor" NavigateUrl="http://myprofession.gov.ge/content/%E1%83%A2%E1%83%94%E1%83%A1%E1%83%A2%E1%83%94%E1%83%91%E1%83%98" Target="_blank"><ce:Label runat="server">career</ce:Label></asp:HyperLink>
+                            <asp:HyperLink runat="server" CssClass="mcolor" NavigateUrl="~/Pages/User/Careers.aspx"><ce:Label runat="server">Career</ce:Label></asp:HyperLink>
                         </li>
                         <li>
                             <asp:HyperLink runat="server" CssClass="mcolor" NavigateUrl="~/Pages/User/Surveys.aspx"><ce:Label runat="server">Reports</ce:Label></asp:HyperLink>

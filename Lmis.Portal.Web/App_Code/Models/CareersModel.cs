@@ -4,8 +4,8 @@ using System.Collections.Generic;
 namespace Lmis.Portal.Web.Models
 {
     [Serializable]
-    public class LegislationsModel
+    public class CareersModel
     {
-        public List<LegislationModel> List { get; set; }
+        public List<CareerModel> List { get; set; }
     }
 }
