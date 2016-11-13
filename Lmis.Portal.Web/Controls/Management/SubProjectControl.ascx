@@ -1,7 +1,8 @@
-﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="ProjectControl.ascx.cs" Inherits="Lmis.Portal.Web.Controls.Management.ProjectControl" %>
+﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="SubProjectControl.ascx.cs" Inherits="Lmis.Portal.Web.Controls.Management.SubProjectControl" %>
 <%@ Register Src="~/Controls/Common/HiddenFieldValueControl.ascx" TagPrefix="lmis" TagName="HiddenFieldValueControl" %>
 
 <lmis:HiddenFieldValueControl runat="server" ID="hdID" Property="ProjectModel.ID" />
+<lmis:HiddenFieldValueControl runat="server" ID="hdParentID" Property="ProjectModel.ParentID" />
 
 <table>
     <tr>

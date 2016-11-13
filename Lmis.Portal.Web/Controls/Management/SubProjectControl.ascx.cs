@@ -5,7 +5,7 @@ using Lmis.Portal.Web.Models;
 
 namespace Lmis.Portal.Web.Controls.Management
 {
-    public partial class ProjectControl : BaseExtendedControl<ProjectModel>
+    public partial class SubProjectControl : BaseExtendedControl<ProjectModel>
     {
         protected void Page_Init(object sender, EventArgs e)
         {

@@ -21,6 +21,7 @@ namespace Lmis.Portal.Web.Converters.EntityToModel
         public override void FillObject(ProjectModel target, LP_Project source)
         {
             target.ID = source.ID;
+            target.ParentID = source.ParentID;
             target.Title = source.Title;
             target.Description = source.Description;
             target.Language = source.Language;

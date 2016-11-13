@@ -652,7 +652,7 @@ namespace Lmis.Portal.DAL.DAL
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Image", DbType="VarBinary(MAX)", UpdateCheck=UpdateCheck.Never)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Image", DbType="VarBinary(MAX)", CanBeNull=true, UpdateCheck=UpdateCheck.Never)]
 		public System.Data.Linq.Binary Image
 		{
 			get
@@ -1217,7 +1217,7 @@ namespace Lmis.Portal.DAL.DAL
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RawData", DbType="Xml", UpdateCheck=UpdateCheck.Never)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RawData", DbType="Xml", CanBeNull=true, UpdateCheck=UpdateCheck.Never)]
 		public System.Xml.Linq.XElement RawData
 		{
 			get
@@ -1663,7 +1663,7 @@ namespace Lmis.Portal.DAL.DAL
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ConfigXml", DbType="XML", UpdateCheck=UpdateCheck.Never)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ConfigXml", DbType="XML", CanBeNull=true, UpdateCheck=UpdateCheck.Never)]
 		public System.Xml.Linq.XElement ConfigXml
 		{
 			get
@@ -2500,7 +2500,7 @@ namespace Lmis.Portal.DAL.DAL
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Image", DbType="VarBinary(MAX)", UpdateCheck=UpdateCheck.Never)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Image", DbType="VarBinary(MAX)", CanBeNull=true, UpdateCheck=UpdateCheck.Never)]
 		public System.Data.Linq.Binary Image
 		{
 			get
@@ -3171,7 +3171,7 @@ namespace Lmis.Portal.DAL.DAL
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Attachment", DbType="VarBinary(MAX)", UpdateCheck=UpdateCheck.Never)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Attachment", DbType="VarBinary(MAX)", CanBeNull=true, UpdateCheck=UpdateCheck.Never)]
 		public System.Data.Linq.Binary Attachment
 		{
 			get
@@ -3191,7 +3191,7 @@ namespace Lmis.Portal.DAL.DAL
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Image", DbType="VarBinary(MAX)", UpdateCheck=UpdateCheck.Never)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Image", DbType="VarBinary(MAX)", CanBeNull=true, UpdateCheck=UpdateCheck.Never)]
 		public System.Data.Linq.Binary Image
 		{
 			get
@@ -3399,7 +3399,7 @@ namespace Lmis.Portal.DAL.DAL
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FileData", DbType="VarBinary(MAX)", UpdateCheck=UpdateCheck.Never)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FileData", DbType="VarBinary(MAX)", CanBeNull=true, UpdateCheck=UpdateCheck.Never)]
 		public System.Data.Linq.Binary FileData
 		{
 			get
@@ -3669,6 +3669,12 @@ namespace Lmis.Portal.DAL.DAL
 		
 		private string _FileName;
 		
+		private System.Nullable<System.Guid> _ParentID;
+		
+		private EntitySet<LP_Project> _Parent;
+		
+		private EntityRef<LP_Project> _Children;
+		
     #region Extensibility Method Definitions
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
@@ -3693,10 +3699,14 @@ namespace Lmis.Portal.DAL.DAL
     partial void OnDateDeletedChanged();
     partial void OnFileNameChanging(string value);
     partial void OnFileNameChanged();
+    partial void OnParentIDChanging(System.Nullable<System.Guid> value);
+    partial void OnParentIDChanged();
     #endregion
 		
 		public LP_Project()
 		{
+			this._Parent = new EntitySet<LP_Project>(new Action<LP_Project>(this.attach_Parent), new Action<LP_Project>(this.detach_Parent));
+			this._Children = default(EntityRef<LP_Project>);
 			OnCreated();
 		}
 		
@@ -3760,7 +3770,7 @@ namespace Lmis.Portal.DAL.DAL
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FileData", DbType="VarBinary(MAX)", UpdateCheck=UpdateCheck.Never)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FileData", DbType="VarBinary(MAX)", CanBeNull=true, UpdateCheck=UpdateCheck.Never)]
 		public System.Data.Linq.Binary FileData
 		{
 			get
@@ -3900,6 +3910,77 @@ namespace Lmis.Portal.DAL.DAL
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ParentID", DbType="UniqueIdentifier", UpdateCheck=UpdateCheck.Never)]
+		public System.Nullable<System.Guid> ParentID
+		{
+			get
+			{
+				return this._ParentID;
+			}
+			set
+			{
+				if ((this._ParentID != value))
+				{
+					if (this._Children.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnParentIDChanging(value);
+					this.SendPropertyChanging();
+					this._ParentID = value;
+					this.SendPropertyChanged("ParentID");
+					this.OnParentIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="LP_Project_LP_Project", Storage="_Parent", ThisKey="ID", OtherKey="ParentID")]
+		public EntitySet<LP_Project> Parent
+		{
+			get
+			{
+				return this._Parent;
+			}
+			set
+			{
+				this._Parent.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="LP_Project_LP_Project", Storage="_Children", ThisKey="ParentID", OtherKey="ID", IsForeignKey=true)]
+		public LP_Project Children
+		{
+			get
+			{
+				return this._Children.Entity;
+			}
+			set
+			{
+				LP_Project previousValue = this._Children.Entity;
+				if (((previousValue != value) 
+							|| (this._Children.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Children.Entity = null;
+						previousValue.Parent.Remove(this);
+					}
+					this._Children.Entity = value;
+					if ((value != null))
+					{
+						value.Parent.Add(this);
+						this._ParentID = value.ID;
+					}
+					else
+					{
+						this._ParentID = default(Nullable<System.Guid>);
+					}
+					this.SendPropertyChanged("Children");
+				}
+			}
+		}
+		
 		public event PropertyChangingEventHandler PropertyChanging;
 		
 		public event PropertyChangedEventHandler PropertyChanged;
@@ -3918,6 +3999,18 @@ namespace Lmis.Portal.DAL.DAL
 			{
 				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
+		}
+		
+		private void attach_Parent(LP_Project entity)
+		{
+			this.SendPropertyChanging();
+			entity.Children = this;
+		}
+		
+		private void detach_Parent(LP_Project entity)
+		{
+			this.SendPropertyChanging();
+			entity.Children = null;
 		}
 	}
 	
@@ -4038,7 +4131,7 @@ namespace Lmis.Portal.DAL.DAL
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FileData", DbType="VarBinary(MAX)", UpdateCheck=UpdateCheck.Never)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FileData", DbType="VarBinary(MAX)", CanBeNull=true, UpdateCheck=UpdateCheck.Never)]
 		public System.Data.Linq.Binary FileData
 		{
 			get
@@ -4364,7 +4457,7 @@ namespace Lmis.Portal.DAL.DAL
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Image", DbType="varbinary(MAX)", UpdateCheck=UpdateCheck.Never)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Image", DbType="varbinary(MAX)", CanBeNull=true, UpdateCheck=UpdateCheck.Never)]
 		public System.Data.Linq.Binary Image
 		{
 			get
@@ -4384,7 +4477,7 @@ namespace Lmis.Portal.DAL.DAL
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Attachment", DbType="varbinary(MAX)", UpdateCheck=UpdateCheck.Never)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Attachment", DbType="varbinary(MAX)", CanBeNull=true, UpdateCheck=UpdateCheck.Never)]
 		public System.Data.Linq.Binary Attachment
 		{
 			get

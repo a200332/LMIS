@@ -154,7 +154,7 @@
                                     <a href="#" class="sb small no-border facebook">Facebook</a>
                                     <a href="#" class="sb small no-border twitter">Twitter</a>
                                     <%--                                    <a href="javascript:listenSelected();" class="sb small no-border voice">Twitter</a>--%>
-                                    <asp:HyperLink NavigateUrl="~/Pages/Spec/MainSpec.aspx" CssClass="sb small no-border spec" runat="server">Special</asp:HyperLink>
+                                    <asp:HyperLink NavigateUrl="~/Pages/Spec/MainSpec.aspx" CssClass="sb small no-border spec" runat="server" Target="_blank">Special</asp:HyperLink>
                                 </li>
                             </ul>
 

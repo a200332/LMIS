@@ -717,6 +717,7 @@ li.rm-search {
     height: 350px;
     -webkit-transition: all .25s ease-out;
     transition: all .25s ease-out;
+    margin-top: 1px;
 }
 
     .e-book:hover {
@@ -863,7 +864,6 @@ width:100%;
     float: right;
 }
 
-
 .mainlink span {
     z-index: 5;
     position: absolute;
@@ -877,6 +877,17 @@ width:100%;
     text-transform: uppercase;
     text-shadow: 2px 2px 8px black;
 }
+
+
+/*.mainlink span  {
+    text-align: center;
+    margin-top: 82px;
+    color: white;
+    display: block;
+    font-size: 14px;    font-weight: 800;
+    text-transform: uppercase;
+    text-shadow: 2px 2px 8px black;
+}*/
 
 .data-config {
     font-style: italic;

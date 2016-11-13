@@ -1,7 +1,7 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="ProjectsControl.ascx.cs" Inherits="Lmis.Portal.Web.Controls.DataDisplay.ProjectsControl" %>
 <asp:Repeater runat="server" ID="rptItems">
     <ItemTemplate>
-        <asp:HyperLink CssClass="book" NavigateUrl='<%# GetFileUrl(Eval("ID")) %>' Target="blanck" runat="server">
+        <asp:HyperLink CssClass="book" NavigateUrl='<%# GetTargetUrl(Container.DataItem) %>' Target='<%# GetTarget(Container.DataItem) %>' runat="server">
 			<div class="book-title">
 				<ce:Label runat="server" Text='<%# Eval("Title") %>' />
 			</div>

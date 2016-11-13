@@ -2,7 +2,8 @@
 
 
 <%@ Register Src="~/Controls/Management/ProjectsControl.ascx" TagPrefix="lmis" TagName="ProjectsControl" %>
-<%@ Register Src="~/Controls/Management/ProjectControl.ascx" TagPrefix="lmis" TagName="ProjectControl" %>
+<%@ Register Src="~/Controls/Management/MainProjectControl.ascx" TagPrefix="lmis" TagName="MainProjectControl" %>
+<%@ Register Src="~/Controls/Management/SubProjectControl.ascx" TagPrefix="lmis" TagName="SubProjectControl" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
 </asp:Content>
@@ -11,7 +12,7 @@
         <ce:ImageLinkButton runat="server" ToolTip="Add New" DefaultImageUrl="~/App_Themes/Default/images/add.png" ID="btnAddNew" OnClick="btnAddNew_OnClick" />
     </div>
     <div>
-        <lmis:ProjectsControl runat="server" ID="projectsControl" OnEditItem="projectsControl_OnEditItem" OnDeleteItem="projectsControl_OnDeleteItem" OnUpItem="projectsControl_OnUpItem" OnDownItem="projectsControl_OnDownItem" />
+        <lmis:ProjectsControl runat="server" ID="projectsControl" OnEditItem="projectsControl_OnEditItem" OnDeleteItem="projectsControl_OnDeleteItem" OnUpItem="projectsControl_OnUpItem" OnDownItem="projectsControl_OnDownItem" OnAddChild="projectsControl_OnAddChild" />
     </div>
     <div>
         <act:ModalPopupExtender runat="server" ID="mpeAddEdit" TargetControlID="btnAddEditFake"
@@ -26,7 +27,8 @@
                     <div class="popup-title"><ce:Label runat="server">Project</ce:Label></div>
                     <div class="title_separator"></div>
                     <div class="box">
-                        <lmis:ProjectControl runat="server" ID="projectControl" />
+                        <lmis:MainProjectControl runat="server" ID="mainProjectControl" />
+                        <lmis:SubProjectControl runat="server" ID="subProjectControl" />
                     </div>
             </div>
             <div class="fieldsetforicons">
