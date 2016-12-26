@@ -14,9 +14,11 @@ namespace Lmis.Portal.Web.Converters.ModelToEntity
 
         public override LP_Survey Convert(SurveyModel source)
         {
-            var entity = new LP_Survey();
-            entity.ID = Guid.NewGuid();
-            entity.DateCreated = DateTime.Now;
+            var entity = new LP_Survey
+            {
+                ID = Guid.NewGuid(),
+                DateCreated = DateTime.Now
+            };
 
             FillObject(entity, source);
 
@@ -26,6 +28,8 @@ namespace Lmis.Portal.Web.Converters.ModelToEntity
         public override void FillObject(LP_Survey target, SurveyModel source)
         {
             //target.ID = source.ID.Value;
+            target.ParentID = source.ParentID;
+            target.Url = source.Url;
             target.Title = source.Title;
             target.Description = source.Description;
             target.Language = source.Language;
@@ -36,6 +40,9 @@ namespace Lmis.Portal.Web.Converters.ModelToEntity
                 target.FileData = source.FileData;
                 target.FileName = source.FileName;
             }
+
+            if (!source.Image.IsNullOrEmpty())
+                target.Image = source.Image;
         }
     }
 }

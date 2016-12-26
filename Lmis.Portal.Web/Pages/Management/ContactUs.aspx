@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="ContactUs.aspx.cs" Inherits="Lmis.Portal.Web.Pages.Management.ContactUs"  MasterPageFile="~/Admin.master" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="ContactUs.aspx.cs" Inherits="Lmis.Portal.Web.Pages.Management.ContactUs" MasterPageFile="~/Admin.master" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
 </asp:Content>
@@ -7,19 +7,33 @@
         <ce:ImageLinkButton runat="server" DefaultImageUrl="~/App_Themes/Default/Images/save.png" ID="btnSave" ToolTip="დამატება" OnClick="btnSave_OnClick" />
     </div>
     <div>
-            <dx:ASPxHtmlEditor ID="htmlEditor" runat="server" ActiveView="Design" Width="800px" Height="500px">
-                <SettingsHtmlEditing AllowScripts="True" 
-                                     AllowIFrames="True"
-                                     AllowFormElements="True" 
-                                     AllowIdAttributes="True" 
-                                     AllowedDocumentType="Both" 
-                                     AllowStyleAttributes="True" 
-                                     AllowEditFullDocument="True" 
-                                     AllowHTML5MediaElements="True" 
-                                     AllowYouTubeVideoIFrames="True" 
-                                     AllowObjectAndEmbedElements="True" />
-                <Settings AllowHtmlView="True" AllowInsertDirectImageUrls="True" AllowContextMenu="True" AllowScriptExecutionInPreview="True" />
-                <SettingsResize AllowResize="True" />
-            </dx:ASPxHtmlEditor>
+        <dx:ASPxHtmlEditor ID="htmlEditor" runat="server" ActiveView="Design" Width="800px" Height="500px">
+            <SettingsHtmlEditing AllowScripts="True"
+                AllowIFrames="True"
+                AllowFormElements="True"
+                AllowIdAttributes="True"
+                AllowedDocumentType="Both"
+                AllowStyleAttributes="True"
+                AllowEditFullDocument="True"
+                AllowHTML5MediaElements="True"
+                AllowYouTubeVideoIFrames="True"
+                AllowObjectAndEmbedElements="True" />
+            <Settings AllowHtmlView="True" AllowInsertDirectImageUrls="True" AllowContextMenu="True" AllowScriptExecutionInPreview="True" />
+            <SettingsResize AllowResize="True" />
+            <SettingsDialogs>
+                <InsertAudioDialog>
+                    <SettingsAudioUpload UploadFolder="~/DxUploads" />
+                </InsertAudioDialog>
+                <InsertFlashDialog>
+                    <SettingsFlashUpload UploadFolder="~/DxUploads" />
+                </InsertFlashDialog>
+                <InsertImageDialog>
+                    <SettingsImageUpload UploadFolder="~/DxUploads" />
+                </InsertImageDialog>
+                <InsertVideoDialog>
+                    <SettingsVideoUpload UploadFolder="~/DxUploads" />
+                </InsertVideoDialog>
+            </SettingsDialogs>
+        </dx:ASPxHtmlEditor>
     </div>
 </asp:Content>

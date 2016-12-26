@@ -16,5 +16,7 @@ namespace Lmis.Portal.Web.Models
 		public byte[] Image { get; set; }
 
         public int? OrderIndex { get; set; }
-    }
+
+	    public String Language { get; set; }
+	}
 }

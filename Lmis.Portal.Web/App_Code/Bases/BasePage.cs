@@ -16,7 +16,7 @@ namespace Lmis.Portal.Web.Bases
         {
             get
             {
-                _dataContext = (_dataContext ?? new PortalDataContext());
+                _dataContext = (_dataContext ?? DcFactory.Create<PortalDataContext>());
                 return _dataContext;
             }
         }

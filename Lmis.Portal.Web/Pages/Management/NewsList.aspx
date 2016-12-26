@@ -24,9 +24,9 @@
 
                     <div class="popup-title"><ce:Label runat="server">News</ce:Label></div>
                     <div class="title_separator"></div>
-                    <div class="box">
+                  
                         <lmis:NewsControl runat="server" ID="newsControl" />
-                    </div>
+                    
             </div>
             <div class="fieldsetforicons">
 					<div class="left" style="margin-right: 10px;">

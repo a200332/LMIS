@@ -54,6 +54,7 @@ namespace Lmis.Portal.Web.Pages.Management
                 return;
 
             entity.DateDeleted = DateTime.Now;
+
             DataContext.SubmitChanges();
 
             FillDataGrid();
@@ -198,14 +199,18 @@ namespace Lmis.Portal.Web.Pages.Management
         protected void FillDataGrid()
         {
             var converter = new CategoryEntityModelConverter(DataContext);
-            var entities = DataContext.LP_Categories.Where(n => n.DateDeleted == null).ToList();
 
-            CategoryUtil.Sort(entities);
+            var allEntitiesLp = DataContext.LP_Categories.Where(n => n.DateDeleted == null).ToLookup(n => n.ParentID);
+            var entitiesList = CategoryUtil.GetAllCategories(null, allEntitiesLp).ToList();
 
-            var models = entities.Select(n => converter.Convert(n)).ToList();
+            CategoryUtil.Sort(entitiesList);
+
+            var models = entitiesList.Select(n => converter.Convert(n)).ToList();
 
             var categoriesModel = new CategoriesModel { List = models };
             categoriesControl.Model = categoriesModel;
         }
+
+
     }
 }

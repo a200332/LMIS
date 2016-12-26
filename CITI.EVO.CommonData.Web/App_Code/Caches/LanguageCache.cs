@@ -4,6 +4,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Web;
 using CITI.EVO.CommonData.DAL.Context;
+using CITI.EVO.Tools.Utils;
 
 namespace CITI.EVO.CommonData.Web.Caches
 {
@@ -41,7 +42,7 @@ namespace CITI.EVO.CommonData.Web.Caches
 
         private static IList<CD_Language> LoadLanguages()
         {
-            using (var db = new CommonDataDataContext())
+            using (var db = DcFactory.Create<CommonDataDataContext>())
             {
                 var languagesList = db.CD_Languages.Where(n => n.DateDeleted == null).ToList();
                 return languagesList;

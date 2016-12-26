@@ -70,11 +70,11 @@ namespace Lmis.Portal.Web.BLL
 					dbColumn.MarkForDrop(true);
 			}
 
-
 			foreach (var columnModel in _model.Columns)
 			{
-				var dbColumn = CreateOrGetColumn(table, columnModel);
-			}
+                var dbColumn = CreateOrGetColumn(table, columnModel);
+			    dbColumn.DataType = GetDataType(columnModel.Type);
+            }
 
 			if (database.State == SqlSmoState.Creating)
 				database.Create();
@@ -120,11 +120,10 @@ namespace Lmis.Portal.Web.BLL
 
 		private Column CreateOrGetColumn(Table table, ColumnModel columnModel)
 		{
-			if (table.Columns.Contains(columnModel.Name))
-				return table.Columns[columnModel.Name];
+		    if (table.Columns.Contains(columnModel.Name))
+                return table.Columns[columnModel.Name];
 
-			var dataType = GetDataType(columnModel.Type);
-			var column = new Column(table, columnModel.Name, dataType);
+			var column = new Column(table, columnModel.Name);
 
 			table.Columns.Add(column);
 

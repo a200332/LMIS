@@ -1,4 +1,5 @@
 ﻿using System;
+using CITI.EVO.Tools.Extensions;
 using Lmis.Portal.DAL.DAL;
 using Lmis.Portal.Web.Converters.Common;
 using Lmis.Portal.Web.Models;
@@ -33,6 +34,9 @@ namespace Lmis.Portal.Web.Converters.ModelToEntity
             target.ParentID = source.ParentID;
             target.OrderIndex = source.OrderIndex;
             target.Url = source.Url;
+
+            if (!source.Image.IsNullOrEmpty())
+                target.Image = source.Image;
         }
     }
 }

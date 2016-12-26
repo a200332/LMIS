@@ -8,6 +8,7 @@
 	ClientIDMode="AutoID"
 	EnableRowsCache="False"
 	EnableViewState="False">
+    <Settings ShowFilterRow="True"></Settings>
 	<columns>
 		<dx:GridViewDataTextColumn Caption=" " FieldName="" VisibleIndex="0">
 			<DataItemTemplate>

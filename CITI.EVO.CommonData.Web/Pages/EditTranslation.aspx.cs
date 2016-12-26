@@ -6,6 +6,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using CITI.EVO.CommonData.DAL.Context;
+using CITI.EVO.Tools.Utils;
 
 public partial class Pages_EditTranslation : System.Web.UI.Page
 {
@@ -41,7 +42,7 @@ public partial class Pages_EditTranslation : System.Web.UI.Page
             Guid trnID;
             if (Guid.TryParse(Request[trnIDKey], out trnID))
             {
-                using (var db = new CommonDataDataContext())
+                using (var db = DcFactory.Create<CommonDataDataContext>())
                 {
                     var trn = db.CD_Translations.First(n => n.ID == trnID);
 
@@ -83,7 +84,7 @@ public partial class Pages_EditTranslation : System.Web.UI.Page
             return;
         }
 
-        using (var db = new CommonDataDataContext())
+        using (var db = DcFactory.Create<CommonDataDataContext>())
         {
             var trn = (from n in db.CD_Translations
                        where n.DateDeleted == null &&
@@ -99,7 +100,7 @@ public partial class Pages_EditTranslation : System.Web.UI.Page
 
     protected void btSave_Click(object sender, EventArgs e)
     {
-        using (var db = new CommonDataDataContext())
+        using (var db = DcFactory.Create<CommonDataDataContext>())
         {
             var dbTrn = (from n in db.CD_Translations
                          where n.DateDeleted == null &&

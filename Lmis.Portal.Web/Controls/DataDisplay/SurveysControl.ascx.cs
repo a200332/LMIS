@@ -22,14 +22,42 @@ namespace Lmis.Portal.Web.Controls.DataDisplay
             rptItems.DataBind();
         }
 
-        protected Object GetFileUrl(Object eval)
+        protected Object GetTargetUrl(Object obj)
         {
-            var id = DataConverter.ToNullableGuid(eval);
-            if (id == null)
+            var model = obj as SurveyModel;
+            if (model == null)
                 return "#";
 
-            var url = String.Format("~/Handlers/GetFile.ashx?Type=Survey&ID={0}", id);
+            if (model.FileData == null && model.ParentID == null)
+            {
+                var url = String.Format("~/Pages/User/Surveys.aspx?ID={0}", model.ID);
+                return url;
+            }
+
+            if (model.FileData != null)
+            {
+                var url = String.Format("~/Handlers/GetFile.ashx?Type=Survey&ID={0}", model.ID);
+                return url;
+            }
+
+            return model.Url;
+        }
+
+        protected String GetImageUrl(object eval)
+        {
+            var url = String.Format("~/Handlers/GetImage.ashx?Type=Survey&ID={0}", eval);
             return url;
+        }
+
+        protected Object GetTarget(Object obj)
+        {
+            var model = obj as LegislationModel;
+            if (model != null && model.FileData != null)
+            {
+                return "_blank";
+            }
+
+            return String.Empty;
         }
     }
 }

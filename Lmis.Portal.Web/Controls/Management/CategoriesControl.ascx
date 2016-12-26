@@ -24,6 +24,8 @@
             </dx:TreeListDataColumn>
             <dx:TreeListDataColumn FieldName="OrderIndex" Name="OrderIndex" Caption="Order Index">
             </dx:TreeListDataColumn>
+            <dx:TreeListDataColumn FieldName="Language" Name="Language" Caption="Language">
+            </dx:TreeListDataColumn>
         </Columns>
     </dx:ASPxTreeList>
 </div>

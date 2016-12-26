@@ -26,7 +26,7 @@ namespace Lmis.Portal.Web.Converters.ModelToEntity
 
 		public override void FillObject(LP_Table target, TableModel source)
 		{
-			target.Name = source.Name;
+			target.Name = source.Name.Trim();
             target.Status = source.Status;
         }
 	}

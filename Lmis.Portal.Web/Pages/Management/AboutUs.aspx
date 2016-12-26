@@ -20,6 +20,20 @@
                 AllowObjectAndEmbedElements="True" />
             <Settings AllowHtmlView="True" AllowInsertDirectImageUrls="True" AllowContextMenu="True" AllowScriptExecutionInPreview="True" />
             <SettingsResize AllowResize="True" />
+            <SettingsDialogs>
+                <InsertAudioDialog>
+                    <SettingsAudioUpload UploadFolder="~/DxUploads" />
+                </InsertAudioDialog>
+                <InsertFlashDialog>
+                    <SettingsFlashUpload UploadFolder="~/DxUploads" />
+                </InsertFlashDialog>
+                <InsertImageDialog>
+                    <SettingsImageUpload UploadFolder="~/DxUploads" />
+                </InsertImageDialog>
+                <InsertVideoDialog>
+                    <SettingsVideoUpload UploadFolder="~/DxUploads" />
+                </InsertVideoDialog>
+            </SettingsDialogs>
         </dx:ASPxHtmlEditor>
     </div>
 </asp:Content>

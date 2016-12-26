@@ -9,6 +9,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.DataVisualization.Charting;
 using System.Web.UI.WebControls;
+using CITI.EVO.Tools.Comparers;
 using CITI.EVO.Tools.Utils;
 using Lmis.Portal.Web.Entites;
 using Lmis.Portal.Web.Models;
@@ -149,6 +150,9 @@ namespace Lmis.Portal.Web.BLL
 
         public static DataTable GetChartDataTable(String groupMember, String yMember, String xMember, IEnumerable<DataRowView> collection, bool sortData)
         {
+            var logicalComparer = new StringLogicalComparer();
+            var comparisonComparer = new ComparisonComparer<Object>((x, y) => Compare(logicalComparer, x, y));
+
             var dataRowViewsXQuery = (from DataRowView n in collection
                                       let v = n[xMember]
                                       select new
@@ -158,7 +162,7 @@ namespace Lmis.Portal.Web.BLL
                                       });
 
             if (sortData)
-                dataRowViewsXQuery = dataRowViewsXQuery.OrderBy(n => n.Grouper);
+                dataRowViewsXQuery = dataRowViewsXQuery.OrderBy(n => n.Grouper, comparisonComparer);
 
             var dataRowViewsXLp = dataRowViewsXQuery.ToLookup(n => n.Grouper);
             var verticalColumns = dataRowViewsXLp.Select(n => n.Key).ToList();
@@ -168,7 +172,7 @@ namespace Lmis.Portal.Web.BLL
                                           select v);
 
             if (sortData)
-                horizontalColumnsQuery = horizontalColumnsQuery.OrderBy(n => n);
+                horizontalColumnsQuery = horizontalColumnsQuery.OrderBy(n => n, comparisonComparer);
 
             var horizontalColumns = horizontalColumnsQuery.Distinct().ToList();
             horizontalColumns.Insert(0, xMember);
@@ -191,7 +195,7 @@ namespace Lmis.Portal.Web.BLL
                                              };
 
                 if (sortData)
-                    dataRowViewsGroupQuery = dataRowViewsGroupQuery.OrderBy(n => n.Grouper);
+                    dataRowViewsGroupQuery = dataRowViewsGroupQuery.OrderBy(n => n.Grouper, comparisonComparer);
 
                 var dataRowViewsGroupLp = dataRowViewsGroupQuery.ToLookup(n => n.Grouper);
 
@@ -208,7 +212,11 @@ namespace Lmis.Portal.Web.BLL
                                   where m != null
                                   select m);
 
-                    var value = values.Sum();
+                    var dbl = values.Sum();
+                    if (dbl != null)
+                        dbl = Math.Round(dbl.Value, 2);
+
+                    var value = String.Format("{0:0.00}", dbl);
                     dataRow[horizontalColumn] = value;
                 }
 
@@ -235,7 +243,15 @@ namespace Lmis.Portal.Web.BLL
                 var dataRow = dataTable.NewRow();
 
                 foreach (var pair in columns)
-                    dataRow[pair.Value] = dataRowView[pair.Key];
+                {
+                    var value = dataRowView[pair.Key];
+
+                    var dbl = DataConverter.ToNullableDouble(value);
+                    if (dbl != null)
+                        value = String.Format("{0:0.00}", Math.Round(dbl.Value, 2));
+
+                    dataRow[pair.Value] = value;
+                }
 
                 dataTable.Rows.Add(dataRow);
             }
@@ -287,13 +303,22 @@ namespace Lmis.Portal.Web.BLL
             throw new Exception();
         }
 
+        private static int Compare(IComparer<String> comparer, Object x, Object y)
+        {
+            var xVal = Convert.ToString(x);
+            var yVal = Convert.ToString(y);
+
+            var order = comparer.Compare(xVal, yVal);
+            return order;
+        }
+
         private static PdfPTable GetPdfGrid(DataTable dataSource)
         {
             var sylfaenPath = String.Format("{0}\\fonts\\sylfaen.ttf", Environment.GetEnvironmentVariable("SystemRoot"));
             var sylfaen = BaseFont.CreateFont(sylfaenPath, BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
 
             var pdfFont = new Font(sylfaen, 11f, Font.NORMAL, BaseColor.BLACK);
-            
+
 
             //var pdfFont = FontFactory.GetFont("Sylfaen", BaseFont.IDENTITY_H, BaseFont.EMBEDDED, 11F);
             var localFont = new System.Drawing.Font("Sylfaen", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
@@ -391,7 +416,5 @@ namespace Lmis.Portal.Web.BLL
             var connString = ConfigurationManager.ConnectionStrings["RepositoryConnectionString"];
             return connString.ConnectionString;
         }
-
-
     }
 }

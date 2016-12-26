@@ -1,9 +1,9 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="ReportUnitControl.ascx.cs" Inherits="Lmis.Portal.Web.Controls.DataDisplay.ReportUnitControl" %>
 
-<div style="margin-top: 15px; border: 1px solid #e5e5e5;">
+<div style="margin-top: 15px; text-align: left; border: 1px solid #e5e5e5;">
 
-    <div style="margin: 8px;">
-        <div class="left">
+    <div style="margin: 8px; font-size: 11px;">
+        <div class="left" style="margin-left: 15px;">
             <ce:Label runat="server" ID="lblReportTitle" Font-Names="Times New Roman" Font-Size="13px" Font-Bold="True"></ce:Label>
         </div>
         <div class="right" style="text-align: right;">
@@ -20,7 +20,7 @@
                 </asp:Panel>
             </div>
         </div>
-        <div>
+        <div runat="server" id="dvData">
             <div class="clear"></div>
             <div>
                 <asp:Panel runat="server" ID="pnlChartImage">
@@ -41,7 +41,7 @@
                             <asp:Legend Name="Default" Docking="Bottom" TableStyle="Wide" LegendStyle="Table" TitleAlignment="Near" />
                         </Legends>
                     </asp:Chart>
-                    <div>
+                    <div style="margin-left: 15px;">
                         <ce:Label runat="server" ID="lblXYDescription"></ce:Label>
                     </div>
                 </asp:Panel>
@@ -51,39 +51,42 @@
                         <SettingsBehavior AllowSort="True" AllowGroup="True" />
                         <Styles>
                             <Cell HorizontalAlign="Left" />
-                            <AlternatingRow Enabled="True" />
                             <Header BackColor="#b4e2f7"></Header>
                             <GroupPanel BackColor="#b4e2f7"></GroupPanel>
+                            <AlternatingRow Enabled="True" />
                         </Styles>
                     </dx:ASPxGridView>
                 </asp:Panel>
+                <asp:Panel runat="server" ID="pnlError" Visible="False">
+                    <asp:Label runat="server" ID="lblError" ForeColor="Red"></asp:Label>
+                </asp:Panel>
             </div>
-        </div>
-        <div style="margin-top: 8px;">
-            <div>
-                <table>
-                    <tr runat="server" id="trDescription">
-                        <td>
-                            <ce:Label runat="server">Description:</ce:Label>&nbsp;</td>
-                        <td>
-                            <div runat="server" id="dvDescription"></div>
-                        </td>
-                    </tr>
-                    <tr runat="server" id="trInterpretation">
-                        <td>
-                            <ce:Label runat="server">Interpretation:</ce:Label>&nbsp;</td>
-                        <td>
-                            <div runat="server" id="dvInterpretation"></div>
-                        </td>
-                    </tr>
-                    <tr runat="server" id="trInformationSource">
-                        <td>
-                            <ce:Label runat="server">Information source:</ce:Label>&nbsp;</td>
-                        <td>
-                            <div runat="server" id="dvInformationSource"></div>
-                        </td>
-                    </tr>
-                </table>
+            <div style="margin-top: 8px; margin-left: 15px;">
+                <div>
+                    <table>
+                        <tr runat="server" id="trDescription" style="display: flex;">
+                            <td>
+                                <ce:Label runat="server">Description:</ce:Label>&nbsp;</td>
+                            <td>
+                                <div runat="server" id="dvDescription"></div>
+                            </td>
+                        </tr>
+                        <tr runat="server" id="trInterpretation" style="display: flex;">
+                            <td>
+                                <ce:Label runat="server">Interpretation:</ce:Label>&nbsp;</td>
+                            <td>
+                                <div runat="server" id="dvInterpretation"></div>
+                            </td>
+                        </tr>
+                        <tr runat="server" id="trInformationSource" style="display: flex;">
+                            <td>
+                                <ce:Label runat="server">Information source:</ce:Label>&nbsp;</td>
+                            <td>
+                                <div runat="server" id="dvInformationSource"></div>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
             </div>
         </div>
         <div>
@@ -93,7 +96,9 @@
             <asp:Panel runat="server" ID="pnlXYSeries">
                 <div class="popup">
                     <div class="popup_fieldset">
-                        <div class="popup-title"><ce:Label runat="server">Choose</ce:Label></div>
+                        <div class="popup-title">
+                            <ce:Label runat="server">Choose</ce:Label>
+                        </div>
                         <div class="title_separator"></div>
                         <div class="box">
                             <asp:CheckBoxList runat="server" ID="lstXYSeries" />
@@ -117,7 +122,9 @@
             <asp:Panel runat="server" ID="pnlCaptions">
                 <div class="popup">
                     <div class="popup_fieldset">
-                        <div class="popup-title"><ce:Label runat="server">Choose</ce:Label></div>
+                        <div class="popup-title">
+                            <ce:Label runat="server">Choose</ce:Label>
+                        </div>
                         <div class="title_separator"></div>
                         <div class="box">
                             <asp:CheckBoxList runat="server" ID="lstCaptions" />
@@ -141,7 +148,9 @@
             <asp:Panel runat="server" ID="pnlExportReport">
                 <div class="popup">
                     <div class="popup_fieldset">
-                        <div class="popup-title"><ce:Label runat="server">Choose</ce:Label></div>
+                        <div class="popup-title">
+                            <ce:Label runat="server">Choose</ce:Label>
+                        </div>
                         <div class="title_separator"></div>
                         <div class="box">
                             <asp:RadioButtonList runat="server" ID="lstFileTypes">
@@ -172,7 +181,9 @@
             <asp:Panel runat="server" ID="pnlReportTypes">
                 <div class="popup">
                     <div class="popup_fieldset">
-                        <div class="popup-title"><ce:Label runat="server">Choose</ce:Label></div>
+                        <div class="popup-title">
+                            <ce:Label runat="server">Choose</ce:Label>
+                        </div>
                         <div class="title_separator"></div>
                         <div class="box">
                             <asp:RadioButtonList runat="server" ID="lstReportTypes">

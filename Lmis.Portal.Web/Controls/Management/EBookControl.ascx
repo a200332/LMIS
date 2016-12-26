@@ -3,21 +3,30 @@
 <%@ Register Src="~/Controls/Common/HiddenFieldValueControl.ascx" TagPrefix="lmis" TagName="HiddenFieldValueControl" %>
 
 <lmis:HiddenFieldValueControl runat="server" ID="hdID" Property="EBookModel.ID" />
+<ul>
+    <li>
+        <ce:Label runat="server">Title</ce:Label>
+    </li>
+    <li>
+        <asp:TextBox runat="server" ID="tbxTitle" Property="EBookModel.Title" />
+    </li>
 
-<table>
-	<tr>
-		<td><ce:Label runat="server">Title</ce:Label></td>
-		<td>
-			<asp:TextBox runat="server" ID="tbxTitle" Property="EBookModel.Title" /></td>
-	</tr>
-	<tr>
-		<td><ce:Label runat="server">Url</ce:Label></td>
-		<td>
-			<asp:TextBox runat="server" ID="tbxUrl" Property="EBookModel.Url" /></td>
-	</tr>
-	<tr>
-		<td><ce:Label runat="server">Description</ce:Label></td>
-		<td>
-			<asp:TextBox runat="server" ID="tbxDescription" Property="EBookModel.Description" /></td>
-	</tr>
-</table>
+</ul>
+<ul>
+    <li>
+        <ce:Label runat="server">Url</ce:Label>
+    </li>
+    <li>
+        <asp:TextBox runat="server" ID="tbxUrl" Property="EBookModel.Url" />
+    </li>
+
+</ul>
+<ul>
+    <li>
+        <ce:Label runat="server">Description</ce:Label>
+    </li>
+    <li>
+        <asp:TextBox runat="server" ID="tbxDescription" Property="EBookModel.Description" />
+    </li>
+
+</ul>

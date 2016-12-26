@@ -161,7 +161,7 @@ namespace CITI.EVO.Tools.Utils
 
 		public static DataTable ConvertToDataTable(ISheet sheet)
 		{
-			var dataTable = new DataTable(sheet.SheetName);
+			var dataTable = new DataTable(sheet.SheetName.Trim());
 
 			var headerRow = sheet.GetRow(sheet.FirstRowNum);
 
@@ -175,7 +175,7 @@ namespace CITI.EVO.Tools.Utils
 				if (String.IsNullOrWhiteSpace(value) || !value.StartsWith("#"))
 					continue;
 
-				dataTable.Columns.Add(value);
+				dataTable.Columns.Add(value.Trim());
 				mapping.Add(i, value);
 			}
 

@@ -25,6 +25,7 @@ namespace Lmis.Portal.Web.Converters.EntityToModel
             target.Name = source.Name;
             target.ParentID = source.ParentID;
             target.OrderIndex = source.OrderIndex;
+            target.Language = source.Language;
             target.Image = (source.Image != null ? source.Image.ToArray() : null);
         }
     }

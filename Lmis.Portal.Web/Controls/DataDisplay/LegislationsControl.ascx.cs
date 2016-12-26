@@ -40,6 +40,12 @@ namespace Lmis.Portal.Web.Controls.DataDisplay
             }
         }
 
+        protected String GetImageUrl(object eval)
+        {
+            var url = String.Format("~/Handlers/GetImage.ashx?Type=Legislation&ID={0}", eval);
+            return url;
+        }
+
         protected Object GetTarget(Object obj)
         {
             var model = obj as LegislationModel;

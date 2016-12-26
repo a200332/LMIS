@@ -14,39 +14,67 @@
         </li>
     </ul>
     <ul>
-            <li style="width: 200px;">
+        <li style="width: 200px;">
             <ce:Label runat="server">Language</ce:Label></li>
         <li>
             <dx:ASPxComboBox runat="server" ID="cbxLanguage" Width="180" Property="ReportModel.Language" TextField="Key" ValueField="Value" ValueType="System.String" />
         </li>
     </ul>
     <ul>
-          <li style="width: 200px;">
+        <li style="width: 200px;">
             <ce:Label runat="server">Name</ce:Label></li>
         <li>
             <asp:TextBox runat="server" ID="tbxName" Width="180" Property="ReportModel.Name" />
         </li>
     </ul>
     <ul>
-             <li style="width: 200px;">
+        <li style="width: 200px;">
             <ce:Label runat="server">Category</ce:Label></li>
         <li>
             <dx:ASPxComboBox runat="server" ID="cbxCategory" Width="180" Property="ReportModel.CategoryID" ValueType="System.Guid" ValueField="ID" TextField="Name" />
         </li>
     </ul>
     <ul style="min-height: 25px; display: table; margin-bottom: 8px; height: auto;">
-            <li style="width: 200px;">>
+        <li style="width: 200px;">
             <ce:Label runat="server">Description</ce:Label></li>
         <li>
             <dx:ASPxHtmlEditor ID="heDescription" runat="server" ActiveView="Design" Width="400px" Height="300px" Property="ReportModel.Description">
+                <SettingsDialogs>
+                    <InsertAudioDialog>
+                        <SettingsAudioUpload UploadFolder="~/DxUploads" />
+                    </InsertAudioDialog>
+                    <InsertFlashDialog>
+                        <SettingsFlashUpload UploadFolder="~/DxUploads" />
+                    </InsertFlashDialog>
+                    <InsertImageDialog>
+                        <SettingsImageUpload UploadFolder="~/DxUploads" />
+                    </InsertImageDialog>
+                    <InsertVideoDialog>
+                        <SettingsVideoUpload UploadFolder="~/DxUploads" />
+                    </InsertVideoDialog>
+                </SettingsDialogs>
             </dx:ASPxHtmlEditor>
         </li>
     </ul>
     <ul style="min-height: 25px; display: table; margin-bottom: 8px; height: auto;">
-             <li style="width: 200px;">
+        <li style="width: 200px;">
             <ce:Label runat="server">Interpretation</ce:Label></li>
         <li>
             <dx:ASPxHtmlEditor ID="heInterpretation" runat="server" ActiveView="Design" Width="400px" Height="300px" Property="ReportModel.Interpretation">
+                <SettingsDialogs>
+                    <InsertAudioDialog>
+                        <SettingsAudioUpload UploadFolder="~/DxUploads" />
+                    </InsertAudioDialog>
+                    <InsertFlashDialog>
+                        <SettingsFlashUpload UploadFolder="~/DxUploads" />
+                    </InsertFlashDialog>
+                    <InsertImageDialog>
+                        <SettingsImageUpload UploadFolder="~/DxUploads" />
+                    </InsertImageDialog>
+                    <InsertVideoDialog>
+                        <SettingsVideoUpload UploadFolder="~/DxUploads" />
+                    </InsertVideoDialog>
+                </SettingsDialogs>
             </dx:ASPxHtmlEditor>
         </li>
     </ul>
@@ -55,6 +83,20 @@
             <ce:Label runat="server">Source</ce:Label></li>
         <li>
             <dx:ASPxHtmlEditor ID="heInformationSource" runat="server" ActiveView="Design" Width="400px" Height="300px" Property="ReportModel.InformationSource">
+                <SettingsDialogs>
+                    <InsertAudioDialog>
+                        <SettingsAudioUpload UploadFolder="~/DxUploads" />
+                    </InsertAudioDialog>
+                    <InsertFlashDialog>
+                        <SettingsFlashUpload UploadFolder="~/DxUploads" />
+                    </InsertFlashDialog>
+                    <InsertImageDialog>
+                        <SettingsImageUpload UploadFolder="~/DxUploads" />
+                    </InsertImageDialog>
+                    <InsertVideoDialog>
+                        <SettingsVideoUpload UploadFolder="~/DxUploads" />
+                    </InsertVideoDialog>
+                </SettingsDialogs>
             </dx:ASPxHtmlEditor>
         </li>
     </ul>
@@ -91,7 +133,8 @@
         <div class="popup">
             <div class="popup_fieldset">
                 <div class="popup-title">
-                    <ce:Label runat="server">Choose</ce:Label></div>
+                    <ce:Label runat="server">Choose</ce:Label>
+                </div>
                 <div class="title_separator"></div>
                 <div class="box">
                     <lmis:ReportLogicControl runat="server" ID="reportLogicControl" OnDataChanged="reportLogicControl_OnDataChanged" />

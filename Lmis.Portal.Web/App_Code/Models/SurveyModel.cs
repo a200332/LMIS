@@ -19,5 +19,9 @@ namespace Lmis.Portal.Web.Models
         public byte[] FileData { get; set; }
 
         public String FileName { get; set; }
+
+        public String Url { get; set; }
+
+        public byte[] Image { get; set; }
     }
 }

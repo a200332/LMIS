@@ -32,17 +32,23 @@ namespace Lmis.Portal.Web.Controls.DataDisplay
                 var url = String.Format("~/Pages/User/Careers.aspx?ID={0}", model.ID);
                 return url;
             }
-            else
-            {
-                var url = String.Format("~/Handlers/GetFile.ashx?Type=Project&ID={0}", model.ID);
-                return url;
-            }
+
+            return model.Url;
+        }
+
+        protected String GetImageUrl(object eval)
+        {
+            var url = String.Format("~/Handlers/GetImage.ashx?Type=Career&ID={0}", eval);
+            return url;
         }
 
         protected Object GetTarget(Object obj)
         {
-            var model = obj as LegislationModel;
-            if (model != null && model.FileData != null)
+            var model = obj as CareerModel;
+            if (model == null)
+                return null;
+
+            if (!String.IsNullOrWhiteSpace(model.Url))
             {
                 return "_blank";
             }

@@ -6,7 +6,6 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Web.UI.WebControls;
 using CITI.EVO.Tools.Extensions;
-using CITI.EVO.Tools.Utils;
 using Lmis.Portal.Web.Bases;
 using Lmis.Portal.Web.BLL;
 using Lmis.Portal.Web.Converters.EntityToModel;
@@ -17,19 +16,6 @@ namespace Lmis.Portal.Web.Controls.Management
 {
     public partial class ReportLogicControl : BaseExtendedControl<ReportLogicModel>
     {
-        public ReportModel ParentModel
-        {
-            get
-            {
-                var parentControl = (from n in UserInterfaceUtil.TraverseParents(this)
-                                     let m = n as BaseExtendedControl<ReportModel>
-                                     where m != null
-                                     select m).FirstOrDefault();
-
-                return parentControl.Model;
-            }
-        }
-
         public List<BindingInfoModel> Bindings
         {
             get
@@ -123,7 +109,8 @@ namespace Lmis.Portal.Web.Controls.Management
         {
             Bindings = (Bindings ?? new List<BindingInfoModel>());
 
-            if (ParentModel.Type == "Grid")
+            var type = Convert.ToString(hdType.Value);
+            if (type == "Grid")
             {
                 var binding = new BindingInfoModel
                 {
@@ -134,7 +121,7 @@ namespace Lmis.Portal.Web.Controls.Management
 
                 Bindings.Add(binding);
             }
-            else if (ParentModel.Type == "Chart")
+            else
             {
                 var xBinding = new BindingInfoModel
                 {
@@ -171,6 +158,9 @@ namespace Lmis.Portal.Web.Controls.Management
             if (reportLogicModel == null)
                 return;
 
+            if (reportLogicModel.Type != "Grid")
+                reportLogicModel.Type = cbxType.TryGetStringValue();
+
             var logicID = cbxLogic.TryGetGuidValue();
             if (logicID != null)
             {
@@ -198,9 +188,11 @@ namespace Lmis.Portal.Web.Controls.Management
             if (reportLogicModel == null)
                 return;
 
-            //cbxType.SelectedItem = null;
             cbxLogic.SelectedItem = null;
             cbxTable.SelectedItem = null;
+
+            if (reportLogicModel.Type != "Grid")
+                cbxType.TrySetSelectedValue(reportLogicModel.Type);
 
             if (reportLogicModel.Bindings == null)
                 return;
@@ -221,7 +213,8 @@ namespace Lmis.Portal.Web.Controls.Management
 
         protected void ApplyViewMode()
         {
-            if (ParentModel.Type == "Grid")
+            var type = Convert.ToString(hdType.Value);
+            if (type == "Grid")
             {
                 pnlChartBinding.Visible = false;
                 pnlChartBindings.Visible = false;
@@ -231,7 +224,7 @@ namespace Lmis.Portal.Web.Controls.Management
                 pnlGridBinding.Visible = true;
                 pnlGridBindings.Visible = true;
             }
-            else if (ParentModel.Type == "Chart")
+            else
             {
                 pnlChartBinding.Visible = true;
                 pnlChartBindings.Visible = true;
@@ -336,9 +329,11 @@ namespace Lmis.Portal.Web.Controls.Management
             if (Bindings == null)
                 return;
 
-            if (ParentModel.Type == "Grid")
+            var type = Convert.ToString(hdType.Value);
+
+            if (type == "Grid")
                 FillGridBindings();
-            else if (ParentModel.Type == "Chart")
+            else
                 FillChartBindings();
         }
 

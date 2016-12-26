@@ -30,7 +30,7 @@ public class GetImage : IHttpHandler
 		var fileBytes = File.ReadAllBytes(imagePath);
 		var itemType = request["Type"];
 
-		using (var db = new PortalDataContext())
+		using (var db = DcFactory.Create<PortalDataContext>())
 		{
 			switch (itemType)
 			{
@@ -38,28 +38,45 @@ public class GetImage : IHttpHandler
 					{
 						var item = db.LP_Links.FirstOrDefault(n => n.ID == itemID);
 						if (item != null && item.Image != null && item.Image.Length > 0)
-						{
 							fileBytes = item.Image.ToArray();
-						}
 					}
+					break;
+				case "Project":
+					{
+						var item = db.LP_Projects.FirstOrDefault(n => n.ID == itemID);
+						if (item != null && item.Image != null && item.Image.Length > 0)
+							fileBytes = item.Image.ToArray();
+					}
+					break;
+				case "Legislation":
+					{
+						var item = db.LP_Legislations.FirstOrDefault(n => n.ID == itemID);
+						if (item != null && item.Image != null && item.Image.Length > 0)
+							fileBytes = item.Image.ToArray();					}
+					break;
+				case "Career":
+					{
+						var item = db.LP_Careers.FirstOrDefault(n => n.ID == itemID);
+						if (item != null && item.Image != null && item.Image.Length > 0)
+							fileBytes = item.Image.ToArray();					}
+					break;
+				case "Survey":
+					{
+						var item = db.LP_Surveys.FirstOrDefault(n => n.ID == itemID);
+						if (item != null && item.Image != null && item.Image.Length > 0)
+							fileBytes = item.Image.ToArray();					}
 					break;
 				case "News":
 					{
 						var item = db.LP_News.FirstOrDefault(n => n.ID == itemID);
 						if (item != null && item.Image != null && item.Image.Length > 0)
-						{
-							fileBytes = item.Image.ToArray();
-						}
-					}
+							fileBytes = item.Image.ToArray();					}
 					break;
 				case "Category":
 					{
 						var item = db.LP_Categories.FirstOrDefault(n => n.ID == itemID);
 						if (item != null && item.Image != null && item.Image.Length > 0)
-						{
-							fileBytes = item.Image.ToArray();
-						}
-					}
+							fileBytes = item.Image.ToArray();					}
 					break;
 			}
 		}

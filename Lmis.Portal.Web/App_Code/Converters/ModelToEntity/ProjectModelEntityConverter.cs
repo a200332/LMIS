@@ -37,6 +37,9 @@ namespace Lmis.Portal.Web.Converters.ModelToEntity
                 target.FileData = source.FileData;
                 target.FileName = source.FileName;
             }
+
+            if (!source.Image.IsNullOrEmpty())
+                target.Image = source.Image;
         }
     }
 }

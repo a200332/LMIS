@@ -3,6 +3,7 @@ using System.Globalization;
 using System.Linq;
 using System.Web.UI.WebControls;
 using CITI.EVO.CommonData.DAL.Context;
+using CITI.EVO.Tools.Utils;
 
 public partial class Pages_LanguagesList : System.Web.UI.Page
 {
@@ -26,7 +27,7 @@ public partial class Pages_LanguagesList : System.Web.UI.Page
 
     protected void FillLanguagesGrid()
     {
-        using (var db = new CommonDataDataContext())
+        using (var db = DcFactory.Create<CommonDataDataContext>())
         {
             var languages = (from n in db.CD_Languages
                              where n.DateDeleted == null
@@ -57,7 +58,7 @@ public partial class Pages_LanguagesList : System.Web.UI.Page
         if (!Guid.TryParse(control.CommandArgument, out langID))
             return;
 
-        using (var db = new CommonDataDataContext())
+        using (var db = DcFactory.Create<CommonDataDataContext>())
         {
             var language = (from n in db.CD_Languages
                             where n.ID == langID
@@ -91,7 +92,7 @@ public partial class Pages_LanguagesList : System.Web.UI.Page
         if (!Guid.TryParse(control.CommandArgument, out langID))
             return;
 
-        using (var db = new CommonDataDataContext())
+        using (var db = DcFactory.Create<CommonDataDataContext>())
         {
             var language = (from n in db.CD_Languages
                             where n.ID == langID
@@ -128,7 +129,7 @@ public partial class Pages_LanguagesList : System.Web.UI.Page
             return;
         }
 
-        using (var db = new CommonDataDataContext())
+        using (var db = DcFactory.Create<CommonDataDataContext>())
         {
             CD_Language language;
 

@@ -33,9 +33,9 @@
                     <div class="checkbox">
                         <div class="box_body">
                             <mis:CheckBox runat="server" ID="chkRememberMe"></mis:CheckBox>
-                        </div>
+                       
                         <h2>დამახსოვრება
-                        </h2>
+                        </h2> </div>
                     </div>
                     <div class="clear"></div>
                     <div class="wrapper">

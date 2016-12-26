@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using CITI.EVO.Tools.Comparers;
 using Lmis.Portal.DAL.DAL;
 
@@ -27,6 +28,18 @@ namespace Lmis.Portal.Web.Utils
             }
 
             return order;
+        }
+        public static IEnumerable<LP_Category> GetAllCategories(Guid? parentID, ILookup<Guid?, LP_Category> allEntitiesLp)
+        {
+            var entities = allEntitiesLp[parentID];
+            foreach (var entity in entities)
+            {
+                yield return entity;
+
+                var children = GetAllCategories(entity.ID, allEntitiesLp);
+                foreach (var child in children)
+                    yield return child;
+            }
         }
     }
 }

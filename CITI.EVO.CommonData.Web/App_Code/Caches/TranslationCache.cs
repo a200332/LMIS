@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using CITI.EVO.CommonData.DAL.Context;
 using CITI.EVO.Tools.Cache;
 using CITI.EVO.Tools.Extensions;
+using CITI.EVO.Tools.Utils;
 
 namespace CITI.EVO.CommonData.Web.Caches
 {
@@ -83,7 +84,7 @@ namespace CITI.EVO.CommonData.Web.Caches
 		[MethodImpl(MethodImplOptions.Synchronized)]
 		private static IDictionary<String, String> LoadTranslations()
 		{
-			using (var db = new CommonDataDataContext())
+			using (var db = DcFactory.Create<CommonDataDataContext>())
 			{
 				var translationsList = db.CD_Translations.ToList();
 
@@ -131,7 +132,7 @@ namespace CITI.EVO.CommonData.Web.Caches
 		{
 			try
 			{
-				using (var db = new CommonDataDataContext())
+				using (var db = DcFactory.Create<CommonDataDataContext>())
 				{
 
 					var dbTrn = (from n in db.CD_Translations

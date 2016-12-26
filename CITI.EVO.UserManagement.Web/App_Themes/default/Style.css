@@ -50,10 +50,12 @@ border-radius: 5px;
     border: 1px solid #ffffff;
 
 }
-
+.box_body {
+    width: 250px;
+}
 
 #login_page .box {
-    width: 320px;
+    width: 250px;
     padding: 0;
     text-align: center;
 }
@@ -76,10 +78,10 @@ border-radius: 5px;
 }
 
 #login_page .box_body input[type="text"] {
-    width: 320px;
+    width: 250px;
     height: 24px;
     border: 1px solid #ffffff;
-    height: 55px;
+    height: 45px;
     background-color: #ffffff;
     font-size: 14px;
     font-family: arial;
@@ -96,9 +98,9 @@ border-radius: 5px;
 
 
 #login_page .box_body input[type="password"] {
-    width: 320px;
+    width: 250px;
     border: 1px solid #ffffff;
-    height: 55px;
+    height: 45px;
     background-color: #ffffff;
     padding-left: 8px;
 }
@@ -115,7 +117,7 @@ border-radius: 5px;
     font-size: 18px;
     color: #363636;
     font-family: 'BPG Nino Mtavruli Normal';
-    padding: 28px 0 8px 0;
+    padding: 14px 0 8px 0;
     margin: 0 auto;
     font-weight: normal;
     text-align: left;
@@ -150,12 +152,12 @@ border-radius: 5px;
     font-size: 18px;
     color: white;
     font-family: 'Bpg Nino Mtavruli Normal';
-    width: 320px;
-    height: 55px;
+    width: 250px;
+    height: 45px;
     display: block;
     margin-top: 10px;
     font-weight: normal;
-    padding: 20px 0 0 0;
+    padding: 15px 0 0 0;
     font-weight: normal;
     -webkit-transition: background-color 0.25s, width 0.25s;
     -moz-transition: background-color 0.25s, width 0.25s;

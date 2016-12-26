@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web.UI.WebControls;
 using CITI.EVO.CommonData.DAL.Context;
+using CITI.EVO.Tools.Utils;
 
 public partial class Pages_TranslationsList : System.Web.UI.Page
 {
@@ -17,7 +18,7 @@ public partial class Pages_TranslationsList : System.Web.UI.Page
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        using (var db = new CommonDataDataContext())
+        using (var db = DcFactory.Create<CommonDataDataContext>())
         {
             var modules = db.CD_Translations.Select(n => n.ModuleName).Distinct().ToList();
             var languagePairs = db.CD_Translations.Select(n => n.LanguagePair).Distinct().ToList();
@@ -50,7 +51,7 @@ public partial class Pages_TranslationsList : System.Web.UI.Page
 
         TrnID = trnID;
 
-        using (var db = new CommonDataDataContext())
+        using (var db = DcFactory.Create<CommonDataDataContext>())
         {
             var dbTrn = (from n in db.CD_Translations
                          where n.ID == TrnID
@@ -78,7 +79,7 @@ public partial class Pages_TranslationsList : System.Web.UI.Page
             return;
         }
 
-        using (var db = new CommonDataDataContext())
+        using (var db = DcFactory.Create<CommonDataDataContext>())
         {
             var dbTrn = (from n in db.CD_Translations
                          where n.ID == TrnID
@@ -114,7 +115,7 @@ public partial class Pages_TranslationsList : System.Web.UI.Page
 
     protected void FillTranslationsGrid()
     {
-        using (var db = new CommonDataDataContext())
+        using (var db = DcFactory.Create<CommonDataDataContext>())
         {
             var query = from n in db.CD_Translations
                         where n.DateDeleted == null

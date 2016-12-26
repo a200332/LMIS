@@ -4,38 +4,43 @@
 
 <lmis:HiddenFieldValueControl runat="server" ID="hdID" Property="LinkModel.ID" />
 <lmis:HiddenFieldValueControl runat="server" ID="hdParentID" Property="LinkModel.ParentID" />
-
-<table>
-	<tr>
-		<td>
-			<ce:Label runat="server">Title</ce:Label></td>
-		<td>
-			<asp:TextBox runat="server" ID="tbxTitle" Property="LinkModel.Title" /></td>
-	</tr>
-	<tr>
-		<td>
-			<ce:Label runat="server">Url</ce:Label></td>
-		<td>
-			<asp:TextBox runat="server" ID="tbxUrl" Property="LinkModel.Url" /></td>
-	</tr>
-    <tr>
-        <td>
-            <ce:Label runat="server">Order Index</ce:Label></td>
-        <td>
-            <dx:ASPxSpinEdit runat="server" ID="seOrderIndex" Property="LinkModel.OrderIndex"></dx:ASPxSpinEdit>
-        </td>
-    </tr>
-	<tr>
-		<td>
-			<ce:Label runat="server">Description</ce:Label></td>
-		<td>
-			<asp:TextBox runat="server" ID="tbxDescription" Property="LinkModel.Description" /></td>
-	</tr>
-	<tr>
-		<td>
-			<ce:Label runat="server">Image</ce:Label></td>
-		<td>
-			<asp:FileUpload runat="server" ID="fuImage" Property="LinkModel.Image"></asp:FileUpload>
-		</td>
-	</tr>
-</table>
+<ul>
+    <li>
+        <ce:Label runat="server">Title</ce:Label>
+    </li>
+    <li>
+        <asp:TextBox runat="server" Width="200" ID="tbxTitle" Property="LinkModel.Title" />
+    </li>
+</ul>
+<ul>
+    <li>
+        <ce:Label runat="server">Url</ce:Label>
+    </li>
+    <li>
+        <asp:TextBox runat="server" Width="200" ID="tbxUrl" Property="LinkModel.Url" />
+    </li>
+</ul>
+<ul>
+    <li>
+        <ce:Label runat="server">Order Index</ce:Label>
+    </li>
+    <li>
+        <dx:ASPxSpinEdit runat="server" ID="seOrderIndex" Width="200" Property="LinkModel.OrderIndex"></dx:ASPxSpinEdit>
+    </li>
+</ul>
+<ul>
+    <li>
+        <ce:Label runat="server">Description</ce:Label>
+    </li>
+    <li>
+        <asp:TextBox runat="server" ID="tbxDescription" Width="200" Property="LinkModel.Description" />
+    </li>
+</ul>
+<ul>
+    <li>
+        <ce:Label runat="server">Image</ce:Label>
+    </li>
+    <li>
+        <asp:FileUpload runat="server" Width="200" ID="fuImage" Property="LinkModel.Image"></asp:FileUpload>
+    </li>
+</ul>

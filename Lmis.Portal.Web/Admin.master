@@ -163,7 +163,7 @@
                             <asp:HyperLink runat="server" CssClass="mcolor" NavigateUrl="~/Pages/Management/ProjectsList.aspx"><ce:Label runat="server">Programs</ce:Label></asp:HyperLink>
                         </li>
                         <li>
-                            <asp:HyperLink runat="server" CssClass="mcolor" NavigateUrl="~/Pages/Management/SurveysList.aspx"><ce:Label runat="server">Reports</ce:Label></asp:HyperLink>
+                            <asp:HyperLink runat="server" CssClass="mcolor" NavigateUrl="~/Pages/Management/SurveysList.aspx"><ce:Label runat="server">Surveys</ce:Label></asp:HyperLink>
                         </li>
                         <li>
                             <asp:HyperLink runat="server" CssClass="mcolor" NavigateUrl="~/Pages/Management/NewsList.aspx"><ce:Label runat="server">News</ce:Label></asp:HyperLink>

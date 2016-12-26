@@ -43,7 +43,7 @@
             <ce:Label runat="server" Text="Name" />
         </td>
         <td style="text-align: left; padding: 10px;">
-            <asp:TextBox runat="server" Property="LogicModel.Name"></asp:TextBox>
+            <asp:TextBox runat="server" Property="LogicModel.Name" Width="500px"></asp:TextBox>
         </td>
     </tr>
     <tr>

@@ -144,7 +144,9 @@ input[type="radio" i], input[type="checkbox" i] {
     padding: 0 0 8px 0;
     /*white-space: normal;*/
 }
-
+.dxtlNode td.dxtl {
+     white-space: normal;
+}
 .dxtlIndent {
     padding: 2px;
 }
@@ -159,7 +161,9 @@ input[type="radio" i], input[type="checkbox" i] {
 .dxtlNode {
     text-align: left;
 }
-
+.dxgvHeader td{
+    white-space: normal !important;
+}
 .box {
     min-width: 400px;
     text-align: left;
@@ -313,4 +317,9 @@ a:hover>ul>li.news-link-title {
 
            .search-box input[type="text"] {
                padding: 2px;
+           }
+
+           #map {
+               width: 1000px;
+               height: 500px;
            }

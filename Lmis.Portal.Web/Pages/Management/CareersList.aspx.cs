@@ -186,11 +186,11 @@ namespace Lmis.Portal.Web.Pages.Management
 
         protected void careersControl_OnDownItem(object sender, GenericEventArgs<Guid> e)
         {
-            var entity = DataContext.LP_Projects.FirstOrDefault(n => n.ID == e.Value);
+            var entity = DataContext.LP_Careers.FirstOrDefault(n => n.ID == e.Value);
             if (entity == null)
                 return;
 
-            var query = from n in DataContext.LP_Projects
+            var query = from n in DataContext.LP_Careers
                         where n.DateDeleted == null
                         select n;
 

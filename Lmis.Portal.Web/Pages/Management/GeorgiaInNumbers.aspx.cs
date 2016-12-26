@@ -10,13 +10,18 @@ namespace Lmis.Portal.Web.Pages.Management
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (!IsPostBack)
+                FillHtmlEditor();
         }
 
         protected void btnSave_OnClick(object sender, EventArgs e)
         {
             var currentLanguage = LanguageUtil.GetLanguage();
 
-            var entity = DataContext.LP_Contents.FirstOrDefault(n => n.DateDeleted == null && n.Type == "GeorgiaInNumbers");
+            var entity = (from n in DataContext.LP_Contents
+                          where n.DateDeleted == null && n.Type == "GeorgiaInNumbers" && (n.Language == currentLanguage || n.Language == null || n.Language == "")
+                          select n).FirstOrDefault();
+
             if (entity == null)
             {
                 entity = new LP_Content
@@ -30,10 +35,23 @@ namespace Lmis.Portal.Web.Pages.Management
                 DataContext.LP_Contents.InsertOnSubmit(entity);
             }
 
-            entity.AttachmentName = fuAttachment.FileName;
-            entity.Attachment = fuAttachment.FileBytes;
+            entity.FullText = htmlEditor.Html;
 
             DataContext.SubmitChanges();
+        }
+
+        protected void FillHtmlEditor()
+        {
+            var currentLanguage = LanguageUtil.GetLanguage();
+
+            var entity = (from n in DataContext.LP_Contents
+                          where n.DateDeleted == null && n.Type == "GeorgiaInNumbers" && (n.Language == currentLanguage || n.Language == null || n.Language == "")
+                          select n).FirstOrDefault();
+
+            if (entity != null)
+            {
+                htmlEditor.Html = entity.FullText;
+            }
         }
     }
 }

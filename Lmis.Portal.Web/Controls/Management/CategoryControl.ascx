@@ -2,33 +2,53 @@
 <%@ Register Src="~/Controls/Common/HiddenFieldValueControl.ascx" TagPrefix="lmis" TagName="HiddenFieldValueControl" %>
 
 <lmis:HiddenFieldValueControl runat="server" ID="hdID" Property="CategoryModel.ID" />
-<lmis:HiddenFieldValueControl runat="server" ID="hdParentID" Property="CategoryModel.ParentID" />
 <ul>
     <li>
-        <ce:Label runat="server">Number</ce:Label></li>
+        <ce:Label runat="server">Number</ce:Label>
+    </li>
     <li>
-        <asp:TextBox runat="server" ID="tbxNumber" Width="180" Property="CategoryModel.Number" />
+        <asp:TextBox runat="server" ID="tbxNumber" Width="200"  Property="CategoryModel.Number" />
     </li>
 </ul>
 <ul>
     <li>
-        <ce:Label runat="server">Category Name</ce:Label></li>
+        <ce:Label runat="server">Category Name</ce:Label>
+    </li>
     <li>
-        <asp:TextBox runat="server" Width="150" ID="tbxName" Property="CategoryModel.Name"></asp:TextBox>
+        <asp:TextBox runat="server" ID="tbxName" Width="200"  Property="CategoryModel.Name"></asp:TextBox>
     </li>
 </ul>
 <ul>
     <li>
-        <ce:Label runat="server">Order Index</ce:Label></li>
+        <ce:Label runat="server">Language</ce:Label>
+    </li>
     <li>
-        <dx:ASPxSpinEdit runat="server" Width="150" ID="seOrderIndex" Property="CategoryModel.OrderIndex"></dx:ASPxSpinEdit>
+        <dx:ASPxComboBox runat="server" ID="cbxLanguage" Width="200"  Property="CategoryModel.Language" TextField="Key" ValueField="Value" ValueType="System.String" />
     </li>
 </ul>
 <ul>
     <li>
-        <ce:Label runat="server">Category Icon</ce:Label></li>
+        <ce:Label runat="server">Parent</ce:Label>
+    </li>
+    <li>
+        <dx:ASPxComboBox runat="server" ID="cbxCategory" Width="200"  Property="CategoryModel.ParentID" ValueType="System.Guid" ValueField="ID" TextField="Name" />
+    </li>
+</ul>
+<ul>
+    <li>
+        <ce:Label runat="server">Order Index</ce:Label>
+    </li>
+    <li>
+        <dx:ASPxSpinEdit runat="server" ID="seOrderIndex" Width="200"  Property="CategoryModel.OrderIndex"></dx:ASPxSpinEdit>
+    </li>
+</ul>
+<ul>
+    <li>
+        <ce:Label runat="server">Category Icon</ce:Label>
+    </li>
     <li>
         <asp:FileUpload runat="server" Width="200" ID="fuImage" Property="CategoryModel.Image" />
-
     </li>
 </ul>
+
+

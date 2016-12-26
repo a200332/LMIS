@@ -28,6 +28,7 @@ namespace Lmis.Portal.Web.Converters.EntityToModel
             target.OrderIndex = source.OrderIndex;
             target.FileName = source.FileName;
             target.FileData = (source.FileData != null ? source.FileData.ToArray() : null);
+            target.Image = (source.Image != null ? source.Image.ToArray() : null);
         }
     }
 }

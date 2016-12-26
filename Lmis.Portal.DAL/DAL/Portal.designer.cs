@@ -501,6 +501,8 @@ namespace Lmis.Portal.DAL.DAL
 		
 		private System.Nullable<int> _OrderIndex;
 		
+		private string _Language;
+		
 		private EntitySet<LP_Category> _Children;
 		
 		private EntitySet<LP_Report> _Reports;
@@ -529,6 +531,8 @@ namespace Lmis.Portal.DAL.DAL
     partial void OnNumberChanged();
     partial void OnOrderIndexChanging(System.Nullable<int> value);
     partial void OnOrderIndexChanged();
+    partial void OnLanguageChanging(string value);
+    partial void OnLanguageChanged();
     #endregion
 		
 		public LP_Category()
@@ -663,7 +667,7 @@ namespace Lmis.Portal.DAL.DAL
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Image", DbType="VarBinary(MAX)", CanBeNull=true, UpdateCheck=UpdateCheck.Never)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Image", DbType="VarBinary(MAX)", UpdateCheck=UpdateCheck.Never)]
 		public System.Data.Linq.Binary Image
 		{
 			get
@@ -719,6 +723,26 @@ namespace Lmis.Portal.DAL.DAL
 					this._OrderIndex = value;
 					this.SendPropertyChanged("OrderIndex");
 					this.OnOrderIndexChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Language", DbType="NVarChar(50)", UpdateCheck=UpdateCheck.Never)]
+		public string Language
+		{
+			get
+			{
+				return this._Language;
+			}
+			set
+			{
+				if ((this._Language != value))
+				{
+					this.OnLanguageChanging(value);
+					this.SendPropertyChanging();
+					this._Language = value;
+					this.SendPropertyChanged("Language");
+					this.OnLanguageChanged();
 				}
 			}
 		}
@@ -1228,7 +1252,7 @@ namespace Lmis.Portal.DAL.DAL
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RawData", DbType="Xml", CanBeNull=true, UpdateCheck=UpdateCheck.Never)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RawData", DbType="Xml", UpdateCheck=UpdateCheck.Never)]
 		public System.Xml.Linq.XElement RawData
 		{
 			get
@@ -1513,6 +1537,8 @@ namespace Lmis.Portal.DAL.DAL
 		
 		private string _Type;
 		
+		private string _GeneralType;
+		
 		private EntityRef<LP_Logic> _Logic;
 		
 		private EntityRef<LP_Report> _Report;
@@ -1537,6 +1563,8 @@ namespace Lmis.Portal.DAL.DAL
     partial void OnConfigXmlChanged();
     partial void OnTypeChanging(string value);
     partial void OnTypeChanged();
+    partial void OnGeneralTypeChanging(string value);
+    partial void OnGeneralTypeChanged();
     #endregion
 		
 		public LP_ReportLogic()
@@ -1674,7 +1702,7 @@ namespace Lmis.Portal.DAL.DAL
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ConfigXml", DbType="XML", CanBeNull=true, UpdateCheck=UpdateCheck.Never)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ConfigXml", DbType="XML", UpdateCheck=UpdateCheck.Never)]
 		public System.Xml.Linq.XElement ConfigXml
 		{
 			get
@@ -1710,6 +1738,26 @@ namespace Lmis.Portal.DAL.DAL
 					this._Type = value;
 					this.SendPropertyChanged("Type");
 					this.OnTypeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_GeneralType", DbType="NVarChar(50)", UpdateCheck=UpdateCheck.Never)]
+		public string GeneralType
+		{
+			get
+			{
+				return this._GeneralType;
+			}
+			set
+			{
+				if ((this._GeneralType != value))
+				{
+					this.OnGeneralTypeChanging(value);
+					this.SendPropertyChanging();
+					this._GeneralType = value;
+					this.SendPropertyChanged("GeneralType");
+					this.OnGeneralTypeChanged();
 				}
 			}
 		}
@@ -2511,7 +2559,7 @@ namespace Lmis.Portal.DAL.DAL
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Image", DbType="VarBinary(MAX)", CanBeNull=true, UpdateCheck=UpdateCheck.Never)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Image", DbType="VarBinary(MAX)", UpdateCheck=UpdateCheck.Never)]
 		public System.Data.Linq.Binary Image
 		{
 			get
@@ -3182,7 +3230,7 @@ namespace Lmis.Portal.DAL.DAL
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Attachment", DbType="VarBinary(MAX)", CanBeNull=true, UpdateCheck=UpdateCheck.Never)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Attachment", DbType="VarBinary(MAX)", UpdateCheck=UpdateCheck.Never)]
 		public System.Data.Linq.Binary Attachment
 		{
 			get
@@ -3202,7 +3250,7 @@ namespace Lmis.Portal.DAL.DAL
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Image", DbType="VarBinary(MAX)", CanBeNull=true, UpdateCheck=UpdateCheck.Never)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Image", DbType="VarBinary(MAX)", UpdateCheck=UpdateCheck.Never)]
 		public System.Data.Linq.Binary Image
 		{
 			get
@@ -3311,6 +3359,8 @@ namespace Lmis.Portal.DAL.DAL
 		
 		private System.Nullable<System.Guid> _ParentID;
 		
+		private System.Data.Linq.Binary _Image;
+		
 		private EntitySet<LP_Legislation> _Children;
 		
 		private EntityRef<LP_Legislation> _Parent;
@@ -3341,6 +3391,8 @@ namespace Lmis.Portal.DAL.DAL
     partial void OnFileNameChanged();
     partial void OnParentIDChanging(System.Nullable<System.Guid> value);
     partial void OnParentIDChanged();
+    partial void OnImageChanging(System.Data.Linq.Binary value);
+    partial void OnImageChanged();
     #endregion
 		
 		public LP_Legislation()
@@ -3410,7 +3462,7 @@ namespace Lmis.Portal.DAL.DAL
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FileData", DbType="VarBinary(MAX)", CanBeNull=true, UpdateCheck=UpdateCheck.Never)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FileData", DbType="VarBinary(MAX)", UpdateCheck=UpdateCheck.Never)]
 		public System.Data.Linq.Binary FileData
 		{
 			get
@@ -3574,6 +3626,26 @@ namespace Lmis.Portal.DAL.DAL
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Image", DbType="VarBinary(MAX)", UpdateCheck=UpdateCheck.Never)]
+		public System.Data.Linq.Binary Image
+		{
+			get
+			{
+				return this._Image;
+			}
+			set
+			{
+				if ((this._Image != value))
+				{
+					this.OnImageChanging(value);
+					this.SendPropertyChanging();
+					this._Image = value;
+					this.SendPropertyChanged("Image");
+					this.OnImageChanged();
+				}
+			}
+		}
+		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="LP_Legislation_LP_Legislation", Storage="_Children", ThisKey="ID", OtherKey="ParentID")]
 		public EntitySet<LP_Legislation> Children
 		{
@@ -3682,6 +3754,8 @@ namespace Lmis.Portal.DAL.DAL
 		
 		private System.Nullable<System.Guid> _ParentID;
 		
+		private System.Data.Linq.Binary _Image;
+		
 		private EntitySet<LP_Project> _Parent;
 		
 		private EntityRef<LP_Project> _Children;
@@ -3712,6 +3786,8 @@ namespace Lmis.Portal.DAL.DAL
     partial void OnFileNameChanged();
     partial void OnParentIDChanging(System.Nullable<System.Guid> value);
     partial void OnParentIDChanged();
+    partial void OnImageChanging(System.Data.Linq.Binary value);
+    partial void OnImageChanged();
     #endregion
 		
 		public LP_Project()
@@ -3781,7 +3857,7 @@ namespace Lmis.Portal.DAL.DAL
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FileData", DbType="VarBinary(MAX)", CanBeNull=true, UpdateCheck=UpdateCheck.Never)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FileData", DbType="VarBinary(MAX)", UpdateCheck=UpdateCheck.Never)]
 		public System.Data.Linq.Binary FileData
 		{
 			get
@@ -3945,6 +4021,26 @@ namespace Lmis.Portal.DAL.DAL
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Image", DbType="VarBinary(MAX)", UpdateCheck=UpdateCheck.Never)]
+		public System.Data.Linq.Binary Image
+		{
+			get
+			{
+				return this._Image;
+			}
+			set
+			{
+				if ((this._Image != value))
+				{
+					this.OnImageChanging(value);
+					this.SendPropertyChanging();
+					this._Image = value;
+					this.SendPropertyChanged("Image");
+					this.OnImageChanged();
+				}
+			}
+		}
+		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="LP_Project_LP_Project", Storage="_Parent", ThisKey="ID", OtherKey="ParentID")]
 		public EntitySet<LP_Project> Parent
 		{
@@ -4053,6 +4149,10 @@ namespace Lmis.Portal.DAL.DAL
 		
 		private System.Nullable<System.Guid> _ParentID;
 		
+		private string _Url;
+		
+		private System.Data.Linq.Binary _Image;
+		
 		private EntitySet<LP_Survey> _Children;
 		
 		private EntityRef<LP_Survey> _Parent;
@@ -4083,6 +4183,10 @@ namespace Lmis.Portal.DAL.DAL
     partial void OnFileNameChanged();
     partial void OnParentIDChanging(System.Nullable<System.Guid> value);
     partial void OnParentIDChanged();
+    partial void OnUrlChanging(string value);
+    partial void OnUrlChanged();
+    partial void OnImageChanging(System.Data.Linq.Binary value);
+    partial void OnImageChanged();
     #endregion
 		
 		public LP_Survey()
@@ -4152,7 +4256,7 @@ namespace Lmis.Portal.DAL.DAL
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FileData", DbType="VarBinary(MAX)", CanBeNull=true, UpdateCheck=UpdateCheck.Never)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FileData", DbType="VarBinary(MAX)", UpdateCheck=UpdateCheck.Never)]
 		public System.Data.Linq.Binary FileData
 		{
 			get
@@ -4312,6 +4416,46 @@ namespace Lmis.Portal.DAL.DAL
 					this._ParentID = value;
 					this.SendPropertyChanged("ParentID");
 					this.OnParentIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Url", DbType="NVarChar(400)", UpdateCheck=UpdateCheck.Never)]
+		public string Url
+		{
+			get
+			{
+				return this._Url;
+			}
+			set
+			{
+				if ((this._Url != value))
+				{
+					this.OnUrlChanging(value);
+					this.SendPropertyChanging();
+					this._Url = value;
+					this.SendPropertyChanged("Url");
+					this.OnUrlChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Image", DbType="VarBinary(MAX)", UpdateCheck=UpdateCheck.Never)]
+		public System.Data.Linq.Binary Image
+		{
+			get
+			{
+				return this._Image;
+			}
+			set
+			{
+				if ((this._Image != value))
+				{
+					this.OnImageChanging(value);
+					this.SendPropertyChanging();
+					this._Image = value;
+					this.SendPropertyChanged("Image");
+					this.OnImageChanged();
 				}
 			}
 		}
@@ -4561,7 +4705,7 @@ namespace Lmis.Portal.DAL.DAL
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Image", DbType="varbinary(MAX)", CanBeNull=true, UpdateCheck=UpdateCheck.Never)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Image", DbType="varbinary(MAX)", UpdateCheck=UpdateCheck.Never)]
 		public System.Data.Linq.Binary Image
 		{
 			get
@@ -4581,7 +4725,7 @@ namespace Lmis.Portal.DAL.DAL
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Attachment", DbType="varbinary(MAX)", CanBeNull=true, UpdateCheck=UpdateCheck.Never)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Attachment", DbType="varbinary(MAX)", UpdateCheck=UpdateCheck.Never)]
 		public System.Data.Linq.Binary Attachment
 		{
 			get
@@ -5095,6 +5239,8 @@ namespace Lmis.Portal.DAL.DAL
 		
 		private string _Language;
 		
+		private System.Data.Linq.Binary _Image;
+		
 		private EntitySet<LP_Career> _Parent;
 		
 		private EntityRef<LP_Career> _Children;
@@ -5123,6 +5269,8 @@ namespace Lmis.Portal.DAL.DAL
     partial void OnOrderIndexChanged();
     partial void OnLanguageChanging(string value);
     partial void OnLanguageChanged();
+    partial void OnImageChanging(System.Data.Linq.Binary value);
+    partial void OnImageChanged();
     #endregion
 		
 		public LP_Career()
@@ -5332,6 +5480,26 @@ namespace Lmis.Portal.DAL.DAL
 					this._Language = value;
 					this.SendPropertyChanged("Language");
 					this.OnLanguageChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Image", DbType="VarBinary(MAX)", UpdateCheck=UpdateCheck.Never)]
+		public System.Data.Linq.Binary Image
+		{
+			get
+			{
+				return this._Image;
+			}
+			set
+			{
+				if ((this._Image != value))
+				{
+					this.OnImageChanging(value);
+					this.SendPropertyChanging();
+					this._Image = value;
+					this.SendPropertyChanged("Image");
+					this.OnImageChanged();
 				}
 			}
 		}

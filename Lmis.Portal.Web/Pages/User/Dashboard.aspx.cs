@@ -49,15 +49,19 @@ namespace Lmis.Portal.Web.Pages.User
 
         protected void FillCategories()
         {
+            var currentLanguage = LanguageUtil.GetLanguage();
+
             var converter = new CategoryEntityModelConverter(DataContext);
 
-            var entities = (from n in DataContext.LP_Categories
-                            where n.DateDeleted == null
-                            select n).ToList();
+            var allEntitiesLp = (from n in DataContext.LP_Categories
+                                 where n.DateDeleted == null && (n.Language == currentLanguage || n.Language == null || n.Language == "")
+                                 select n).ToLookup(n => n.ParentID);
 
-            CategoryUtil.Sort(entities);
+            var entitiesList = CategoryUtil.GetAllCategories(null, allEntitiesLp).ToList();
 
-            var models = entities.Select(n => converter.Convert(n)).ToList();
+            CategoryUtil.Sort(entitiesList);
+
+            var models = entitiesList.Select(n => converter.Convert(n)).ToList();
 
             var categoriesModel = new CategoriesModel { List = models };
             categoriesControl.Model = categoriesModel;

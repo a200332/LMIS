@@ -23,11 +23,12 @@ namespace Lmis.Portal.Web.Converters.EntityToModel
 		public override void FillObject(TableModel target, LP_Table source)
 		{
 			target.ID = source.ID;
-			target.Name = source.Name;
+			target.Name = source.Name.Trim();
             target.Status = source.Status;
             target.Columns = new List<ColumnModel>();
 
-			FillColumns(target.Columns, source.Columns);
+		    var columns = source.Columns.Where(n => n.DateDeleted == null);
+            FillColumns(target.Columns, columns);
 		}
 
 		public void FillColumns(List<ColumnModel> models, IEnumerable<LP_Column> entities)
@@ -43,8 +44,8 @@ namespace Lmis.Portal.Web.Converters.EntityToModel
 		public void FillColumn(ColumnModel model, LP_Column entity)
 		{
 			model.ID = entity.ID;
-			model.Name = entity.Name;
-			model.Type = entity.Type;
+			model.Name = entity.Name.Trim();
+            model.Type = entity.Type;
 			model.TableID = entity.TableID;
 		}
 	}

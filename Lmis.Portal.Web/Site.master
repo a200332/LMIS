@@ -13,136 +13,151 @@
     </asp:ContentPlaceHolder>
 </head>
 <body class="horizontal-center">
-    <form id="form1" runat="server">
-        <asp:ScriptManager ID="ScriptManager1" runat="server">
-            <Scripts>
-                <asp:ScriptReference Path="~/Scripts/jquery-1.9.1.min.js" />
-                <asp:ScriptReference Path="~/Scripts/jquery.cookie.js" />
-                <asp:ScriptReference Path="~/Scripts/jquery.bxslider.js" />
-                <asp:ScriptReference Path="~/Scripts/jquery.signalR-2.2.1.min.js" />
-                <asp:ScriptReference Path="~/signalr/hubs" />
-            </Scripts>
-        </asp:ScriptManager>
-        <script type="text/javascript">
-            $('.bxslider').bxSlider({
-                video: true,
-                useCSS: false
-            });
-
-
-            $('.bxslider').bxSlider({
-                auto: false,
-                autoControls: false
-            });
-
-            $(document).ready(function () {
-                $('.mainlink').bxSlider({
-                    slideWidth: 754,
-                    minSlides: 4,
-                    maxSlides: 4,
-                    moveSlides: 1,
-                    slideMargin: 10
+    <div style="min-height: 100%; position: relative;">
+        <form id="form1" runat="server">
+            <asp:ScriptManager ID="ScriptManager1" runat="server">
+                <Scripts>
+                    <asp:ScriptReference Path="~/Scripts/jquery-1.9.1.min.js" />
+                    <asp:ScriptReference Path="~/Scripts/jquery.cookie.js" />
+                    <asp:ScriptReference Path="~/Scripts/jquery.bxslider.js" />
+                    <asp:ScriptReference Path="~/Scripts/jquery.signalR-2.2.1.min.js" />
+                    <asp:ScriptReference Path="~/signalr/hubs" />
+                </Scripts>
+            </asp:ScriptManager>
+            <script type="text/javascript">
+                $('.bxslider').bxSlider({
+                    video: true,
+                    useCSS: false
                 });
 
 
-                $('.hide').hide();
-                $(".chat-b").click(function () {
-                    $("#chat-body").toggle();
+                $('.bxslider').bxSlider({
+                    auto: false,
+                    autoControls: false
                 });
 
-                $("#small").click(function (event) {
-                    event.preventDefault();
+                $(document).ready(function () {
+                    $('.mainlink').bxSlider({
+                        slideWidth: 754,
+                        minSlides: 4,
+                        maxSlides: 4,
+                        moveSlides: 1,
+                        slideMargin: 10
+                    });
 
-                    //კლასით პოვნა
-                    $("#content").find(".coming-soon").animate({ "font-size": "12px" });
-                    $("#content").find(".dxtlControl a").animate({ "font-size": "12px" });
-                    $("#content").find(".book-title").animate({ "font-size": "12px" });
+
+                    $('.hide').hide();
+                    $(".chat-b").click(function () {
+                        $("#chat-body").toggle();
+                    });
+
+                    $("#small").click(function (event) {
+                        event.preventDefault();
+
+                        //კლასით პოვნა
+                        $("#content").find(".coming-soon").animate({ "font-size": "12px" });
+                        $("#content").find(".dxtlControl a").animate({ "font-size": "12px" });
+                        $("#content").find(".book-title").animate({ "font-size": "12px" });
+                        $("#content").find("p").animate({ "font-size": "13px" });
+                        $("#content").find(".news-title").animate({ "font-size": "13px" });
 
 
-                    $("#content").find("h1").animate({ "font-size": "12px" });
-                    $("#content").find("h2").animate({ "font-size": "14px" });
-                    $("#content").find("p").animate({ "font-size": "12px", "line-height": "16px" });
+                        $("#content").find("h1").animate({ "font-size": "12px" });
+                        $("#content").find("h2").animate({ "font-size": "14px" });
+                        $("#spmenu").find("p").animate({ "font-size": "20px", "line-height": "16px" });
+                        $("#ContentPlaceHolder1_pnlSpecData").find("p").animate({ "font-size": "20px", "line-height": "16px" });
 
+                    });
+
+                    $("#medium").click(function (event) {
+                        event.preventDefault();
+
+                        //კლასით პოვნა
+                        $("#content").find(".coming-soon").animate({ "font-size": "14px" });
+                        $("#content").find(".dxtlControl a").animate({ "font-size": "14px" });
+                        $("#content").find(".book-title").animate({ "font-size": "14px" });
+                        $("#content").find("p").animate({ "font-size": "15px" });
+                        $("#content").find(".news-title").animate({ "font-size": "15px" });
+
+                        $("#content").find("h1").animate({ "font-size": "14px" });
+                        $("#content").find("h2").animate({ "font-size": "16px" });
+                        $("#spmenu").find("p").animate({ "font-size": "28px", "line-height": "20px" });
+                        $("#ContentPlaceHolder1_pnlSpecData").find("p").animate({ "font-size": "28px", "line-height": "20px" });
+
+                    });
+
+                    $("#large").click(function (event) {
+                        event.preventDefault();
+                        //კლასით პოვნა
+                        $("#content").find(".coming-soon").animate({ "font-size": "16px" });
+                        $("#content").find(".dxtlControl a").animate({ "font-size": "16px" });
+                        $("#content").find(".book-title").animate({ "font-size": "16px" });
+                        $("#content").find("p").animate({ "font-size": "16px" });
+                        $("#content").find(".news-title").animate({ "font-size": "16px" });
+
+                        $("#content").find("h1").animate({ "font-size": "16px" });
+                        $("#content").find("h2").animate({ "font-size": "18px" });
+                        $("#spmenu").find("p").animate({ "font-size": "36px", "line-height": "20px" });
+                        $("#ContentPlaceHolder1_pnlSpecData").find("p").animate({ "font-size": "36px", "line-height": "20px" });
+
+                    });
+
+                    $("#larger").click(function (event) {
+                        event.preventDefault();
+
+                        //კლასით პოვნა
+                        $("#content").find(".coming-soon").animate({ "font-size": "18px" });
+                        $("#content").find(".dxtlControl a").animate({ "font-size": "18px" });
+                        $("#content").find(".book-title").animate({ "font-size": "18px" });
+                        $("#content").find("p").animate({ "font-size": "18px" });
+                        $("#content").find(".news-title").animate({ "font-size": "18px" });
+
+                        $("#content").find("h1").animate({ "font-size": "18px" });
+                        $("#content").find("h2").animate({ "font-size": "20px" });
+                        $("#spmenu").find("p").animate({ "font-size": "44px", "line-height": "20px" });
+                        $("#ContentPlaceHolder1_pnlSpecData").find("p").animate({ "font-size": "44px", "line-height": "20px" });
+                        
+
+                    });
                 });
 
-                $("#medium").click(function (event) {
-                    event.preventDefault();
+                function listenSelected() {
+                    var text = getSelectionText();
+                    if (text == "" || text == null) {
+                        return false;
+                    }
 
-                    //კლასით პოვნა
-                    $("#content").find(".coming-soon").animate({ "font-size": "14px" });
-                    $("#content").find(".dxtlControl a").animate({ "font-size": "14px" });
-                    $("#content").find(".book-title").animate({ "font-size": "14px" });
-
-                    $("#content").find("h1").animate({ "font-size": "14px" });
-                    $("#content").find("h2").animate({ "font-size": "16px" });
-                    $("#content").find("p").animate({ "font-size": "14px", "line-height": "20px" });
-
-                });
-
-                $("#large").click(function (event) {
-                    event.preventDefault();
-                    //კლასით პოვნა
-                    $("#content").find(".coming-soon").animate({ "font-size": "16px" });
-                    $("#content").find(".dxtlControl a").animate({ "font-size": "16px" });
-                    $("#content").find(".book-title").animate({ "font-size": "16px" });
-
-                    $("#content").find("h1").animate({ "font-size": "16px" });
-                    $("#content").find("h2").animate({ "font-size": "18px" });
-                    $("#content").find("p").animate({ "font-size": "16px", "line-height": "20px" });
-
-                });
-
-                $("#larger").click(function (event) {
-                    event.preventDefault();
-
-                    //კლასით პოვნა
-                    $("#content").find(".coming-soon").animate({ "font-size": "18px" });
-                    $("#content").find(".dxtlControl a").animate({ "font-size": "18px" });
-                    $("#content").find(".book-title").animate({ "font-size": "18px" });
-
-                    $("#content").find("h1").animate({ "font-size": "18px" });
-                    $("#content").find("h2").animate({ "font-size": "20px" });
-                    $("#content").find("p").animate({ "font-size": "18px", "line-height": "20px" });
-
-                });
-            });
-
-            function listenSelected() {
-                var text = getSelectionText();
-                if (text == "" || text == null) {
-                    return false;
+                    var audio = document.getElementById("listenAudio");
+                    if (audio != null) {
+                        var url = "http://api.naturalreaders.com/v2/tts/?r=0&s=0&t=" + encodeURIComponent(text);
+                        audio.src = url;
+                        audio.play();
+                    }
                 }
 
-                var audio = document.getElementById("listenAudio");
-                if (audio != null) {
-                    var url = "http://api.naturalreaders.com/v2/tts/?r=0&s=0&t=" + encodeURIComponent(text);
-                    audio.src = url;
-                    audio.play();
-                }
-            }
+                function getSelectionText() {
+                    var text = "";
 
-            function getSelectionText() {
-                var text = "";
+                    if (window.getSelection) {
+                        text = window.getSelection().toString();
+                    } else if (document.selection && document.selection.type != "Control") {
+                        text = document.selection.createRange().text;
+                    }
 
-                if (window.getSelection) {
-                    text = window.getSelection().toString();
-                } else if (document.selection && document.selection.type != "Control") {
-                    text = document.selection.createRange().text;
+                    return text;
                 }
 
-                return text;
-            }
+                function showHide(showElement, hideElement) {
+                    var showElementId = '#' + showElement;
+                    var hideElementId = '#' + hideElement;
 
-            function showHide(showElement, hideElement) {
-                var showElementId = '#' + showElement;
-                var hideElementId = '#' + hideElement;
+                    $(hideElementId).hide();
+                    $(showElementId).show();
+                }
 
-                $(hideElementId).hide();
-                $(showElementId).show();
-            }
-        </script>
-        <audio id="listenAudio" src="" style="display: none;"></audio>
-        <div id="wrapper">
+
+            </script>
+            <audio id="listenAudio" src="" style="display: none;"></audio>
 
             <header id="header">
                 <div class="top-bg">
@@ -209,7 +224,7 @@
                         <%--	<div class="header-title">
 							Plan The Future
 						</div>--%>
-                        <div class="left" style="margin: 10px 10px 15px 10px;">
+                        <div class="left" style="width: 200px; height: 50px; margin: 10px 10px 15px 10px;">
                             <asp:Image ImageUrl="~/App_Themes/Default/images/logo.png" runat="server" ID="imgLogo" />
                         </div>
 
@@ -236,7 +251,7 @@
                             <asp:HyperLink runat="server" CssClass="mcolor" NavigateUrl="~/Pages/User/Careers.aspx"><ce:Label runat="server">Career</ce:Label></asp:HyperLink>
                         </li>
                         <li>
-                            <asp:HyperLink runat="server" CssClass="mcolor" NavigateUrl="~/Pages/User/Surveys.aspx"><ce:Label runat="server">Reports</ce:Label></asp:HyperLink>
+                            <asp:HyperLink runat="server" CssClass="mcolor" NavigateUrl="~/Pages/User/Surveys.aspx"><ce:Label runat="server">Surveys</ce:Label></asp:HyperLink>
                         </li>
                         <li>
                             <asp:HyperLink runat="server" CssClass="mcolor" NavigateUrl="~/Pages/User/Projects.aspx"><ce:Label runat="server">Programs</ce:Label></asp:HyperLink>
@@ -264,7 +279,7 @@
                         <lmis:MainLinksControl runat="server" ID="mainLinksControl" />
                     </div>
                     <div class="bottom-geo">
-                        <asp:HyperLink runat="server" ID="lnkGeorgiaInNumbers" Target="_blank" NavigateUrl="#">
+                        <asp:HyperLink runat="server" ID="lnkGeorgiaInNumbers" NavigateUrl="~/Pages/User/GeorgiaInNumbers.aspx">
                             <asp:Image runat="server" ImageUrl="~/App_Themes/Default/images/bn-geo.png"/>
                             <ce:Label CssClass="bn-geot1" runat="server">Georgia</ce:Label>
                             <ce:Label CssClass="bn-geot2" runat="server"> in Numbers</ce:Label>
@@ -273,18 +288,26 @@
                 </div>
             </div>
 
-            <div id="footer">
+            <footer id="footer">
                 <div class="footer">
                     <ul>
                         <li class="left">
                             <asp:Image runat="server" ImageUrl="~/App_Themes/Default/images/f-logo.png" ID="imgFLogo" /></li>
+                        <li class="left" style="padding: 20px 40px 0 40px;">
+                            <!-- TOP.GE ASYNC COUNTER CODE -->
+                            <div id="top-ge-counter-container" data-site-id="106908"></div>
+                            <script async src="//counter.top.ge/counter.js"></script>
+                            <!-- / END OF TOP.GE COUNTER CODE -->
+                        </li>
                         <li class="right copyright">
                             <ce:Label runat="server">© 2016  All rights reserved</ce:Label></li>
                     </ul>
                 </div>
-            </div>
-        </div>
-    </form>
+            </footer>
 
+            <div>
+            </div>
+        </form>
+    </div>
 </body>
 </html>

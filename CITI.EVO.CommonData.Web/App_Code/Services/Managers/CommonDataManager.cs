@@ -6,6 +6,7 @@ using CITI.EVO.CommonData.Svc.Contracts;
 using CITI.EVO.CommonData.Svc.Enums;
 using CITI.EVO.CommonData.Web.Caches;
 using CITI.EVO.CommonData.Web.Extensions;
+using CITI.EVO.Tools.Utils;
 
 namespace CITI.EVO.CommonData.Web.Services.Managers
 {
@@ -41,7 +42,7 @@ namespace CITI.EVO.CommonData.Web.Services.Managers
 
 		public static List<AreaContract> GetAreasByCode(int code, RecordTypesEnum recordType)
 		{
-			using (var db = new CommonDataDataContext())
+			using (var db = DcFactory.Create<CommonDataDataContext>())
 			{
 				var areasQuery = from t in db.CD_Areas
 								 let areaType = t.AreaType
@@ -74,7 +75,7 @@ namespace CITI.EVO.CommonData.Web.Services.Managers
 
 		public static AreaContract GetAreaByCode(String code)
 		{
-			using (var db = new CommonDataDataContext())
+			using (var db = DcFactory.Create<CommonDataDataContext>())
 			{
 				if (String.IsNullOrEmpty(code))
 				{
@@ -96,7 +97,7 @@ namespace CITI.EVO.CommonData.Web.Services.Managers
 
 		public static List<AreaContract> GetChildAreas(Guid ParentID)
 		{
-			using (var db = new CommonDataDataContext())
+			using (var db = DcFactory.Create<CommonDataDataContext>())
 			{
 				var childAreas = (from a in db.CD_Areas
 								  where a.ParentID == ParentID
@@ -109,7 +110,7 @@ namespace CITI.EVO.CommonData.Web.Services.Managers
 
 		public static AreaContract GetAreaByID(Guid Id)
 		{
-			using (var db = new CommonDataDataContext())
+			using (var db = DcFactory.Create<CommonDataDataContext>())
 			{
 				var area = (from a in db.CD_Areas
 							where a.ID == Id
@@ -122,7 +123,7 @@ namespace CITI.EVO.CommonData.Web.Services.Managers
 
 		public static List<MobileIndexesContract> GetAllMobileIndexes()
 		{
-			using (var db = new CommonDataDataContext())
+			using (var db = DcFactory.Create<CommonDataDataContext>())
 			{
 				var mobileIndexes = (from i in db.CD_MobileIndexes
 									 where i.DateDeleted == null
@@ -140,7 +141,7 @@ namespace CITI.EVO.CommonData.Web.Services.Managers
 				return null;
 			}
 
-			using (var db = new CommonDataDataContext())
+			using (var db = DcFactory.Create<CommonDataDataContext>())
 			{
 				var mobileIndex = (from i in db.CD_MobileIndexes
 								   where i.ID == ID && i.DateDeleted == null

@@ -62,12 +62,15 @@ namespace Lmis.Portal.Web.Pages.Management
         {
             var converter = new CategoryEntityModelConverter(DataContext);
 
-            var entities = (from n in DataContext.LP_Categories
-                            where n.DateDeleted == null
-                            orderby n.OrderIndex, n.DateCreated
-                            select n).ToList();
+            var allEntitiesLp = (from n in DataContext.LP_Categories
+                                 where n.DateDeleted == null
+                                 select n).ToLookup(n => n.ParentID);
 
-            var models = entities.Select(n => converter.Convert(n)).ToList();
+            var entitiesList = CategoryUtil.GetAllCategories(null, allEntitiesLp).ToList();
+
+            CategoryUtil.Sort(entitiesList);
+
+            var models = entitiesList.Select(n => converter.Convert(n)).ToList();
 
             var categoriesModel = new CategoriesModel { List = models };
             categoriesControl.Model = categoriesModel;

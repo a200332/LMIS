@@ -26,16 +26,20 @@
                 <td>
                     <div class="left" style="width: 740px;">
                         <div>
-                            <table>
-                                <tr>
-                                    <td>
-                                        <lmis:ReportUnitsControl runat="server" ID="reportUnitsControl1" ChartWidth="350" ChartHeight="300" />
-                                    </td>
-                                    <td>
-                                        <lmis:ReportUnitsControl runat="server" ID="reportUnitsControl2" ChartWidth="350" ChartHeight="300" />
-                                    </td>
-                                </tr>
-                            </table>
+                            <div>
+                                <div>
+                                    <table>
+                                        <tr>
+                                            <td style="vertical-align: top;">
+                                                <lmis:ReportUnitsControl runat="server" ID="reportUnitsControl1" ChartWidth="350" ChartHeight="300" />
+                                            </td>
+                                            <td style="vertical-align: top;">
+                                                <lmis:ReportUnitsControl runat="server" ID="reportUnitsControl2" ChartWidth="350" ChartHeight="300" />
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </td>

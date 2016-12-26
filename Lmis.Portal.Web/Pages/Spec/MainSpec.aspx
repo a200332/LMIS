@@ -7,15 +7,10 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
     <asp:Panel runat="server" ID="pnlSpecCategories">
-        <lmis:CategoriesControl runat="server" ID="categoriesControl" />
+        <lmis:CategoriesControl  runat="server" ID="categoriesControl" />
     </asp:Panel>
     <asp:Panel runat="server" ID="pnlSpecData">
         <lmis:SpecControl runat="server" ID="specControl" />
-    </asp:Panel>
-    <asp:Panel runat="server" ID="pnlBack">
-        <a href="javascript:window.history.back();">
-            <ce:Label runat="server" Text="Back" />
-        </a>
     </asp:Panel>
 </asp:Content>
 

@@ -35,7 +35,7 @@ public class GetFile : IHttpHandler
 
         var itemType = request["Type"];
 
-        using (var db = new PortalDataContext())
+        using (var db = DcFactory.Create<PortalDataContext>())
         {
             switch (itemType)
             {

@@ -139,6 +139,7 @@
     <Compile Include="Helpers\BoyerMoore.cs" />
     <Compile Include="Helpers\BulkCopyCallback.cs" />
     <Compile Include="Helpers\AnonymousObject.cs" />
+    <Compile Include="Helpers\PredicateBuilder.cs" />
     <Compile Include="Helpers\DefaultTranslatable.cs" />
     <Compile Include="Helpers\ConcurrencyHelper.cs" />
     <Compile Include="Helpers\DateDifference.cs" />

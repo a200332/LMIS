@@ -36,15 +36,10 @@ namespace Lmis.Portal.Web
         {
             btLogin.Visible = !UmUtil.Instance.IsLogged;
             btLogout.Visible = UmUtil.Instance.IsLogged;
+
             liAdmin.Visible = (UmUtil.Instance.IsLogged && UmUtil.Instance.CurrentUser.IsSuperAdmin);
 
             btTranslationMode.Visible = (UmUtil.Instance.IsLogged && UmUtil.Instance.CurrentUser.IsSuperAdmin);
-
-            var georgiaInNumbersID = GetGeorgiaInNumbersID();
-            if (georgiaInNumbersID != null)
-                lnkGeorgiaInNumbers.NavigateUrl = String.Format("~/Handlers/GetFile.ashx?Type=Content&ID={0}", GetGeorgiaInNumbersID());
-            else
-                lnkGeorgiaInNumbers.NavigateUrl = "#";
 
             foreach (var childLink in GetCurrentUrlLinks(this))
             {
@@ -60,22 +55,6 @@ namespace Lmis.Portal.Web
             var keyword = Request["Keyword"];
             if (!String.IsNullOrWhiteSpace(keyword))
                 tbxSearch.Text = keyword;
-        }
-
-        private Guid? GetGeorgiaInNumbersID()
-        {
-            var currentLanguage = LanguageUtil.GetLanguage();
-
-            var entity = (from n in DataContext.LP_Contents
-                          where n.DateDeleted == null && n.Type == "GeorgiaInNumbers" && (n.Language == currentLanguage || n.Language == null || n.Language == "")
-                          select n).FirstOrDefault();
-
-            if (entity != null)
-            {
-                return entity.ID;
-            }
-
-            return null;
         }
 
         protected void btEngLang_Click(object sender, EventArgs e)

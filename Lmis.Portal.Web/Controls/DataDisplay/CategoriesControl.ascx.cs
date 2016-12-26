@@ -6,6 +6,7 @@ using CITI.EVO.Tools.Helpers;
 using CITI.EVO.Tools.Utils;
 using DevExpress.Web.ASPxTreeList;
 using DevExpress.Web.ASPxTreeList.Internal;
+using Lmis.Portal.DAL.DAL;
 using Lmis.Portal.Web.Bases;
 using Lmis.Portal.Web.Models;
 
@@ -17,6 +18,24 @@ namespace Lmis.Portal.Web.Controls.DataDisplay
         {
             get { return Convert.ToString(ViewState["TargetUrl"]); }
             set { ViewState["TargetUrl"] = value; }
+        }
+
+        private ILookup<Guid?, LP_Category> _allCategories;
+        protected ILookup<Guid?, LP_Category> AllCategories
+        {
+            get
+            {
+                if (_allCategories == null)
+                {
+                    var query = (from n in DataContext.LP_Categories
+                                 where n.DateDeleted == null
+                                 select n);
+
+                    _allCategories = query.ToLookup(n => n.ParentID);
+                }
+
+                return _allCategories;
+            }
         }
 
         protected void Page_Load(object sender, EventArgs e)
@@ -98,22 +117,16 @@ namespace Lmis.Portal.Web.Controls.DataDisplay
             var name = Convert.ToString(templateDataItem.Row.GetValue("Name"));
             var number = Convert.ToString(templateDataItem.Row.GetValue("Number"));
 
-            var defTranslatable = new DefaultTranslatable(name);
-            var result = defTranslatable.Text;
-
             if (!String.IsNullOrWhiteSpace(number))
-                result = String.Format("{0} - {1}", number, result);
+                name = String.Format("{0} - {1}", number, name);
 
-            if (result.Length > 30)
+            if (name.Length > 30)
             {
-                var trimed = result.Substring(0, 27);
-                result = String.Format("{0}...", trimed);
+                var trimed = name.Substring(0, 27);
+                name = String.Format("{0}...", trimed);
             }
 
-            if (!String.IsNullOrWhiteSpace(defTranslatable.Link))
-                result = String.Format("{0}{1}", result, defTranslatable.Link);
-
-            return result;
+            return name;
         }
 
         protected String GetFullName(object dataItem)
@@ -125,22 +138,20 @@ namespace Lmis.Portal.Web.Controls.DataDisplay
             var name = Convert.ToString(templateDataItem.Row.GetValue("Name"));
             var number = Convert.ToString(templateDataItem.Row.GetValue("Number"));
 
-            var defTranslatable = new DefaultTranslatable(name);
-            var result = defTranslatable.Text;
-
             if (!String.IsNullOrWhiteSpace(number))
-                result = String.Format("{0} - {1}", number, result);
+                name = String.Format("{0} - {1}", number, name);
 
-            if (String.IsNullOrWhiteSpace(defTranslatable.Link))
-                result = String.Format("{0}{1}", result, defTranslatable.Link);
-
-            return result;
+            return name;
         }
 
         protected bool GetLinkVisible(object eval)
         {
             var id = DataConverter.ToNullableGuid(eval);
             if (id == null)
+                return true;
+
+            var count = AllCategories[id].Count();
+            if (count > 0)
                 return false;
 
             return true;
@@ -150,6 +161,10 @@ namespace Lmis.Portal.Web.Controls.DataDisplay
         {
             var id = DataConverter.ToNullableGuid(eval);
             if (id == null)
+                return false;
+
+            var count = AllCategories[id].Count();
+            if (count > 0)
                 return true;
 
             return false;

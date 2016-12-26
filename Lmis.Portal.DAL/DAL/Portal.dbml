@@ -23,6 +23,7 @@
       <Column Name="Image" Type="System.Data.Linq.Binary" DbType="VarBinary(MAX)" CanBeNull="true" UpdateCheck="Never" />
       <Column Name="Number" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" UpdateCheck="Never" />
       <Column Name="OrderIndex" Type="System.Int32" DbType="INT" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="Language" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" UpdateCheck="Never" />
       <Association Name="LP_Category_LP_Category" Member="Children" ThisKey="ID" OtherKey="ParentID" Type="LP_Category" />
       <Association Name="LP_Category_LP_Report" Member="Reports" ThisKey="ID" OtherKey="CategoryID" Type="LP_Report" />
       <Association Name="LP_Category_LP_Category" Member="Parent" ThisKey="ParentID" OtherKey="ID" Type="LP_Category" IsForeignKey="true" />
@@ -68,6 +69,7 @@
       <Column Name="DateDeleted" Type="System.DateTime" DbType="DateTime" CanBeNull="true" UpdateCheck="Never" />
       <Column Name="ConfigXml" Type="System.Xml.Linq.XElement" DbType="XML" CanBeNull="true" UpdateCheck="Never" />
       <Column Name="Type" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="GeneralType" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" UpdateCheck="Never" />
       <Association Name="LP_Logic_LP_ReportLogic" Member="Logic" ThisKey="LogicID" OtherKey="ID" Type="LP_Logic" IsForeignKey="true" />
       <Association Name="LP_Report_LP_ReportLogic" Member="Report" ThisKey="ReportID" OtherKey="ID" Type="LP_Report" IsForeignKey="true" />
     </Type>
@@ -157,6 +159,7 @@
       <Column Name="OrderIndex" Type="System.Int32" DbType="INT" CanBeNull="true" UpdateCheck="Never" />
       <Column Name="FileName" Type="System.String" DbType="NVarChar(400)" CanBeNull="true" UpdateCheck="Never" />
       <Column Name="ParentID" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="Image" Type="System.Data.Linq.Binary" DbType="VarBinary(MAX)" CanBeNull="true" UpdateCheck="Never" />
       <Association Name="LP_Legislation_LP_Legislation" Member="Children" ThisKey="ID" OtherKey="ParentID" Type="LP_Legislation" />
       <Association Name="LP_Legislation_LP_Legislation" Member="Parent" ThisKey="ParentID" OtherKey="ID" Type="LP_Legislation" IsForeignKey="true" />
     </Type>
@@ -174,6 +177,7 @@
       <Column Name="DateDeleted" Type="System.DateTime" DbType="DateTime" CanBeNull="true" UpdateCheck="Never" />
       <Column Name="FileName" Type="System.String" DbType="NVarChar(400)" CanBeNull="true" UpdateCheck="Never" />
       <Column Name="ParentID" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="Image" Type="System.Data.Linq.Binary" DbType="VarBinary(MAX)" CanBeNull="true" UpdateCheck="Never" />
       <Association Name="LP_Project_LP_Project" Member="Parent" ThisKey="ID" OtherKey="ParentID" Type="LP_Project" />
       <Association Name="LP_Project_LP_Project" Member="Children" ThisKey="ParentID" OtherKey="ID" Type="LP_Project" IsForeignKey="true" />
     </Type>
@@ -191,6 +195,8 @@
       <Column Name="DateDeleted" Type="System.DateTime" DbType="DateTime" CanBeNull="true" UpdateCheck="Never" />
       <Column Name="FileName" Type="System.String" DbType="NVarChar(400)" CanBeNull="true" UpdateCheck="Never" />
       <Column Name="ParentID" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="Url" Type="System.String" DbType="NVarChar(400)" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="Image" Type="System.Data.Linq.Binary" DbType="VarBinary(MAX)" CanBeNull="true" UpdateCheck="Never" />
       <Association Name="LP_Survey_LP_Survey" Member="Children" ThisKey="ID" OtherKey="ParentID" Type="LP_Survey" />
       <Association Name="LP_Survey_LP_Survey" Member="Parent" ThisKey="ParentID" OtherKey="ID" Type="LP_Survey" IsForeignKey="true" />
     </Type>
@@ -239,6 +245,7 @@
       <Column Name="Url" Type="System.String" DbType="NVarChar(400)" CanBeNull="true" UpdateCheck="Never" />
       <Column Name="OrderIndex" Type="System.Int32" DbType="int" CanBeNull="true" UpdateCheck="Never" />
       <Column Name="Language" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="Image" Type="System.Data.Linq.Binary" DbType="VarBinary(MAX)" CanBeNull="true" UpdateCheck="Never" />
       <Association Name="LP_Career_LP_Career" Member="Parent" ThisKey="ID" OtherKey="ParentID" Type="LP_Career" />
       <Association Name="LP_Career_LP_Career" Member="Children" ThisKey="ParentID" OtherKey="ID" Type="LP_Career" IsForeignKey="true" />
     </Type>

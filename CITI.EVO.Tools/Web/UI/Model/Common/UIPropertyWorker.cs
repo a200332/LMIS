@@ -402,14 +402,51 @@ namespace CITI.EVO.Tools.Web.UI.Model.Common
 			_itemProperty.SetValue(collection, realValue, _paramValues);
 		}
 
+
+		private Object GetPropertyParameter(PropertyInfo propertyInfo)
+		{
+			var indexParams = propertyInfo.GetIndexParameters();
+			if (indexParams.Length > 1)
+			{
+				var declaringType = propertyInfo.DeclaringType;
+
+				var message = String.Format("To many indexer parameters of property '{0}.{1}'", declaringType.FullName, propertyInfo.Name);
+				throw new Exception(message);
+			}
+
+			if (indexParams.Length > 0)
+			{
+				var indexParam = indexParams[0];
+				if (indexParam.ParameterType != typeof(int) && indexParam.ParameterType != typeof(String))
+				{
+					var declaringType = propertyInfo.DeclaringType;
+
+					var message = String.Format("Indexer parameter should be int or String type '{0}.{1}'", declaringType.FullName, propertyInfo.Name);
+					throw new Exception(message);
+				}
+
+				return ConvertValue(_propertyParams, indexParam.ParameterType);
+			}
+
+			return null;
+		}
+
+		private Type GetPropertyDataType(String dataTypeAttributeValue)
+		{
+			if (String.IsNullOrWhiteSpace(dataTypeAttributeValue))
+			{
+				return _propertyInfo.PropertyType;
+			}
+
+			var type = Type.GetType(dataTypeAttributeValue);
+			return type;
+		}
+
 		private Object GetControlValue(Control control, Type type)
 		{
 			var controlType = control.GetType();
 
 			var getter = UIPropertyMapping.GetGetter(controlType);
-
-
-
 			if (getter != null)
 			{
 				return getter(control, type);
@@ -518,6 +555,7 @@ namespace CITI.EVO.Tools.Web.UI.Model.Common
 
             throw new Exception("Unable to detect control value");
 		}
+
 		private Object ConvertValue(Object value, Type type)
 		{
 			var converterFunc = UIPropertyMapping.GetConverter(type);
@@ -574,45 +612,6 @@ namespace CITI.EVO.Tools.Web.UI.Model.Common
 
 			var unableConvertErrorText = String.Format("Unable to convert value [{0} - {1}] to type [{2}]", value, value.GetType(), type);
 			throw new Exception(unableConvertErrorText);
-		}
-
-		private Object GetPropertyParameter(PropertyInfo propertyInfo)
-		{
-			var indexParams = propertyInfo.GetIndexParameters();
-			if (indexParams.Length > 1)
-			{
-				var declaringType = propertyInfo.DeclaringType;
-
-				var message = String.Format("To many indexer parameters of property '{0}.{1}'", declaringType.FullName, propertyInfo.Name);
-				throw new Exception(message);
-			}
-
-			if (indexParams.Length > 0)
-			{
-				var indexParam = indexParams[0];
-				if (indexParam.ParameterType != typeof(int) && indexParam.ParameterType != typeof(String))
-				{
-					var declaringType = propertyInfo.DeclaringType;
-
-					var message = String.Format("Indexer parameter should be int or String type '{0}.{1}'", declaringType.FullName, propertyInfo.Name);
-					throw new Exception(message);
-				}
-
-				return ConvertValue(_propertyParams, indexParam.ParameterType);
-			}
-
-			return null;
-		}
-
-		private Type GetPropertyDataType(String dataTypeAttributeValue)
-		{
-			if (String.IsNullOrWhiteSpace(dataTypeAttributeValue))
-			{
-				return _propertyInfo.PropertyType;
-			}
-
-			var type = Type.GetType(dataTypeAttributeValue);
-			return type;
 		}
 
 		private bool IsMetaDataContainer(Type type)

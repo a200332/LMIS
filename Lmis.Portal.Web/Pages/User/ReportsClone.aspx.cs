@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.UI.WebControls;
+using CITI.EVO.Tools.Helpers;
 using CITI.EVO.Tools.Utils;
 using Lmis.Portal.Web.Bases;
 using Lmis.Portal.Web.Converters.EntityToModel;
 using Lmis.Portal.Web.Entites;
 using Lmis.Portal.Web.Models;
+using Lmis.Portal.Web.Utils;
 
 namespace Lmis.Portal.Web.Pages.User
 {
@@ -60,14 +62,19 @@ namespace Lmis.Portal.Web.Pages.User
 
         protected void FillCategories()
         {
+            var currentLanguage = LanguageUtil.GetLanguage();
+
             var converter = new CategoryEntityModelConverter(DataContext);
 
-            var entities = (from n in DataContext.LP_Categories
-                            where n.DateDeleted == null
-                            orderby n.OrderIndex, n.DateCreated
-                            select n).ToList();
+            var allEntitiesLp = (from n in DataContext.LP_Categories
+                                 where n.DateDeleted == null && (n.Language == currentLanguage || n.Language == null || n.Language == "")
+                                 select n).ToLookup(n => n.ParentID);
 
-            var models = entities.Select(n => converter.Convert(n)).ToList();
+            var entitiesList = CategoryUtil.GetAllCategories(null, allEntitiesLp).ToList();
+
+            CategoryUtil.Sort(entitiesList);
+
+            var models = entitiesList.Select(n => converter.Convert(n)).ToList();
 
             var categoriesModel = new CategoriesModel { List = models };
             categoriesControl.Model = categoriesModel;
@@ -75,7 +82,17 @@ namespace Lmis.Portal.Web.Pages.User
 
         protected void FillReportsTree()
         {
-            var categories = (from n in DataContext.LP_Categories
+            var currentLanguage = LanguageUtil.GetLanguage();
+
+            var allEntitiesLp = (from n in DataContext.LP_Categories
+                                 where n.DateDeleted == null && (n.Language == currentLanguage || n.Language == null || n.Language == "")
+                                 select n).ToLookup(n => n.ParentID);
+
+            var entitiesList = CategoryUtil.GetAllCategories(null, allEntitiesLp).ToList();
+
+            CategoryUtil.Sort(entitiesList);
+
+            var categories = (from n in entitiesList
                               where n.DateDeleted == null
                               orderby n.OrderIndex, n.Number, n.DateCreated
                               select new ParentChildEntity
@@ -87,7 +104,7 @@ namespace Lmis.Portal.Web.Pages.User
                               }).ToList();
 
             var reports = (from n in DataContext.LP_Reports
-                           where n.DateDeleted == null
+                           where n.DateDeleted == null && (n.Language == currentLanguage || n.Language == null || n.Language == "")
                            select new ParentChildEntity
                            {
                                ID = n.ID,
@@ -116,6 +133,8 @@ namespace Lmis.Portal.Web.Pages.User
 
                 tvReports.Nodes.Add(node);
             }
+
+            tvReports.CollapseAll();
         }
 
         protected void FillNode(TreeNode parentNode, Guid? parentID, ILookup<Guid?, ParentChildEntity> lookup)

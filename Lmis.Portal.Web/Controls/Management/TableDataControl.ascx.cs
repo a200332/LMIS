@@ -184,7 +184,7 @@ namespace Lmis.Portal.Web.Controls.Management
             var tableModel = Model.Table;
             var logicModel = Model.Logic;
 
-            var tableName = String.Format("#{0}", tableModel.Name);
+            var tableName = String.Format("#{0}", tableModel.Name.Trim());
 
             var dataSet = ExcelUtil.ConvertToDataSet(fuImport.FileBytes);
             var dataTable = dataSet.Tables[tableName];
@@ -206,20 +206,25 @@ namespace Lmis.Portal.Web.Controls.Management
                     {
                         foreach (var columnModel in tableModel.Columns)
                         {
-                            var columnName = queryGen.AllColumns[columnModel.Name];
+                            var columnName = queryGen.AllColumns[columnModel.Name.Trim()];
                             var paramName = queryGen.AllColumnsParams[columnName];
                             var dbType = queryGen.DbTypes[columnName];
 
-                            var param = command.Parameters.Add(paramName, dbType);
+                            var param = command.CreateParameter();
+                            param.ParameterName = paramName;
+                            param.SqlDbType = dbType;
+                            param.IsNullable = true;
+
+                            command.Parameters.Add(param);
                         }
 
                         foreach (DataRow dataRow in dataTable.Rows)
                         {
                             foreach (var columnModel in tableModel.Columns)
                             {
-                                var dataColumnName = String.Format("#{0}", columnModel.Name);
+                                var dataColumnName = String.Format("#{0}", columnModel.Name.Trim());
 
-                                var columnName = queryGen.AllColumns[columnModel.Name];
+                                var columnName = queryGen.AllColumns[columnModel.Name.Trim()];
                                 var columnValue = dataRow[dataColumnName];
 
                                 var paramName = queryGen.AllColumnsParams[columnName];

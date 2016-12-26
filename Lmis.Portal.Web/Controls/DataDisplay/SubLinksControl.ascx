@@ -4,10 +4,8 @@
         <ItemTemplate>
             <tr>
                 <td>
-                    <a class="book" href='<%# Eval("Url") %>' target="blanck">
-                        <div class="book-title" style="float: left;">
-                            <asp:Image Width="40px" Height="40px" runat="server" ImageUrl='<%# GetImageUrl(Eval("ID")) %>' />
-                        </div>
+                    <a class="link-img" href='<%# Eval("Url") %>' target="blanck">
+                        <asp:Image Width="40px" Height="40px" runat="server" ImageUrl='<%# GetImageUrl(Eval("ID")) %>' />
                     </a>
                 </td>
                 <td>
@@ -23,7 +21,6 @@
                     </a>
                 </td>
             </tr>
-            <%--<div class="clear"></div>--%>
         </ItemTemplate>
     </asp:Repeater>
 </table>

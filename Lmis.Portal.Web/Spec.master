@@ -1,20 +1,144 @@
-﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="Spec.master.cs" Inherits="Spec" %>
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="Spec.master.cs" Inherits="Lmis.Portal.Web.Spec" %>
 
 <!DOCTYPE html>
 
 <html>
 <head runat="server">
     <title></title>
-    <asp:ContentPlaceHolder id="head" runat="server">
+    <asp:ContentPlaceHolder ID="head" runat="server">
     </asp:ContentPlaceHolder>
 </head>
-<body>
+<body class="horizontal-center">
+
     <form id="form1" runat="server">
-    <div>
-        <asp:ContentPlaceHolder id="ContentPlaceHolder1" runat="server">
-        
-        </asp:ContentPlaceHolder>
-    </div>
+        <asp:ScriptManager ID="ScriptManager1" runat="server">
+            <Scripts>
+                <asp:ScriptReference Path="~/Scripts/jquery-1.9.1.min.js" />
+                <asp:ScriptReference Path="~/Scripts/jquery.cookie.js" />
+                <asp:ScriptReference Path="~/Scripts/jquery.bxslider.js" />
+                <asp:ScriptReference Path="~/Scripts/jquery.signalR-2.2.1.min.js" />
+                <asp:ScriptReference Path="~/signalr/hubs" />
+            </Scripts>
+        </asp:ScriptManager>
+        <script type="text/javascript">
+            /*
+            function listenSelected(text) {
+                if (text == "" || text == null) {
+                    return false;
+                }
+
+                var audio = document.getElementById("listenAudio");
+                if (audio != null) {
+                    var url = "http://api.naturalreaders.com/v2/tts/?r=0&s=0&t=" + encodeURIComponent(text);
+                    audio.src = url;
+                    audio.play();
+                }
+            }
+            */
+
+            $(document).ready(function () {
+                //$(".listenOnFocus").focus(function (event) {
+                //    event.preventDefault();
+
+                //    var text = $(event.target).text();
+                //    listenSelected(text);
+                //});
+
+                $("#small").click(function (event) {
+                    event.preventDefault();
+
+                    $("#content").find(".spmenuBlock").animate({ "font-size": "48px" });
+                    $("#content").find("p").animate({ "font-size": "14px", "line-height": "20px" });
+                });
+
+                $("#medium").click(function (event) {
+                    event.preventDefault();
+
+                    $("#content").find(".spmenuBlock").animate({ "font-size": "52px" });
+                    $("#content").find("p").animate({ "font-size": "14px", "line-height": "20px" });
+                });
+
+                $("#large").click(function (event) {
+                    event.preventDefault();
+
+                    $("#content").find(".spmenuBlock").animate({ "font-size": "58px" });
+                    $("#content").find("p").animate({ "font-size": "16px", "line-height": "20px" });
+                });
+
+                $("#larger").click(function (event) {
+                    event.preventDefault();
+
+                    $("#content").find(".spmenuBlock").animate({ "font-size": "62px" });
+                    $("#content").find("p").animate({ "font-size": "18px", "line-height": "20px" });
+                });
+            });
+        </script>
+
+        <audio id="listenAudio" src="" style="display: none;"></audio>
+        <div id="wrapper">
+            <header id="header">
+                <div class="top-bg">
+                    <nav class="top ">
+
+                        <div style="float: left; margin-left: 15px; width: 150px;">
+                            <div id="textsizer-classnames">
+                                <ul class="textresizer" id="text-resizer-controls">
+                                    <li><a tabindex="1" href="#nogo" id="small" class="small-text listenOnFocus" title="Small">
+                                        <ce:Label runat="server">A</ce:Label></a></li>
+                                    <li><a tabindex="2" href="#nogo" id="medium" class="medium-text listenOnFocus" title="Medium">
+                                        <ce:Label runat="server">A</ce:Label></a></li>
+                                    <li><a tabindex="3" href="#nogo" id="large" class="large-text listenOnFocus" title="Large">
+                                        <ce:Label runat="server">A</ce:Label></a></li>
+                                    <li><a tabindex="4" href="#nogo" id="larger" class="larger-text listenOnFocus" title="Larger">
+                                        <ce:Label runat="server">A</ce:Label></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="left hotline">
+
+                            <ce:Label TabIndex="5" runat="server">Hotline: 1505</ce:Label>
+                        </div>
+                        <div class="top-right">
+                            <ul>
+                                <li>
+                                    <ce:ImageLinkButton runat="server" TabIndex="6" ID="btEngLang">English</ce:ImageLinkButton></li>
+                                <li>|</li>
+                                <li>
+                                    <ce:ImageLinkButton runat="server" TabIndex="7" ID="btGeoLang">Georgian</ce:ImageLinkButton></li>
+                                <li class="language"></li>
+
+                            </ul>
+                        </div>
+                    </nav>
+                </div>
+
+            </header>
+            <div id="content">
+                <div class="spcontent">
+                    <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+                    </asp:ContentPlaceHolder>
+                </div>
+            </div>
+
+            <div id="footer" style="position: fixed;">
+                <div class="footer">
+                    <div class="left" style="padding-left: 350px;">
+                        <asp:Panel runat="server" ID="pnlBack">
+                            <a href="javascript:window.history.back();" tabindex="10000">
+                                <ce:Label runat="server" CssClass="back" Text="< Back" />
+                            </a>
+                        </asp:Panel>
+                    </div>
+                    <div class="right" style="padding: 20px 40px 0 40px;">
+                        <!-- TOP.GE ASYNC COUNTER CODE -->
+                        <div id="top-ge-counter-container" data-site-id="106908"></div>
+                        <script async src="//counter.top.ge/counter.js"></script>
+                        <!-- / END OF TOP.GE COUNTER CODE -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </form>
 </body>
 </html>

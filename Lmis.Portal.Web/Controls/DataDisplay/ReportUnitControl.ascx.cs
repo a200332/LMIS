@@ -40,6 +40,10 @@ namespace Lmis.Portal.Web.Controls.DataDisplay
 
         protected void Page_PreRender(object sender, EventArgs e)
         {
+            dvData.Style["width"] = String.Format("{0}px", ChartWidth.Value + 20);
+            dvData.Style["height"] = String.Format("{0}px", ChartHeight.Value + 100);
+
+            dvData.Style["overflow"] = "auto";
         }
 
         protected void mainChart_OnDataBound(object sender, EventArgs e)
@@ -119,6 +123,26 @@ namespace Lmis.Portal.Web.Controls.DataDisplay
             dvInformationSource.InnerHtml = unitModel.InformationSource;
             trInformationSource.Visible = !String.IsNullOrWhiteSpace(unitModel.InformationSource);
 
+            try
+            {
+                pnlError.Visible = false;
+                pnlMainGrid.Visible = true;
+                pnlChartImage.Visible = true;
+
+                BindUnitData(unitModel);
+            }
+            catch (Exception ex)
+            {
+                pnlError.Visible = true;
+                pnlMainGrid.Visible = false;
+                pnlChartImage.Visible = false;
+
+                lblError.Text = Convert.ToString(ex);
+            }
+        }
+
+        protected void BindUnitData(ReportUnitModel unitModel)
+        {
             var entities = ReportUnitHelper.GetQueries(unitModel, DataContext);
 
             if (unitModel.Type == "Grid")
@@ -129,7 +153,9 @@ namespace Lmis.Portal.Web.Controls.DataDisplay
 
                 var entiry = entities.FirstOrDefault();
                 if (entiry != null)
+                {
                     BindGridData(entiry);
+                }
             }
             else
             {

@@ -1,7 +1,7 @@
 ﻿using log4net;
 using log4net.Config;
 
-namespace CITI.EVO.CommonData.Web.Helpers
+namespace CITI.EVO.CommonData.Web.Utils
 {
 	/// <summary>
 	/// Summary description for LogUtil

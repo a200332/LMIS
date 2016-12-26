@@ -24,7 +24,8 @@
                 <div class="popup_fieldset">
 
                     <div class="popup-title">
-                        <ce:Label runat="server">Category</ce:Label></div>
+                        <ce:Label runat="server">Category</ce:Label>
+                    </div>
                     <div class="title_separator"></div>
                     <div class="box">
                         <ce:RadioButtonList runat="server" ID="rbType" OnSelectedIndexChanged="rbType_OnSelectedIndexChanged" AutoPostBack="True" RepeatDirection="Horizontal">
@@ -33,10 +34,10 @@
                                 <asp:ListItem Text="Data" Value="Data" />
                             </Items>
                         </ce:RadioButtonList>
-
-                        <lmis:SpecCategoryControl runat="server" ID="specCategoryControl" Visible="True" />
-                        <lmis:SpecDataControl runat="server" ID="specDataControl" Visible="False" />
                     </div>
+                    <lmis:SpecCategoryControl runat="server" ID="specCategoryControl" Visible="True" />
+                    <lmis:SpecDataControl runat="server" ID="specDataControl" Visible="False" />
+
                 </div>
                 <div class="fieldsetforicons">
                     <div class="left" style="margin-right: 10px;">

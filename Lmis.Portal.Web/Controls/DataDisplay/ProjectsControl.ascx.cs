@@ -24,7 +24,7 @@ namespace Lmis.Portal.Web.Controls.DataDisplay
 
         protected Object GetTargetUrl(Object obj)
         {
-            var model = obj as LegislationModel;
+            var model = obj as ProjectModel;
             if (model == null)
                 return "#";
 
@@ -40,9 +40,15 @@ namespace Lmis.Portal.Web.Controls.DataDisplay
             }
         }
 
+        protected String GetImageUrl(object eval)
+        {
+            var url = String.Format("~/Handlers/GetImage.ashx?Type=Project&ID={0}", eval);
+            return url;
+        }
+
         protected Object GetTarget(Object obj)
         {
-            var model = obj as LegislationModel;
+            var model = obj as ProjectModel;
             if (model != null && model.FileData != null)
             {
                 return "_blank";

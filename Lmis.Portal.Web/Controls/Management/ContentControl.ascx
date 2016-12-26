@@ -2,18 +2,20 @@
 <%@ Register Src="~/Controls/Common/HiddenFieldValueControl.ascx" TagPrefix="lmis" TagName="HiddenFieldValueControl" %>
 
 <lmis:HiddenFieldValueControl runat="server" ID="hdID" Property="SurveyModel.ID" />
+<ul>
+    <li>
+        <ce:Label runat="server">Title</ce:Label>
+    </li>
+    <li>
+        <asp:TextBox runat="server" ID="tbxTitle" Width="200" Property="ContentModel.Title" />
+    </li>
+</ul>
+<ul>
+    <li>
+        <ce:Label runat="server">File</ce:Label>
+    </li>
+    <li>
+        <asp:FileUpload runat="server" Width="200" ID="fuFileData" Property="ContentModel.Attachment" />
+    </li>
+</ul>
 
-<table>
-    <tr>
-        <td>
-            <ce:Label runat="server">Title</ce:Label></td>
-        <td>
-            <asp:TextBox runat="server" ID="tbxTitle" Property="ContentModel.Title" /></td>
-    </tr>
-    <tr>
-        <td>
-            <ce:Label runat="server">File</ce:Label></td>
-        <td>
-            <asp:FileUpload runat="server" ID="fuFileData" Property="ContentModel.Attachment" /></td>
-    </tr>
-</table>

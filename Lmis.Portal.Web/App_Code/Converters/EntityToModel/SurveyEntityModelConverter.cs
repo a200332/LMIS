@@ -21,6 +21,8 @@ namespace Lmis.Portal.Web.Converters.EntityToModel
         public override void FillObject(SurveyModel target, LP_Survey source)
         {
             target.ID = source.ID;
+            target.ParentID = source.ParentID;
+            target.Url = source.Url;
             target.Title = source.Title;
             target.Description = source.Description;
             target.Language = source.Language;

@@ -7,7 +7,34 @@
         <ce:ImageLinkButton runat="server" DefaultImageUrl="~/App_Themes/Default/Images/save.png" ID="btnSave" ToolTip="დამატება" OnClick="btnSave_OnClick" />
     </div>
     <div>
-        <asp:FileUpload runat="server" ID="fuAttachment" />
+        <dx:ASPxHtmlEditor ID="htmlEditor" runat="server" ActiveView="Design" Width="800px" Height="500px">
+            <SettingsHtmlEditing AllowScripts="True"
+                AllowIFrames="True"
+                AllowFormElements="True"
+                AllowIdAttributes="True"
+                AllowedDocumentType="Both"
+                AllowStyleAttributes="False"
+                AllowEditFullDocument="True"
+                AllowHTML5MediaElements="True"
+                AllowYouTubeVideoIFrames="True"
+                AllowObjectAndEmbedElements="True" />
+            <Settings AllowHtmlView="True" AllowInsertDirectImageUrls="True" AllowContextMenu="True" AllowScriptExecutionInPreview="True" />
+            <SettingsResize AllowResize="True" />
+            <SettingsDialogs>
+                <InsertAudioDialog>
+                    <SettingsAudioUpload UploadFolder="~/DxUploads" />
+                </InsertAudioDialog>
+                <InsertFlashDialog>
+                    <SettingsFlashUpload UploadFolder="~/DxUploads" />
+                </InsertFlashDialog>
+                <InsertImageDialog>
+                    <SettingsImageUpload UploadFolder="~/DxUploads" />
+                </InsertImageDialog>
+                <InsertVideoDialog>
+                    <SettingsVideoUpload UploadFolder="~/DxUploads" />
+                </InsertVideoDialog>
+            </SettingsDialogs>
+        </dx:ASPxHtmlEditor>
     </div>
 </asp:Content>
 

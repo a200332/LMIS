@@ -2,14 +2,14 @@
 <%@ Register Src="~/Controls/Common/HiddenFieldValueControl.ascx" TagPrefix="lmis" TagName="HiddenFieldValueControl" %>
 
 <lmis:HiddenFieldValueControl runat="server" ID="hdID" Property="ReportLogicModel.ID" />
+<lmis:HiddenFieldValueControl runat="server" ID="hdType" Property="ReportLogicModel.Type" />
 
 <ul runat="server" id="trChartType">
-
     <li>
         <ce:Label runat="server">Type</ce:Label>
     </li>
     <li>
-        <dx:ASPxComboBox runat="server" ID="cbxType" Property="ReportLogicModel.Type" Width="180"  ValueType="System.String">
+        <dx:ASPxComboBox runat="server" ID="cbxType" Width="180"  ValueType="System.String">
             <Items>
                 <dx:ListEditItem Text="Line" Value="Line" />
                 <dx:ListEditItem Text="Point" Value="Point" />
