@@ -34,6 +34,7 @@ namespace Lmis.Portal.Web.Converters.ModelToEntity
             target.ParentID = source.ParentID;
             target.OrderIndex = source.OrderIndex;
             target.Url = source.Url;
+            target.Number = source.Number;
 
             if (!source.Image.IsNullOrEmpty())
                 target.Image = source.Image;

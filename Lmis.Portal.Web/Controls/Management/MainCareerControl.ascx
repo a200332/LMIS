@@ -22,6 +22,14 @@
 </ul>
 <ul>
     <li>
+        <ce:Label runat="server">Number</ce:Label>
+    </li>
+    <li>
+        <asp:TextBox runat="server" Width="200" ID="tbxNumber" Property="CareerModel.Number" />
+    </li>
+</ul>
+<ul>
+    <li>
         <ce:Label runat="server">Order Index</ce:Label>
     </li>
     <li>

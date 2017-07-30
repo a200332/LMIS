@@ -4,9 +4,9 @@
 <%@ Register Src="~/Controls/DataDisplay/ReportUnitControl.ascx" TagPrefix="lmis" TagName="ReportUnitControl" %>
 
 <asp:Repeater runat="server" ID="rpReports">
-	<ItemTemplate>
-		<div>
-			<lmis:ReportUnitControl runat="server" ID="reportUnitControl" Model='<%# GetReportUnitModel(Container.DataItem) %>' ChartWidth='<%# ChartWidth %>' ChartHeight='<%# ChartHeight %>' />
-		</div>
-	</ItemTemplate>
+    <ItemTemplate>
+        <div>
+            <lmis:ReportUnitControl runat="server" ID="reportUnitControl" Model='<%# GetReportUnitModel(Container.DataItem) %>' ChartWidth='<%# ChartWidth %>' ChartHeight='<%# ChartHeight %>' ChartCssClass='<%# ChartCssClass %>' />
+        </div>
+    </ItemTemplate>
 </asp:Repeater>

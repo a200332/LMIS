@@ -22,5 +22,7 @@ namespace Lmis.Portal.Web.Models
         public String FileName { get; set; }
 
         public byte[] Image { get; set; }
+
+        public String Number { get; set; }
     }
 }

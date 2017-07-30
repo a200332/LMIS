@@ -92,11 +92,13 @@
                         </div>
                         <div class="top-right">
                             <ul>
-                                <li>
-                                    <ce:ImageLinkButton runat="server" ID="btEngLang" OnClick="btEngLang_Click">English</ce:ImageLinkButton></li>
-                                <li>|</li>
-                                <li>
-                                    <ce:ImageLinkButton runat="server" ID="btGeoLang" OnClick="btGeoLang_Click">Georgian</ce:ImageLinkButton></li>
+                                <li style="padding-top: 8px;">
+                                    <ce:ImageLinkButton runat="server" ID="btEngLang" OnClick="btEngLang_Click" ImageKey="lang_eng"></ce:ImageLinkButton>
+                                </li>
+                             
+                                <li style="padding-top: 8px;">
+                                    <ce:ImageLinkButton runat="server" ID="btGeoLang" OnClick="btGeoLang_Click" ImageKey="lang_geo"></ce:ImageLinkButton>
+                                </li>
                                 <li class="language"></li>
                                 <%--<li>
                                     <asp:Image ImageUrl="~/App_Themes/Default/images/top-right.png" runat="server" /></li>
@@ -166,6 +168,9 @@
                             <asp:HyperLink runat="server" CssClass="mcolor" NavigateUrl="~/Pages/Management/SurveysList.aspx"><ce:Label runat="server">Surveys</ce:Label></asp:HyperLink>
                         </li>
                         <li>
+                            <asp:HyperLink runat="server" CssClass="mcolor" NavigateUrl="~/Pages/Management/UserReportsList.aspx"><ce:Label runat="server">Reports</ce:Label></asp:HyperLink>
+                        </li>
+                        <li>
                             <asp:HyperLink runat="server" CssClass="mcolor" NavigateUrl="~/Pages/Management/NewsList.aspx"><ce:Label runat="server">News</ce:Label></asp:HyperLink>
                         </li>
                         <li>
@@ -173,9 +178,6 @@
                         </li>
                         <li>
                             <asp:HyperLink runat="server" CssClass="mcolor" NavigateUrl="~/Pages/Management/ContactUs.aspx"><ce:Label runat="server">Contact Us</ce:Label></asp:HyperLink>
-                        </li>
-                        <li>
-                            <asp:HyperLink runat="server" CssClass="mcolor" NavigateUrl="~/Pages/Management/GeorgiaInNumbers.aspx"><ce:Label runat="server">Georgia In Numbers</ce:Label></asp:HyperLink>
                         </li>
                         <li>
                             <asp:HyperLink runat="server" CssClass="mcolor" NavigateUrl="~/Pages/Management/SpecsList.aspx"><ce:Label runat="server">Specials</ce:Label></asp:HyperLink>
@@ -186,6 +188,9 @@
                         <li>
                             <asp:HyperLink runat="server" CssClass="mcolor" NavigateUrl="~/Pages/Management/CareersList.aspx"><ce:Label runat="server">Careers</ce:Label></asp:HyperLink>
                         </li>
+                        <li>
+                            <asp:HyperLink runat="server" CssClass="mcolor" NavigateUrl="~/Pages/Management/GeorgiaInNumbers.aspx"><ce:Label runat="server">Georgia In Numbers</ce:Label></asp:HyperLink>
+                        </li>
                     </ul>
                 </div>
             </header>
@@ -195,11 +200,6 @@
                     </asp:ContentPlaceHolder>
                 </div>
             </section>
-
-            <%--<hmis:AdministratorChatControl runat="server" ID="ceAdministratorChatControl" />
-            <div class="chat-b">
-                <asp:Image ImageUrl="~/App_Themes/Default/images/chat.png" runat="server" />
-            </div>--%>
             <footer id="footer">
                 <div class="footer">
                     <ul>

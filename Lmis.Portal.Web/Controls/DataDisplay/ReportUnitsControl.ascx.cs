@@ -28,6 +28,12 @@ namespace Lmis.Portal.Web.Controls.DataDisplay
             set { ViewState["ChartHeight"] = value; }
         }
 
+        public String ChartCssClass
+        {
+            get { return Convert.ToString(ViewState["ChartCssClass"]); }
+            set { ViewState["ChartCssClass"] = value; }
+        }
+
         protected void Page_Load(object sender, EventArgs e)
         {
         }

@@ -44,6 +44,9 @@ namespace Lmis.Portal.Web
 
             imgLogo.ImageUrl = String.Format("~/App_Themes/Default/images/logo_{0}.png", LanguageUtil.GetLanguage());
             imgFLogo.ImageUrl = String.Format("~/App_Themes/Default/images/f-logo_{0}.png", LanguageUtil.GetLanguage());
+
+            btEngLang.Enabled = LanguageUtil.GetLanguage() != "en-US";
+            btGeoLang.Enabled = LanguageUtil.GetLanguage() != "ka-GE";
         }
 
         protected void btEngLang_Click(object sender, EventArgs e)

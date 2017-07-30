@@ -6,7 +6,6 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
-
     <div style="border-left: 1px solid #e5e5e5; display: table;">
         <table>
             <tr>

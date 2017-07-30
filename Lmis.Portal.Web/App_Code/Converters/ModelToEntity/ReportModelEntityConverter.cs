@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Xml.Linq;
 using Lmis.Portal.DAL.DAL;
 using Lmis.Portal.Web.Converters.Common;
 using Lmis.Portal.Web.Models;
@@ -33,6 +31,7 @@ namespace Lmis.Portal.Web.Converters.ModelToEntity
             target.Type = source.Type;
             target.Public = source.Public;
             target.Language = source.Language;
+            target.XLabelAngle = source.XLabelAngle;
             target.CategoryID = source.CategoryID.Value;
             target.Description = source.Description;
             target.Interpretation = source.Interpretation;
@@ -48,62 +47,6 @@ namespace Lmis.Portal.Web.Converters.ModelToEntity
                 var query = source.ReportLogics.List.Select(n => converter.Convert(n));
                 target.ReportLogics.AddRange(query);
             }
-        }
-    }
-
-    public class ReportLogicModelEntityConverter : SingleModelConverterBase<ReportLogicModel, LP_ReportLogic>
-    {
-        public ReportLogicModelEntityConverter(PortalDataContext dbContext) : base(dbContext)
-        {
-        }
-
-        public override LP_ReportLogic Convert(ReportLogicModel source)
-        {
-            var entity = new LP_ReportLogic
-            {
-                ID = Guid.NewGuid(),
-                DateCreated = DateTime.Now,
-            };
-
-            FillObject(entity, source);
-
-            return entity;
-        }
-
-        public override void FillObject(LP_ReportLogic target, ReportLogicModel source)
-        {
-            target.Type = source.Type;
-            target.LogicID = source.Logic.ID;
-            target.ConfigXml = ConvertBindings(source.Bindings);
-        }
-
-        private XElement ConvertBindings(BindingInfosModel model)
-        {
-            if (model == null || model.List == null)
-                return null;
-
-            return ConvertBindings(model.List);
-        }
-
-        private XElement ConvertBindings(IEnumerable<BindingInfoModel> collection)
-        {
-            var rootXElem = new XElement("Bindings");
-
-            foreach (var bindingModel in collection)
-            {
-                var bindingXElem = new XElement
-                    (
-                        "Binding",
-                        new XElement("ID", bindingModel.ID),
-                        new XElement("Target", bindingModel.Target),
-                        new XElement("Source", bindingModel.Source),
-                        new XElement("Caption", bindingModel.Caption)
-                    );
-
-                rootXElem.Add(bindingXElem);
-            }
-
-            return rootXElem;
         }
     }
 }

@@ -24,6 +24,7 @@
                     <asp:ScriptReference Path="~/signalr/hubs" />
                 </Scripts>
             </asp:ScriptManager>
+
             <script type="text/javascript">
                 $('.bxslider').bxSlider({
                     video: true,
@@ -116,7 +117,7 @@
                         $("#content").find("h2").animate({ "font-size": "20px" });
                         $("#spmenu").find("p").animate({ "font-size": "44px", "line-height": "20px" });
                         $("#ContentPlaceHolder1_pnlSpecData").find("p").animate({ "font-size": "44px", "line-height": "20px" });
-                        
+
 
                     });
                 });
@@ -154,9 +155,8 @@
                     $(hideElementId).hide();
                     $(showElementId).show();
                 }
-
-
             </script>
+
             <audio id="listenAudio" src="" style="display: none;"></audio>
 
             <header id="header">
@@ -166,13 +166,12 @@
                             <ul>
                                 <li>
                                     <a href="#" class="sb small no-border linkedin">LinkedIn</a>
-                                    <a href="#" class="sb small no-border facebook">Facebook</a>
+                                    <a href="https://www.facebook.com/mohgovge/?hc_ref=PAGES_TIMELINE&fref=nf" class="sb small no-border facebook">Facebook</a>
                                     <a href="#" class="sb small no-border twitter">Twitter</a>
-                                    <%--                                    <a href="javascript:listenSelected();" class="sb small no-border voice">Twitter</a>--%>
+                                    <%--<a href="javascript:listenSelected();" class="sb small no-border voice">Twitter</a>--%>
                                     <asp:HyperLink NavigateUrl="~/Pages/Spec/MainSpec.aspx" CssClass="sb small no-border spec" runat="server" Target="_blank">Special</asp:HyperLink>
                                 </li>
                             </ul>
-
                         </div>
                         <div style="float: left; margin-left: 15px; width: 150px;">
                             <div id="textsizer-classnames">
@@ -190,19 +189,21 @@
                         </div>
                         <div class="top-right">
                             <ul>
-                                <li>
-                                    <ce:ImageLinkButton runat="server" ID="btEngLang" OnClick="btEngLang_Click">English</ce:ImageLinkButton></li>
-                                <li>|</li>
-                                <li>
-                                    <ce:ImageLinkButton runat="server" ID="btGeoLang" OnClick="btGeoLang_Click">Georgian</ce:ImageLinkButton></li>
+                                <li style="padding-top: 8px;">
+                                    <ce:ImageLinkButton runat="server" ID="btEngLang" OnClick="btEngLang_Click" ImageKey="lang_eng"></ce:ImageLinkButton>
+                                </li>
+
+                                <li style="padding-top: 8px;">
+                                    <ce:ImageLinkButton runat="server" ID="btGeoLang" OnClick="btGeoLang_Click" ImageKey="lang_geo"></ce:ImageLinkButton>
+                                </li>
                                 <li class="language"></li>
                                 <%--<li>
                                     <asp:Image ImageUrl="~/App_Themes/Default/images/top-right.png" runat="server" /></li>
                                 <li><a href="http://evolution.ge/Citi/Forum" target="blanck">
                                     <ce:Label runat="server">Forum</ce:Label></a></li>--%>
-                                <li>
+                                <li runat="server" id="liFAQSep">
                                     <asp:Image ImageUrl="~/App_Themes/Default/images/top-right.png" runat="server" /></li>
-                                <li><a>
+                                <li runat="server" id="liFAQ"><a>
                                     <ce:Label runat="server">FAQ</ce:Label></a></li>
                                 <li>
                                     <asp:Image ImageUrl="~/App_Themes/Default/images/top-right.png" runat="server" /></li>
@@ -210,9 +211,9 @@
                                     <ce:ImageLinkButton runat="server" ID="btLogin" OnClick="btLogin_Click">Sign In</ce:ImageLinkButton>
                                     <ce:ImageLinkButton runat="server" ID="btLogout" OnClick="btLogout_Click">Logout</ce:ImageLinkButton>
                                 </li>
-                                <li>
+                                <li runat="server" id="liTrnSep">
                                     <asp:Image ImageUrl="~/App_Themes/Default/images/top-right.png" runat="server" /></li>
-                                <li>
+                                <li runat="server" id="liTrn">
                                     <ce:ImageLinkButton runat="server" ID="btTranslationMode" OnClick="btTranslationMode_Click">Translation Mode</ce:ImageLinkButton>
                                 </li>
                             </ul>
@@ -221,11 +222,10 @@
                 </div>
                 <div class="header">
                     <div class="header-items">
-                        <%--	<div class="header-title">
-							Plan The Future
-						</div>--%>
-                        <div class="left" style="width: 200px; height: 50px; margin: 10px 10px 15px 10px;">
-                            <asp:Image ImageUrl="~/App_Themes/Default/images/logo.png" runat="server" ID="imgLogo" />
+                        <div class="left" style="margin: 10px 10px 15px 10px; text-align: left; alignment: left;">
+                            <asp:HyperLink runat="server" NavigateUrl="~/Default.aspx">
+                                <asp:Image ImageUrl="~/App_Themes/Default/images/logo.png" runat="server" ID="imgLogo" />
+                            </asp:HyperLink>
                         </div>
 
                         <div class="search-box">
@@ -254,6 +254,9 @@
                             <asp:HyperLink runat="server" CssClass="mcolor" NavigateUrl="~/Pages/User/Surveys.aspx"><ce:Label runat="server">Surveys</ce:Label></asp:HyperLink>
                         </li>
                         <li>
+                            <asp:HyperLink runat="server" CssClass="mcolor" NavigateUrl="~/Pages/User/UserReports.aspx"><ce:Label runat="server">Reports</ce:Label></asp:HyperLink>
+                        </li>
+                        <li style="display:none;">
                             <asp:HyperLink runat="server" CssClass="mcolor" NavigateUrl="~/Pages/User/Projects.aspx"><ce:Label runat="server">Programs</ce:Label></asp:HyperLink>
                         </li>
                         <li>
@@ -304,7 +307,6 @@
                     </ul>
                 </div>
             </footer>
-
             <div>
             </div>
         </form>

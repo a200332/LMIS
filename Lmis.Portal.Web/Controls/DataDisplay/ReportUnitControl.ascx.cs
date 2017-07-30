@@ -11,8 +11,11 @@ using Lmis.Portal.Web.Entites;
 using System.Data;
 using System.IO;
 using System.Net.Mime;
+using AjaxControlToolkit;
 using CITI.EVO.Tools.Utils;
+using CITI.EVO.Tools.Web.UI.Controls;
 using Lmis.Portal.Web.BLL;
+using CheckBoxList = System.Web.UI.WebControls.CheckBoxList;
 
 namespace Lmis.Portal.Web.Controls.DataDisplay
 {
@@ -28,6 +31,12 @@ namespace Lmis.Portal.Web.Controls.DataDisplay
         {
             get { return mainChart.Height; }
             set { mainChart.Height = value; }
+        }
+
+        public String ChartCssClass
+        {
+            get { return pnlChartImage.CssClass; }
+            set { pnlChartImage.CssClass = value; }
         }
 
         protected void Page_Load(object sender, EventArgs e)
@@ -67,7 +76,7 @@ namespace Lmis.Portal.Web.Controls.DataDisplay
 
             if (pnlChartImage.Visible)
             {
-                var dataSource = mainGrid.DataSource as DataTable;
+                var dataSource = reportGridsControl.DataSource as DataSet;
                 if (dataSource == null)
                     return;
 
@@ -94,7 +103,7 @@ namespace Lmis.Portal.Web.Controls.DataDisplay
                 if (targetType == "Image")
                     return;
 
-                var dataSource = mainGrid.DataSource as DataTable;
+                var dataSource = reportGridsControl.DataSource as DataSet;
                 if (dataSource == null)
                     return;
 
@@ -112,7 +121,7 @@ namespace Lmis.Portal.Web.Controls.DataDisplay
                 return;
 
             mainChart.DataSource = null;
-            mainGrid.DataSource = null;
+            //mainGrid.DataSource = null;
 
             dvDescription.InnerHtml = unitModel.Description;
             trDescription.Visible = !String.IsNullOrWhiteSpace(unitModel.Description);
@@ -153,9 +162,7 @@ namespace Lmis.Portal.Web.Controls.DataDisplay
 
                 var entiry = entities.FirstOrDefault();
                 if (entiry != null)
-                {
                     BindGridData(entiry);
-                }
             }
             else
             {
@@ -163,9 +170,7 @@ namespace Lmis.Portal.Web.Controls.DataDisplay
                 pnlChartImage.Visible = true;
                 pnlChartCommands.Visible = true;
 
-                var entiry = entities.FirstOrDefault();
-                if (entiry != null)
-                    BindChartData(entiry);
+                BindChartData(entities, unitModel.XLabelAngle);
             }
         }
 
@@ -198,102 +203,82 @@ namespace Lmis.Portal.Web.Controls.DataDisplay
 
             var dataTable = ReportUnitHelper.GetGridDataTable(entiry, dataView.Cast<DataRowView>());
 
-            BindGridData(dataTable);
+            var dataSet = new DataSet();
+            dataSet.Tables.Add(dataTable);
+
+            BindGridData(dataSet);
         }
 
-        protected void BindGridData(DataTable dataTable)
+        protected void BindGridData(DataSet dataSet)
         {
-            var keyFields = dataTable.Columns.Cast<DataColumn>().Select(n => n.ColumnName);
-            var keyColumns = String.Join(";", keyFields);
-
-            mainGrid.AutoGenerateColumns = (mainGrid.Columns.Count == 0);
-            mainGrid.KeyFieldName = keyColumns;
-            mainGrid.DataSource = dataTable;
-            mainGrid.DataBind();
+            reportGridsControl.DataSource = dataSet;
+            reportGridsControl.DataBind();
         }
 
-        protected void BindChartData(BindingInfoEntity entity)
+        protected void BindChartData(IEnumerable<BindingInfoEntity> entities, int? xLabelAngle)
         {
-            lblReportTitle.Text = entity.Name;
+            var namesSet = new HashSet<String>();
 
+            var xMembersSet = new HashSet<String>();
+            var yMembersSet = new HashSet<String>();
+
+            var dataSet = new DataSet();
+
+            foreach (var entity in entities)
+            {
+                if (entity.Bindings == null)
+                    continue;
+
+                var modelLp = entity.Bindings.ToLookup(n => n.Caption);
+
+                var modelsGrp = modelLp.FirstOrDefault();
+                if (modelsGrp == null)
+                    continue;
+
+                var byTargetLp = modelsGrp.ToLookup(n => n.Target);
+
+                var groupMember = modelsGrp.Key;
+				
+                var yMember = byTargetLp["YValue"].Select(n => n.Source).Distinct().FirstOrDefault();
+                var xMember = byTargetLp["XValue"].Select(n => n.Source).Distinct().FirstOrDefault();
+
+                var sortData = false;
+                if (entity.QueryType == "Logic")
+                    sortData = !entity.Ordered;
+
+                var collection = GetCollection(entity, groupMember, xMember);
+
+                var dataTable = ReportUnitHelper.GetChartDataTable(groupMember, yMember, xMember, collection, sortData);
+                dataTable.TableName = String.Format("{0}; {1}", xMember, yMember);
+
+                dataSet.Tables.Add(dataTable);
+
+                BindChartData(dataTable, entity.Type, groupMember, xMember, yMember, xLabelAngle);
+
+                namesSet.Add(entity.Name);
+                xMembersSet.Add(xMember);
+                yMembersSet.Add(yMember);
+            }
+
+            BindGridData(dataSet);
+
+            lblReportTitle.Text = String.Join(", ", namesSet);
+
+            var xMembers = String.Join(", ", xMembersSet);
+            var yMembers = String.Join(", ", yMembersSet);
+
+            lblXYDescription.Text = String.Format("X - {0}; Y - {1}", xMembers, yMembers);
+        }
+
+        protected void BindChartData(DataTable dataTable, String defChartType, String groupMember, String xMember, String yMember, int? xLabelAngle)
+        {
             var selReportType = GetSelectedReportTypes().FirstOrDefault();
 
-            var reportType = ReportUnitHelper.GetChartType(selReportType, entity.Type);
-            var sqlDs = ReportUnitHelper.CreateDataSource(entity.SqlQuery);
-
-            var dataView = (DataView)sqlDs.Select(new DataSourceSelectArguments());
-            if (dataView == null)
-                return;
-
-            if (entity.Bindings == null)
-                return;
-
-            var modelLp = entity.Bindings.ToLookup(n => n.Caption);
-
-            var modelsGrp = modelLp.FirstOrDefault();
-            if (modelsGrp == null)
-                return;
-
-            var byTargetLp = modelsGrp.ToLookup(n => n.Target);
-
-            var yMembers = byTargetLp["YValue"];
-            var yMember = String.Join(",", yMembers.Select(n => n.Source));
-
-            var xMembers = byTargetLp["XValue"];
-            var xMember = String.Join(",", xMembers.Select(n => n.Source));
-
-            if (!String.IsNullOrWhiteSpace(modelsGrp.Key))
-                FillCaptionsList(dataView, modelsGrp.Key);
-
-            FillXYValuesList(dataView, xMember);
-
-            var selCaptions = GetSelectedCaptions().ToHashSet();
-            var selXYValues = GetSelectedXYSeries().ToHashSet();
-
-            var collection = (from DataRowView n in dataView
-                              select n);
-
-            if (selCaptions.Count > 0)
-            {
-                collection = (from n in collection
-                              let v = Convert.ToString(n[modelsGrp.Key])
-                              where selCaptions.Contains(v)
-                              select n);
-            }
-
-            if (selXYValues.Count > 0)
-            {
-                collection = (from n in collection
-                              let v = Convert.ToString(n[xMember])
-                              where selXYValues.Contains(v)
-                              select n);
-            }
-
-            var sortData = false;
-
-            if (entity.QueryType == "Logic")
-                sortData = !entity.Ordered;
-
-            var dataTable = ReportUnitHelper.GetChartDataTable(modelsGrp.Key, yMember, xMember, collection, sortData);
+            var reportType = ReportUnitHelper.GetChartType(selReportType, defChartType);
 
             var chartType = reportType.GetValueOrDefault(SeriesChartType.Line);
 
-            FillChartData(dataTable, chartType);
-            BindGridData(dataTable);
-
-            lblXYDescription.Text = String.Format("X - {0}, Y - {1}", xMember, yMember);
-
-            //var defaultTitle = mainChart.Titles["Default"];
-            //if (defaultTitle != null)
-            //	defaultTitle.Text = entity.Name;
-
-            //var leftTitle = mainChart.Titles["Left"];
-            //if (leftTitle != null)
-            //	leftTitle.Text = xMember;
-
-            //var bottomTitle = mainChart.Titles["Bottom"];
-            //if (bottomTitle != null)
-            //	bottomTitle.Text = yMember;
+            FillChartData(dataTable, chartType, xLabelAngle);
 
             mainChart.ApplyPaletteColors();
 
@@ -309,7 +294,7 @@ namespace Lmis.Portal.Web.Controls.DataDisplay
             }
         }
 
-        protected void FillChartData(DataTable dataTable, SeriesChartType chartType)
+        protected void FillChartData(DataTable dataTable, SeriesChartType chartType, int? xLabelAngle)
         {
             var valuesSet = new SortedSet<double>();
 
@@ -372,12 +357,17 @@ namespace Lmis.Portal.Web.Controls.DataDisplay
             var labelX = axisX.LabelStyle;
             labelX.Format = "0,0.00";
             labelX.TruncatedLabels = true;
-            //labelX.Angle = 90;
+
+            if (chartType != SeriesChartType.Bar)
+                labelX.Angle = xLabelAngle.GetValueOrDefault();
+
+            var minVal = valuesSet.Min - 10;
+            var maxVal = valuesSet.Max + 10;
 
             var axisY = defaultChartArea.AxisY;
             axisY.IsLabelAutoFit = true;
-            axisY.Minimum = valuesSet.Min - 10;
-            axisY.Maximum = valuesSet.Max + 10;
+            axisY.Minimum = Math.Min(axisY.Minimum, minVal);
+            axisY.Maximum = Math.Max(axisY.Maximum, maxVal);
 
             var labelY = axisY.LabelStyle;
             labelY.Format = "0,0.00";
@@ -408,6 +398,43 @@ namespace Lmis.Portal.Web.Controls.DataDisplay
 
             foreach (ListItem listItem in listBox.Items)
                 listItem.Selected = selValues.Contains(listItem.Value);
+        }
+
+        protected IEnumerable<DataRowView> GetCollection(BindingInfoEntity entity, String groupMember, String xMember)
+        {
+            var sqlDs = ReportUnitHelper.CreateDataSource(entity.SqlQuery);
+
+            var dataView = (DataView)sqlDs.Select(new DataSourceSelectArguments());
+            if (dataView == null)
+                return null;
+
+            if (!String.IsNullOrWhiteSpace(groupMember))
+                FillCaptionsList(dataView, groupMember);
+
+            FillXYValuesList(dataView, xMember);
+
+            var selCaptions = GetSelectedCaptions().ToHashSet();
+            var selXYValues = GetSelectedXYSeries().ToHashSet();
+
+            var collection = dataView.Cast<DataRowView>();
+
+            if (selCaptions.Count > 0)
+            {
+                collection = (from n in collection
+                              let v = Convert.ToString(n[groupMember])
+                              where selCaptions.Contains(v)
+                              select n);
+            }
+
+            if (selXYValues.Count > 0)
+            {
+                collection = (from n in collection
+                              let v = Convert.ToString(n[xMember])
+                              where selXYValues.Contains(v)
+                              select n);
+            }
+
+            return collection;
         }
 
         protected String GetExportTargetType()

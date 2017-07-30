@@ -33,5 +33,16 @@ namespace Lmis.Portal.DAL.Properties {
                 return ((string)(this["Lmis_PortalConnectionString"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=172.17.7.123;Initial Catalog=Lmis_Portal;User ID=sa;Password=@1qaz2ws" +
+            "x3edc@")]
+        public string Lmis_PortalConnectionString1 {
+            get {
+                return ((string)(this["Lmis_PortalConnectionString1"]));
+            }
+        }
     }
 }

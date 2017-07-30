@@ -99,6 +99,21 @@ public class GetFile : IHttpHandler
                         }
                     }
                     break;
+                case "UserReport":
+                    {
+                        var item = db.LP_UserReports.FirstOrDefault(n => n.ID == itemID);
+                        if (item != null && item.FileData != null && item.FileData.Length > 0)
+                        {
+                            if (String.IsNullOrWhiteSpace(item.FileName))
+                                fileName = String.Format("{0}.pdf", item.Title);
+                            else
+                                fileName = item.FileName;
+
+                            fileBytes = item.FileData.ToArray();
+                            mimeType = MimeTypeUtil.GetMimeType(fileName);
+                        }
+                    }
+                    break;
                 case "Content":
                     {
                         var item = db.LP_Contents.FirstOrDefault(n => n.ID == itemID);

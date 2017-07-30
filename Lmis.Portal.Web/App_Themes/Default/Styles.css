@@ -323,3 +323,59 @@ a:hover>ul>li.news-link-title {
                width: 1000px;
                height: 500px;
            }
+
+.mainlinkbg1 {
+    background-color: #b957ff;
+    display: block;
+    opacity: 0.7;
+    margin-top: 72px;
+    height: 60px;
+    width: 182px;
+    z-index: 4;
+    position: absolute;
+    /*margin-left: -91px;*/
+}
+
+.treelistitemstyle {
+    width: 280px;
+    display: -webkit-inline-box;
+}
+
+
+
+@media (min-width:768px) {
+    .chartsize {
+        width: 500px
+    }
+}
+
+@media (min-width:992px) {
+    .chartsize {
+        width: 600px
+    }
+}
+
+@media (min-width:1200px) {
+    .chartsize {
+        width: 820px
+    }
+}
+
+
+@media (min-width:768px) {
+    .chartimg {
+        width: 500px
+    }
+}
+
+@media (min-width:992px) {
+    .chartimg {
+        width: 600px
+    }
+}
+
+@media (min-width:1200px) {
+    .chartimg {
+        width: 820px
+    }
+}

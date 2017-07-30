@@ -39,6 +39,10 @@ namespace Lmis.Portal.Web.Pages.User
 
             FillCategories();
             FillReports();
+
+            var targetUrl = Convert.ToString(RequestUrl["TargetUrl"]);
+
+            categoriesControl.TargetUrl = LmisCommonUtil.ConvertFromBase64(targetUrl);
         }
 
         protected void btnSave_OnClick(object sender, EventArgs e)

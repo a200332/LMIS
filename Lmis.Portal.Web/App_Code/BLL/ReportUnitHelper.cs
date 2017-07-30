@@ -22,19 +22,23 @@ namespace Lmis.Portal.Web.BLL
 {
     public static class ReportUnitHelper
     {
-        public static byte[] GetReportGridBytes(String targetType, DataTable dataSource)
+        public static byte[] GetReportGridBytes(String targetType, DataSet dataSet)
         {
             if (targetType == "PDF")
             {
                 using (var stream = new MemoryStream())
                 {
-                    var table = GetPdfGrid(dataSource);
-
                     var pdfDoc = new Document();
                     var writer = PdfWriter.GetInstance(pdfDoc, stream);
 
                     pdfDoc.Open();
-                    pdfDoc.Add(table);
+
+                    foreach (DataTable dataTable in dataSet.Tables)
+                    {
+                        var table = GetPdfGrid(dataTable);
+                        pdfDoc.Add(table);
+                    }
+
                     pdfDoc.Close();
 
                     return stream.ToArray();
@@ -43,28 +47,25 @@ namespace Lmis.Portal.Web.BLL
 
             if (targetType == "Excel")
             {
-                if (String.IsNullOrWhiteSpace(dataSource.TableName))
-                    dataSource.TableName = "Sheet 1";
-
-                return ExcelUtil.ConvertToExcel(dataSource);
+                return ExcelUtil.ConvertToExcel(dataSet);
             }
 
             if (targetType == "CSV")
             {
-                return ExcelUtil.ConvertToCSV(dataSource);
+                var dataTable = dataSet.Tables.Cast<DataTable>().FirstOrDefault();
+                return ExcelUtil.ConvertToCSV(dataTable);
             }
 
             return null;
         }
 
-        public static byte[] GetReportChartBytes(String targetType, DataTable dataSource, System.Drawing.Image chartImage)
+        public static byte[] GetReportChartBytes(String targetType, DataSet dataSet, System.Drawing.Image chartImage)
         {
             if (targetType == "PDF")
             {
                 using (var stream = new MemoryStream())
                 {
                     var pdfImage = GetPdfImage(chartImage);
-                    var pdfTable = GetPdfGrid(dataSource);
 
                     var pdfDoc = new Document();
                     var writer = PdfWriter.GetInstance(pdfDoc, stream);
@@ -75,9 +76,13 @@ namespace Lmis.Portal.Web.BLL
                     pdfImage.ScaleToFit(fitWidth, fitHeight);
 
                     pdfDoc.Open();
-
                     pdfDoc.Add(pdfImage);
-                    pdfDoc.Add(pdfTable);
+
+                    foreach (DataTable dataTable in dataSet.Tables)
+                    {
+                        var pdfTable = GetPdfGrid(dataTable);
+                        pdfDoc.Add(pdfTable);
+                    }
 
                     pdfDoc.Close();
 
@@ -228,7 +233,7 @@ namespace Lmis.Portal.Web.BLL
 
         public static DataTable GetGridDataTable(BindingInfoEntity entity, IEnumerable<DataRowView> collection)
         {
-            var dataTable = new DataTable("Data");
+            var dataTable = new DataTable(entity.Name);
 
             var columns = new Dictionary<String, String>();
 

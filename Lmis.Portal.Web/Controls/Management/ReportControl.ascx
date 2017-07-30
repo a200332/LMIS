@@ -112,7 +112,14 @@
             </dx:ASPxComboBox>
         </li>
     </ul>
-
+    <ul>
+        <li style="width: 200px;">
+            <ce:Label runat="server">X label angle</ce:Label>
+        </li>
+        <li>
+            <dx:ASPxSpinEdit runat="server" ID="spXLabelAngle" MinValue="0" MaxValue="90" Property="ReportModel.XLabelAngle" />
+        </li>
+    </ul>
 </div>
 <div class="wrapper"></div>
 <div class="popup-title">
@@ -123,7 +130,6 @@
     <ce:ImageLinkButton runat="server" DefaultImageUrl="~/App_Themes/Default/Images/add.png" ID="btnNewReportLogic" ToolTip="დამატება" OnClick="btnNewReportLogic_OnClick" />
     <lmis:ReportLogicsControl runat="server" ID="reportLogicsControl" Property="ReportModel.ReportLogics" OnDeleteItem="reportLogicsControl_OnDeleteItem" OnEditItem="reportLogicsControl_OnEditItem" />
 </div>
-
 <div>
     <act:ModalPopupExtender runat="server" ID="mpeAddEditReportLogic" TargetControlID="btnAddEditReportLogicFake"
         Enabled="true" BackgroundCssClass="modalBackground" PopupControlID="pnlAddEditReportLogic"

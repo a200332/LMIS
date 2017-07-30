@@ -19,24 +19,31 @@
         <asp:Button runat="server" ID="btnAddEditCategoryFake" Style="display: none" />
         <asp:Panel runat="server" ID="pnlAddEditCategory">
             <div class="popup">
-  
+
                 <div class="popup_fieldset">
 
-                    <div class="popup-title"><ce:Label runat="server">Choose</ce:Label></div>
+                    <div class="popup-title">
+                        <ce:Label runat="server">Choose</ce:Label>
+                    </div>
                     <div class="title_separator"></div>
                     <div class="box">
-                        <lmis:CategoryControl runat="server" ID="categoryControl" />
+                        <div>
+                            <asp:Label runat="server" ID="lblErrorMessage" ForeColor="Red"></asp:Label>
+                        </div>
+                        <div>
+                            <lmis:CategoryControl runat="server" ID="categoryControl" />
+                        </div>
                     </div>
+                </div>
+                <div class="fieldsetforicons">
+                    <div class="left" style="margin-right: 10px;">
+                        <ce:ImageLinkButton runat="server" DefaultImageUrl="~/App_Themes/Default/Images/save.png" ID="btnSaveCatevory" ToolTip="დამატება" OnClick="btnSaveCatevory_OnClick" />
+                    </div>
+                    <div class="left">
+                        <ce:ImageLinkButton runat="server" DefaultImageUrl="~/App_Themes/Default/Images/close.png" ID="btnCancelCategory" ToolTip="დახურვა" />
+                    </div>
+                </div>
             </div>
-            <div class="fieldsetforicons">
-					<div class="left" style="margin-right: 10px;">
-						<ce:ImageLinkButton runat="server" DefaultImageUrl="~/App_Themes/Default/Images/save.png" ID="btnSaveCatevory" ToolTip="დამატება" OnClick="btnSaveCatevory_OnClick" />
-					</div>
-					<div class="left">
-						<ce:ImageLinkButton runat="server" DefaultImageUrl="~/App_Themes/Default/Images/close.png" ID="btnCancelCategory" ToolTip="დახურვა" />
-					</div>
-				</div>
-			</div>
         </asp:Panel>
     </div>
 </asp:Content>

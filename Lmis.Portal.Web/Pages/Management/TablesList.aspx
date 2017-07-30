@@ -9,6 +9,8 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
 	<div style="text-align: left;">
 		<ce:ImageLinkButton runat="server" ToolTip="Add Table" DefaultImageUrl="~/App_Themes/Default/images/add.png" ID="btnAddNew" OnClick="btnAddTable_OnClick" />
+        <asp:TextBox runat="server" ID="tbxKeyword"></asp:TextBox>
+        <ce:ImageLinkButton runat="server" ToolTip="Add Table" DefaultImageUrl="~/App_Themes/Default/images/search.png" ID="btnSearch" OnClick="btnSearch_OnClick" />
 	</div>
 	<div>
 		<lmis:TablesControl runat="server" ID="tablesControl"

@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
+using System.Text;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -38,8 +40,8 @@ namespace Lmis.Portal.Web
             btLogout.Visible = UmUtil.Instance.IsLogged;
 
             liAdmin.Visible = (UmUtil.Instance.IsLogged && UmUtil.Instance.CurrentUser.IsSuperAdmin);
-
-            btTranslationMode.Visible = (UmUtil.Instance.IsLogged && UmUtil.Instance.CurrentUser.IsSuperAdmin);
+            liFAQ.Visible = liFAQSep.Visible = UmUtil.Instance.IsLogged;
+            liTrn.Visible = liTrnSep.Visible = (UmUtil.Instance.IsLogged && UmUtil.Instance.CurrentUser.IsSuperAdmin);
 
             foreach (var childLink in GetCurrentUrlLinks(this))
             {
@@ -55,6 +57,9 @@ namespace Lmis.Portal.Web
             var keyword = Request["Keyword"];
             if (!String.IsNullOrWhiteSpace(keyword))
                 tbxSearch.Text = keyword;
+
+            btEngLang.Enabled = LanguageUtil.GetLanguage() != "en-US";
+            btGeoLang.Enabled = LanguageUtil.GetLanguage() != "ka-GE";
         }
 
         protected void btEngLang_Click(object sender, EventArgs e)

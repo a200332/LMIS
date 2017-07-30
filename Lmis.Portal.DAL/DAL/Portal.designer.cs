@@ -78,10 +78,13 @@ namespace Lmis.Portal.DAL.DAL
     partial void InsertLP_Career(LP_Career instance);
     partial void UpdateLP_Career(LP_Career instance);
     partial void DeleteLP_Career(LP_Career instance);
+    partial void InsertLP_UserReport(LP_UserReport instance);
+    partial void UpdateLP_UserReport(LP_UserReport instance);
+    partial void DeleteLP_UserReport(LP_UserReport instance);
     #endregion
 		
 		public PortalDataContext() : 
-				base(global::Lmis.Portal.DAL.Properties.Settings.Default.Lmis_PortalConnectionString, mappingSource)
+				base(global::Lmis.Portal.DAL.Properties.Settings.Default.Lmis_PortalConnectionString1, mappingSource)
 		{
 			OnCreated();
 		}
@@ -235,6 +238,14 @@ namespace Lmis.Portal.DAL.DAL
 			get
 			{
 				return this.GetTable<LP_Career>();
+			}
+		}
+		
+		public System.Data.Linq.Table<LP_UserReport> LP_UserReports
+		{
+			get
+			{
+				return this.GetTable<LP_UserReport>();
 			}
 		}
 	}
@@ -1881,6 +1892,8 @@ namespace Lmis.Portal.DAL.DAL
 		
 		private string _Language;
 		
+		private System.Nullable<int> _XLabelAngle;
+		
 		private EntitySet<LP_ReportLogic> _ReportLogics;
 		
 		private EntityRef<LP_Category> _Category;
@@ -1913,6 +1926,8 @@ namespace Lmis.Portal.DAL.DAL
     partial void OnInformationSourceChanged();
     partial void OnLanguageChanging(string value);
     partial void OnLanguageChanged();
+    partial void OnXLabelAngleChanging(System.Nullable<int> value);
+    partial void OnXLabelAngleChanged();
     #endregion
 		
 		public LP_Report()
@@ -2162,6 +2177,26 @@ namespace Lmis.Portal.DAL.DAL
 					this._Language = value;
 					this.SendPropertyChanged("Language");
 					this.OnLanguageChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_XLabelAngle", DbType="INT", UpdateCheck=UpdateCheck.Never)]
+		public System.Nullable<int> XLabelAngle
+		{
+			get
+			{
+				return this._XLabelAngle;
+			}
+			set
+			{
+				if ((this._XLabelAngle != value))
+				{
+					this.OnXLabelAngleChanging(value);
+					this.SendPropertyChanging();
+					this._XLabelAngle = value;
+					this.SendPropertyChanged("XLabelAngle");
+					this.OnXLabelAngleChanged();
 				}
 			}
 		}
@@ -3361,6 +3396,8 @@ namespace Lmis.Portal.DAL.DAL
 		
 		private System.Data.Linq.Binary _Image;
 		
+		private string _Number;
+		
 		private EntitySet<LP_Legislation> _Children;
 		
 		private EntityRef<LP_Legislation> _Parent;
@@ -3393,6 +3430,8 @@ namespace Lmis.Portal.DAL.DAL
     partial void OnParentIDChanged();
     partial void OnImageChanging(System.Data.Linq.Binary value);
     partial void OnImageChanged();
+    partial void OnNumberChanging(string value);
+    partial void OnNumberChanged();
     #endregion
 		
 		public LP_Legislation()
@@ -3646,6 +3685,26 @@ namespace Lmis.Portal.DAL.DAL
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Number", DbType="NVarChar(50)", UpdateCheck=UpdateCheck.Never)]
+		public string Number
+		{
+			get
+			{
+				return this._Number;
+			}
+			set
+			{
+				if ((this._Number != value))
+				{
+					this.OnNumberChanging(value);
+					this.SendPropertyChanging();
+					this._Number = value;
+					this.SendPropertyChanged("Number");
+					this.OnNumberChanged();
+				}
+			}
+		}
+		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="LP_Legislation_LP_Legislation", Storage="_Children", ThisKey="ID", OtherKey="ParentID")]
 		public EntitySet<LP_Legislation> Children
 		{
@@ -3756,6 +3815,8 @@ namespace Lmis.Portal.DAL.DAL
 		
 		private System.Data.Linq.Binary _Image;
 		
+		private string _Number;
+		
 		private EntitySet<LP_Project> _Parent;
 		
 		private EntityRef<LP_Project> _Children;
@@ -3788,6 +3849,8 @@ namespace Lmis.Portal.DAL.DAL
     partial void OnParentIDChanged();
     partial void OnImageChanging(System.Data.Linq.Binary value);
     partial void OnImageChanged();
+    partial void OnNumberChanging(string value);
+    partial void OnNumberChanged();
     #endregion
 		
 		public LP_Project()
@@ -4041,6 +4104,26 @@ namespace Lmis.Portal.DAL.DAL
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Number", DbType="NVarChar(50)", UpdateCheck=UpdateCheck.Never)]
+		public string Number
+		{
+			get
+			{
+				return this._Number;
+			}
+			set
+			{
+				if ((this._Number != value))
+				{
+					this.OnNumberChanging(value);
+					this.SendPropertyChanging();
+					this._Number = value;
+					this.SendPropertyChanged("Number");
+					this.OnNumberChanged();
+				}
+			}
+		}
+		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="LP_Project_LP_Project", Storage="_Parent", ThisKey="ID", OtherKey="ParentID")]
 		public EntitySet<LP_Project> Parent
 		{
@@ -4153,6 +4236,8 @@ namespace Lmis.Portal.DAL.DAL
 		
 		private System.Data.Linq.Binary _Image;
 		
+		private string _Number;
+		
 		private EntitySet<LP_Survey> _Children;
 		
 		private EntityRef<LP_Survey> _Parent;
@@ -4187,6 +4272,8 @@ namespace Lmis.Portal.DAL.DAL
     partial void OnUrlChanged();
     partial void OnImageChanging(System.Data.Linq.Binary value);
     partial void OnImageChanged();
+    partial void OnNumberChanging(string value);
+    partial void OnNumberChanged();
     #endregion
 		
 		public LP_Survey()
@@ -4456,6 +4543,26 @@ namespace Lmis.Portal.DAL.DAL
 					this._Image = value;
 					this.SendPropertyChanged("Image");
 					this.OnImageChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Number", DbType="NVarChar(50)", UpdateCheck=UpdateCheck.Never)]
+		public string Number
+		{
+			get
+			{
+				return this._Number;
+			}
+			set
+			{
+				if ((this._Number != value))
+				{
+					this.OnNumberChanging(value);
+					this.SendPropertyChanging();
+					this._Number = value;
+					this.SendPropertyChanged("Number");
+					this.OnNumberChanged();
 				}
 			}
 		}
@@ -5241,6 +5348,8 @@ namespace Lmis.Portal.DAL.DAL
 		
 		private System.Data.Linq.Binary _Image;
 		
+		private string _Number;
+		
 		private EntitySet<LP_Career> _Parent;
 		
 		private EntityRef<LP_Career> _Children;
@@ -5271,6 +5380,8 @@ namespace Lmis.Portal.DAL.DAL
     partial void OnLanguageChanged();
     partial void OnImageChanging(System.Data.Linq.Binary value);
     partial void OnImageChanged();
+    partial void OnNumberChanging(string value);
+    partial void OnNumberChanged();
     #endregion
 		
 		public LP_Career()
@@ -5504,6 +5615,26 @@ namespace Lmis.Portal.DAL.DAL
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Number", DbType="NVarChar(50)", UpdateCheck=UpdateCheck.Never)]
+		public string Number
+		{
+			get
+			{
+				return this._Number;
+			}
+			set
+			{
+				if ((this._Number != value))
+				{
+					this.OnNumberChanging(value);
+					this.SendPropertyChanging();
+					this._Number = value;
+					this.SendPropertyChanged("Number");
+					this.OnNumberChanged();
+				}
+			}
+		}
+		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="LP_Career_LP_Career", Storage="_Parent", ThisKey="ID", OtherKey="ParentID")]
 		public EntitySet<LP_Career> Parent
 		{
@@ -5581,6 +5712,425 @@ namespace Lmis.Portal.DAL.DAL
 		{
 			this.SendPropertyChanging();
 			entity.Children = null;
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.LP_UserReports")]
+	public partial class LP_UserReport : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private System.Guid _ID;
+		
+		private string _Title;
+		
+		private string _Description;
+		
+		private System.Data.Linq.Binary _FileData;
+		
+		private System.Nullable<int> _OrderIndex;
+		
+		private string _Language;
+		
+		private System.DateTime _DateCreated;
+		
+		private System.Nullable<System.DateTime> _DateChanged;
+		
+		private System.Nullable<System.DateTime> _DateDeleted;
+		
+		private string _FileName;
+		
+		private System.Nullable<System.Guid> _ParentID;
+		
+		private System.Data.Linq.Binary _Image;
+		
+		private string _Number;
+		
+		private EntitySet<LP_UserReport> _Children;
+		
+		private EntityRef<LP_UserReport> _Parent;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnIDChanging(System.Guid value);
+    partial void OnIDChanged();
+    partial void OnTitleChanging(string value);
+    partial void OnTitleChanged();
+    partial void OnDescriptionChanging(string value);
+    partial void OnDescriptionChanged();
+    partial void OnFileDataChanging(System.Data.Linq.Binary value);
+    partial void OnFileDataChanged();
+    partial void OnOrderIndexChanging(System.Nullable<int> value);
+    partial void OnOrderIndexChanged();
+    partial void OnLanguageChanging(string value);
+    partial void OnLanguageChanged();
+    partial void OnDateCreatedChanging(System.DateTime value);
+    partial void OnDateCreatedChanged();
+    partial void OnDateChangedChanging(System.Nullable<System.DateTime> value);
+    partial void OnDateChangedChanged();
+    partial void OnDateDeletedChanging(System.Nullable<System.DateTime> value);
+    partial void OnDateDeletedChanged();
+    partial void OnFileNameChanging(string value);
+    partial void OnFileNameChanged();
+    partial void OnParentIDChanging(System.Nullable<System.Guid> value);
+    partial void OnParentIDChanged();
+    partial void OnImageChanging(System.Data.Linq.Binary value);
+    partial void OnImageChanged();
+    partial void OnNumberChanging(string value);
+    partial void OnNumberChanged();
+    #endregion
+		
+		public LP_UserReport()
+		{
+			this._Children = new EntitySet<LP_UserReport>(new Action<LP_UserReport>(this.attach_Children), new Action<LP_UserReport>(this.detach_Children));
+			this._Parent = default(EntityRef<LP_UserReport>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ID", DbType="UniqueIdentifier NOT NULL", IsPrimaryKey=true)]
+		public System.Guid ID
+		{
+			get
+			{
+				return this._ID;
+			}
+			set
+			{
+				if ((this._ID != value))
+				{
+					this.OnIDChanging(value);
+					this.SendPropertyChanging();
+					this._ID = value;
+					this.SendPropertyChanged("ID");
+					this.OnIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Title", DbType="NVarChar(400)")]
+		public string Title
+		{
+			get
+			{
+				return this._Title;
+			}
+			set
+			{
+				if ((this._Title != value))
+				{
+					this.OnTitleChanging(value);
+					this.SendPropertyChanging();
+					this._Title = value;
+					this.SendPropertyChanged("Title");
+					this.OnTitleChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Description", DbType="NVarChar(MAX)")]
+		public string Description
+		{
+			get
+			{
+				return this._Description;
+			}
+			set
+			{
+				if ((this._Description != value))
+				{
+					this.OnDescriptionChanging(value);
+					this.SendPropertyChanging();
+					this._Description = value;
+					this.SendPropertyChanged("Description");
+					this.OnDescriptionChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FileData", DbType="VarBinary(MAX)", UpdateCheck=UpdateCheck.Never)]
+		public System.Data.Linq.Binary FileData
+		{
+			get
+			{
+				return this._FileData;
+			}
+			set
+			{
+				if ((this._FileData != value))
+				{
+					this.OnFileDataChanging(value);
+					this.SendPropertyChanging();
+					this._FileData = value;
+					this.SendPropertyChanged("FileData");
+					this.OnFileDataChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_OrderIndex", DbType="Int")]
+		public System.Nullable<int> OrderIndex
+		{
+			get
+			{
+				return this._OrderIndex;
+			}
+			set
+			{
+				if ((this._OrderIndex != value))
+				{
+					this.OnOrderIndexChanging(value);
+					this.SendPropertyChanging();
+					this._OrderIndex = value;
+					this.SendPropertyChanged("OrderIndex");
+					this.OnOrderIndexChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Language", DbType="NVarChar(50)")]
+		public string Language
+		{
+			get
+			{
+				return this._Language;
+			}
+			set
+			{
+				if ((this._Language != value))
+				{
+					this.OnLanguageChanging(value);
+					this.SendPropertyChanging();
+					this._Language = value;
+					this.SendPropertyChanged("Language");
+					this.OnLanguageChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DateCreated", DbType="DateTime NOT NULL")]
+		public System.DateTime DateCreated
+		{
+			get
+			{
+				return this._DateCreated;
+			}
+			set
+			{
+				if ((this._DateCreated != value))
+				{
+					this.OnDateCreatedChanging(value);
+					this.SendPropertyChanging();
+					this._DateCreated = value;
+					this.SendPropertyChanged("DateCreated");
+					this.OnDateCreatedChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DateChanged", DbType="DateTime")]
+		public System.Nullable<System.DateTime> DateChanged
+		{
+			get
+			{
+				return this._DateChanged;
+			}
+			set
+			{
+				if ((this._DateChanged != value))
+				{
+					this.OnDateChangedChanging(value);
+					this.SendPropertyChanging();
+					this._DateChanged = value;
+					this.SendPropertyChanged("DateChanged");
+					this.OnDateChangedChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DateDeleted", DbType="DateTime")]
+		public System.Nullable<System.DateTime> DateDeleted
+		{
+			get
+			{
+				return this._DateDeleted;
+			}
+			set
+			{
+				if ((this._DateDeleted != value))
+				{
+					this.OnDateDeletedChanging(value);
+					this.SendPropertyChanging();
+					this._DateDeleted = value;
+					this.SendPropertyChanged("DateDeleted");
+					this.OnDateDeletedChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FileName", DbType="NVarChar(400)")]
+		public string FileName
+		{
+			get
+			{
+				return this._FileName;
+			}
+			set
+			{
+				if ((this._FileName != value))
+				{
+					this.OnFileNameChanging(value);
+					this.SendPropertyChanging();
+					this._FileName = value;
+					this.SendPropertyChanged("FileName");
+					this.OnFileNameChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ParentID", DbType="UniqueIdentifier")]
+		public System.Nullable<System.Guid> ParentID
+		{
+			get
+			{
+				return this._ParentID;
+			}
+			set
+			{
+				if ((this._ParentID != value))
+				{
+					if (this._Parent.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnParentIDChanging(value);
+					this.SendPropertyChanging();
+					this._ParentID = value;
+					this.SendPropertyChanged("ParentID");
+					this.OnParentIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Image", DbType="VarBinary(MAX)", UpdateCheck=UpdateCheck.Never)]
+		public System.Data.Linq.Binary Image
+		{
+			get
+			{
+				return this._Image;
+			}
+			set
+			{
+				if ((this._Image != value))
+				{
+					this.OnImageChanging(value);
+					this.SendPropertyChanging();
+					this._Image = value;
+					this.SendPropertyChanged("Image");
+					this.OnImageChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Number", DbType="NVarChar(50)", UpdateCheck=UpdateCheck.Never)]
+		public string Number
+		{
+			get
+			{
+				return this._Number;
+			}
+			set
+			{
+				if ((this._Number != value))
+				{
+					this.OnNumberChanging(value);
+					this.SendPropertyChanging();
+					this._Number = value;
+					this.SendPropertyChanged("Number");
+					this.OnNumberChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="LP_UserReport_LP_UserReport", Storage="_Children", ThisKey="ID", OtherKey="ParentID")]
+		public EntitySet<LP_UserReport> Children
+		{
+			get
+			{
+				return this._Children;
+			}
+			set
+			{
+				this._Children.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="LP_UserReport_LP_UserReport", Storage="_Parent", ThisKey="ParentID", OtherKey="ID", IsForeignKey=true)]
+		public LP_UserReport Parent
+		{
+			get
+			{
+				return this._Parent.Entity;
+			}
+			set
+			{
+				LP_UserReport previousValue = this._Parent.Entity;
+				if (((previousValue != value) 
+							|| (this._Parent.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Parent.Entity = null;
+						previousValue.Children.Remove(this);
+					}
+					this._Parent.Entity = value;
+					if ((value != null))
+					{
+						value.Children.Add(this);
+						this._ParentID = value.ID;
+					}
+					else
+					{
+						this._ParentID = default(Nullable<System.Guid>);
+					}
+					this.SendPropertyChanged("Parent");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_Children(LP_UserReport entity)
+		{
+			this.SendPropertyChanging();
+			entity.Parent = this;
+		}
+		
+		private void detach_Children(LP_UserReport entity)
+		{
+			this.SendPropertyChanging();
+			entity.Parent = null;
 		}
 	}
 }

@@ -1,5 +1,7 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="ReportUnitControl.ascx.cs" Inherits="Lmis.Portal.Web.Controls.DataDisplay.ReportUnitControl" %>
 
+<%@ Register Src="~/Controls/DataDisplay/ReportGridsControl.ascx" TagPrefix="lmis" TagName="ReportGridsControl" %>
+
 <div style="margin-top: 15px; text-align: left; border: 1px solid #e5e5e5;">
 
     <div style="margin: 8px; font-size: 11px;">
@@ -46,7 +48,9 @@
                     </div>
                 </asp:Panel>
                 <asp:Panel runat="server" ID="pnlMainGrid">
-                    <dx:ASPxGridView runat="server" ID="mainGrid" Width="100%">
+                    <lmis:ReportGridsControl runat="server" ID="reportGridsControl" />
+
+                    <%--<dx:ASPxGridView runat="server" ID="mainGrid" Width="100%">
                         <Settings ShowHeaderFilterButton="True" ShowGroupPanel="False" />
                         <SettingsBehavior AllowSort="True" AllowGroup="True" />
                         <Styles>
@@ -55,7 +59,7 @@
                             <GroupPanel BackColor="#b4e2f7"></GroupPanel>
                             <AlternatingRow Enabled="True" />
                         </Styles>
-                    </dx:ASPxGridView>
+                    </dx:ASPxGridView>--%>
                 </asp:Panel>
                 <asp:Panel runat="server" ID="pnlError" Visible="False">
                     <asp:Label runat="server" ID="lblError" ForeColor="Red"></asp:Label>

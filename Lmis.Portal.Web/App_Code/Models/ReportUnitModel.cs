@@ -8,8 +8,10 @@ namespace Lmis.Portal.Web.Models
 		public Guid? ID { get; set; }
 
 		public String Type { get; set; }
-		
-		public Guid? CategoryID { get; set; }
+
+        public int? XLabelAngle { get; set; }
+
+        public Guid? CategoryID { get; set; }
 
 		public String Name { get; set; }
 

@@ -3,11 +3,14 @@
     <asp:Repeater runat="server" ID="rptItems">
         <ItemTemplate>
             <li>
-                <asp:HyperLink NavigateUrl='<%# GetSubLinksUrl(Container.DataItem) %>' runat="server" Target='<%# GetUrlTarget(Container.DataItem) %>'>
-					<asp:Panel runat="server" style='<%# GetPanelStyle(Container.DataItem)%>'>
-					    <ce:Label runat="server" Text='<%# Eval("Title") %>'/>
+                <div style="border: 1px solid #b957ff; width: 182px;">
+                    <asp:HyperLink NavigateUrl='<%# GetSubLinksUrl(Container.DataItem) %>' runat="server" Target='<%# GetUrlTarget(Container.DataItem) %>'>
+					<asp:Panel runat="server" style='<%# GetPanelStyle(Container.DataItem)%>'>					  
+                        <div  class="mainlinkbg1" ></div>
+                        <ce:Label runat="server" Text='<%# Eval("Title") %>'/>
 					</asp:Panel>
-                </asp:HyperLink>
+                    </asp:HyperLink>
+                </div>
             </li>
         </ItemTemplate>
     </asp:Repeater>

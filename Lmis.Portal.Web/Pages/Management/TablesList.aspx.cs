@@ -147,6 +147,11 @@ namespace Lmis.Portal.Web.Pages.Management
             mpeAddEditTable.Show();
         }
 
+        protected void btnSearch_OnClick(object sender, EventArgs e)
+        {
+
+        }
+
         protected void btnSaveTable_OnClick(object sender, EventArgs e)
         {
             var model = tableControl.Model;
@@ -161,7 +166,7 @@ namespace Lmis.Portal.Web.Pages.Management
             {
                 if (entity == null)
                     return;
-                
+
                 var oldModel = entityConverter.Convert(entity);
                 oldModel.Status = String.Empty;
                 oldModel.Name = model.Name;
@@ -218,10 +223,18 @@ namespace Lmis.Portal.Web.Pages.Management
 
         protected void FillTablesTree()
         {
-            var entities = (from n in DataContext.LP_Tables
-                            where n.DateDeleted == null
-                            orderby n.DateCreated descending
-                            select n).ToList();
+            var query = from n in DataContext.LP_Tables
+                        where n.DateDeleted == null
+                        select n;
+
+            if (!String.IsNullOrWhiteSpace(tbxKeyword.Text))
+            {
+                query = from n in query
+                        where n.Name.Contains(tbxKeyword.Text.Trim())
+                        select n;
+            }
+
+            var entities = query.OrderByDescending(n=>n.DateCreated).ToList();
 
             var converter = new TableEntityModelConverter(DataContext);
 

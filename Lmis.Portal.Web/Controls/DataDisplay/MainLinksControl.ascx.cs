@@ -60,7 +60,7 @@ namespace Lmis.Portal.Web.Controls.DataDisplay
             if (model == null)
                 return null;
 
-            var format = "width:182px;height:128px;background-image: url({0});";
+            var format = "width:182px;height:128px;background-image: url({0});background-size: 182px 128px;background-repeat: no-repeat;";
             var imageUrl = GetImageUrl(model.ID);
             var absUrl = ConvertToAbsoluteUrl(imageUrl);
 

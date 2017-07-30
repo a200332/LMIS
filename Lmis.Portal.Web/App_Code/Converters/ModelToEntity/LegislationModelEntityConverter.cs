@@ -33,6 +33,7 @@ namespace Lmis.Portal.Web.Converters.ModelToEntity
             target.Language = source.Language;
             target.ParentID = source.ParentID;
             target.OrderIndex = source.OrderIndex;
+            target.Number = source.Number;
 
             if (!source.FileData.IsNullOrEmpty())
             {

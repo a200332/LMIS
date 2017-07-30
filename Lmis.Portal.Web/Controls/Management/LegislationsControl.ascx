@@ -1,6 +1,6 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="LegislationsControl.ascx.cs" Inherits="Lmis.Portal.Web.Controls.Management.LegislationsControl" %>
 
-<dx:ASPxTreeList runat="server" KeyFieldName="ID" ParentFieldName="ParentID" ID="tlData">
+<ce:ASPxTreeList runat="server" KeyFieldName="ID" ParentFieldName="ParentID" ID="tlData">
     <Images>
         <ExpandedButton Width="12px" Height="10px" Url="~/App_Themes/Default/Images/Collapse.png"></ExpandedButton>
         <CollapsedButton Width="12px" Height="10px" Url="~/App_Themes/Default/Images/Expand.png"></CollapsedButton>
@@ -20,6 +20,8 @@
         </dx:TreeListDataColumn>
         <dx:TreeListDataColumn FieldName="Title" Name="Title" Caption="Title">
         </dx:TreeListDataColumn>
+        <dx:TreeListDataColumn FieldName="Number" Name="Number" Caption="Number">
+        </dx:TreeListDataColumn>
         <dx:TreeListDataColumn FieldName="Description" Name="Description" Caption="Description">
         </dx:TreeListDataColumn>
         <dx:TreeListDataColumn FieldName="OrderIndex" Name="OrderIndex" Caption="OrderIndex">
@@ -27,4 +29,4 @@
         <dx:TreeListDataColumn FieldName="Language" Name="Language" Caption="Language">
         </dx:TreeListDataColumn>
     </Columns>
-</dx:ASPxTreeList>
+</ce:ASPxTreeList>

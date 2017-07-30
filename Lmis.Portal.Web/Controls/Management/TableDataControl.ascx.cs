@@ -128,6 +128,11 @@ namespace Lmis.Portal.Web.Controls.Management
             gvData.AddNewRow();
         }
 
+        protected void btnExport_OnClick(object sender, EventArgs e)
+        {
+            ExportExcel();
+        }
+
         protected void btnImport_OnClick(object sender, EventArgs e)
         {
             ImportExcel();
@@ -173,10 +178,62 @@ namespace Lmis.Portal.Web.Controls.Management
             Response.Redirect(Request.Url.ToString());
         }
 
+        protected Object GetCorrectValue(Object value, SqlDbType sqlDbType)
+        {
+            switch (sqlDbType)
+            {
+                case SqlDbType.NVarChar:
+                    return DataConverter.ToString(value);
+                case SqlDbType.BigInt:
+                    return DataConverter.ToNullableLong(value);
+                case SqlDbType.Float:
+                    return DataConverter.ToNullableDouble(value);
+                case SqlDbType.DateTime:
+                    return DataConverter.ToNullableDateTime(value);
+                default:
+                    return value;
+            }
+        }
+
         protected String GetConnectionString()
         {
             var connString = ConfigurationManager.ConnectionStrings["RepositoryConnectionString"];
             return connString.ConnectionString;
+        }
+
+        protected void ClearTable()
+        {
+            var tableModel = Model.Table;
+            var logicModel = Model.Logic;
+
+            var queryGen = new QueryGenerator(DataContext, logicModel);
+
+            var connectionString = GetConnectionString();
+
+            using (var connection = new SqlConnection(connectionString))
+            {
+                if (connection.State != ConnectionState.Open)
+                    connection.Open();
+
+                using (var transaction = connection.BeginTransaction())
+                {
+                    var truncateQuery = queryGen.TruncateQuery();
+
+                    using (var command = new SqlCommand(truncateQuery, connection, transaction))
+                    {
+                        command.ExecuteNonQuery();
+
+                        try
+                        {
+                            transaction.Commit();
+                        }
+                        catch (Exception)
+                        {
+                            transaction.Rollback();
+                        }
+                    }
+                }
+            }
         }
 
         protected void ImportExcel()
@@ -249,58 +306,33 @@ namespace Lmis.Portal.Web.Controls.Management
             }
         }
 
-        protected Object GetCorrectValue(Object value, SqlDbType sqlDbType)
+        protected void ExportExcel()
         {
-            switch (sqlDbType)
-            {
-                case SqlDbType.NVarChar:
-                    return DataConverter.ToString(value);
-                case SqlDbType.BigInt:
-                    return DataConverter.ToNullableLong(value);
-                case SqlDbType.Float:
-                    return DataConverter.ToNullableDouble(value);
-                case SqlDbType.DateTime:
-                    return DataConverter.ToNullableDateTime(value);
-                default:
-                    return value;
-            }
-        }
+            var dataView = (DataView)sqlDs.Select(new DataSourceSelectArguments());
+            if (dataView == null)
+                return;
 
-        protected void ClearTable()
-        {
             var tableModel = Model.Table;
             var logicModel = Model.Logic;
 
-            var queryGen = new QueryGenerator(DataContext, logicModel);
+            var dataTable = dataView.ToTable();
+            dataTable.TableName = tableModel.Name;
 
-            var connectionString = GetConnectionString();
+            var excelBytes = ExcelUtil.ConvertToExcel(dataTable);
 
-            using (var connection = new SqlConnection(connectionString))
-            {
-                if (connection.State != ConnectionState.Open)
-                    connection.Open();
+            var period = String.Format("{0:dd.MM.yyyy_HH.mm.ss}", DateTime.Now);
 
-                using (var transaction = connection.BeginTransaction())
-                {
-                    var truncateQuery = queryGen.TruncateQuery();
+            var fileName = String.Format("Data_{0}.xlsx", period);
+            fileName = HttpUtility.UrlPathEncode(fileName);
 
-                    using (var command = new SqlCommand(truncateQuery, connection, transaction))
-                    {
-                        command.ExecuteNonQuery();
+            Response.Clear();
+            Response.Buffer = true;
+            Response.ContentType = "application/octet-stream";
+            Response.AddHeader("Content-Disposition", String.Format("inline;filename={0}", fileName));
 
-                        try
-                        {
-                            transaction.Commit();
-                        }
-                        catch (Exception)
-                        {
-                            transaction.Rollback();
-                        }
-                    }
-                }
-            }
+            Response.BinaryWrite(excelBytes);
+            Response.End();
         }
-
 
     }
 }

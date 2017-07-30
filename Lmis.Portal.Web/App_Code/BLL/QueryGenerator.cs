@@ -16,14 +16,14 @@ namespace Lmis.Portal.Web.BLL
 	{
 		private const String truncateFormat = "TRUNCATE TABLE {0}";
 		private const String insertFormat = "INSERT INTO {0}({1}) VALUES ({2})";
-		private const String selectFormat = "SELECT {0} FROM {1}";
-		private const String updateFormat = "UPDATE {0} SET {1}";
+		private const String selectFormat = "select {0} FROM {1}";
+        private const String updateFormat = "UPDATE {0} SET {1}";
 		private const String deleteFormat = "DELETE FROM {0}";
 
 		private const String whereFormat = "WHERE {0}";
 
-		private const String groupFormat = "GROUP BY {0}";
-		private const String orderFormat = "ORDER BY {0}";
+		private const String groupFormat = "group by {0}";
+		private const String orderFormat = "order by {0}";
 
 		private readonly String _querySource;
 

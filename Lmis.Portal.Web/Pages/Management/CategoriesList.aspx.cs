@@ -23,6 +23,8 @@ namespace Lmis.Portal.Web.Pages.Management
 
         protected void categoriesControl_OnAddChild(object sender, GenericEventArgs<Guid> e)
         {
+            lblErrorMessage.Text = null;
+
             var entity = DataContext.LP_Categories.FirstOrDefault(n => n.ID == e.Value);
             if (entity == null)
                 return;
@@ -36,6 +38,8 @@ namespace Lmis.Portal.Web.Pages.Management
 
         protected void categoriesControl_OnEditItem(object sender, GenericEventArgs<Guid> e)
         {
+            lblErrorMessage.Text = null;
+
             var entity = DataContext.LP_Categories.FirstOrDefault(n => n.ID == e.Value);
             if (entity == null)
                 return;
@@ -164,9 +168,36 @@ namespace Lmis.Portal.Web.Pages.Management
 
         protected void btnSaveCatevory_OnClick(object sender, EventArgs e)
         {
+            lblErrorMessage.Text = null;
+
             var converter = new CategoryModelEntityConverter(DataContext);
 
             var model = categoryControl.Model;
+
+            if (!String.IsNullOrWhiteSpace(model.Number))
+            {
+                var otherCatQuery = from n in DataContext.LP_Categories
+                                    where n.DateDeleted == null &&
+                                          n.Number == model.Number &&
+                                          n.Language == model.Language
+                                    select n;
+
+                if (model.ID != null)
+                {
+                    otherCatQuery = from n in otherCatQuery
+                                    where n.ID != model.ID
+                                    select n;
+                }
+
+                var otherCategory = otherCatQuery.FirstOrDefault();
+
+                if (otherCategory != null)
+                {
+                    lblErrorMessage.Text = "Category with same number already exists";
+                    return;
+                }
+            }
+
             if (model.ID != null)
             {
                 var entity = DataContext.LP_Categories.FirstOrDefault(n => n.ID == model.ID);

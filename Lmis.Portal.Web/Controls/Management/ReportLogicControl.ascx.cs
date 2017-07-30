@@ -194,8 +194,11 @@ namespace Lmis.Portal.Web.Controls.Management
             if (reportLogicModel.Type != "Grid")
                 cbxType.TrySetSelectedValue(reportLogicModel.Type);
 
-            if (reportLogicModel.Bindings == null)
+            if (reportLogicModel.Bindings == null || reportLogicModel.Bindings.List == null)
+            {
+                Bindings = null;
                 return;
+            }
 
             if (reportLogicModel.Logic != null)
             {

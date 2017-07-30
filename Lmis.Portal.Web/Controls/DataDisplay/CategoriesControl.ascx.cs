@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using CITI.EVO.Tools.Extensions;
 using CITI.EVO.Tools.Helpers;
 using CITI.EVO.Tools.Utils;
 using DevExpress.Web.ASPxTreeList;
@@ -14,6 +12,24 @@ namespace Lmis.Portal.Web.Controls.DataDisplay
 {
     public partial class CategoriesControl : BaseExtendedControl<CategoriesModel>
     {
+        public String ForceOverflow
+        {
+            get { return pnlForceOverflow.CssClass; }
+            set { pnlForceOverflow.CssClass = value; }
+        }
+
+        public String TreeListScrollBar
+        {
+            get { return pnlTreeListScrollBar.CssClass; }
+            set { pnlTreeListScrollBar.CssClass = value; }
+        }
+
+        public String TreeListItemStyle
+        {
+            get { return Convert.ToString(ViewState["TreeListItemStyle"]); }
+            set { ViewState["TreeListItemStyle"] = value; }
+        }
+
         public String TargetUrl
         {
             get { return Convert.ToString(ViewState["TargetUrl"]); }
@@ -88,7 +104,10 @@ namespace Lmis.Portal.Web.Controls.DataDisplay
 
         protected void ExpandNode(TreeListNode node)
         {
-            var parent = node.ParentNode;
+            if (node == null)
+                return;
+
+            var parent = node;
 
             while (parent != null)
             {

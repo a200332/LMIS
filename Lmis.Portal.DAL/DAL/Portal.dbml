@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?><Database Name="Lmis_Portal" Class="PortalDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
-  <Connection Mode="AppSettings" ConnectionString="Data Source=evolution.ge;Initial Catalog=Lmis_Portal;User ID=sa" SettingsObjectName="Lmis.Portal.DAL.Properties.Settings" SettingsPropertyName="Lmis_PortalConnectionString" Provider="System.Data.SqlClient" />
+  <Connection Mode="AppSettings" ConnectionString="Data Source=172.17.7.123;Initial Catalog=Lmis_Portal;User ID=sa" SettingsObjectName="Lmis.Portal.DAL.Properties.Settings" SettingsPropertyName="Lmis_PortalConnectionString1" Provider="System.Data.SqlClient" />
   <Table Name="dbo.LP_Tables" Member="LP_Tables">
     <Type Name="LP_Table">
       <Column Name="ID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
@@ -88,6 +88,7 @@
       <Column Name="Interpretation" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" UpdateCheck="Never" />
       <Column Name="InformationSource" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" UpdateCheck="Never" />
       <Column Name="Language" Type="System.String" DbType="NVarChar(250)" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="XLabelAngle" Type="System.Int32" DbType="INT" CanBeNull="true" UpdateCheck="Never" />
       <Association Name="LP_Report_LP_ReportLogic" Member="ReportLogics" ThisKey="ID" OtherKey="ReportID" Type="LP_ReportLogic" />
       <Association Name="LP_Category_LP_Report" Member="Category" ThisKey="CategoryID" OtherKey="ID" Type="LP_Category" IsForeignKey="true" />
     </Type>
@@ -160,6 +161,7 @@
       <Column Name="FileName" Type="System.String" DbType="NVarChar(400)" CanBeNull="true" UpdateCheck="Never" />
       <Column Name="ParentID" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" UpdateCheck="Never" />
       <Column Name="Image" Type="System.Data.Linq.Binary" DbType="VarBinary(MAX)" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="Number" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" UpdateCheck="Never" />
       <Association Name="LP_Legislation_LP_Legislation" Member="Children" ThisKey="ID" OtherKey="ParentID" Type="LP_Legislation" />
       <Association Name="LP_Legislation_LP_Legislation" Member="Parent" ThisKey="ParentID" OtherKey="ID" Type="LP_Legislation" IsForeignKey="true" />
     </Type>
@@ -178,6 +180,7 @@
       <Column Name="FileName" Type="System.String" DbType="NVarChar(400)" CanBeNull="true" UpdateCheck="Never" />
       <Column Name="ParentID" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" UpdateCheck="Never" />
       <Column Name="Image" Type="System.Data.Linq.Binary" DbType="VarBinary(MAX)" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="Number" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" UpdateCheck="Never" />
       <Association Name="LP_Project_LP_Project" Member="Parent" ThisKey="ID" OtherKey="ParentID" Type="LP_Project" />
       <Association Name="LP_Project_LP_Project" Member="Children" ThisKey="ParentID" OtherKey="ID" Type="LP_Project" IsForeignKey="true" />
     </Type>
@@ -197,6 +200,7 @@
       <Column Name="ParentID" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" UpdateCheck="Never" />
       <Column Name="Url" Type="System.String" DbType="NVarChar(400)" CanBeNull="true" UpdateCheck="Never" />
       <Column Name="Image" Type="System.Data.Linq.Binary" DbType="VarBinary(MAX)" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="Number" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" UpdateCheck="Never" />
       <Association Name="LP_Survey_LP_Survey" Member="Children" ThisKey="ID" OtherKey="ParentID" Type="LP_Survey" />
       <Association Name="LP_Survey_LP_Survey" Member="Parent" ThisKey="ParentID" OtherKey="ID" Type="LP_Survey" IsForeignKey="true" />
     </Type>
@@ -246,8 +250,28 @@
       <Column Name="OrderIndex" Type="System.Int32" DbType="int" CanBeNull="true" UpdateCheck="Never" />
       <Column Name="Language" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" UpdateCheck="Never" />
       <Column Name="Image" Type="System.Data.Linq.Binary" DbType="VarBinary(MAX)" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="Number" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" UpdateCheck="Never" />
       <Association Name="LP_Career_LP_Career" Member="Parent" ThisKey="ID" OtherKey="ParentID" Type="LP_Career" />
       <Association Name="LP_Career_LP_Career" Member="Children" ThisKey="ParentID" OtherKey="ID" Type="LP_Career" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.LP_UserReports" Member="LP_UserReports">
+    <Type Name="LP_UserReport">
+      <Column Name="ID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Title" Type="System.String" DbType="NVarChar(400)" CanBeNull="true" />
+      <Column Name="Description" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="FileData" Type="System.Data.Linq.Binary" DbType="VarBinary(MAX)" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="OrderIndex" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Language" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="DateCreated" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="DateChanged" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="DateDeleted" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="FileName" Type="System.String" DbType="NVarChar(400)" CanBeNull="true" />
+      <Column Name="ParentID" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
+      <Column Name="Image" Type="System.Data.Linq.Binary" DbType="VarBinary(MAX)" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="Number" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" UpdateCheck="Never" />
+      <Association Name="LP_UserReport_LP_UserReport" Member="Children" ThisKey="ID" OtherKey="ParentID" Type="LP_UserReport" />
+      <Association Name="LP_UserReport_LP_UserReport" Member="Parent" ThisKey="ParentID" OtherKey="ID" Type="LP_UserReport" IsForeignKey="true" />
     </Type>
   </Table>
 </Database>

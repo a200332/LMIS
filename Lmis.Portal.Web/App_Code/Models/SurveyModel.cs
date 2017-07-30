@@ -23,5 +23,7 @@ namespace Lmis.Portal.Web.Models
         public String Url { get; set; }
 
         public byte[] Image { get; set; }
+
+        public String Number { get; set; }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using CITI.EVO.Tools.Helpers;
 using CITI.EVO.Tools.Utils;
 using Lmis.Portal.Web.Bases;
 using Lmis.Portal.Web.Converters.EntityToModel;
@@ -11,6 +12,7 @@ namespace Lmis.Portal.Web.Pages.User
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            CheckDataLanguage();
             FillLegislations();
         }
 
@@ -53,6 +55,51 @@ namespace Lmis.Portal.Web.Pages.User
             model.List = models;
 
             legislationsControl.Model = model;
+        }
+
+        private void CheckDataLanguage()
+        {
+            var itemID = DataConverter.ToNullableGuid(Request["ID"]);
+            if (itemID == null)
+                return;
+
+            var entity = DataContext.LP_Legislations.FirstOrDefault(n => n.ID == itemID);
+            if (entity == null)
+                return;
+
+            if (String.IsNullOrWhiteSpace(entity.Language))
+                return;
+
+            var currentLanguage = LanguageUtil.GetLanguage();
+            if (!StringComparer.OrdinalIgnoreCase.Equals(entity.Language, currentLanguage))
+            {
+                if (String.IsNullOrWhiteSpace(entity.Number))
+                {
+                    var baseUrl = Request.Url.GetLeftPart(UriPartial.Path);
+                    Response.Redirect(baseUrl);
+
+                    return;
+                }
+
+                var langSpecEntity = (from n in DataContext.LP_Legislations
+                                      where n.DateDeleted == null &&
+                                            n.Number == entity.Number &&
+                                            n.Language == currentLanguage
+                                      select n).FirstOrDefault();
+
+                if (langSpecEntity == null)
+                {
+                    var baseUrl = Request.Url.GetLeftPart(UriPartial.Path);
+                    Response.Redirect(baseUrl);
+                }
+                else
+                {
+                    var urlHelper = new UrlHelper(Request.Url);
+                    urlHelper["ID"] = langSpecEntity.ID;
+
+                    Response.Redirect(urlHelper.ToString());
+                }
+            }
         }
     }
 }
