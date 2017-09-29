@@ -16,11 +16,11 @@ namespace Lmis.Portal.Web.Pages.User
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            var urlHelper = new UrlHelper("~/Pages/User/DashboardEx.aspx");
-            foreach (var pair in RequestUrl)
-                urlHelper[pair.Key] = pair.Value;
+            //var urlHelper = new UrlHelper("~/Pages/User/DashboardEx.aspx");
+            //foreach (var pair in RequestUrl)
+            //    urlHelper[pair.Key] = pair.Value;
 
-            btnFullscreen.NavigateUrl = urlHelper.ToEncodedUrl();
+            //btnFullscreen.NavigateUrl = urlHelper.ToEncodedUrl();
 
             var url = new UrlHelper("~/Pages/User/ReportsConfig.aspx");
             url["TargetUrl"] = LmisCommonUtil.ConvertToBase64("~/Pages/User/Dashboard.aspx");

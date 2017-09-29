@@ -36,6 +36,12 @@ namespace Lmis.Portal.Web.Controls.DataDisplay
             set { ViewState["TargetUrl"] = value; }
         }
 
+        public bool? TrimNames
+        {
+            get { return DataConverter.ToNullableBool(ViewState["TrimNames"]); }
+            set { ViewState["TrimNames"] = value; }
+        }
+
         private ILookup<Guid?, LP_Category> _allCategories;
         protected ILookup<Guid?, LP_Category> AllCategories
         {
@@ -139,13 +145,49 @@ namespace Lmis.Portal.Web.Controls.DataDisplay
             if (!String.IsNullOrWhiteSpace(number))
                 name = String.Format("{0} - {1}", number, name);
 
-            if (name.Length > 30)
+            if (name.Length > 30 && TrimNames.GetValueOrDefault())
             {
                 var trimed = name.Substring(0, 27);
                 name = String.Format("{0}...", trimed);
             }
 
             return name;
+        }
+
+        protected String GetNameText(object dataItem)
+        {
+            const String nameFormat = "<span style='padding:1px;'>{0}</span>";
+            const String numberFormat = "<span style='padding:1px;'>{0}</span>";
+            const String delimiterFormat = "<span style='padding:1px;'>{0}</span>";
+
+            var templateDataItem = dataItem as TreeListTemplateDataItem;
+            if (templateDataItem == null || templateDataItem.Row == null)
+                return null;
+
+            var name = Convert.ToString(templateDataItem.Row.GetValue("Name"));
+            var number = Convert.ToString(templateDataItem.Row.GetValue("Number"));
+
+            var text = name;
+            if (!String.IsNullOrWhiteSpace(number))
+                text = String.Format("{0} - {1}", number, name);
+
+            if (text.Length > 30 && TrimNames.GetValueOrDefault())
+            {
+                var trimed = text.Substring(0, 27);
+                text = String.Format("{0}...", trimed);
+            }
+
+            var parts = text.Split('-');
+            if (parts.Length > 1)
+            {
+                var numberText = String.Format(numberFormat, parts[0].Trim());
+                var delimiterText = String.Format(delimiterFormat, "-");
+                var nameText = String.Format(nameFormat, parts[1].Trim());
+
+                return String.Format("{0}{1}{2}", numberText, delimiterText, nameText);
+            }
+
+            return String.Format(nameFormat, parts[0].Trim());
         }
 
         protected String GetFullName(object dataItem)

@@ -133,7 +133,7 @@ input[type="radio" i], input[type="checkbox" i] {
 
     .dxtlControl a {
         color: #323232;
-        font-size: 13px;
+        font-size: 12px;
     }
 
 .dxtlSelectedNode td.dxtl, .dxtlFocusedNode td.dxtl span {
@@ -151,13 +151,19 @@ input[type="radio" i], input[type="checkbox" i] {
     padding: 2px;
 }
 
-.dxtlNode td.dxtl span, .dxtlAltNode td.dxtl span, .dxtlSelectedNode td.dxtl span, .dxtlFocusedNode td.dxtl span, .dxtlEditFormDisplayNode td.dxtl span, .dxtlCommandCell span {
+ .dxtlAltNode td.dxtl span, .dxtlSelectedNode td.dxtl span, .dxtlFocusedNode td.dxtl span, .dxtlEditFormDisplayNode td.dxtl span, .dxtlCommandCell span {
     padding-left: 10px;
     vertical-align: top;
     display: -webkit-inline-box;
     padding-top: 5px;
 }
 
+.dxtlNode td.dxtl span {
+    padding-left: 10px;
+    vertical-align: top;
+    display: -webkit-inline-box;
+    padding-top: 5px;
+}
 .dxtlNode {
     text-align: left;
 }
@@ -343,7 +349,7 @@ a:hover>ul>li.news-link-title {
 
 
 
-@media (min-width:768px) {
+/*@media (min-width:768px) {
     .chartsize {
         width: 500px
     }
@@ -378,4 +384,4 @@ a:hover>ul>li.news-link-title {
     .chartimg {
         width: 820px
     }
-}
+}*/

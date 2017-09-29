@@ -7,6 +7,7 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
     <link href="App_Themes/Default/slide.css" rel="stylesheet" />
+    <asp:Label runat="server" ID="lblRealHost" EnableViewState="False" Visible="False"></asp:Label>
     <div style="float: left;">
         <table>
             <tbody>

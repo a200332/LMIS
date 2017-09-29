@@ -122,6 +122,29 @@
                     });
                 });
 
+                function chartFullScreen(containerId, imageId) {
+                    containerId = '#' + containerId;
+                    imageId = '#' + imageId;
+
+                    var fullscreen = $(containerId).attr("fullscreen");
+                    if (fullscreen !== "on") {
+                        $(containerId).attr("fullscreen", "on");
+
+                        $(containerId).css({ top: "0", left: "0", width: "100%", height: "100%", position: "absolute", background: "white" });
+                        $(imageId).css({ width: "80%", height: "80%", position: "absolute" });
+                    } else {
+                        $(containerId).attr("fullscreen", "off");
+
+                        $(containerId).attr("style", "margin: 8px; font-size: 11px;");
+                        $(imageId).attr("style", "");
+                    }
+                }
+
+                function chartFullScreenOff(elemId) {
+                    var ctrlId = '#' + elemId;
+                    $(ctrlId).css({ top: "0", left: "0", width: "100%", height: "100%", position: "absolute" });
+                }
+
                 function listenSelected() {
                     var text = getSelectionText();
                     if (text == "" || text == null) {
@@ -166,7 +189,7 @@
                             <ul>
                                 <li>
                                     <a href="#" class="sb small no-border linkedin">LinkedIn</a>
-                                    <a href="https://www.facebook.com/mohgovge/?hc_ref=PAGES_TIMELINE&fref=nf" class="sb small no-border facebook">Facebook</a>
+                                    <a href="https://www.facebook.com/economypr" class="sb small no-border facebook">Facebook</a>
                                     <a href="#" class="sb small no-border twitter">Twitter</a>
                                     <%--<a href="javascript:listenSelected();" class="sb small no-border voice">Twitter</a>--%>
                                     <asp:HyperLink NavigateUrl="~/Pages/Spec/MainSpec.aspx" CssClass="sb small no-border spec" runat="server" Target="_blank">Special</asp:HyperLink>
@@ -256,7 +279,7 @@
                         <li>
                             <asp:HyperLink runat="server" CssClass="mcolor" NavigateUrl="~/Pages/User/UserReports.aspx"><ce:Label runat="server">Reports</ce:Label></asp:HyperLink>
                         </li>
-                        <li style="display:none;">
+                        <li style="display: none;">
                             <asp:HyperLink runat="server" CssClass="mcolor" NavigateUrl="~/Pages/User/Projects.aspx"><ce:Label runat="server">Programs</ce:Label></asp:HyperLink>
                         </li>
                         <li>
@@ -298,7 +321,7 @@
                             <asp:Image runat="server" ImageUrl="~/App_Themes/Default/images/f-logo.png" ID="imgFLogo" /></li>
                         <li class="left" style="padding: 20px 40px 0 40px;">
                             <!-- TOP.GE ASYNC COUNTER CODE -->
-                            <div id="top-ge-counter-container" data-site-id="106908"></div>
+                            <div id="top-ge-counter-container" data-site-id="109252"></div>
                             <script async src="//counter.top.ge/counter.js"></script>
                             <!-- / END OF TOP.GE COUNTER CODE -->
                         </li>

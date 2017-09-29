@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
@@ -32,6 +33,8 @@ namespace Lmis.Portal.Web
                 if (TranslationUtil.TranslationMode)
                     TranslationUtil.TranslationMode = false;
             }
+
+            //NumberFormatInfo.CurrentInfo.NumberDecimalSeparator = ".";
         }
 
         protected void Page_Load(object sender, EventArgs e)

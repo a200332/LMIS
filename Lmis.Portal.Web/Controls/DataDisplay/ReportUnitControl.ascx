@@ -2,29 +2,37 @@
 
 <%@ Register Src="~/Controls/DataDisplay/ReportGridsControl.ascx" TagPrefix="lmis" TagName="ReportGridsControl" %>
 
-<div style="margin-top: 15px; text-align: left; border: 1px solid #e5e5e5;">
-
-    <div style="margin: 8px; font-size: 11px;">
-        <div class="left" style="margin-left: 15px;">
-            <ce:Label runat="server" ID="lblReportTitle" Font-Names="Times New Roman" Font-Size="13px" Font-Bold="True"></ce:Label>
+<div id="dvMainContainer" runat="server" style="margin-top: 15px; text-align: left; border: 1px solid #e5e5e5; height: 100%;">
+    <div id="dvSubContainer" runat="server" style="margin: 8px; font-size: 11px; height: 100%;">
+        <div align="center" runat="server" id="dvHeader">
+            <table style="width: 100%;" runat="server" id="tblHeader">
+                <tr>
+                    <td style="padding-right:6px;">
+                        <ce:Label runat="server" ID="lblReportTitle" Font-Names="Times New Roman" Font-Size="13px" Font-Bold="True"></ce:Label>
+                    </td>
+                    <td>
+                        <div align="right">
+                            <table>
+                                <tr>
+                                    <td runat="server" id="tdGridCommands" style="width:60px; text-align:right; padding-right:2px;">
+                                        <ce:ImageLinkButton runat="server" DefaultImageUrl="~/App_Themes/Default/Images/fullsc.png" ID="btnFullscreen" ToolTip="Fullscreen" Target="_blank" />
+                                        <ce:ImageLinkButton runat="server" DefaultImageUrl="~/App_Themes/Default/Images/download.png" ID="btnExportReport" ToolTip="Excel" />
+                                    </td>
+                                    <td runat="server" id="tdChartCommands" style="width:90px;">
+                                        <ce:ImageLinkButton runat="server" DefaultImageUrl="~/App_Themes/Default/Images/x.png" ID="btnCaptions" ToolTip="Series Filter" />
+                                        <ce:ImageLinkButton runat="server" DefaultImageUrl="~/App_Themes/Default/Images/y.png" ID="btnXYSeries" ToolTip="Y Filter" />
+                                        <ce:ImageLinkButton runat="server" DefaultImageUrl="~/App_Themes/Default/Images/chart-type.png" ID="btnReportTypes" ToolTip="Type" />
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </td>
+                </tr>
+            </table>
         </div>
-        <div class="right" style="text-align: right;">
-            <div class="left" style="padding-right: 5px;">
-                <asp:Panel runat="server" ID="pnlGridCommands">
-                    <ce:ImageLinkButton runat="server" DefaultImageUrl="~/App_Themes/Default/Images/download.png" ID="btnExportReport" ToolTip="Excel" />
-                </asp:Panel>
-            </div>
-            <div class="left">
-                <asp:Panel runat="server" ID="pnlChartCommands">
-                    <ce:ImageLinkButton runat="server" DefaultImageUrl="~/App_Themes/Default/Images/x.png" ID="btnCaptions" ToolTip="Series Filter" />
-                    <ce:ImageLinkButton runat="server" DefaultImageUrl="~/App_Themes/Default/Images/y.png" ID="btnXYSeries" ToolTip="Y Filter" />
-                    <ce:ImageLinkButton runat="server" DefaultImageUrl="~/App_Themes/Default/Images/chart-type.png" ID="btnReportTypes" ToolTip="Type" />
-                </asp:Panel>
-            </div>
-        </div>
-        <div runat="server" id="dvData">
+        <div runat="server" id="dvReport" style="height: 100%;">
             <div class="clear"></div>
-            <div>
+            <div runat="server" id="dvData">
                 <asp:Panel runat="server" ID="pnlChartImage">
                     <asp:Chart ID="mainChart" runat="server" IsMapEnabled="True" AntiAliasing="All" OnDataBound="mainChart_OnDataBound">
                         <Series>
@@ -49,48 +57,35 @@
                 </asp:Panel>
                 <asp:Panel runat="server" ID="pnlMainGrid">
                     <lmis:ReportGridsControl runat="server" ID="reportGridsControl" />
-
-                    <%--<dx:ASPxGridView runat="server" ID="mainGrid" Width="100%">
-                        <Settings ShowHeaderFilterButton="True" ShowGroupPanel="False" />
-                        <SettingsBehavior AllowSort="True" AllowGroup="True" />
-                        <Styles>
-                            <Cell HorizontalAlign="Left" />
-                            <Header BackColor="#b4e2f7"></Header>
-                            <GroupPanel BackColor="#b4e2f7"></GroupPanel>
-                            <AlternatingRow Enabled="True" />
-                        </Styles>
-                    </dx:ASPxGridView>--%>
                 </asp:Panel>
                 <asp:Panel runat="server" ID="pnlError" Visible="False">
                     <asp:Label runat="server" ID="lblError" ForeColor="Red"></asp:Label>
                 </asp:Panel>
             </div>
-            <div style="margin-top: 8px; margin-left: 15px;">
-                <div>
-                    <table>
-                        <tr runat="server" id="trDescription" style="display: flex;">
-                            <td>
-                                <ce:Label runat="server">Description:</ce:Label>&nbsp;</td>
-                            <td>
-                                <div runat="server" id="dvDescription"></div>
-                            </td>
-                        </tr>
-                        <tr runat="server" id="trInterpretation" style="display: flex;">
-                            <td>
-                                <ce:Label runat="server">Interpretation:</ce:Label>&nbsp;</td>
-                            <td>
-                                <div runat="server" id="dvInterpretation"></div>
-                            </td>
-                        </tr>
-                        <tr runat="server" id="trInformationSource" style="display: flex;">
-                            <td>
-                                <ce:Label runat="server">Information source:</ce:Label>&nbsp;</td>
-                            <td>
-                                <div runat="server" id="dvInformationSource"></div>
-                            </td>
-                        </tr>
-                    </table>
-                </div>
+            <div id="dvReportInfo" runat="server" style="margin-top: 8px; margin-left: 15px;">
+                <table>
+                    <tr runat="server" id="trDescription" style="display: flex;">
+                        <td>
+                            <ce:Label runat="server">Description:</ce:Label>&nbsp;</td>
+                        <td>
+                            <div runat="server" id="dvDescription"></div>
+                        </td>
+                    </tr>
+                    <tr runat="server" id="trInterpretation" style="display: flex;">
+                        <td>
+                            <ce:Label runat="server">Interpretation:</ce:Label>&nbsp;</td>
+                        <td>
+                            <div runat="server" id="dvInterpretation"></div>
+                        </td>
+                    </tr>
+                    <tr runat="server" id="trInformationSource" style="display: flex;">
+                        <td>
+                            <ce:Label runat="server">Information source:</ce:Label>&nbsp;</td>
+                        <td>
+                            <div runat="server" id="dvInformationSource"></div>
+                        </td>
+                    </tr>
+                </table>
             </div>
         </div>
         <div>

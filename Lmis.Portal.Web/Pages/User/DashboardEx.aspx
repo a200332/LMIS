@@ -22,7 +22,6 @@
         </asp:ScriptManager>
 
         <div style="display: table; height: 100%; position: absolute;">
-
             <div class="header" style="border-bottom: 2px solid #6b537c; margin: 20px;">
                 <div class="header-items">
                     <div class="left" style="margin: 10px 10px 15px 10px; text-align: left; alignment: left;">
@@ -30,7 +29,6 @@
                             <asp:Image ImageUrl="~/App_Themes/Default/images/logo.png" runat="server" ID="imgLogo" />
                         </asp:HyperLink>
                     </div>
-
                 </div>
             </div>
             <table style="margin: 20px;">

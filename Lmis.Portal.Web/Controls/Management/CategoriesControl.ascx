@@ -6,16 +6,15 @@
             <CollapsedButton Width="12px" Height="10px" Url="~/App_Themes/Default/Images/Expand.png"></CollapsedButton>
         </Images>
         <Columns>
-            <dx:TreeListDataColumn>
+            <dx:TreeListDataColumn Width="250">
                 <DataCellTemplate>
-                    <div>
                         <ce:ImageLinkButton runat="server" ToolTip="Up" CommandArgument='<%# Eval("ID") %>' DefaultImageUrl="~/App_Themes/Default/images/up.png" ID="btnUp" OnCommand="btnUp_OnCommand" />
                         <ce:ImageLinkButton runat="server" ToolTip="Down" CommandArgument='<%# Eval("ID") %>' DefaultImageUrl="~/App_Themes/Default/images/down.png" ID="btnDown" OnCommand="btnDown_OnCommand" />
 
                         <ce:ImageLinkButton runat="server" ToolTip="Edit" CommandArgument='<%# Eval("ID") %>' DefaultImageUrl="~/App_Themes/Default/images/edit.png" ID="btnEdit" OnCommand="btnEdit_OnCommand" />
                         <ce:ImageLinkButton runat="server" ToolTip="Delete" CommandArgument='<%# Eval("ID") %>' DefaultImageUrl="~/App_Themes/Default/images/delete.png" ID="btnDelete" OnCommand="btnDelete_OnCommand" OnClientClick="return confirm('Are you sure you want to delete?');" />
                         <ce:ImageLinkButton runat="server" ToolTip="Add" CommandArgument='<%# Eval("ID") %>' DefaultImageUrl="~/App_Themes/Default/images/add.png" ID="btnAddChild" OnCommand="btnAddChild_OnCommand" />
-                    </div>
+              
                 </DataCellTemplate>
             </dx:TreeListDataColumn>
             <dx:TreeListDataColumn FieldName="Number" Name="Number" Caption="Number">

@@ -1,6 +1,5 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="ReportUnitsControl.ascx.cs" Inherits="Lmis.Portal.Web.Controls.DataDisplay.ReportUnitsControl" %>
 
-<%@ Register Src="~/Controls/Common/HiddenFieldValueControl.ascx" TagPrefix="lmis" TagName="HiddenFieldValueControl" %>
 <%@ Register Src="~/Controls/DataDisplay/ReportUnitControl.ascx" TagPrefix="lmis" TagName="ReportUnitControl" %>
 
 <asp:Repeater runat="server" ID="rpReports">

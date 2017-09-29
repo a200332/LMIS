@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using CITI.EVO.Tools.Extensions;
 using CITI.EVO.Tools.Helpers;
@@ -14,6 +15,11 @@ namespace Lmis.Portal.Web.Pages.User
 {
     public partial class DashboardEx : BasePage
     {
+        protected void Page_Init(object sender, EventArgs e)
+        {
+            //NumberFormatInfo.CurrentInfo.NumberDecimalSeparator = ".";
+        }
+
         protected void Page_Load(object sender, EventArgs e)
         {
             imgLogo.ImageUrl = String.Format("~/App_Themes/Default/images/logo_{0}.png", LanguageUtil.GetLanguage());

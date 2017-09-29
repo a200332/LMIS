@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -9,259 +10,335 @@ using CITI.EVO.Tools.Extensions;
 using DevExpress.XtraRichEdit.Commands;
 using ICSharpCode.SharpZipLib.Zip;
 using NPOI.SS.UserModel;
+using NPOI.XSSF.Streaming;
 using NPOI.XSSF.UserModel;
 
 namespace CITI.EVO.Tools.Utils
 {
-	public static class ExcelUtil
-	{
-		public static byte[] ConvertToCSV(DataTable dataTable)
-		{
-			return ConvertToCSV(dataTable, ",");
-		}
-		public static byte[] ConvertToCSV(DataTable dataTable, String delimiter)
-		{
-			using (var stream = new MemoryStream())
-			{
-				using (var writer = new StreamWriter(stream, Encoding.UTF8))
-				{
-					var colQuery = (from DataColumn col in dataTable.Columns
-								 let v = String.Format("\"{0}\"", col.ColumnName)
-								 select v);
+    public static class ExcelUtil
+    {
+        public static byte[] ConvertToCSV(DataTable dataTable)
+        {
+            return ConvertToCSV(dataTable, ",");
+        }
+        public static byte[] ConvertToCSV(DataTable dataTable, String delimiter)
+        {
+            using (var stream = new MemoryStream())
+            {
+                using (var writer = new StreamWriter(stream, Encoding.UTF8))
+                {
+                    var colQuery = (from DataColumn col in dataTable.Columns
+                                    let v = String.Format("\"{0}\"", col.ColumnName)
+                                    select v);
 
-					var colLine = String.Join(delimiter, colQuery);
-					writer.WriteLine(colLine);
+                    var colLine = String.Join(delimiter, colQuery);
+                    writer.WriteLine(colLine);
 
-					foreach (DataRow dataRow in dataTable.Rows)
-					{
-						var query = (from DataColumn col in dataTable.Columns
-									 let v = String.Format("\"{0}\"", dataRow[col])
-									 select v);
+                    foreach (DataRow dataRow in dataTable.Rows)
+                    {
+                        var query = (from DataColumn col in dataTable.Columns
+                                     let v = String.Format("\"{0}\"", dataRow[col])
+                                     select v);
 
-						var line = String.Join(delimiter, query);
-						writer.WriteLine(line);
-					}
-				}
+                        var line = String.Join(delimiter, query);
+                        writer.WriteLine(line);
+                    }
+                }
 
-				return stream.ToArray();
-			}
-		}
+                return stream.ToArray();
+            }
+        }
 
-		public static byte[] ConvertToExcel(DataSet dataSet)
-		{
-			ZipConstants.DefaultCodePage = Encoding.UTF8.CodePage;
+        public static byte[] ConvertToExcel(DataSet dataSet)
+        {
+            ZipConstants.DefaultCodePage = Encoding.UTF8.CodePage;
 
-			using (var stream = new MemoryStream())
-			{
-				var workbook = new XSSFWorkbook();
-				FillWorkbook(workbook, dataSet);
-				workbook.Write(stream);
+            using (var stream = new MemoryStream())
+            {
+                var workbook = new XSSFWorkbook();
+                FillWorkbook(workbook, dataSet);
+                workbook.Write(stream);
 
-				return stream.ToArray();
-			}
-		}
+                return stream.ToArray();
+            }
+        }
 
-		public static byte[] ConvertToExcel(DataTable dataTable)
-		{
-			ZipConstants.DefaultCodePage = Encoding.UTF8.CodePage;
+        public static byte[] ConvertToExcel(DataTable dataTable)
+        {
+            ZipConstants.DefaultCodePage = Encoding.UTF8.CodePage;
 
-			using (var stream = new MemoryStream())
-			{
-				var workbook = new XSSFWorkbook();
-				FillWorkbook(workbook, dataTable);
-				workbook.Write(stream);
+            using (var stream = new MemoryStream())
+            {
+                var workbook = new XSSFWorkbook();
+                FillWorkbook(workbook, dataTable);
+                workbook.Write(stream);
 
-				return stream.ToArray();
-			}
-		}
+                return stream.ToArray();
+            }
+        }
 
-		public static void FillWorkbook(IWorkbook workbook, DataSet dataSet)
-		{
-			foreach (DataTable dataTable in dataSet.Tables)
-			{
-				var name = GetCleanText(String.Format("#{0}", dataTable.TableName));
-				var sheet = workbook.CreateSheet(name);
+        public static void FillWorkbook(IWorkbook workbook, DataSet dataSet)
+        {
+            foreach (DataTable dataTable in dataSet.Tables)
+            {
+                var name = GetCleanText(String.Format("#{0}", dataTable.TableName));
+                var sheet = workbook.CreateSheet(name);
 
-				FillSheet(sheet, dataTable);
-			}
-		}
+                FillSheet(sheet, dataTable);
+            }
+        }
 
-		public static void FillWorkbook(IWorkbook workbook, DataTable dataTable)
-		{
-			var name = GetCleanText(String.Format("#{0}", dataTable.TableName));
-			var sheet = workbook.CreateSheet(name);
+        public static void FillWorkbook(IWorkbook workbook, DataTable dataTable)
+        {
+            var name = GetCleanText(String.Format("#{0}", dataTable.TableName));
+            var sheet = workbook.CreateSheet(name);
 
-			FillSheet(sheet, dataTable);
-		}
+            FillSheet(sheet, dataTable);
+        }
 
-		public static void FillSheet(ISheet sheet, DataTable dataTable)
-		{
-			var headerRow = sheet.CreateRow(0);
+        public static void FillSheet(ISheet sheet, DataTable dataTable)
+        {
+            var headerRow = sheet.CreateRow(0);
 
-			var columns = new Dictionary<String, int>();
+            var columns = new Dictionary<String, int>();
 
-			foreach (DataColumn dataColumn in dataTable.Columns)
-			{
-				var index = columns.Count;
-				var name = GetCleanText(String.Format("#{0}", dataColumn.ColumnName));
+            foreach (DataColumn dataColumn in dataTable.Columns)
+            {
+                var index = columns.Count;
+                var name = GetCleanText(String.Format("#{0}", dataColumn.ColumnName));
 
-				var cell = headerRow.CreateCell(index);
-				cell.SetCellValue(name);
+                var cell = headerRow.CreateCell(index);
+                cell.SetCellValue(name);
 
-				columns.Add(dataColumn.ColumnName, index);
-			}
+                columns.Add(dataColumn.ColumnName, index);
+            }
 
-			foreach (DataRow dataRow in dataTable.Rows)
-			{
-				var excelRow = sheet.CreateRow(sheet.LastRowNum + 1);
+            var numberDataFormat = sheet.Workbook.CreateDataFormat();
 
-				foreach (var pair in columns)
-				{
-					var value = GetCleanText(dataRow[pair.Key]);
+            var intCellStyle = sheet.Workbook.CreateCellStyle();
+            intCellStyle.DataFormat = numberDataFormat.GetFormat("0");
 
-					var cell = excelRow.CreateCell(pair.Value);
-					cell.SetCellValue(value);
-				}
-			}
-		}
+            var doubleCellStyle = sheet.Workbook.CreateCellStyle();
+            doubleCellStyle.DataFormat = numberDataFormat.GetFormat("#,##0.00");
 
-		public static DataSet ConvertToDataSet(byte[] bytes)
-		{
-			var workbooks = ReadExcel(bytes);
+            foreach (DataRow dataRow in dataTable.Rows)
+            {
+                var excelRow = sheet.CreateRow(sheet.LastRowNum + 1);
 
-			var dataSet = ConvertToDataSet(workbooks);
-			return dataSet;
-		}
+                foreach (var pair in columns)
+                {
+                    var cell = excelRow.CreateCell(pair.Value);
+                    var value = GetCleanValue(dataRow[pair.Key]);
 
-		public static DataSet ConvertToDataSet(IWorkbook workbook)
-		{
-			var dataSet = new DataSet();
+                    if (value is bool)
+                    {
+                        cell.SetCellType(CellType.Boolean);
+                        cell.SetCellValue((bool)value);
+                    }
+                    else if (IsNumber(value))
+                    {
+                        if (IsInteger(value))
+                        {
+                            cell.CellStyle = intCellStyle;
 
-			var dataTables = ConvertToDataTables(workbook);
-			foreach (var dataTable in dataTables)
-			{
-				dataSet.Tables.Add(dataTable);
-			}
+                            cell.SetCellType(CellType.Numeric);
+                            cell.SetCellValue(Convert.ToDouble(value));
+                        }
+                        else
+                        {
+                            cell.CellStyle = doubleCellStyle;
 
-			return dataSet;
-		}
+                            cell.SetCellType(CellType.Numeric);
+                            cell.SetCellValue(Convert.ToDouble(value));
+                        }
+                    }
+                    else if (value is DateTime)
+                        cell.SetCellValue((DateTime)value);
+                    else
+                        cell.SetCellValue(Convert.ToString(value));
+                }
+            }
+        }
 
-		public static IEnumerable<DataTable> ConvertToDataTables(IWorkbook workbook)
-		{
-			for (int i = 0; i < workbook.NumberOfSheets; i++)
-			{
-				var sheet = workbook.GetSheetAt(i);
-				if (sheet.SheetName.StartsWith("#"))
-				{
-					var dataTable = ConvertToDataTable(sheet);
-					yield return dataTable;
-				}
-			}
-		}
+        public static DataSet ConvertToDataSet(byte[] bytes)
+        {
+            var workbooks = ReadExcel(bytes);
 
-		public static DataTable ConvertToDataTable(ISheet sheet)
-		{
-			var dataTable = new DataTable(sheet.SheetName.Trim());
+            var dataSet = ConvertToDataSet(workbooks);
+            return dataSet;
+        }
 
-			var headerRow = sheet.GetRow(sheet.FirstRowNum);
+        public static DataSet ConvertToDataSet(IWorkbook workbook)
+        {
+            var dataSet = new DataSet();
 
-			var mapping = new Dictionary<int, String>();
+            var dataTables = ConvertToDataTables(workbook);
+            foreach (var dataTable in dataTables)
+            {
+                dataSet.Tables.Add(dataTable);
+            }
 
-			for (int i = headerRow.FirstCellNum; i < headerRow.LastCellNum; i++)
-			{
-				var cell = headerRow.GetCell(i);
+            return dataSet;
+        }
 
-				var value = GetCellValue(cell);
-				if (String.IsNullOrWhiteSpace(value) || !value.StartsWith("#"))
-					continue;
+        public static IEnumerable<DataTable> ConvertToDataTables(IWorkbook workbook)
+        {
+            for (int i = 0; i < workbook.NumberOfSheets; i++)
+            {
+                var sheet = workbook.GetSheetAt(i);
+                if (sheet.SheetName.StartsWith("#"))
+                {
+                    var dataTable = ConvertToDataTable(sheet);
+                    yield return dataTable;
+                }
+            }
+        }
 
-				dataTable.Columns.Add(value.Trim());
-				mapping.Add(i, value);
-			}
+        public static DataTable ConvertToDataTable(ISheet sheet)
+        {
+            var dataTable = new DataTable(sheet.SheetName.Trim());
 
-			for (int i = sheet.FirstRowNum + 1; i <= sheet.LastRowNum; i++)
-			{
-				var excelRow = sheet.GetRow(i);
-				if (excelRow == null)
-					continue;
+            var headerRow = sheet.GetRow(sheet.FirstRowNum);
 
-				var dataRow = dataTable.NewRow();
+            var mapping = new Dictionary<int, String>();
 
-				for (int j = headerRow.FirstCellNum; j < headerRow.LastCellNum; j++)
-				{
-					String name;
-					if (mapping.TryGetValue(j, out name))
-					{
-						var cell = excelRow.GetCell(j);
-						var value = GetCellValue(cell);
+            for (int i = headerRow.FirstCellNum; i < headerRow.LastCellNum; i++)
+            {
+                var cell = headerRow.GetCell(i);
 
-						dataRow[name] = value;
-					}
-				}
+                var value = GetCellValue(cell);
+                if (String.IsNullOrWhiteSpace(value) || !value.StartsWith("#"))
+                    continue;
 
-				dataTable.Rows.Add(dataRow);
-			}
+                dataTable.Columns.Add(value.Trim());
+                mapping.Add(i, value);
+            }
 
-			return dataTable;
-		}
+            for (int i = sheet.FirstRowNum + 1; i <= sheet.LastRowNum; i++)
+            {
+                var excelRow = sheet.GetRow(i);
+                if (excelRow == null)
+                    continue;
 
-		public static IWorkbook ReadExcel(byte[] bytes)
-		{
-			ZipConstants.DefaultCodePage = Encoding.UTF8.CodePage;
+                var dataRow = dataTable.NewRow();
 
-			using (var stream = new MemoryStream(bytes))
-			{
-				var workbook = new XSSFWorkbook(stream);
-				return workbook;
-			}
-		}
+                for (int j = headerRow.FirstCellNum; j < headerRow.LastCellNum; j++)
+                {
+                    String name;
+                    if (mapping.TryGetValue(j, out name))
+                    {
+                        var cell = excelRow.GetCell(j);
+                        var value = GetCellValue(cell);
 
-		private static String GetCleanText(Object value)
-		{
-			var strValue = Convert.ToString(value);
-			if (String.IsNullOrEmpty(strValue))
-			{
-				return String.Empty;
-			}
+                        dataRow[name] = value;
+                    }
+                }
 
-			strValue = strValue.Trim('\0');
-			return strValue.TrimLen(255);
-		}
+                dataTable.Rows.Add(dataRow);
+            }
 
-		public static String GetCellValue(IRow row, int columnIndex)
-		{
-			var cell = row.GetCell(columnIndex);
-			return GetCellValue(cell);
-		}
+            return dataTable;
+        }
 
-		public static String GetCellValue(ICell cell)
-		{
-			if (cell != null)
-			{
-				Object val = null;
+        public static IWorkbook ReadExcel(byte[] bytes)
+        {
+            ZipConstants.DefaultCodePage = Encoding.UTF8.CodePage;
 
-				switch (cell.CellType)
-				{
-					case CellType.BOOLEAN:
-						val = cell.BooleanCellValue;
-						break;
-					case CellType.NUMERIC:
-						val = cell.NumericCellValue;
-						break;
-					case CellType.STRING:
-						val = cell.StringCellValue;
-						break;
-					case CellType.FORMULA:
-						val = cell.NumericCellValue;
-						break;
-				}
+            using (var stream = new MemoryStream(bytes))
+            {
+                var workbook = new XSSFWorkbook(stream);
+                return workbook;
+            }
+        }
 
-				val = (val ?? String.Empty);
+        private static Object GetCleanValue(Object value)
+        {
+            var strValue = GetCleanText(value);
 
-				return Convert.ToString(val);
-			}
+            var @bool = DataConverter.ToNullableBool(strValue);
+            if (@bool != null)
+                return @bool.Value;
 
-			return String.Empty;
-		}
-	}
+            var @double = DataConverter.ToNullableDouble(strValue);
+            if (@double != null)
+                return @double.Value;
+
+            var @dateTime = DataConverter.ToNullableDateTime(strValue);
+            if (@dateTime != null)
+                return @dateTime.Value;
+
+            return strValue;
+        }
+
+        private static String GetCleanText(Object value)
+        {
+            var strValue = Convert.ToString(value, CultureInfo.InvariantCulture);
+            if (String.IsNullOrEmpty(strValue))
+                return String.Empty;
+
+            strValue = strValue.Trim('\0');
+            return strValue.TrimLen(255);
+        }
+
+        public static String GetCellValue(IRow row, int columnIndex)
+        {
+            var cell = row.GetCell(columnIndex);
+            return GetCellValue(cell);
+        }
+
+        public static String GetCellValue(ICell cell)
+        {
+            if (cell != null)
+            {
+                Object val = null;
+
+                switch (cell.CellType)
+                {
+                    case CellType.Boolean:
+                        val = cell.BooleanCellValue;
+                        break;
+                    case CellType.Numeric:
+                        val = cell.NumericCellValue;
+                        break;
+                    case CellType.String:
+                        val = cell.StringCellValue;
+                        break;
+                    case CellType.Formula:
+                        val = cell.NumericCellValue;
+                        break;
+                }
+
+                val = (val ?? String.Empty);
+
+                return Convert.ToString(val);
+            }
+
+            return String.Empty;
+        }
+
+        private static bool IsNumber(Object value)
+        {
+            if (value is sbyte || value is byte ||
+                value is short || value is ushort ||
+                value is int || value is uint ||
+                value is long || value is ulong ||
+                value is float ||
+                value is double ||
+                value is decimal)
+                return true;
+
+            return false;
+        }
+
+        private static bool IsInteger(Object value)
+        {
+            var dbl = Convert.ToDouble(value);
+
+            var dec = Math.Truncate(dbl);
+            if (Math.Abs(dec - dbl) < double.Epsilon)
+                return true;
+
+            return false;
+        }
+    }
 }

@@ -29,7 +29,6 @@
                             <asp:Image ImageUrl="~/App_Themes/Default/images/logo.png" runat="server" ID="imgLogo" />
                         </asp:HyperLink>
                     </div>
-
                 </div>
             </div>
             <table>
@@ -38,9 +37,9 @@
                         <div class="left" style="width: 256px;">
                             <div class="align-left config-txt">
                                 <div class="left config-icons">
-                                    <ce:ImageLinkButton runat="server" ID="btnConfiguration" DefaultImageUrl="../../App_Themes/Default/images/data-config.png" NavigateUrl="~/Pages/User/ReportsConfigEx.aspx" />
-                                    <ce:ImageLinkButton runat="server" DefaultImageUrl="~/App_Themes/Default/Images/add.png" ID="btnReports" ToolTip="დამატება" OnClick="btnReports_OnClick" />
-                                    <ce:ImageLinkButton runat="server" DefaultImageUrl="~/App_Themes/Default/Images/copy.png" ID="btnClone" ToolTip="კოპირება" NavigateUrl="~/Pages/User/ReportsCloneEx.aspx" />
+                                    <ce:ImageLinkButton runat="server" ID="btnConfiguration" DefaultImageUrl="~/App_Themes/Default/images/data-config.png" NavigateUrl="~/Pages/User/ReportsConfigEx.aspx" />
+                                    <ce:ImageLinkButton runat="server" ID="btnReports" DefaultImageUrl="~/App_Themes/Default/Images/add.png" ToolTip="დამატება" OnClick="btnReports_OnClick" />
+                                    <ce:ImageLinkButton runat="server" ID="btnClone" DefaultImageUrl="~/App_Themes/Default/Images/copy.png" ToolTip="კოპირება" NavigateUrl="~/Pages/User/ReportsCloneEx.aspx" />
                                 </div>
                             </div>
                             <div class="clear"></div>

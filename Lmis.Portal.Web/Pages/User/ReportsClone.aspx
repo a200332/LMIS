@@ -19,7 +19,7 @@
                         </div>
                         <div class="clear"></div>
                         <div>
-                            <lmis:CategoriesControl runat="server" ID="categoriesControl" TargetUrl="~/Pages/User/Dashboard.aspx" />
+                            <lmis:CategoriesControl runat="server" TrimNames="True" ID="categoriesControl" TargetUrl="~/Pages/User/Dashboard.aspx" />
                         </div>
                     </div>
                 </td>

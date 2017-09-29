@@ -7,30 +7,30 @@ using Lmis.Portal.Web.Models;
 
 namespace Lmis.Portal.Web.Pages.User
 {
-	public partial class eBooks : BasePage
-	{
-		protected void Page_Load(object sender, EventArgs e)
-		{
-			FillEBooks();
-		}
+    public partial class eBooks : BasePage
+    {
+        protected void Page_Load(object sender, EventArgs e)
+        {
+            FillEBooks();
+        }
 
-		private void FillEBooks()
-		{
-			var entities = (from n in DataContext.LP_EBooks
-							where n.DateDeleted == null
-							orderby n.DateCreated
-							select n).ToList();
+        private void FillEBooks()
+        {
+            var entities = (from n in DataContext.LP_EBooks
+                            where n.DateDeleted == null
+                            orderby n.DateCreated descending
+                            select n).ToList();
 
-			var converter = new EBookEntityModelConverter(DataContext);
+            var converter = new EBookEntityModelConverter(DataContext);
 
-			var models = (from n in entities
-						  let m = converter.Convert(n)
-						  select m).ToList();
+            var models = (from n in entities
+                          let m = converter.Convert(n)
+                          select m).ToList();
 
-			var model = new EBooksModel();
-			model.List = models;
+            var model = new EBooksModel();
+            model.List = models;
 
-			eBooksControl.Model = model;
-		}
-	}
+            eBooksControl.Model = model;
+        }
+    }
 }

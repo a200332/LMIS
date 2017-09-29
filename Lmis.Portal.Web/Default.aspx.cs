@@ -24,6 +24,9 @@ public partial class _Default : BasePage
             return;
         }
 
+        lblRealHost.Text = Request.Url.ToString();
+        lblRealHost.Visible = !String.IsNullOrWhiteSpace(Request["displayHost"]);
+
         clDefault.TodaysDate = DateTime.Now;
 
         FillCategories();

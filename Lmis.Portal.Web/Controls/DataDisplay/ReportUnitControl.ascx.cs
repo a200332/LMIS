@@ -12,6 +12,7 @@ using System.Data;
 using System.IO;
 using System.Net.Mime;
 using AjaxControlToolkit;
+using CITI.EVO.Tools.Helpers;
 using CITI.EVO.Tools.Utils;
 using CITI.EVO.Tools.Web.UI.Controls;
 using Lmis.Portal.Web.BLL;
@@ -39,6 +40,12 @@ namespace Lmis.Portal.Web.Controls.DataDisplay
             set { pnlChartImage.CssClass = value; }
         }
 
+        public bool EnableFullscreen
+        {
+            get { return btnFullscreen.Visible; }
+            set { btnFullscreen.Visible = value; }
+        }
+
         protected void Page_Load(object sender, EventArgs e)
         {
             if (PostBackControl == btnExportReportOK)
@@ -49,10 +56,10 @@ namespace Lmis.Portal.Web.Controls.DataDisplay
 
         protected void Page_PreRender(object sender, EventArgs e)
         {
-            dvData.Style["width"] = String.Format("{0}px", ChartWidth.Value + 20);
-            dvData.Style["height"] = String.Format("{0}px", ChartHeight.Value + 100);
+            dvReport.Style["width"] = String.Format("{0}px", ChartWidth.Value + 20);
+            dvReport.Style["height"] = String.Format("{0}px", ChartHeight.Value + 100);
 
-            dvData.Style["overflow"] = "auto";
+            dvReport.Style["overflow"] = "auto";
         }
 
         protected void mainChart_OnDataBound(object sender, EventArgs e)
@@ -158,7 +165,7 @@ namespace Lmis.Portal.Web.Controls.DataDisplay
             {
                 pnlMainGrid.Visible = true;
                 pnlChartImage.Visible = false;
-                pnlChartCommands.Visible = false;
+                tdChartCommands.Visible = false;
 
                 var entiry = entities.FirstOrDefault();
                 if (entiry != null)
@@ -168,10 +175,15 @@ namespace Lmis.Portal.Web.Controls.DataDisplay
             {
                 pnlMainGrid.Visible = true;
                 pnlChartImage.Visible = true;
-                pnlChartCommands.Visible = true;
+                tdChartCommands.Visible = true;
 
                 BindChartData(entities, unitModel.XLabelAngle);
             }
+
+            var url = new UrlHelper("~/Pages/User/ReportFullscreen.aspx");
+            url["ReportID"] = unitModel.ID;
+
+            btnFullscreen.NavigateUrl = url.ToEncodedUrl();
         }
 
         protected void SendDownloadFile(String fielName, byte[] bytes)
@@ -238,7 +250,7 @@ namespace Lmis.Portal.Web.Controls.DataDisplay
                 var byTargetLp = modelsGrp.ToLookup(n => n.Target);
 
                 var groupMember = modelsGrp.Key;
-				
+
                 var yMember = byTargetLp["YValue"].Select(n => n.Source).Distinct().FirstOrDefault();
                 var xMember = byTargetLp["XValue"].Select(n => n.Source).Distinct().FirstOrDefault();
 
