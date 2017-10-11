@@ -102,7 +102,7 @@
 
     <a href="Pages/User/eBooks.aspx" target="_blank">
         <div class="left e-book">
-            <ce:Label CssClass="e-book-l" runat="server">E-BOOK</ce:Label>
+            <ce:Label CssClass="e-book-l" runat="server">შრომის ბაზრის ანალიზი</ce:Label>
         </div>
     </a>
     <div class="right-menu">
