@@ -3,7 +3,7 @@
     <asp:Repeater runat="server" ID="rptItems">
         <ItemTemplate>
             <li>
-                <div style="border: 1px solid #b957ff; width: 182px;">
+                <div style="border: 1px solid #2D4E85; width: 182px;">
                     <asp:HyperLink NavigateUrl='<%# GetSubLinksUrl(Container.DataItem) %>' runat="server" Target='<%# GetUrlTarget(Container.DataItem) %>'>
 					<asp:Panel runat="server" style='<%# GetPanelStyle(Container.DataItem)%>'>					  
                         <div  class="mainlinkbg1" ></div>
