@@ -28,6 +28,8 @@ namespace Lmis.Portal.Web.Converters.ModelToEntity
 			target.Url = source.Url;
 			target.Title = source.Title;
 			target.Description = source.Description;
-		}
-	}
+		    target.Language = source.Language;
+		    target.OrderIndex = source.OrderIndex;
+        }
+    }
 }

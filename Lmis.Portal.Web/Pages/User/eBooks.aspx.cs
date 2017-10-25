@@ -16,10 +16,14 @@ namespace Lmis.Portal.Web.Pages.User
 
         private void FillEBooks()
         {
-            var entities = (from n in DataContext.LP_EBooks
-                            where n.DateDeleted == null
-                            orderby n.DateCreated descending
-                            select n).ToList();
+            var currentLanguage = LanguageUtil.GetLanguage();
+
+            var query = from n in DataContext.LP_EBooks
+                        where n.DateDeleted == null && (n.Language == currentLanguage || n.Language == null || n.Language == "")
+                        orderby n.OrderIndex, n.DateCreated descending
+                        select n;
+
+            var entities = query.ToList();
 
             var converter = new EBookEntityModelConverter(DataContext);
 

@@ -99,10 +99,10 @@
         <elementListCompartment Id="0425ddcd-859a-433f-9bb8-5b720f3b59c2" absoluteBounds="0.76499999999999968, 5.5850000000000009, 1.9700000000000002, 2.1724039713541665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="a113b4ef-b7b1-466f-9658-041b065acdf8" absoluteBounds="6, 9, 2, 2.1554996744791666">
+    <classShape Id="a113b4ef-b7b1-466f-9658-041b065acdf8" absoluteBounds="6, 9, 2, 2.5401025390625005">
       <DataClassMoniker Name="/PortalDataContext/LP_EBook" />
       <nestedChildShapes>
-        <elementListCompartment Id="11fd4965-69b0-4f93-83dc-ccdb2c32047c" absoluteBounds="6.0150000000000006, 9.46, 1.9700000000000002, 1.5954996744791665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="11fd4965-69b0-4f93-83dc-ccdb2c32047c" absoluteBounds="6.0150000000000006, 9.46, 1.9700000000000002, 1.9801025390625" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
     <associationConnector edgePoints="[(1.45923076923077 : 7.85740397135417); (1.45923076923077 : 8.10740397135417); (2.05461538461538 : 8.10740397135417); (2.05461538461538 : 7.85740397135417)]" fixedFrom="NotFixed" fixedTo="NotFixed">

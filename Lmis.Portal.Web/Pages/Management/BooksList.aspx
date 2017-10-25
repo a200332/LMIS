@@ -10,7 +10,7 @@
         <ce:ImageLinkButton runat="server" ToolTip="Add New" DefaultImageUrl="~/App_Themes/Default/images/add.png" ID="btnAddNew" OnClick="btnAddNew_OnClick" />
     </div>
     <div>
-        <lmis:EBooksControl runat="server" ID="eBooksControl" OnEditItem="eBooksControl_OnEditItem" OnDeleteItem="eBooksControl_OnDeleteItem" />
+        <lmis:EBooksControl runat="server" ID="eBooksControl" OnEditItem="eBooksControl_OnEditItem" OnDeleteItem="eBooksControl_OnDeleteItem" OnUpItem="eBooksControl_OnUpItem" OnDownItem="eBooksControl_OnDownItem" />
     </div>
     <div>
         <act:ModalPopupExtender runat="server" ID="mpeAddEdit" TargetControlID="btnAddEditFake"
